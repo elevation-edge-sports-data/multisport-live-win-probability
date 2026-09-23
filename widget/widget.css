@@ -6,6 +6,7 @@
   --ink: #f3efe6;
   --muted: #9aa3b5;
   --gold: #e3c27a;
+  /* Fallback fills. A replay frame's home_color / away_color overrides these. */
   --home: #1f8f86;
   --home-ink: #9eefe4;
   --away: #c94b32;
@@ -46,6 +47,17 @@ body {
   margin: 0.28rem 0 0.9rem;
 }
 
+.title-line h1 {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+
+.title-line .views {
+  margin-left: auto;
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+}
+
 h1 {
   margin: 0;
   font-size: 1.02rem;
@@ -73,14 +85,14 @@ h1 {
   gap: 0.75rem;
 }
 
-.sports, .views, .transport {
+.sports, .views {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: center;
 }
 
-.sport, .view, #play {
+.sport, .view, #play, .steps button {
   appearance: none;
   border: 1px solid var(--line);
   background: transparent;
@@ -244,7 +256,58 @@ button:focus-visible, input:focus-visible {
 
 .chart-card svg { width: 100%; height: auto; display: block; }
 
-.transport { margin-top: 0.25rem; }
+.transport {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+}
+
+.transport-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 1.7rem;
+  flex: 0 0 auto;
+}
+
+.steps button {
+  flex: 1 1 0;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border-radius: 0.3rem;
+  background: var(--card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.tri {
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.tri-right {
+  border-width: 5px 0 5px 7px;
+  border-color: transparent transparent transparent var(--ink);
+}
+
+.tri-left {
+  border-width: 5px 7px 5px 0;
+  border-color: transparent var(--ink) transparent transparent;
+}
 
 .scrub-label {
   position: absolute;
@@ -256,11 +319,14 @@ button:focus-visible, input:focus-visible {
 
 #scrub {
   flex: 1 1 10rem;
-  min-width: 8rem;
+  min-width: 0;
+  align-self: center;
   accent-color: var(--gold);
 }
 
-.position { flex-basis: 100%; }
+.position {
+  text-align: right;
+}
 
 .views { margin: 0; }
 

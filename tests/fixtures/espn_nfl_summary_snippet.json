@@ -1,0 +1,210 @@
+{
+  "header": {
+    "id": "9001001",
+    "uid": "s:20~l:28~e:9001001",
+    "league": {
+      "id": "28",
+      "uid": "s:20~l:28",
+      "name": "National Football League",
+      "abbreviation": "NFL",
+      "slug": "nfl"
+    },
+    "competitions": [
+      {
+        "id": "9001001",
+        "uid": "s:20~l:28~e:9001001",
+        "date": "2026-09-20T17:00:00Z",
+        "competitors": [
+          {
+            "id": "101",
+            "uid": "s:20~l:28~t:101",
+            "homeAway": "home",
+            "score": "14",
+            "team": {
+              "id": "101",
+              "uid": "s:20~l:28~t:101",
+              "abbreviation": "HBR",
+              "displayName": "Harbor",
+              "shortDisplayName": "Harbor"
+            }
+          },
+          {
+            "id": "202",
+            "uid": "s:20~l:28~t:202",
+            "homeAway": "away",
+            "score": "10",
+            "team": {
+              "id": "202",
+              "uid": "s:20~l:28~t:202",
+              "abbreviation": "ROK",
+              "displayName": "Red Oak",
+              "shortDisplayName": "Red Oak"
+            }
+          }
+        ],
+        "status": {
+          "clock": 0.0,
+          "displayClock": "0:00",
+          "period": 4,
+          "type": {
+            "id": "3",
+            "name": "STATUS_FINAL",
+            "state": "post",
+            "completed": true,
+            "description": "Final",
+            "detail": "Final",
+            "shortDetail": "Final"
+          }
+        },
+        "odds": [
+          {
+            "provider": {"id": "58", "name": "Example Book"},
+            "details": "HBR -3.5",
+            "overUnder": 44.5,
+            "spread": -3.5,
+            "homeTeamOdds": {"favorite": true, "moneyLine": -150},
+            "awayTeamOdds": {"favorite": false, "moneyLine": 130}
+          }
+        ]
+      }
+    ]
+  },
+  "drives": {
+    "previous": [
+      {
+        "id": "90010011",
+        "description": "6 plays, 75 yards, 4:48",
+        "team": {"id": "101", "abbreviation": "HBR", "displayName": "Harbor"},
+        "plays": [
+          {
+            "id": "9001001001",
+            "sequenceNumber": "101",
+            "type": {"id": "67", "text": "Passing Touchdown"},
+            "text": "Harbor passing touchdown.",
+            "awayScore": 0,
+            "homeScore": 7,
+            "period": {"number": 1},
+            "clock": {"displayValue": "10:12"},
+            "scoringPlay": true,
+            "scoreValue": 7,
+            "team": {"id": "101"},
+            "wallclock": "2026-09-20T17:10:12Z",
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 25,
+              "yardsToEndzone": 75,
+              "possessionText": "HBR 25",
+              "downDistanceText": "1st & 10 at HBR 25",
+              "team": {"id": "101"},
+              "homeTimeouts": 3,
+              "awayTimeouts": 3
+            }
+          }
+        ]
+      },
+      {
+        "id": "90010012",
+        "description": "9 plays, 68 yards, 5:20",
+        "team": {"id": "202", "abbreviation": "ROK", "displayName": "Red Oak"},
+        "plays": [
+          {
+            "id": "9001001002",
+            "sequenceNumber": "220",
+            "type": {"id": "67", "text": "Passing Touchdown"},
+            "text": "Red Oak passing touchdown.",
+            "awayScore": 7,
+            "homeScore": 7,
+            "period": {"number": 2},
+            "clock": {"displayValue": "6:40"},
+            "scoringPlay": true,
+            "scoreValue": 7,
+            "team": {"id": "202"},
+            "wallclock": "2026-09-20T17:40:00Z"
+          },
+          {
+            "id": "9001001003",
+            "sequenceNumber": "248",
+            "type": {"id": "59", "text": "Field Goal Good"},
+            "text": "Red Oak field goal is good.",
+            "awayScore": 10,
+            "homeScore": 7,
+            "period": {"number": 2},
+            "clock": {"displayValue": "3:05"},
+            "scoringPlay": true,
+            "scoreValue": 3,
+            "team": {"id": "202"},
+            "wallclock": "2026-09-20T17:48:00Z"
+          },
+          {
+            "id": "9001001004",
+            "sequenceNumber": "260",
+            "type": {"id": "5", "text": "Rush"},
+            "text": "Red Oak rush.",
+            "awayScore": 10,
+            "homeScore": 7,
+            "period": {"number": 2},
+            "clock": {"displayValue": "1:40"},
+            "scoringPlay": false,
+            "scoreValue": 0,
+            "team": {"id": "202"},
+            "wallclock": "2026-09-20T17:52:00Z"
+          }
+        ]
+      },
+      {
+        "id": "90010013",
+        "description": "8 plays, 70 yards, 3:40",
+        "team": {"id": "101", "abbreviation": "HBR", "displayName": "Harbor"},
+        "plays": [
+          {
+            "id": "9001001005",
+            "sequenceNumber": "410",
+            "type": {"id": "67", "text": "Passing Touchdown"},
+            "text": "Harbor passing touchdown.",
+            "awayScore": 10,
+            "homeScore": 14,
+            "period": {"number": 4},
+            "clock": {"displayValue": "4:20"},
+            "scoringPlay": true,
+            "scoreValue": 7,
+            "team": {"id": "101"},
+            "wallclock": "2026-09-20T18:40:00Z",
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardLine": 12,
+              "yardsToEndzone": 12,
+              "possessionText": "ROK 12",
+              "downDistanceText": "1st & 10 at ROK 12",
+              "team": {"id": "101"}
+            }
+          },
+          {
+            "id": "9001001006",
+            "sequenceNumber": "440",
+            "type": {"id": "5", "text": "Rush"},
+            "text": "Harbor rush.",
+            "awayScore": 10,
+            "homeScore": 14,
+            "period": {"number": 4},
+            "clock": {"displayValue": "1:12"},
+            "scoringPlay": false,
+            "scoreValue": 0,
+            "team": {"id": "101"},
+            "wallclock": "2026-09-20T18:48:00Z"
+          }
+        ]
+      }
+    ]
+  },
+  "scoringPlays": [
+    {"id": "9001001001"},
+    {"id": "9001001002"},
+    {"id": "9001001003"},
+    {"id": "9001001005"}
+  ],
+  "winprobability": [
+    {"homeWinPercentage": 0.91, "tiePercentage": 0.02, "playId": "9001001001"}
+  ]
+}

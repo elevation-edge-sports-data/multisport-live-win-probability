@@ -34,7 +34,8 @@ class GameState:
 
     Football and hockey details are optional. A missing ``down`` (or distance,
     yard line, possession, timeouts, strength, extra attacker) still leaves a
-    complete state. The v0 win-probability model does not read those fields.
+    complete state. The football model reads down, distance, yard line, and
+    possession only when all four are present. Timeouts are not read.
     """
 
     sport: str

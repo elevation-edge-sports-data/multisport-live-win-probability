@@ -1,4 +1,4 @@
-// Displays widget/nfl_replay.js. Each wp was produced by Python compute_wp
+// Displays window.NFL_REPLAY. Each wp was produced by Python compute_wp
 // (the football pack). This file does not estimate win probability.
 
 (function () {
@@ -18,8 +18,12 @@
   var timer = null;
 
   scrub.max = String(frames.length - 1);
+  var pregame = frames[0].prior_home;
+  var pregameHome = pregame > 0.5;
+  var pregameName = pregameHome ? frames[0].home : frames[0].away;
+  var pregamePct = (pregameHome ? pregame : 1 - pregame) * 100;
   document.getElementById("prior").textContent =
-    "Pregame home " + (frames[0].prior_home * 100).toFixed(2) + "%";
+    "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "%";
 
   var plot = { width: 640, height: 200, left: 44, right: 16, top: 16, bottom: 28 };
 
@@ -49,11 +53,27 @@
     return 0;
   }
 
+  function applyTeamColors(frame) {
+    var root = document.documentElement;
+    function paint(fillName, inkName, value) {
+      if (value) {
+        root.style.setProperty(fillName, value);
+        root.style.setProperty(inkName, value);
+      } else {
+        root.style.removeProperty(fillName);
+        root.style.removeProperty(inkName);
+      }
+    }
+    paint("--home", "--home-ink", frame.home_color);
+    paint("--away", "--away-ink", frame.away_color);
+  }
+
   function show(nextIndex) {
     index = nextIndex;
     var frame = frames[index];
     var homePct = formatHomePercent(frame);
     var awayPct = formatAwayPercent(frame);
+    applyTeamColors(frame);
     drawCharts(index);
     scrub.value = String(index);
     text("position", frame.clock + " · " + (index + 1) + "/" + frames.length);
@@ -124,6 +144,22 @@
     setPlaying(true);
   });
 
+  function step(delta) {
+    setPlaying(false);
+    var next = index + delta;
+    if (next < 0) next = 0;
+    if (next > frames.length - 1) next = frames.length - 1;
+    if (next !== index) show(next);
+  }
+
+  document.getElementById("step-forward").addEventListener("click", function () {
+    step(1);
+  });
+
+  document.getElementById("step-back").addEventListener("click", function () {
+    step(-1);
+  });
+
   scrub.addEventListener("input", function () {
     var next = Number(scrub.value);
     if (next !== index) {
@@ -168,6 +204,12 @@
     var span = plot.height - plot.top - plot.bottom;
     var t = valueMax === valueMin ? 0 : (value - valueMin) / (valueMax - valueMin);
     return plot.top + (1 - t) * span;
+  }
+
+  function yAtLow(value, valueMin, valueMax) {
+    var span = plot.height - plot.top - plot.bottom;
+    var t = valueMax === valueMin ? 0 : (value - valueMin) / (valueMax - valueMin);
+    return plot.top + t * span;
   }
 
   function formatElapsed(seconds) {
@@ -303,7 +345,7 @@
     });
   }
 
-  function drawLegendName(svg, x, y, color, name, series) {
+  function drawLegendName(svg, x, y, color, name, series, detail) {
     svg.appendChild(svgEl("rect", {
       x: String(x),
       y: String(y - 8),
@@ -322,7 +364,7 @@
       "text-anchor": "start",
       "data-series": series
     });
-    caption.textContent = name;
+    caption.textContent = detail ? name + "  " + detail : name;
     svg.appendChild(caption);
   }
 
@@ -349,10 +391,11 @@
     axisLabel(svg, xAt(elapsedMax, elapsedMax), plot.height - 8, formatElapsed(elapsedMax), "end");
     stepSeries(svg, shown, elapsedMax, scoreMax, "home_score", "home-score", homeColor);
     stepSeries(svg, shown, elapsedMax, scoreMax, "away_score", "away-score", awayColor);
-    playhead(svg, xAt(shown[shown.length - 1].elapsed_seconds, elapsedMax), gold);
+    var currentFrame = shown[shown.length - 1];
+    playhead(svg, xAt(currentFrame.elapsed_seconds, elapsedMax), gold);
     drawPeriodLabels(svg, elapsedMax, muted);
-    drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away");
-    drawLegendName(svg, plot.left + 6, plot.top + 28, homeColor, frames[0].home, "legend-home");
+    drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", String(currentFrame.away_score));
+    drawLegendName(svg, plot.left + 6, plot.top + 32, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score));
   }
 
   function stepSeries(svg, shown, elapsedMax, scoreMax, field, series, color) {
@@ -377,7 +420,7 @@
     clearSvg(svg);
     drawPeriodRails(svg, elapsedMax, muted);
     var colors = { home: homeColor, away: awayColor, neutral: muted };
-    var mid = yAt(0.5, 0, 1);
+    var mid = yAtLow(0.5, 0, 1);
     svg.appendChild(svgEl("line", {
       x1: String(xAt(0, elapsedMax)),
       x2: String(xAt(elapsedMax, elapsedMax)),
@@ -387,9 +430,9 @@
       "stroke-width": "1",
       "data-series": "wp-rail"
     }));
-    axisLabel(svg, plot.left - 8, yAt(1, 0, 1) + 4, "100", "end");
+    axisLabel(svg, plot.left - 8, yAtLow(0, 0, 1) + 4, "0", "end");
     axisLabel(svg, plot.left - 8, mid + 4, "50", "end");
-    axisLabel(svg, plot.left - 8, yAt(0, 0, 1), "0", "end");
+    axisLabel(svg, plot.left - 8, yAtLow(1, 0, 1), "100", "end");
     axisLabel(svg, xAt(0, elapsedMax), plot.height - 8, "0:00", "start");
     axisLabel(svg, xAt(elapsedMax, elapsedMax), plot.height - 8, formatElapsed(elapsedMax), "end");
 
@@ -398,8 +441,8 @@
     });
     for (var i = 1; i < points.length; i++) {
       splitPiece(points[i - 1], points[i]).forEach(function (piece) {
-        var y0 = yAt(piece.p0, 0, 1);
-        var y1 = yAt(piece.p1, 0, 1);
+        var y0 = yAtLow(piece.p0, 0, 1);
+        var y1 = yAtLow(piece.p1, 0, 1);
         if (piece.tone !== "neutral") {
           svg.appendChild(svgEl("path", {
             d: "M " + piece.x0 + " " + y0 +
@@ -426,15 +469,16 @@
     var current = points[points.length - 1];
     svg.appendChild(svgEl("circle", {
       cx: String(current.x),
-      cy: String(yAt(current.p, 0, 1)),
+      cy: String(yAtLow(current.p, 0, 1)),
       r: "3.5",
       fill: colors[sideOf(current.p)],
       "data-series": "wp-mark"
     }));
+    var currentFrame = shown[shown.length - 1];
     playhead(svg, current.x, gold);
     drawPeriodLabels(svg, elapsedMax, muted);
-    drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away");
-    drawLegendName(svg, plot.left + 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home");
+    drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", formatAwayPercent(currentFrame) + "%");
+    drawLegendName(svg, plot.left + 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%");
   }
 
   show(openingIndex(frames));

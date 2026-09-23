@@ -41,6 +41,17 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
     assert "espn" not in page
     assert "http://" not in page and "https://" not in page
     assert "fetch(" not in script
+    assert 'src="nfl_jax_den.js"' in html
+    assert (WIDGET / "nfl_replay.js").is_file()
+    assert "Harbor" not in script and "Red Oak" not in script
+    assert "frame.home_color" in script or "home_color" in script
+    assert "away_color" in script
+    assert "--home: #1f8f86" in css
+    assert "--away: #c94b32" in css
+    demo = (WIDGET / "nfl_jax_den.js").read_text(encoding="utf-8").lower()
+    assert "espn" not in demo
+    assert "fetch(" not in demo
+    assert "https://" not in demo and "http://" not in demo
     assert "margin_sd" not in script
     assert "college hockey" not in page
 
@@ -67,8 +78,20 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
     assert "NBA" not in sport_text
     assert "CBB" not in html
     assert "college hockey" not in (html + css + script).lower()
+    assert html.index("title-line") < html.index("data-view-choice") < html.index('class="toolbar"')
+    assert ">V1<" in html
     assert 'id="play"' in html
+    assert html.index('id="play"') < html.index('id="step-forward"') < html.index('id="step-back"')
+    assert "Step forward" in html and "Step back" in html
+    assert "tri-right" in html and "tri-left" in html
     assert 'id="scrub"' in html
+    assert ".position" in css and "text-align: right" in css
+    assert "function yAtLow" in script
+    assert "yAtLow(current.p, 0, 1)" in script
+    assert "function step" in script
+    assert "Pregame home " not in script
+    assert "Pregame " in script
+    assert "pregame > 0.5" in script
     assert 'id="score-chart"' in html
     assert 'id="wp-chart"' in html
     assert ".charts { display: none; }" in css

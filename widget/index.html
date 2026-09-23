@@ -12,17 +12,17 @@
       <p class="brand">ELEVATION EDGE SPORTS DATA</p>
       <div class="title-line">
         <h1>MULTISPORT LIVE WIN PROBABILITY</h1>
-        <p class="badge">V0</p>
+        <p class="badge">V1</p>
+        <div class="views" role="group" aria-label="View">
+          <button type="button" class="view" data-view-choice="compact" aria-pressed="false">Compact</button>
+          <button type="button" class="view" data-view-choice="expanded" aria-pressed="true">Expanded</button>
+        </div>
       </div>
       <div class="toolbar">
         <div class="sports" role="group" aria-label="Sport">
           <button type="button" class="sport is-selected" id="sport-nfl" aria-pressed="true">NFL</button>
           <button type="button" class="sport" id="sport-cfb" disabled>CFB <span>next</span></button>
           <button type="button" class="sport" id="sport-nhl" disabled>NHL <span>soon</span></button>
-        </div>
-        <div class="views" role="group" aria-label="View">
-          <button type="button" class="view" data-view-choice="compact" aria-pressed="false">Compact</button>
-          <button type="button" class="view" data-view-choice="expanded" aria-pressed="true">Expanded</button>
         </div>
       </div>
     </header>
@@ -69,9 +69,15 @@
     </section>
 
     <section class="transport">
-      <button type="button" id="play">Play</button>
-      <label class="scrub-label" for="scrub">Scrub</label>
-      <input id="scrub" type="range" min="0" value="0" step="1">
+      <div class="transport-row">
+        <button type="button" id="play">Play</button>
+        <div class="steps" role="group" aria-label="Step">
+          <button type="button" id="step-forward" aria-label="Step forward"><span class="tri tri-right" aria-hidden="true"></span></button>
+          <button type="button" id="step-back" aria-label="Step back"><span class="tri tri-left" aria-hidden="true"></span></button>
+        </div>
+        <label class="scrub-label" for="scrub">Scrub</label>
+        <input id="scrub" type="range" min="0" value="0" step="1">
+      </div>
       <p id="position" class="position"></p>
     </section>
 
@@ -80,7 +86,7 @@
       Unofficial project from Elevation Edge Sports Data. Not affiliated with the NFL, NHL, NBA, or NCAA.
     </footer>
   </main>
-  <script src="nfl_replay.js"></script>
+  <script src="nfl_jax_den.js"></script>
   <script src="widget.js"></script>
 </body>
 </html>

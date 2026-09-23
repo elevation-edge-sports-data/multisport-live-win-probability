@@ -1,4 +1,4 @@
-"""NFL remaining-score model. No down, distance, or rating update required."""
+"""NFL remaining-score model. Situation is optional and is not a rating update."""
 
 from datetime import datetime, timezone
 
@@ -130,7 +130,19 @@ def test_missing_optional_football_fields_still_returns_a_number():
     assert isinstance(wp, float)
     assert 0.0001 <= wp <= 0.9999
 
-    with_football_details = nfl_state(
+    timeouts_only = nfl_state(
+        status="live",
+        period=2,
+        seconds_remaining_period=500,
+        seconds_remaining_total=2 * 15 * 60 + 500,
+        home_score=7,
+        away_score=3,
+        prior_home=0.55,
+        timeouts={"home": 3, "away": 2},
+    )
+    assert compute_wp(timeouts_only, 0.55, NFL_CONFIG) == wp
+
+    partial = nfl_state(
         status="live",
         period=2,
         seconds_remaining_period=500,
@@ -140,11 +152,97 @@ def test_missing_optional_football_fields_still_returns_a_number():
         prior_home=0.55,
         down=3,
         distance=7,
-        yardline=42,
         possession="home",
-        timeouts={"home": 3, "away": 2},
     )
-    assert compute_wp(with_football_details, 0.55, NFL_CONFIG) == wp
+    assert partial.yardline is None
+    assert compute_wp(partial, 0.55, NFL_CONFIG) == wp
+
+
+def _live_situation(**overrides) -> GameState:
+    fields = dict(
+        status="live",
+        period=3,
+        seconds_remaining_period=8 * 60,
+        seconds_remaining_total=8 * 60 + 15 * 60,
+        home_score=14,
+        away_score=14,
+        prior_home=0.5,
+        down=1,
+        distance=10,
+        yardline=45,
+        possession="home",
+    )
+    fields.update(overrides)
+    return nfl_state(**fields)
+
+
+def test_missing_any_situation_field_matches_clock_and_score():
+    full = _live_situation()
+    bare = _live_situation(down=None, distance=None, yardline=None, possession=None)
+    bare_wp = compute_wp(bare, 0.5, NFL_CONFIG)
+    for name in ("down", "distance", "yardline", "possession"):
+        partial = _live_situation(**{name: None})
+        assert compute_wp(partial, 0.5, NFL_CONFIG) == bare_wp
+    assert compute_wp(full, 0.5, NFL_CONFIG) != bare_wp
+
+
+def test_opponent_ten_is_better_for_the_team_with_the_ball():
+    own_ten = _live_situation(yardline=10)
+    opponent_ten = _live_situation(yardline=90)
+    assert compute_wp(opponent_ten, 0.5, NFL_CONFIG) > compute_wp(own_ten, 0.5, NFL_CONFIG)
+
+
+def test_first_and_ten_beats_fourth_and_fifteen():
+    first = _live_situation(down=1, distance=10, yardline=45)
+    fourth = _live_situation(down=4, distance=15, yardline=45)
+    assert compute_wp(first, 0.5, NFL_CONFIG) > compute_wp(fourth, 0.5, NFL_CONFIG)
+
+
+def test_decided_game_ignores_situation():
+    home_win = nfl_state(
+        status="final",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=20,
+        away_score=13,
+        down=4,
+        distance=15,
+        yardline=10,
+        possession="away",
+    )
+    assert compute_wp(home_win, 0.5, NFL_CONFIG) == 1.0
+    home_loss = nfl_state(
+        status="final",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=13,
+        away_score=20,
+        down=1,
+        distance=10,
+        yardline=90,
+        possession="home",
+    )
+    assert compute_wp(home_loss, 0.5, NFL_CONFIG) == 0.0
+    clock_win = nfl_state(
+        status="live",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=21,
+        away_score=20,
+        down=4,
+        distance=20,
+        yardline=5,
+        possession="away",
+    )
+    assert compute_wp(clock_win, 0.5, NFL_CONFIG) == 1.0
+
+
+def test_situation_is_deterministic():
+    state = _live_situation(yardline=72, down=3, distance=6)
+    assert compute_wp(state, 0.5, NFL_CONFIG) == compute_wp(state, 0.5, NFL_CONFIG)
 
 
 def test_nfl_model_follows_the_sport_protocol():
