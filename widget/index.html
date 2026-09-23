@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multisport live win probability</title>
+  <link rel="stylesheet" href="widget.css">
+</head>
+<body>
+  <main id="app" class="app" data-view="expanded">
+    <header class="mast">
+      <p class="brand">ELEVATION EDGE SPORTS DATA</p>
+      <div class="title-line">
+        <h1>MULTISPORT LIVE WIN PROBABILITY</h1>
+        <p class="badge">V0</p>
+      </div>
+      <div class="toolbar">
+        <div class="sports" role="group" aria-label="Sport">
+          <button type="button" class="sport is-selected" id="sport-nfl" aria-pressed="true">NFL</button>
+          <button type="button" class="sport" id="sport-cfb" disabled>CFB <span>next</span></button>
+          <button type="button" class="sport" id="sport-nhl" disabled>NHL <span>soon</span></button>
+        </div>
+        <div class="views" role="group" aria-label="View">
+          <button type="button" class="view" data-view-choice="compact" aria-pressed="false">Compact</button>
+          <button type="button" class="view" data-view-choice="expanded" aria-pressed="true">Expanded</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="stage" id="stage" aria-live="polite">
+      <article class="panel compact">
+        <div class="ticker">
+          <div class="ticker-field" aria-hidden="true">
+            <span class="home-fill" id="c-home-bar"></span>
+            <span class="away-fill" id="c-away-bar"></span>
+          </div>
+          <p class="ticker-copy">
+            <span id="c-clock"></span>
+            <span id="c-score"></span>
+            <span id="c-wp"></span>
+          </p>
+        </div>
+      </article>
+
+      <article class="panel expanded">
+        <p class="expanded-clock" id="e-clock"></p>
+        <div class="marks">
+          <div class="mark home-mark">
+            <p class="big"><span id="e-home-pct"></span><span class="unit">%</span></p>
+            <p class="team" id="e-home-name"></p>
+            <p class="points" id="e-home-score"></p>
+          </div>
+          <div class="mark away-mark">
+            <p class="big"><span id="e-away-pct"></span><span class="unit">%</span></p>
+            <p class="team" id="e-away-name"></p>
+            <p class="points" id="e-away-score"></p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="charts" id="charts">
+      <figure class="chart-card">
+        <svg id="score-chart" viewBox="0 0 640 200" role="img" aria-label="Score"></svg>
+      </figure>
+      <figure class="chart-card">
+        <svg id="wp-chart" viewBox="0 0 640 200" role="img" aria-label="Win probability"></svg>
+      </figure>
+    </section>
+
+    <section class="transport">
+      <button type="button" id="play">Play</button>
+      <label class="scrub-label" for="scrub">Scrub</label>
+      <input id="scrub" type="range" min="0" value="0" step="1">
+      <p id="position" class="position"></p>
+    </section>
+
+    <p class="prior" id="prior"></p>
+    <footer>
+      Unofficial project from Elevation Edge Sports Data. Not affiliated with the NFL, NHL, NBA, or NCAA.
+    </footer>
+  </main>
+  <script src="nfl_replay.js"></script>
+  <script src="widget.js"></script>
+</body>
+</html>
