@@ -37,6 +37,8 @@ def football_win_probability(
     """Unclipped home win probability. ``compute_wp`` applies the clip."""
     if config.family != "football":
         raise ValueError(f"football model cannot use family {config.family!r}")
+    if _cfb_overtime(state, config):
+        return cfb_overtime_win_probability(state, prior, config)
 
     rate_home, rate_away = team_points_per_second(prior, config)
     score_margin = state.home_score - state.away_score
@@ -132,7 +134,7 @@ def _remaining_score(
     margin: float,
     rate_home: float,
     rate_away: float,
-    remaining: int,
+    remaining: float,
     config: SportConfig,
 ) -> float:
     mean = margin + (rate_home - rate_away) * remaining
@@ -149,3 +151,100 @@ def _decided(margin: float) -> float:
     if margin < 0:
         return 0.0
     return 0.5
+
+
+# Opponent 25-yard line: yards from the offense's own goal.
+_CFB_OT_YARDLINE = 75
+# A 2-point try is worth about 0.9 points (0 or 2, not a drive).
+_CFB_TWO_POINT_EP = 0.9
+
+
+def _cfb_overtime(state: GameState, config: SportConfig) -> bool:
+    """True when this snapshot is college overtime, not a timed NFL period.
+
+    A tie at 0:00 of regulation is the start of the first extra period.
+    NFL overtime stays on the timed clock above.
+    """
+    if state.sport != "cfb" and config.sport != "cfb":
+        return False
+    if state.status == "final":
+        return False
+    if str(state.status).lower() in {"ot", "overtime"}:
+        return True
+    if state.period > config.regulation_periods:
+        return True
+    return (
+        state.period >= config.regulation_periods
+        and state.seconds_remaining_period == 0
+        and state.seconds_remaining_total == 0
+        and state.home_score == state.away_score
+    )
+
+
+def cfb_overtime_win_probability(
+    state: GameState, prior: float, config: SportConfig
+) -> float:
+    """College overtime stub. This is not a timed quarter.
+
+    The first two extra periods give each team a possession from the
+    opponent 25 (yard line 75). Expected points come from that spot, then
+    a short remaining-score process. A tied score is treated as both teams
+    still to possess, so a 0.60 pregame favorite stays a small favorite.
+    If one team has already scored and the other is on offense, the current
+    score is the margin and only that offense adds a possession.
+
+    After two extra periods, each remaining possession is a 2-point try
+    (expected points about 0.9, outcome 0 or 2). ``ot_period_seconds`` is
+    not the process.
+    """
+    points = _cfb_ot_points(state, config)
+    if state.home_score == state.away_score:
+        return _both_still_to_possess(prior, config, points)
+    possession = state.possession if state.possession in ("home", "away") else None
+    if possession is None:
+        possession = "away" if state.home_score > state.away_score else "home"
+    return _one_possession_left(
+        state.home_score - state.away_score, prior, config, points, possession
+    )
+
+
+def _cfb_ot_points(state: GameState, config: SportConfig) -> float:
+    extra = state.period - config.regulation_periods
+    if extra < 1:
+        extra = 1
+    if extra >= 3:
+        return _CFB_TWO_POINT_EP
+    return expected_points(1, 10, _CFB_OT_YARDLINE)
+
+
+def _both_still_to_possess(prior: float, config: SportConfig, points: float) -> float:
+    """Tied, both offenses still to go. A short slice of the full-game process.
+
+    The slice is the expected points from the spot divided by a team's
+    full-game points. It is not ``ot_period_seconds``.
+    """
+    rate_home, rate_away = team_points_per_second(prior, config)
+    share = points / config.mean_score_per_team
+    remaining = share * config.regulation_seconds
+    return _remaining_score(0.0, rate_home, rate_away, remaining, config)
+
+
+def _one_possession_left(
+    score_margin: int,
+    prior: float,
+    config: SportConfig,
+    points: float,
+    possession: str,
+) -> float:
+    """Current score, plus one offense from the overtime spot."""
+    expected_margin = config.margin_sd * _NORMAL.inv_cdf(prior)
+    tilt = (expected_margin / 2.0) * (points / config.mean_score_per_team)
+    if possession == "home":
+        mean = score_margin + points + tilt
+    else:
+        mean = score_margin - points + tilt
+    variance_scale = 0.5 * (points / config.mean_score_per_team)
+    sd = config.margin_sd * math.sqrt(variance_scale)
+    if sd == 0.0:
+        return _decided(mean)
+    return _NORMAL.cdf(mean / sd)

@@ -1,6 +1,6 @@
 """Scoring rates and overtime rules owned by a sport pack.
 
-A pack is data plus one model. College football is a later config of the
+A pack is data plus one model. College football is another config of the
 football pack, not a new ``GameState``.
 """
 

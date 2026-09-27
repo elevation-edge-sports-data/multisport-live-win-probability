@@ -1,10 +1,156 @@
-// Displays window.NFL_REPLAY. Each wp was produced by Python compute_wp
-// (the football pack). This file does not estimate win probability.
+// Displays window.NFL_REPLAY, window.CFB_REPLAY, or window.NHL_REPLAY.
+// Each value was produced by the Python pack for that sport. This file
+// does not estimate win probability and does not load a remote replay.
 
-(function () {
+(function (root) {
   "use strict";
 
-  var frames = window.NFL_REPLAY;
+  var QUARTER_SECONDS = 900;
+  var NFL_OT_SECONDS = 600;
+  var HOCKEY_PERIOD_SECONDS = 1200;
+  // One extra-period snapshot stays thinner than a regulation column.
+  // More snapshots widen the single OT pane. 2OT stays inside that pane.
+  var OT_PANE_FLOOR = 0.38;
+
+  function regulationCount(sport) {
+    return sport === "nhl" ? 3 : 4;
+  }
+
+  function frameIsOvertime(frame, sport) {
+    if (sport === "nhl") {
+      if (Number(frame.period) > 3) return true;
+    } else if (Number(frame.period) > 4) {
+      return true;
+    }
+    var status = String(frame.status || "").trim().toLowerCase();
+    if (status === "ot" || status === "overtime") return true;
+    return /(?:^|[^A-Za-z0-9])\d*OT\b/.test(String(frame.clock || ""));
+  }
+
+  function layoutBands(rows, sport) {
+    var nReg = regulationCount(sport);
+    var counts = [];
+    var otCount = 0;
+    var i;
+    for (i = 0; i < nReg; i++) counts.push(0);
+    for (i = 0; i < rows.length; i++) {
+      if (frameIsOvertime(rows[i], sport)) {
+        otCount += 1;
+      } else {
+        var period = Number(rows[i].period);
+        if (period >= 1 && period <= nReg) counts[period - 1] += 1;
+      }
+    }
+    var sum = 0;
+    var used = 0;
+    for (i = 0; i < nReg; i++) {
+      if (counts[i] > 0) {
+        sum += counts[i];
+        used += 1;
+      }
+    }
+    var typical = used === 0 ? 1 : sum / used;
+    var otWidth = 0;
+    if (otCount > 0) otWidth = Math.max(OT_PANE_FLOOR, otCount / typical);
+    return {
+      otCount: otCount,
+      otWidth: otWidth,
+      span: nReg + otWidth,
+      regulation: nReg
+    };
+  }
+
+  function otOrdinal(frame, rows) {
+    var seen = 0;
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      if (!frameIsOvertime(rows[i])) continue;
+      if (rows[i] === frame) return seen;
+      seen += 1;
+    }
+    return 0;
+  }
+
+  function regulationPosition(frame, sport) {
+    if (sport === "nhl") return hockeyRegulationPosition(frame);
+    var period = Number(frame.period);
+    if (!(period >= 1)) period = 1;
+    if (period > 4) period = 4;
+    var remaining = Number(frame.seconds_remaining_period);
+    if (!isFinite(remaining)) remaining = QUARTER_SECONDS;
+    if (remaining < 0) remaining = 0;
+    if (remaining > QUARTER_SECONDS) remaining = QUARTER_SECONDS;
+    return (period - 1) + (QUARTER_SECONDS - remaining) / QUARTER_SECONDS;
+  }
+
+  function hockeyRegulationPosition(frame) {
+    var period = Number(frame.period);
+    if (!(period >= 1)) period = 1;
+    if (period > 3) period = 3;
+    var remaining = Number(frame.seconds_remaining_period);
+    if (!isFinite(remaining)) remaining = HOCKEY_PERIOD_SECONDS;
+    if (remaining < 0) remaining = 0;
+    if (remaining > HOCKEY_PERIOD_SECONDS) remaining = HOCKEY_PERIOD_SECONDS;
+    return (period - 1) + (HOCKEY_PERIOD_SECONDS - remaining) / HOCKEY_PERIOD_SECONDS;
+  }
+
+  function timedOtFraction(frame, rows, sport, otSeconds) {
+    var periods = [];
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      if (!frameIsOvertime(rows[i], sport)) continue;
+      var period = Number(rows[i].period);
+      if (periods.indexOf(period) === -1) periods.push(period);
+    }
+    periods.sort(function (a, b) { return a - b; });
+    if (periods.length === 0) periods.push(Number(frame.period) || 5);
+    var pIndex = periods.indexOf(Number(frame.period));
+    if (pIndex < 0) pIndex = 0;
+    var remaining = Number(frame.seconds_remaining_period);
+    if (!isFinite(remaining)) remaining = 0;
+    if (remaining < 0) remaining = 0;
+    if (remaining > otSeconds) remaining = otSeconds;
+    var within = (otSeconds - remaining) / otSeconds;
+    var slot = (pIndex + 0.12 + 0.76 * within) / periods.length;
+    if (slot < 0.02) slot = 0.02;
+    if (slot > 0.98) slot = 0.98;
+    return slot;
+  }
+
+  function nflOtFraction(frame, rows) {
+    return timedOtFraction(frame, rows, "nfl", NFL_OT_SECONDS);
+  }
+
+  function cfbOtFraction(frame, rows, layout) {
+    if (layout.otCount <= 1) return 0.5;
+    return (otOrdinal(frame, rows) + 1) / (layout.otCount + 1);
+  }
+
+  function bandPosition(frame, rows, layout, sport) {
+    var origin = layout && layout.regulation ? layout.regulation : 4;
+    if (!frameIsOvertime(frame, sport)) return regulationPosition(frame, sport);
+    var frac = sport === "nfl"
+      ? nflOtFraction(frame, rows)
+      : sport === "nhl"
+        ? timedOtFraction(frame, rows, "nhl", HOCKEY_PERIOD_SECONDS)
+        : cfbOtFraction(frame, rows, layout);
+    return origin + frac * layout.otWidth;
+  }
+
+  root.mswpBands = {
+    QUARTER_SECONDS: QUARTER_SECONDS,
+    NFL_OT_SECONDS: NFL_OT_SECONDS,
+    HOCKEY_PERIOD_SECONDS: HOCKEY_PERIOD_SECONDS,
+    OT_PANE_FLOOR: OT_PANE_FLOOR,
+    frameIsOvertime: frameIsOvertime,
+    layoutBands: layoutBands,
+    bandPosition: bandPosition
+  };
+
+  if (!root.document || !root.document.getElementById) return;
+
+  var frames = root.NFL_REPLAY;
+  var sportName = "nfl";
   var stage = document.getElementById("stage");
   if (!Array.isArray(frames) || frames.length === 0) {
     stage.textContent = "Replay file is missing.";
@@ -18,14 +164,17 @@
   var timer = null;
 
   scrub.max = String(frames.length - 1);
-  var pregame = frames[0].prior_home;
-  var pregameHome = pregame > 0.5;
-  var pregameName = pregameHome ? frames[0].home : frames[0].away;
-  var pregamePct = (pregameHome ? pregame : 1 - pregame) * 100;
-  document.getElementById("prior").textContent =
-    "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "%";
 
   var plot = { width: 640, height: 200, left: 44, right: 16, top: 16, bottom: 28 };
+
+  function writePrior() {
+    var pregame = frames[0].prior_home;
+    var pregameHome = pregame > 0.5;
+    var pregameName = pregameHome ? frames[0].home : frames[0].away;
+    var pregamePct = (pregameHome ? pregame : 1 - pregame) * 100;
+    document.getElementById("prior").textContent =
+      "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "%";
+  }
 
   function formatHomePercent(frame) {
     if (frame.status === "final") {
@@ -54,14 +203,14 @@
   }
 
   function applyTeamColors(frame) {
-    var root = document.documentElement;
+    var docRoot = document.documentElement;
     function paint(fillName, inkName, value) {
       if (value) {
-        root.style.setProperty(fillName, value);
-        root.style.setProperty(inkName, value);
+        docRoot.style.setProperty(fillName, value);
+        docRoot.style.setProperty(inkName, value);
       } else {
-        root.style.removeProperty(fillName);
-        root.style.removeProperty(inkName);
+        docRoot.style.removeProperty(fillName);
+        docRoot.style.removeProperty(inkName);
       }
     }
     paint("--home", "--home-ink", frame.home_color);
@@ -82,6 +231,8 @@
     text("c-score", frame.home + " " + frame.home_score + " – " + frame.away + " " + frame.away_score);
     text("c-wp", homePct + "%");
     paintTicker(frame);
+    applyLogo("c-home-logo", frame.home_logo);
+    applyLogo("c-away-logo", frame.away_logo);
 
     text("e-clock", frame.clock);
     text("e-home-pct", homePct);
@@ -90,6 +241,21 @@
     text("e-away-name", frame.away);
     text("e-home-score", String(frame.home_score));
     text("e-away-score", String(frame.away_score));
+    applyLogo("e-home-logo", frame.home_logo);
+    applyLogo("e-away-logo", frame.away_logo);
+  }
+
+  function applyLogo(id, path) {
+    var img = document.getElementById(id);
+    if (!path) {
+      img.hidden = true;
+      img.removeAttribute("src");
+      return;
+    }
+    if (img.getAttribute("src") !== path) {
+      img.setAttribute("src", path);
+    }
+    img.hidden = false;
   }
 
   function paintTicker(frame) {
@@ -131,6 +297,36 @@
         setPlaying(false);
       }
     }, 1000);
+  }
+
+  function markSport(selectedId) {
+    ["sport-nfl", "sport-cfb", "sport-nhl"].forEach(function (id) {
+      var button = document.getElementById(id);
+      if (!button) return;
+      var on = id === selectedId;
+      if (on) button.classList.add("is-selected");
+      else button.classList.remove("is-selected");
+      if (!button.disabled) button.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function framesFor(next) {
+    if (next === "cfb") return root.CFB_REPLAY;
+    if (next === "nhl") return root.NHL_REPLAY;
+    return root.NFL_REPLAY;
+  }
+
+  function loadSport(next) {
+    var nextFrames = framesFor(next);
+    if (!Array.isArray(nextFrames) || nextFrames.length === 0) return;
+    if (next === sportName) return;
+    setPlaying(false);
+    sportName = next;
+    frames = nextFrames;
+    scrub.max = String(frames.length - 1);
+    writePrior();
+    markSport("sport-" + next);
+    show(openingIndex(frames));
   }
 
   playButton.addEventListener("click", function () {
@@ -176,6 +372,18 @@
     });
   });
 
+  document.getElementById("sport-nfl").addEventListener("click", function () {
+    loadSport("nfl");
+  });
+
+  document.getElementById("sport-cfb").addEventListener("click", function () {
+    loadSport("cfb");
+  });
+
+  document.getElementById("sport-nhl").addEventListener("click", function () {
+    loadSport("nhl");
+  });
+
   function cssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
@@ -194,10 +402,12 @@
     }
   }
 
-  function xAt(elapsed, elapsedMax) {
-    var span = plot.width - plot.left - plot.right;
-    var t = elapsedMax === 0 ? 0 : elapsed / elapsedMax;
-    return plot.left + t * span;
+  function xAt(pos, span) {
+    var width = plot.width - plot.left - plot.right;
+    var t = span === 0 ? 0 : pos / span;
+    if (t < 0) t = 0;
+    if (t > 1) t = 1;
+    return plot.left + t * width;
   }
 
   function yAt(value, valueMin, valueMax) {
@@ -210,12 +420,6 @@
     var span = plot.height - plot.top - plot.bottom;
     var t = valueMax === valueMin ? 0 : (value - valueMin) / (valueMax - valueMin);
     return plot.top + t * span;
-  }
-
-  function formatElapsed(seconds) {
-    var minutes = Math.floor(seconds / 60);
-    var secs = seconds % 60;
-    return minutes + ":" + (secs < 10 ? "0" : "") + secs;
   }
 
   function axisLabel(svg, x, y, value, anchor) {
@@ -269,49 +473,29 @@
   }
 
   function drawCharts(currentIndex) {
-    var elapsedMax = frames[frames.length - 1].elapsed_seconds;
+    var layout = layoutBands(frames, sportName);
     var shown = frames.slice(0, currentIndex + 1);
+    function xOf(frame) {
+      return xAt(bandPosition(frame, frames, layout, sportName), layout.span);
+    }
     var homeColor = cssVar("--home");
     var awayColor = cssVar("--away");
     var muted = cssVar("--muted");
     var gold = cssVar("--gold");
-    drawScore(shown, elapsedMax, homeColor, awayColor, muted, gold);
-    drawWinProbability(shown, elapsedMax, homeColor, awayColor, muted, gold);
+    drawScore(shown, xOf, layout, homeColor, awayColor, muted, gold);
+    drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted, gold);
   }
 
-  var QUARTER_SECONDS = 900;
-
-  function snapshotIsOvertime(frame) {
-    if (Number(frame.period) > 4) return true;
-    return String(frame.status || "").trim().toLowerCase() === "ot";
-  }
-
-  function replayReachesOvertime(rows) {
-    var i;
-    for (i = 0; i < rows.length; i++) {
-      if (snapshotIsOvertime(rows[i])) return true;
+  function drawBands(svg, layout, muted) {
+    if (sportName === "nhl") {
+      drawHockeyBands(svg, layout, muted);
+      return;
     }
-    return false;
-  }
-
-  function periodMarks(elapsedMax) {
-    var marks = [
-      { at: QUARTER_SECONDS, label: "Q1" },
-      { at: QUARTER_SECONDS * 2, label: "Q2" },
-      { at: QUARTER_SECONDS * 3, label: "Q3" },
-      { at: QUARTER_SECONDS * 4, label: "Q4" }
-    ].filter(function (rail) {
-      return rail.at <= elapsedMax + 0.01;
-    });
-    if (replayReachesOvertime(frames) && QUARTER_SECONDS * 4 <= elapsedMax + 0.01) {
-      marks.push({ at: QUARTER_SECONDS * 4, label: "OT" });
-    }
-    return marks;
-  }
-
-  function drawPeriodRails(svg, elapsedMax, muted) {
-    periodMarks(elapsedMax).forEach(function (rail) {
-      var x = xAt(rail.at, elapsedMax);
+    var span = layout.span;
+    var edges = [1, 2, 3];
+    if (layout.otWidth > 0) edges.push(4);
+    edges.forEach(function (at) {
+      var x = xAt(at, span);
       svg.appendChild(svgEl("line", {
         x1: String(x),
         x2: String(x),
@@ -321,26 +505,72 @@
         "stroke-width": "1",
         "stroke-dasharray": "2 3",
         "data-series": "period-rail",
-        "data-rail": rail.label
+        "data-band": at === 4 ? "OT" : "Q" + at
       }));
+    });
+    var labels = [
+      { at: 0.5, text: "Q1" },
+      { at: 1.5, text: "Q2" },
+      { at: 2.5, text: "Q3" },
+      { at: 3.5, text: "Q4" }
+    ];
+    if (layout.otWidth > 0) {
+      labels.push({ at: 4 + layout.otWidth / 2, text: "OT" });
+    }
+    labels.forEach(function (item) {
+      var caption = svgEl("text", {
+        x: String(xAt(item.at, span)),
+        y: String(plot.height - 8),
+        fill: muted,
+        "font-size": "11",
+        "font-family": "Segoe UI, Helvetica Neue, sans-serif",
+        "text-anchor": "middle",
+        "data-series": "period-label",
+        "data-band": item.text
+      });
+      caption.textContent = item.text;
+      svg.appendChild(caption);
     });
   }
 
-  function drawPeriodLabels(svg, elapsedMax, muted) {
-    periodMarks(elapsedMax).forEach(function (rail) {
-      var x = xAt(rail.at, elapsedMax);
-      var atEdge = x > plot.width - plot.right - 18;
+  function drawHockeyBands(svg, layout, muted) {
+    var span = layout.span;
+    var edges = [1, 2];
+    if (layout.otWidth > 0) edges.push(3);
+    edges.forEach(function (at) {
+      var x = xAt(at, span);
+      svg.appendChild(svgEl("line", {
+        x1: String(x),
+        x2: String(x),
+        y1: String(plot.top),
+        y2: String(plot.height - plot.bottom),
+        stroke: muted,
+        "stroke-width": "1",
+        "stroke-dasharray": "2 3",
+        "data-series": "period-rail",
+        "data-band": at === 3 ? "OT" : "P" + at
+      }));
+    });
+    var labels = [
+      { at: 0.5, text: "P1" },
+      { at: 1.5, text: "P2" },
+      { at: 2.5, text: "P3" }
+    ];
+    if (layout.otWidth > 0) {
+      labels.push({ at: 3 + layout.otWidth / 2, text: "OT" });
+    }
+    labels.forEach(function (item) {
       var caption = svgEl("text", {
-        x: String(atEdge ? x - 3 : x + 3),
-        y: String(plot.top + (rail.label === "OT" ? 21 : 10)),
+        x: String(xAt(item.at, span)),
+        y: String(plot.height - 8),
         fill: muted,
-        "font-size": "9",
+        "font-size": "11",
         "font-family": "Segoe UI, Helvetica Neue, sans-serif",
-        "text-anchor": atEdge ? "end" : "start",
+        "text-anchor": "middle",
         "data-series": "period-label",
-        "data-rail": rail.label
+        "data-band": item.text
       });
-      caption.textContent = rail.label;
+      caption.textContent = item.text;
       svg.appendChild(caption);
     });
   }
@@ -368,18 +598,18 @@
     svg.appendChild(caption);
   }
 
-  function drawScore(shown, elapsedMax, homeColor, awayColor, muted, gold) {
+  function drawScore(shown, xOf, layout, homeColor, awayColor, muted, gold) {
     var svg = document.getElementById("score-chart");
     clearSvg(svg);
-    drawPeriodRails(svg, elapsedMax, muted);
+    drawBands(svg, layout, muted);
     var scoreMax = 1;
     frames.forEach(function (frame) {
       scoreMax = Math.max(scoreMax, frame.home_score, frame.away_score);
     });
     var baseline = yAt(0, 0, scoreMax);
     svg.appendChild(svgEl("line", {
-      x1: String(xAt(0, elapsedMax)),
-      x2: String(xAt(elapsedMax, elapsedMax)),
+      x1: String(xAt(0, layout.span)),
+      x2: String(xAt(layout.span, layout.span)),
       y1: String(baseline),
       y2: String(baseline),
       stroke: muted,
@@ -387,21 +617,18 @@
     }));
     axisLabel(svg, plot.left - 8, yAt(scoreMax, 0, scoreMax) + 4, String(scoreMax), "end");
     axisLabel(svg, plot.left - 8, baseline, "0", "end");
-    axisLabel(svg, xAt(0, elapsedMax), plot.height - 8, "0:00", "start");
-    axisLabel(svg, xAt(elapsedMax, elapsedMax), plot.height - 8, formatElapsed(elapsedMax), "end");
-    stepSeries(svg, shown, elapsedMax, scoreMax, "home_score", "home-score", homeColor);
-    stepSeries(svg, shown, elapsedMax, scoreMax, "away_score", "away-score", awayColor);
+    stepSeries(svg, shown, xOf, scoreMax, "home_score", "home-score", homeColor);
+    stepSeries(svg, shown, xOf, scoreMax, "away_score", "away-score", awayColor);
     var currentFrame = shown[shown.length - 1];
-    playhead(svg, xAt(currentFrame.elapsed_seconds, elapsedMax), gold);
-    drawPeriodLabels(svg, elapsedMax, muted);
+    playhead(svg, xOf(currentFrame), gold);
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", String(currentFrame.away_score));
     drawLegendName(svg, plot.left + 6, plot.top + 32, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score));
   }
 
-  function stepSeries(svg, shown, elapsedMax, scoreMax, field, series, color) {
+  function stepSeries(svg, shown, xOf, scoreMax, field, series, color) {
     var d = "";
     shown.forEach(function (frame, i) {
-      var x = xAt(frame.elapsed_seconds, elapsedMax);
+      var x = xOf(frame);
       var y = yAt(frame[field], 0, scoreMax);
       d += i === 0 ? "M " + x + " " + y : " H " + x + " V " + y;
     });
@@ -415,15 +642,15 @@
     }));
   }
 
-  function drawWinProbability(shown, elapsedMax, homeColor, awayColor, muted, gold) {
+  function drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted, gold) {
     var svg = document.getElementById("wp-chart");
     clearSvg(svg);
-    drawPeriodRails(svg, elapsedMax, muted);
+    drawBands(svg, layout, muted);
     var colors = { home: homeColor, away: awayColor, neutral: muted };
     var mid = yAtLow(0.5, 0, 1);
     svg.appendChild(svgEl("line", {
-      x1: String(xAt(0, elapsedMax)),
-      x2: String(xAt(elapsedMax, elapsedMax)),
+      x1: String(xAt(0, layout.span)),
+      x2: String(xAt(layout.span, layout.span)),
       y1: String(mid),
       y2: String(mid),
       stroke: muted,
@@ -433,11 +660,9 @@
     axisLabel(svg, plot.left - 8, yAtLow(0, 0, 1) + 4, "0", "end");
     axisLabel(svg, plot.left - 8, mid + 4, "50", "end");
     axisLabel(svg, plot.left - 8, yAtLow(1, 0, 1), "100", "end");
-    axisLabel(svg, xAt(0, elapsedMax), plot.height - 8, "0:00", "start");
-    axisLabel(svg, xAt(elapsedMax, elapsedMax), plot.height - 8, formatElapsed(elapsedMax), "end");
 
     var points = shown.map(function (frame) {
-      return { x: xAt(frame.elapsed_seconds, elapsedMax), p: frame.wp };
+      return { x: xOf(frame), p: frame.wp };
     });
     for (var i = 1; i < points.length; i++) {
       splitPiece(points[i - 1], points[i]).forEach(function (piece) {
@@ -476,10 +701,10 @@
     }));
     var currentFrame = shown[shown.length - 1];
     playhead(svg, current.x, gold);
-    drawPeriodLabels(svg, elapsedMax, muted);
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", formatAwayPercent(currentFrame) + "%");
     drawLegendName(svg, plot.left + 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%");
   }
 
+  writePrior();
   show(openingIndex(frames));
-})();
+})(typeof window !== "undefined" ? window : this);

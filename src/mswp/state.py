@@ -35,7 +35,8 @@ class GameState:
     Football and hockey details are optional. A missing ``down`` (or distance,
     yard line, possession, timeouts, strength, extra attacker) still leaves a
     complete state. The football model reads down, distance, yard line, and
-    possession only when all four are present. Timeouts are not read.
+    possession only when all four are present. Timeouts are not read. The
+    hockey model does not read strength or extra attacker.
     """
 
     sport: str

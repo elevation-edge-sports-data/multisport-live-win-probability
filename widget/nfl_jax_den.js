@@ -16,7 +16,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 0,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 14:55",
@@ -33,7 +35,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 5,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 14:19",
@@ -50,7 +54,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 41,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 13:36",
@@ -67,7 +73,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 84,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 13:15",
@@ -84,7 +92,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 105,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 13:11",
@@ -101,7 +111,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 109,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 13:02",
@@ -118,7 +130,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 118,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 12:38",
@@ -135,7 +149,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 142,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 11:54",
@@ -152,7 +168,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 186,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 11:13",
@@ -169,7 +187,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 227,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 11:03",
@@ -186,7 +206,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 237,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 10:57",
@@ -203,7 +225,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 243,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 10:23",
@@ -220,7 +244,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 277,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 10:18",
@@ -237,7 +263,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 282,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 10:10",
@@ -254,7 +282,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 290,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 9:47",
@@ -271,7 +301,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 313,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 9:05",
@@ -288,7 +320,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 355,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 8:44",
@@ -305,7 +339,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 376,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 8:03",
@@ -322,7 +358,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 417,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 7:22",
@@ -339,7 +377,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 458,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 7:10",
@@ -356,7 +396,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 470,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 7:07",
@@ -373,7 +415,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 473,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 6:24",
@@ -390,7 +434,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 516,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 5:39",
@@ -407,7 +453,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 561,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 5:08",
@@ -424,7 +472,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 592,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 4:24",
@@ -441,7 +491,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 636,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 4:19",
@@ -458,7 +510,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 641,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 4:10",
@@ -475,7 +529,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 650,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 3:38",
@@ -492,7 +548,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 682,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 3:01",
@@ -509,7 +567,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 719,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 2:56",
@@ -526,7 +586,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 724,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 2:17",
@@ -543,7 +605,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 763,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 2:12",
@@ -560,7 +624,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 768,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 2:05",
@@ -577,7 +643,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 775,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 1:27",
@@ -594,7 +662,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 813,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 0:50",
@@ -611,7 +681,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 850,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 0:13",
@@ -628,7 +700,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 887,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q1 0:00",
@@ -645,7 +719,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 900,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 15:00",
@@ -662,7 +738,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 900,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 15:00",
@@ -679,7 +757,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 900,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 14:16",
@@ -696,7 +776,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 944,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 13:32",
@@ -713,7 +795,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 988,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 13:06",
@@ -730,7 +814,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1014,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 12:13",
@@ -747,7 +833,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1067,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 12:06",
@@ -764,7 +852,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1074,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 11:43",
@@ -781,7 +871,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1097,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 11:08",
@@ -798,7 +890,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1132,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 10:34",
@@ -815,7 +909,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1166,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 10:04",
@@ -832,7 +928,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1196,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 9:16",
@@ -849,7 +947,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1244,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 8:34",
@@ -866,7 +966,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1286,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 7:52",
@@ -883,7 +985,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1328,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 7:01",
@@ -900,7 +1004,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1379,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 6:56",
@@ -917,7 +1023,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1384,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 6:17",
@@ -934,7 +1042,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1423,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 6:14",
@@ -951,7 +1061,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1426,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 5:34",
@@ -968,7 +1080,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1466,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 5:28",
@@ -985,7 +1099,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1472,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 5:18",
@@ -1002,7 +1118,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1482,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 4:43",
@@ -1019,7 +1137,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1517,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 4:12",
@@ -1036,7 +1156,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1548,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 3:52",
@@ -1053,7 +1175,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1568,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 3:17",
@@ -1070,7 +1194,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1603,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 3:00",
@@ -1087,7 +1213,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1620,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 2:56",
@@ -1104,7 +1232,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1624,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 2:15",
@@ -1121,7 +1251,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1665,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 2:08",
@@ -1138,7 +1270,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1672,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 2:00",
@@ -1155,7 +1289,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1680,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 1:21",
@@ -1172,7 +1308,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1719,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 1:00",
@@ -1189,7 +1327,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1740,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 0:43",
@@ -1206,7 +1346,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1757,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 0:21",
@@ -1223,7 +1365,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1779,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 0:16",
@@ -1240,7 +1384,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1784,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q2 0:00",
@@ -1257,7 +1403,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1800,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 15:00",
@@ -1274,7 +1422,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1800,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 14:51",
@@ -1291,7 +1441,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1809,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 14:13",
@@ -1308,7 +1460,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1847,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 13:34",
@@ -1325,7 +1479,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1886,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 12:50",
@@ -1342,7 +1498,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1930,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 12:09",
@@ -1359,7 +1517,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 1971,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 11:26",
@@ -1376,7 +1536,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2014,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 10:49",
@@ -1393,7 +1555,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2051,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 10:30",
@@ -1410,7 +1574,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2070,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 9:49",
@@ -1427,7 +1593,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2111,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 9:12",
@@ -1444,7 +1612,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2148,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 9:02",
@@ -1461,7 +1631,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2158,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 8:57",
@@ -1478,7 +1650,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2163,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 8:14",
@@ -1495,7 +1669,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2206,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 7:38",
@@ -1512,7 +1688,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2242,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 7:01",
@@ -1529,7 +1707,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2279,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 6:11",
@@ -1546,7 +1726,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2329,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 5:49",
@@ -1563,7 +1745,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2351,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 5:11",
@@ -1580,7 +1764,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2389,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 5:07",
@@ -1597,7 +1783,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2393,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 4:58",
@@ -1614,7 +1802,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2402,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 4:53",
@@ -1631,7 +1821,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2407,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 4:37",
@@ -1648,7 +1840,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2423,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 3:55",
@@ -1665,7 +1859,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2465,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 3:10",
@@ -1682,7 +1878,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2510,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 2:23",
@@ -1699,7 +1897,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2557,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 1:40",
@@ -1716,7 +1916,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2600,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 1:33",
@@ -1733,7 +1935,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2607,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 0:57",
@@ -1750,7 +1954,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2643,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 0:26",
@@ -1767,7 +1973,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2674,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q3 0:00",
@@ -1784,7 +1992,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2700,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 15:00",
@@ -1801,7 +2011,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2700,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 15:00",
@@ -1818,7 +2030,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2700,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 14:29",
@@ -1835,7 +2049,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2731,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 13:52",
@@ -1852,7 +2068,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2768,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 13:14",
@@ -1869,7 +2087,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2806,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 12:31",
@@ -1886,7 +2106,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2849,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 11:56",
@@ -1903,7 +2125,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2884,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 11:47",
@@ -1920,7 +2144,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2893,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 11:42",
@@ -1937,7 +2163,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2898,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 11:38",
@@ -1954,7 +2182,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2902,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 11:11",
@@ -1971,7 +2201,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2929,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 10:37",
@@ -1988,7 +2220,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2963,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 10:32",
@@ -2005,7 +2239,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 2968,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 9:50",
@@ -2022,7 +2258,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3010,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 9:45",
@@ -2039,7 +2277,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3015,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 9:42",
@@ -2056,7 +2296,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3018,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 9:08",
@@ -2073,7 +2315,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3052,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 8:23",
@@ -2090,7 +2334,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3097,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 7:34",
@@ -2107,7 +2353,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3146,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 7:30",
@@ -2124,7 +2372,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3150,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 7:21",
@@ -2141,7 +2391,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3159,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 7:21",
@@ -2158,7 +2410,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3159,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 6:41",
@@ -2175,7 +2429,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3199,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 6:03",
@@ -2192,7 +2448,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3237,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 5:35",
@@ -2209,7 +2467,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3265,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 4:56",
@@ -2226,7 +2486,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3304,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 4:52",
@@ -2243,7 +2505,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3308,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 4:46",
@@ -2260,7 +2524,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3314,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 4:41",
@@ -2277,7 +2543,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3319,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 3:59",
@@ -2294,7 +2562,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3361,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 3:41",
@@ -2311,7 +2581,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3379,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 3:33",
@@ -2328,7 +2600,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3387,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 3:26",
@@ -2345,7 +2619,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3394,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 3:19",
@@ -2362,7 +2638,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3401,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 2:35",
@@ -2379,7 +2657,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3445,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 2:00",
@@ -2396,7 +2676,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3480,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 1:20",
@@ -2413,7 +2695,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3520,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "Q4 0:39",
@@ -2430,7 +2714,9 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3561,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   },
   {
     "clock": "FINAL",
@@ -2447,6 +2733,8 @@ window.NFL_REPLAY = [
     "game_id": "401872940",
     "elapsed_seconds": 3600,
     "home_color": "#FB4F14",
-    "away_color": "#006778"
+    "away_color": "#006778",
+    "home_logo": "logos/nfl/DEN.png",
+    "away_logo": "logos/nfl/JAX.png"
   }
 ];

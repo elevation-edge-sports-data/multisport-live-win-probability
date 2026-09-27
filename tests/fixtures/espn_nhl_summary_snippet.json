@@ -1,0 +1,221 @@
+{
+  "winprobability": [
+    {"homeWinPercentage": 0.11}
+  ],
+  "header": {
+    "id": "9002001",
+    "uid": "s:70~l:90~e:9002001",
+    "league": {
+      "id": "90",
+      "uid": "s:70~l:90",
+      "name": "National Hockey League",
+      "abbreviation": "NHL",
+      "slug": "nhl"
+    },
+    "competitions": [
+      {
+        "id": "9002001",
+        "uid": "s:70~l:90~e:9002001",
+        "date": "2026-05-14T00:00:00Z",
+        "competitors": [
+          {
+            "homeAway": "home",
+            "score": "2",
+            "team": {
+              "id": "17",
+              "uid": "s:70~l:90~t:17",
+              "abbreviation": "COL",
+              "displayName": "Colorado Avalanche"
+            }
+          },
+          {
+            "homeAway": "away",
+            "score": "1",
+            "team": {
+              "id": "30",
+              "uid": "s:70~l:90~t:30",
+              "abbreviation": "MIN",
+              "displayName": "Minnesota Wild"
+            }
+          }
+        ],
+        "status": {
+          "type": {
+            "state": "post",
+            "name": "STATUS_FINAL",
+            "description": "Final",
+            "detail": "Final/OT"
+          }
+        },
+        "odds": [
+          {"homeTeamOdds": {"moneyLine": -150}}
+        ]
+      }
+    ]
+  },
+  "plays": [
+    {
+      "id": "p1-start",
+      "sequenceNumber": "1",
+      "type": {"text": "Period Start"},
+      "period": {"number": 1},
+      "clock": {"displayValue": "0:00"},
+      "homeScore": 0,
+      "awayScore": 0,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T00:05:00Z",
+      "strength": {"text": "Even Strength"}
+    },
+    {
+      "id": "p1-hit",
+      "sequenceNumber": "2",
+      "type": {"text": "Hit"},
+      "period": {"number": 1},
+      "clock": {"displayValue": "0:20"},
+      "homeScore": 0,
+      "awayScore": 0,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T00:06:00Z",
+      "start": {
+        "down": 1,
+        "distance": 10,
+        "yardsToEndzone": 25,
+        "team": {"id": "17"}
+      },
+      "strength": {"text": "Power Play"}
+    },
+    {
+      "id": "p1-goal",
+      "sequenceNumber": "3",
+      "type": {"text": "Goal"},
+      "period": {"number": 1},
+      "clock": {"displayValue": "1:10"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": true,
+      "wallclock": "2026-05-14T00:08:00Z",
+      "strength": {"text": "Even Strength"}
+    },
+    {
+      "id": "p1-shot",
+      "sequenceNumber": "4",
+      "type": {"text": "Shot"},
+      "period": {"number": 1},
+      "clock": {"displayValue": "1:40"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T00:09:00Z"
+    },
+    {
+      "id": "p1-end",
+      "sequenceNumber": "5",
+      "type": {"text": "Period End"},
+      "period": {"number": 1},
+      "clock": {"displayValue": "20:00"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T00:40:00Z"
+    },
+    {
+      "id": "p2-start",
+      "sequenceNumber": "6",
+      "type": {"text": "Period Start"},
+      "period": {"number": 2},
+      "clock": {"displayValue": "0:00"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T01:00:00Z"
+    },
+    {
+      "id": "p2-shot",
+      "sequenceNumber": "7",
+      "type": {"text": "Shot"},
+      "period": {"number": 2},
+      "clock": {"displayValue": "5:00"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T01:10:00Z"
+    },
+    {
+      "id": "p2-end",
+      "sequenceNumber": "8",
+      "type": {"text": "Period End"},
+      "period": {"number": 2},
+      "clock": {"displayValue": "20:00"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T01:40:00Z"
+    },
+    {
+      "id": "p3-start",
+      "sequenceNumber": "9",
+      "type": {"text": "Period Start"},
+      "period": {"number": 3},
+      "clock": {"displayValue": "0:00"},
+      "homeScore": 0,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T02:00:00Z"
+    },
+    {
+      "id": "p3-goal",
+      "sequenceNumber": "10",
+      "type": {"text": "Goal"},
+      "period": {"number": 3},
+      "clock": {"displayValue": "18:00"},
+      "homeScore": 1,
+      "awayScore": 1,
+      "scoringPlay": true,
+      "wallclock": "2026-05-14T02:30:00Z"
+    },
+    {
+      "id": "p3-end",
+      "sequenceNumber": "11",
+      "type": {"text": "Period End"},
+      "period": {"number": 3},
+      "clock": {"displayValue": "20:00"},
+      "homeScore": 1,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T02:40:00Z"
+    },
+    {
+      "id": "ot-start",
+      "sequenceNumber": "12",
+      "type": {"text": "Period Start"},
+      "period": {"number": 4},
+      "clock": {"displayValue": "0:00"},
+      "homeScore": 1,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T02:50:00Z"
+    },
+    {
+      "id": "ot-goal",
+      "sequenceNumber": "13",
+      "type": {"text": "Goal"},
+      "period": {"number": 4},
+      "clock": {"displayValue": "2:00"},
+      "homeScore": 2,
+      "awayScore": 1,
+      "scoringPlay": true,
+      "wallclock": "2026-05-14T02:55:00Z"
+    },
+    {
+      "id": "end",
+      "sequenceNumber": "14",
+      "type": {"text": "End of Game"},
+      "period": {"number": 4},
+      "clock": {"displayValue": "2:00"},
+      "homeScore": 2,
+      "awayScore": 1,
+      "scoringPlay": false,
+      "wallclock": "2026-05-14T02:55:01Z"
+    }
+  ]
+}

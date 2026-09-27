@@ -2,9 +2,11 @@
 
 Unofficial fan project. Not affiliated with the NFL, NHL, NBA, NCAA, or ESPN. Not betting advice.
 
-The NFL widget demo is Jacksonville at Denver on 20 Sep 2026. The Harbor sample remains the unit fixture. The widget does not fetch.
+College football is a second config of the football pack. Regulation is four 15-minute quarters. College overtime is not a timed quarter: each team gets a possession from the opponent 25, then 2-point tries after the second extra period.
 
-When possession, down, distance, and yard line are all present, win probability includes a small expected-points term. If any of those is missing, it is the clock-and-score number. Team primary colors come from the replay frames. Not betting advice. Unofficial.
+NHL is the hockey pack. Regulation is three 20-minute periods. Playoff overtime in the model is 20:00 sudden death, not the regular-season 3-on-3 period of 5:00. A scoreless playoff period starts another 20:00.
+
+The widget does not fetch. Football charts use four equal columns, then one OT pane when any snapshot is in an extra period. Hockey charts use three equal columns, P1 P2 P3, then one OT pane on the same rule. The pane width follows the number of extra-period snapshots, with one OT label even if the replay reaches 2OT.
 
 ## Setup
 
@@ -27,37 +29,48 @@ python -m pytest
 ```powershell
 python -m live_wp replay examples/nfl_sample.json
 python -m live_wp replay examples/nfl_jax_den.json
+python -m live_wp replay examples/cfb_sample.json
+python -m live_wp replay examples/cfb_cu_gt.json
+python -m live_wp replay examples/nhl_col_min_g5.json
 ```
 
-One line per snapshot: time, score, and the home win probability from `compute_wp(state, state.prior_home, nfl_config)`. `examples/nfl_sample.json` is the Harbor fixture. `examples/nfl_jax_den.json` is JAX at DEN.
+`examples/nfl_sample.json` is the Harbor fixture. `examples/nfl_jax_den.json` is Jacksonville at Denver, the NFL widget demo. `examples/cfb_sample.json` is the college overtime sample and reaches 2OT. `examples/cfb_cu_gt.json` is Colorado at Georgia Tech, 3 Sep 2026, the CFB widget demo. `examples/nhl_col_min_g5.json` is Minnesota at Colorado, Game 5, 13 May 2026, the NHL widget demo.
 
 ## ESPN ingest
 
-A saved ESPN NFL scoreboard event or game summary can be ingested to snapshots. The adapter does not call the network. ESPN's unofficial site shape can change without notice. Not betting advice. `ingest-espn --density situation` emits a snapshot per play with a full situation so the widget can move between scores.
+A saved NFL, college-football, or NHL scoreboard event or game summary can be ingested to snapshots. The adapter does not call the network. A college-football summary is written with sport `cfb`. An NHL summary is written with sport `nhl`. NBA and any other league are refused. Follow stays NFL-only and still rejects college football and hockey. ESPN's unofficial site shape can change without notice. Not betting advice.
 
 ```powershell
 python -m live_wp ingest-espn tests/fixtures/espn_nfl_summary_snippet.json examples/nfl_espn_sample.json
-python -m live_wp replay examples/nfl_espn_sample.json
-python -m live_wp render-widget examples/nfl_espn_sample.json out.js
+python -m live_wp ingest-espn tests/fixtures/espn_cfb_summary_snippet.json examples/cfb_from_espn.json
+python -m live_wp render-widget examples/cfb_sample.json widget/cfb_replay.js
+python -m live_wp render-widget examples/cfb_cu_gt.json widget/cfb_cu_gt.js
+python -m live_wp render-widget examples/nhl_col_min_g5.json widget/nhl_col_min_g5.js
 ```
 
-`replay` prints `compute_wp(state, state.prior_home, nfl_config)`. `render-widget` writes `window.NFL_REPLAY` with those win probabilities already computed. The page plays JAX at DEN. Harbor stays in `widget/nfl_replay.js` for tests.
+## Follow
+
+Unofficial ESPN NFL feed, command line only. The widget still only replays a saved file. Not affiliated with ESPN. Not betting advice. This breaks when ESPN changes the payload shape.
+
+```powershell
+python -m live_wp follow --date 20260920
+python -m live_wp follow --game 401872940
+```
+
+`--date` prints each event id, away @ home, status, and score, then exits. `--game` polls that NFL event until it is final. The default pause is 15 seconds, and a pause under 5 seconds is rejected. A line is printed only when the clock, score, period, status, or situation changes. The first home moneyline is kept for later polls. If no payload has one, that prior stays 0.5. College football is rejected.
 
 ## Widget
 
-Open [widget/index.html](widget/index.html) in a browser. There is no build step. The page loads [widget/nfl_jax_den.js](widget/nfl_jax_den.js), the Jacksonville at Denver replay with win probabilities already computed by the Python football pack. The page script does not estimate win probability and does not fetch.
+Open [widget/index.html](widget/index.html) in a browser. There is no build step. The page loads Jacksonville at Denver, Colorado at Georgia Tech, 3 Sep 2026, and Minnesota at Colorado, Game 5, 13 May 2026. Those win probabilities were already computed by the Python pack for that sport. The page does not estimate win probability and does not fetch.
+
+The NFL replay uses local PNGs under widget/logos/nfl/ when the abbreviation matches, and Harbor has no logo. The NHL replay uses local PNGs under widget/logos/nhl/ the same way. The CFB demo uses local PNGs under widget/logos/cfb/ when the abbreviation matches. A missing logo file hides the image.
 
 Three sport buttons:
 
-- **NFL** plays JAX at DEN.
-- **CFB** is disabled and marked next.
-- **NHL** is disabled and marked soon.
+- **NFL** plays Jacksonville at Denver.
+- **CFB** plays Colorado at Georgia Tech, 3 Sep 2026.
+- **NHL** plays Minnesota at Colorado, Game 5, 13 May 2026.
 
-The page header reads Elevation Edge Sports Data, Multisport live win probability, and a small V1 badge. Compact and Expanded sit on that title line, on the right. NFL, CFB, and NHL sit on the left of the row below. Expanded is the default. A replay whose last snapshot is final opens on that snapshot; a pre or live replay opens on the first snapshot. Compact is the small ticker on a home/away color field, with no charts. Expanded is the detail view, with larger team names and the two charts. Play, pause, and the scrubber walk the same snapshots the CLI prints.
+The page header reads Elevation Edge Sports Data, Multisport live win probability, and a small V2 badge. Compact and Expanded sit on that title line. NFL, CFB, and NHL sit on the row below. Expanded is the default. A replay whose last snapshot is final opens on that snapshot. Switching sport resets play. Compact is the ticker, including OT and 2OT as text. Expanded adds the two charts. Both charts share the period-band axis and move with play, pause, and the scrubber.
 
-While a snapshot can still change, home win probability is clipped to 0.0001–0.9999. The widget prints that as a percent with two decimals, so the live rails read 99.99% and 0.01%. A decided snapshot is `status=final`, or the Q4/OT clock at 0:00 with the score not tied. Home win probability is then 1.0 or 0.0 from the score, with no clip. The widget prints a final as 100 or 0.
-
-Expanded shows two charts. Compact does not. Both charts share elapsed game time from the replay as the x-axis, and both move with play, pause, and the scrubber.
-
-- Score: the away and home names from the replay, as two step series taken from the snapshot scores. On the demo those names are JAX and DEN.
-- Win probability: one series, the home team's precomputed win probability. The home side of the scale is the bottom of the chart. Above 50% the line is the home color and the tint fills the gap up to the 50% line. Below 50% the line is the away color and the tint fills the gap down to 50%. The 50% line itself is thin. The page does not calculate the probability.
+While a snapshot can still change, the home win probability stays off 0 and 1. The widget prints two decimals. A decided snapshot is final, or the end of regulation with a lead. It then prints 100 or 0 from the score.

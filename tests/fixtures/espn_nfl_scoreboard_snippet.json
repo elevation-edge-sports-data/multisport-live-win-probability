@@ -1,0 +1,107 @@
+{
+  "leagues": [
+    {
+      "id": "28",
+      "uid": "s:20~l:28",
+      "name": "National Football League",
+      "abbreviation": "NFL",
+      "slug": "nfl"
+    }
+  ],
+  "events": [
+    {
+      "id": "55",
+      "uid": "s:20~l:28~e:55",
+      "date": "2026-09-20T17:00:00Z",
+      "competitions": [
+        {
+          "id": "55",
+          "uid": "s:20~l:28~e:55",
+          "date": "2026-09-20T17:00:00Z",
+          "competitors": [
+            {
+              "homeAway": "home",
+              "score": "7",
+              "team": {
+                "id": "101",
+                "uid": "s:20~l:28~t:101",
+                "abbreviation": "HBR",
+                "displayName": "Harbor"
+              }
+            },
+            {
+              "homeAway": "away",
+              "score": "3",
+              "team": {
+                "id": "202",
+                "uid": "s:20~l:28~t:202",
+                "abbreviation": "ROK",
+                "displayName": "Red Oak"
+              }
+            }
+          ],
+          "status": {
+            "displayClock": "6:40",
+            "period": 2,
+            "type": {"state": "in", "name": "STATUS_IN_PROGRESS"}
+          },
+          "situation": {
+            "down": 2,
+            "distance": 7,
+            "yardLine": 22,
+            "possessionText": "HBR 22",
+            "possession": "202",
+            "homeTimeouts": 1,
+            "awayTimeouts": 2
+          },
+          "odds": [
+            {
+              "homeTeamOdds": {"moneyLine": -150},
+              "awayTeamOdds": {"moneyLine": 130}
+            }
+          ]
+        }
+      ],
+      "winprobability": [{"homeWinPercentage": 0.91}]
+    },
+    {
+      "id": "56",
+      "uid": "s:20~l:28~e:56",
+      "date": "2026-09-20T20:00:00Z",
+      "competitions": [
+        {
+          "id": "56",
+          "uid": "s:20~l:28~e:56",
+          "date": "2026-09-20T20:00:00Z",
+          "competitors": [
+            {
+              "homeAway": "home",
+              "score": "0",
+              "team": {
+                "id": "303",
+                "uid": "s:20~l:28~t:303",
+                "abbreviation": "BAY",
+                "displayName": "Bay"
+              }
+            },
+            {
+              "homeAway": "away",
+              "score": "0",
+              "team": {
+                "id": "404",
+                "uid": "s:20~l:28~t:404",
+                "abbreviation": "PINE",
+                "displayName": "Pine"
+              }
+            }
+          ],
+          "status": {
+            "displayClock": "0:00",
+            "period": 1,
+            "type": {"state": "pre", "name": "STATUS_SCHEDULED"}
+          }
+        }
+      ]
+    }
+  ]
+}

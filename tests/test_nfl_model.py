@@ -245,6 +245,26 @@ def test_situation_is_deterministic():
     assert compute_wp(state, 0.5, NFL_CONFIG) == compute_wp(state, 0.5, NFL_CONFIG)
 
 
+def test_nfl_overtime_still_uses_the_timed_clock():
+    early = nfl_state(
+        status="live",
+        period=5,
+        seconds_remaining_period=9 * 60,
+        seconds_remaining_total=9 * 60,
+        prior_home=0.60,
+    )
+    late = nfl_state(
+        status="live",
+        period=5,
+        seconds_remaining_period=30,
+        seconds_remaining_total=30,
+        prior_home=0.60,
+    )
+    early_wp = compute_wp(early, 0.60, NFL_CONFIG)
+    late_wp = compute_wp(late, 0.60, NFL_CONFIG)
+    assert 0.5 < late_wp < early_wp < 0.75
+
+
 def test_nfl_model_follows_the_sport_protocol():
     model = NFLModel()
     assert isinstance(model, SportModel)

@@ -12,7 +12,7 @@
       <p class="brand">ELEVATION EDGE SPORTS DATA</p>
       <div class="title-line">
         <h1>MULTISPORT LIVE WIN PROBABILITY</h1>
-        <p class="badge">V1</p>
+        <p class="badge">V2</p>
         <div class="views" role="group" aria-label="View">
           <button type="button" class="view" data-view-choice="compact" aria-pressed="false">Compact</button>
           <button type="button" class="view" data-view-choice="expanded" aria-pressed="true">Expanded</button>
@@ -21,8 +21,8 @@
       <div class="toolbar">
         <div class="sports" role="group" aria-label="Sport">
           <button type="button" class="sport is-selected" id="sport-nfl" aria-pressed="true">NFL</button>
-          <button type="button" class="sport" id="sport-cfb" disabled>CFB <span>next</span></button>
-          <button type="button" class="sport" id="sport-nhl" disabled>NHL <span>soon</span></button>
+          <button type="button" class="sport" id="sport-cfb" aria-pressed="false">CFB</button>
+          <button type="button" class="sport" id="sport-nhl" aria-pressed="false">NHL</button>
         </div>
       </div>
     </header>
@@ -36,7 +36,11 @@
           </div>
           <p class="ticker-copy">
             <span id="c-clock"></span>
-            <span id="c-score"></span>
+            <span class="ticker-score">
+              <img class="logo" id="c-home-logo" alt="" hidden>
+              <span id="c-score"></span>
+              <img class="logo" id="c-away-logo" alt="" hidden>
+            </span>
             <span id="c-wp"></span>
           </p>
         </div>
@@ -47,12 +51,18 @@
         <div class="marks">
           <div class="mark home-mark">
             <p class="big"><span id="e-home-pct"></span><span class="unit">%</span></p>
-            <p class="team" id="e-home-name"></p>
+            <p class="team-line">
+              <img class="logo" id="e-home-logo" alt="" hidden>
+              <span class="team" id="e-home-name"></span>
+            </p>
             <p class="points" id="e-home-score"></p>
           </div>
           <div class="mark away-mark">
             <p class="big"><span id="e-away-pct"></span><span class="unit">%</span></p>
-            <p class="team" id="e-away-name"></p>
+            <p class="team-line">
+              <span class="team" id="e-away-name"></span>
+              <img class="logo" id="e-away-logo" alt="" hidden>
+            </p>
             <p class="points" id="e-away-score"></p>
           </div>
         </div>
@@ -87,6 +97,8 @@
     </footer>
   </main>
   <script src="nfl_jax_den.js"></script>
+  <script src="cfb_cu_gt.js"></script>
+  <script src="nhl_col_min_g5.js"></script>
   <script src="widget.js"></script>
 </body>
 </html>

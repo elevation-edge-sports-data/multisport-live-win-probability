@@ -1,4 +1,4 @@
-"""python -m live_wp replay|ingest-espn|render-widget"""
+"""python -m live_wp replay|ingest-espn|render-widget|follow"""
 
 from __future__ import annotations
 
@@ -6,16 +6,23 @@ import json
 import sys
 from pathlib import Path
 
-from mswp import NFL_CONFIG as nfl_config
 from mswp import compute_wp
 
 from live_wp.feeds.espn import DENSITIES, states_from_espn
-from live_wp.replay import dump_replay, format_line, load_replay, render_widget_script
+from live_wp.follow import run_follow
+from live_wp.replay import (
+    config_for_state,
+    dump_replay,
+    format_line,
+    load_replay,
+    render_widget_script,
+)
 
 _USAGE = """\
 usage: python -m live_wp replay <json>
        python -m live_wp ingest-espn <in.json> <out.json> [--density scoring|situation|all]
-       python -m live_wp render-widget <replay.json> <out.js>\
+       python -m live_wp render-widget <replay.json> <out.js>
+       python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15]\
 """
 
 
@@ -24,7 +31,7 @@ def replay_to_stdout(path: Path) -> int:
         print(f"replay file not found: {path}", file=sys.stderr)
         return 1
     for state in load_replay(path):
-        wp = compute_wp(state, state.prior_home, nfl_config)
+        wp = compute_wp(state, state.prior_home, config_for_state(state))
         print(format_line(state, wp))
     return 0
 
@@ -80,6 +87,8 @@ def main(argv: list[str] | None = None) -> int:
         return ingest_espn(Path(paths[0]), Path(paths[1]), density)
     if len(args) == 3 and args[0] == "render-widget":
         return render_widget(Path(args[1]), Path(args[2]))
+    if args and args[0] == "follow":
+        return run_follow(args[1:])
     print(_USAGE, file=sys.stderr)
     return 2
 

@@ -10,15 +10,18 @@ from pathlib import Path
 
 import pytest
 
-from mswp import NFL_CONFIG, compute_wp
+from mswp import CFB_CONFIG, NFL_CONFIG, NHL_CONFIG, compute_wp
 
+from live_wp.colors import team_color
 from live_wp.feeds.espn import (
     espn_scoreboard_event_to_state,
     espn_summary_to_states,
+    require_nfl_payload,
     states_from_espn,
 )
 from live_wp.replay import (
     dump_replay,
+    format_clock,
     format_line,
     load_replay,
     render_widget_script,
@@ -26,6 +29,8 @@ from live_wp.replay import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SNIPPET = ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json"
+CFB_SNIPPET = ROOT / "tests" / "fixtures" / "espn_cfb_summary_snippet.json"
+NHL_SNIPPET = ROOT / "tests" / "fixtures" / "espn_nhl_summary_snippet.json"
 SAMPLE = ROOT / "examples" / "nfl_espn_sample.json"
 HARBOR = ROOT / "examples" / "nfl_sample.json"
 WIDGET_SCRIPT = ROOT / "widget" / "nfl_replay.js"
@@ -271,8 +276,8 @@ def test_moneyline_becomes_one_prior_and_espn_win_probability_is_ignored():
     assert espn_scoreboard_event_to_state(no_price).prior_home == 0.5
 
 
-def test_college_football_and_other_leagues_are_refused():
-    college = _summary()
+def test_college_football_maps_and_other_leagues_are_refused():
+    college = json.loads(json.dumps(_summary()).replace("l:28", "l:23"))
     college["header"]["league"] = {
         "id": "23",
         "uid": "s:20~l:23",
@@ -280,13 +285,20 @@ def test_college_football_and_other_leagues_are_refused():
         "abbreviation": "NCAAF",
         "slug": "college-football",
     }
-    college["header"]["uid"] = "s:20~l:23~e:9001001"
-    with pytest.raises(ValueError, match="college football"):
-        espn_summary_to_states(college)
+    states = espn_summary_to_states(college)
+    assert states
+    assert {state.sport for state in states} == {"cfb"}
+    assert states[0].seconds_remaining_period == CFB_CONFIG.period_seconds
+    assert states[1].seconds_remaining_total == 612 + 3 * CFB_CONFIG.period_seconds
 
     uid_only = _event(uid="s:20~l:23~e:9", team_uid_league="23")
-    with pytest.raises(ValueError, match="cfb"):
-        espn_scoreboard_event_to_state(uid_only)
+    mapped = espn_scoreboard_event_to_state(uid_only)
+    assert mapped.sport == "cfb"
+    assert mapped.seconds_remaining_period == 6 * 60 + 40
+    assert mapped.seconds_remaining_total == mapped.seconds_remaining_period + 2 * CFB_CONFIG.period_seconds
+
+    with pytest.raises(ValueError, match="college football"):
+        require_nfl_payload(college)
 
     nba = _event(
         uid="s:40~l:46~e:9",
@@ -300,6 +312,23 @@ def test_college_football_and_other_leagues_are_refused():
     )
     with pytest.raises(ValueError, match="not NFL"):
         espn_scoreboard_event_to_state(nba)
+
+    nhl = _event(
+        uid="s:70~l:90~e:9",
+        team_uid_league="90",
+        league={
+            "id": "90",
+            "slug": "nhl",
+            "abbreviation": "NHL",
+            "name": "National Hockey League",
+        },
+    )
+    mapped_nhl = espn_scoreboard_event_to_state(nhl)
+    assert mapped_nhl.sport == "nhl"
+    assert mapped_nhl.seconds_remaining_period == 6 * 60 + 40
+    assert mapped_nhl.seconds_remaining_total == (6 * 60 + 40) + NHL_CONFIG.period_seconds
+    with pytest.raises(ValueError, match="not NFL"):
+        require_nfl_payload(nhl)
 
     unlabeled = _event(uid="e:55", team_uid_league="0")
     unlabeled.pop("uid")
@@ -472,6 +501,82 @@ def test_jax_at_den_is_the_widget_replay():
         assert frame["away_color"] == "#006778"
         assert frame["wp"] == compute_wp(state, state.prior_home, NFL_CONFIG)
         assert "down" not in frame
+        assert frame["home_logo"].endswith("logos/nfl/DEN.png")
+        assert frame["away_logo"].endswith("logos/nfl/JAX.png")
+    assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
+    assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
+
+
+def test_colo_at_gt_is_the_cfb_widget_replay():
+    states = load_replay(ROOT / "examples" / "cfb_cu_gt.json")
+    assert len(states) >= 100
+    assert {state.sport for state in states} == {"cfb"}
+    assert {state.home for state in states} == {"GT"}
+    assert {state.away for state in states} == {"COLO"}
+    assert {state.game_id for state in states} == {"401856776"}
+    assert all(state.period <= 4 for state in states)
+    priors = {state.prior_home for state in states}
+    assert len(priors) == 1
+    prior = priors.pop()
+    # Home moneyline -238. Not a value copied from ESPN winprobability.
+    assert prior == pytest.approx(238 / 338)
+    assert prior > 0.5
+    live = [state for state in states if state.status == "live"]
+    assert len(live) >= 100
+    assert sum(
+        1
+        for state in live
+        if state.possession in {"home", "away"}
+        and state.down in {1, 2, 3, 4}
+        and state.distance is not None
+        and state.yardline is not None
+    ) >= 100
+    assert any(state.home_score > state.away_score for state in live)
+    leaders = []
+    for state in states:
+        if state.home_score > state.away_score:
+            leaders.append("home")
+        elif state.away_score > state.home_score:
+            leaders.append("away")
+    assert "home" in leaders and leaders[-1] == "away"
+    assert any(leaders[index] != leaders[index - 1] for index in range(1, len(leaders)))
+    final = states[-1]
+    assert final.status == "final"
+    assert final.home_score == 13
+    assert final.away_score == 14
+    assert compute_wp(final, final.prior_home, CFB_CONFIG) == 0.0
+    assert team_color("GT", "cfb") == "#B3A369"
+    assert team_color("COLO", "cfb") == "#000000"
+    assert team_color("CU", "cfb") == "#000000"
+
+    script_path = ROOT / "widget" / "cfb_cu_gt.js"
+    script = script_path.read_text(encoding="utf-8")
+    assert "window.CFB_REPLAY = " in script
+    lowered = script.lower()
+    assert "espn" not in lowered
+    assert "https://" not in script and "http://" not in script
+    assert "fetch(" not in script
+    assert "logos/nfl/" not in script
+    assert "logos/nhl/" not in script
+    frames = json.loads(script[script.index("[") : script.rindex("]") + 1])
+    assert len(frames) == len(states)
+    for frame, state in zip(frames, states, strict=True):
+        assert frame["home"] == "GT"
+        assert frame["away"] == "COLO"
+        assert frame["home_color"] == "#B3A369"
+        assert frame["away_color"] == "#000000"
+        assert frame["wp"] == compute_wp(state, state.prior_home, CFB_CONFIG)
+        assert frame["home_logo"] == "logos/cfb/GT.png"
+        assert frame["away_logo"] == "logos/cfb/COLO.png"
+        assert frame["period"] <= 4
+    assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
+    assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
+    assert frames[-1]["status"] == "final"
+    assert frames[-1]["home_score"] == 13
+    assert frames[-1]["away_score"] == 14
+    assert frames[-1]["wp"] == 0.0
+    cfb_logos = ROOT / "widget" / "logos" / "cfb"
+    assert sorted(path.name for path in cfb_logos.iterdir()) == ["COLO.png", "GT.png"]
 
 
 def test_checked_in_sample_matches_the_snippet_and_loads():
@@ -535,6 +640,8 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
         assert frame["wp"] == compute_wp(state, state.prior_home, NFL_CONFIG)
         assert "down" not in frame
         assert "yardline" not in frame
+        assert "home_logo" not in frame
+        assert "away_logo" not in frame
 
     harbor_out = tmp_path / "harbor.js"
     subprocess.run(
@@ -551,38 +658,148 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     assert len(harbor_rendered) == len(harbor_states)
     assert harbor_rendered[-1]["wp"] == 1.0
 
-    refused = tmp_path / "cfb.json"
-    refused.write_text(
-        json.dumps(
-            {
-                "header": {
-                    "id": "1",
-                    "uid": "s:20~l:23~e:1",
-                    "league": {"slug": "college-football", "abbreviation": "NCAAF", "id": "23"},
-                    "competitions": [
-                        {
-                            "id": "1",
-                            "date": "2026-09-20T17:00:00Z",
-                            "competitors": [],
-                            "status": {
-                                "period": 4,
-                                "displayClock": "0:00",
-                                "type": {"state": "post"},
-                            },
-                        }
-                    ],
-                },
-                "drives": {"previous": []},
-            }
-        ),
-        encoding="utf-8",
-    )
-    failed = subprocess.run(
-        [sys.executable, "-m", "live_wp", "ingest-espn", str(refused), str(tmp_path / "out.json")],
+    ingested_cfb = tmp_path / "cfb.json"
+    completed_cfb = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "live_wp",
+            "ingest-espn",
+            str(CFB_SNIPPET),
+            str(ingested_cfb),
+        ],
         cwd=ROOT,
+        check=True,
         capture_output=True,
         text=True,
     )
-    assert failed.returncode == 1
-    assert "college football" in failed.stderr.lower()
-    assert not (tmp_path / "out.json").exists()
+    assert completed_cfb.stdout == ""
+    cfb_states = load_replay(ingested_cfb)
+    assert cfb_states == espn_summary_to_states(json.loads(CFB_SNIPPET.read_text(encoding="utf-8")))
+    assert {state.sport for state in cfb_states} == {"cfb"}
+    overtime = next(state for state in cfb_states if state.period == 5 and state.home_score == 21)
+    assert overtime.seconds_remaining_period == 12 * 60
+    assert all(
+        state.seconds_remaining_period != 10 * 60
+        for state in cfb_states
+        if state.period > 4
+    )
+    assert compute_wp(cfb_states[-1], cfb_states[-1].prior_home, CFB_CONFIG) == 1.0
+
+
+def _nhl_summary() -> dict:
+    return json.loads(NHL_SNIPPET.read_text(encoding="utf-8"))
+
+
+def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
+    summary = _nhl_summary()
+    scoring = espn_summary_to_states(summary, density="scoring")
+    situation = espn_summary_to_states(summary, density="situation")
+    everything = espn_summary_to_states(summary, density="all")
+    assert scoring[0].status == "pre"
+    assert scoring[0].sport == "nhl"
+    assert scoring[0].seconds_remaining_period == 20 * 60
+    assert scoring[0].seconds_remaining_total == 3 * 20 * 60
+    assert scoring[0].prior_home == pytest.approx(0.6)
+    assert scoring[0].prior_home != pytest.approx(0.11)
+    goal = next(
+        state
+        for state in scoring
+        if state.period == 1 and state.home_score == 0 and state.away_score == 1
+    )
+    assert goal.seconds_remaining_period == 20 * 60 - 70
+    assert goal.strength is None
+    assert goal.down is None
+    assert goal.extra_attacker is None
+    assert all(state.seconds_remaining_period != 900 for state in scoring)
+    assert any(
+        state.period == 2 and state.seconds_remaining_period == 900 for state in situation
+    )
+    assert all(state.seconds_remaining_period != 1100 for state in situation)
+    assert any(
+        state.period == 1 and state.seconds_remaining_period == 1100 for state in everything
+    )
+    tied = next(
+        state
+        for state in situation
+        if state.period == 3
+        and state.seconds_remaining_period == 0
+        and state.home_score == state.away_score
+        and state.status == "live"
+    )
+    tied_wp = compute_wp(tied, tied.prior_home, NHL_CONFIG)
+    assert tied_wp not in (0.0, 1.0)
+    overtime = [
+        state for state in scoring if state.period == 4 and state.status == "live"
+    ]
+    assert overtime
+    assert overtime[-1].seconds_remaining_period == 20 * 60 - 2 * 60
+    assert overtime[-1].home_score == 2 and overtime[-1].away_score == 1
+    final = scoring[-1]
+    assert final.status == "final"
+    assert final.period == 4
+    assert final.home_score == 2 and final.away_score == 1
+    assert final.seconds_remaining_period == overtime[-1].seconds_remaining_period
+    assert compute_wp(final, final.prior_home, NHL_CONFIG) == 1.0
+    assert all(state.strength is None and state.down is None for state in everything)
+
+
+def test_min_at_col_is_the_nhl_widget_replay():
+    path = ROOT / "examples" / "nhl_col_min_g5.json"
+    states = load_replay(path)
+    assert states
+    assert {state.sport for state in states} == {"nhl"}
+    assert {state.home for state in states} == {"COL"}
+    assert {state.away for state in states} == {"MIN"}
+    assert {state.game_id for state in states} == {"401871420"}
+    assert states[0].status == "pre"
+    assert states[0].home_score == 0 and states[0].away_score == 0
+    priors = {state.prior_home for state in states}
+    assert len(priors) == 1
+    prior = priors.pop()
+    assert prior == pytest.approx(230 / 330)
+    assert prior != 0.5
+    assert any(
+        state.status == "live" and state.away_score == 3 and state.home_score in {0, 1}
+        for state in states
+    )
+    overtime = [state for state in states if state.period > 3 and state.status == "live"]
+    assert overtime
+    final = states[-1]
+    assert final.status == "final"
+    assert final.home_score == 4
+    assert final.away_score == 3
+    assert final.period > 3
+    assert compute_wp(final, final.prior_home, NHL_CONFIG) == 1.0
+    assert any(format_clock(state).startswith("P1 ") for state in states)
+    assert any(format_clock(state).startswith("OT ") for state in states)
+    assert all(not format_clock(state).startswith("Q") for state in states)
+    assert team_color("COL", "nhl") == "#6F263D"
+    assert team_color("MIN", "nhl") == "#154734"
+    assert team_color("MIN", "nfl") != team_color("MIN", "nhl")
+
+    script_path = ROOT / "widget" / "nhl_col_min_g5.js"
+    script = script_path.read_text(encoding="utf-8")
+    assert "window.NHL_REPLAY = " in script
+    lowered = script.lower()
+    assert "espn" not in lowered
+    assert "https://" not in script and "http://" not in script
+    assert "fetch(" not in script
+    frames = json.loads(script[script.index("[") : script.rindex("]") + 1])
+    assert len(frames) == len(states)
+    for frame, state in zip(frames, states, strict=True):
+        assert frame["home"] == "COL"
+        assert frame["away"] == "MIN"
+        assert frame["home_color"] == "#6F263D"
+        assert frame["away_color"] == "#154734"
+        assert frame["wp"] == compute_wp(state, state.prior_home, NHL_CONFIG)
+        assert frame["clock"] == format_clock(state)
+        assert frame["home_logo"] == "logos/nhl/COL.png"
+        assert frame["away_logo"] == "logos/nhl/MIN.png"
+        assert "strength" not in frame
+    assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
+    assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
+    assert frames[-1]["status"] == "final"
+    assert frames[-1]["home_score"] == 4
+    assert frames[-1]["away_score"] == 3
+    assert frames[-1]["wp"] == 1.0

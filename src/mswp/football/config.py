@@ -1,4 +1,4 @@
-"""Football-pack configs. NFL now; college football is another config later."""
+"""Football-pack configs. NFL and college football share this pack."""
 
 from __future__ import annotations
 
@@ -17,4 +17,19 @@ NFL_CONFIG = SportConfig(
     score_dispersion=4.05,
     ot_period_seconds=10 * 60,
     tie_after_ot=True,
+)
+
+# 27 points per team. Dispersion 256/54 makes a full-game margin standard
+# deviation of 16: 2 * (256/54) * 27 = 16**2.
+# ``ot_period_seconds`` is only here because SportConfig requires a positive
+# length. College overtime is not that clock. The model does not read it.
+CFB_CONFIG = SportConfig(
+    sport="cfb",
+    family="football",
+    regulation_periods=4,
+    period_seconds=15 * 60,
+    mean_score_per_team=27.0,
+    score_dispersion=256 / 54,
+    ot_period_seconds=10 * 60,
+    tie_after_ot=False,
 )

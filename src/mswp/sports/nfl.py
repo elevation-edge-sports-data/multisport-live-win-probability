@@ -1,7 +1,7 @@
 """NFL entry point for the football pack.
 
-College football will be another ``SportConfig`` used with the same model,
-not a new state type and not a second copy of this math.
+College football is ``CfbModel`` beside this module: another config of the
+same pack, not a copy of this file.
 """
 
 from __future__ import annotations

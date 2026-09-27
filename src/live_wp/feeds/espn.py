@@ -1,8 +1,11 @@
-"""Map a saved ESPN NFL payload to GameState snapshots.
+"""Map a saved ESPN football or hockey payload to GameState snapshots.
 
 The caller loads the JSON. This module does not fetch. It accepts a
 scoreboard event object or a game summary object from the unofficial ESPN
-site API. College football and any other league are refused.
+site API. NFL maps to sport ``nfl``. College football maps to sport ``cfb``.
+NHL maps to sport ``nhl``. NBA and any other league are refused. The follow
+command still asks ``require_nfl_payload`` and does not follow college
+football or hockey.
 
 A home American moneyline, when present, is converted once into
 ``prior_home`` and reused on every snapshot. ESPN's own win-probability
@@ -18,11 +21,13 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from mswp import DEFAULT_PRIOR_HOME, NFL_CONFIG, GameState
+from mswp import CFB_CONFIG, DEFAULT_PRIOR_HOME, NFL_CONFIG, NHL_CONFIG, GameState
+from mswp.config import SportConfig
 
-# League ids on ESPN football uids: NFL is l:28, college football is l:23.
+# League ids on ESPN uids: NFL is l:28, college football is l:23, NHL is l:90.
 _NFL_LEAGUE_ID = "28"
 _CFB_LEAGUE_ID = "23"
+_NHL_LEAGUE_ID = "90"
 _UID_LEAGUE = re.compile(r"(?:^|~)l:(\d+)(?:~|$)")
 _AT_SPOT = re.compile(r"\bat\s+([A-Za-z][A-Za-z0-9.]{1,11})\s+(\d{1,2})\b", re.I)
 _TEAM_SPOT = re.compile(r"\b([A-Za-z][A-Za-z0-9.]{1,11})\s+(\d{1,2})\b")
@@ -49,17 +54,19 @@ def espn_scoreboard_event_to_state(
     """
     if not isinstance(event, Mapping):
         raise TypeError("ESPN scoreboard event must be an object")
-    _require_nfl(event)
+    sport = _supported_sport(event)
     if not isinstance(event.get("competitions"), list):
         raise ValueError("ESPN scoreboard event is missing competitions")
     competition = _competition(event)
     home, away, home_score, away_score = _competitors(competition)
-    espn_state, period, display = _status_parts(_status_block(competition, event))
+    espn_state, period, display = _status_parts(
+        _status_block(competition, event), sport
+    )
     if period is None:
-        period = NFL_CONFIG.regulation_periods if espn_state == "post" else 1
+        period = _config_for(sport).regulation_periods if espn_state == "post" else 1
     if display is None:
         display = "0:00" if espn_state == "post" else _seconds_to_display(
-            _period_length(period)
+            _period_length(period, sport)
         )
     period_seconds = _parse_clock(display)
     situation = competition.get("situation")
@@ -78,6 +85,7 @@ def espn_scoreboard_event_to_state(
         as_of=_event_as_of(event, competition),
         spot=spot,
         possessing_id=possessing,
+        sport=sport,
     )
 
 
@@ -92,26 +100,31 @@ def espn_summary_to_states(
 ) -> list[GameState]:
     """Snapshots for one game summary.
 
-    ``density="scoring"`` (the default) keeps kickoff, the start of each
-    quarter, every scoring change, the two-minute warning when a pair of
-    plays straddles it, overtime scores, and the final.
+    ``density="scoring"`` (the default) keeps the opening snapshot, the
+    start of each period, every scoring change, the two-minute warning when
+    a football pair of plays straddles it, overtime scores, and the final.
+    Hockey has no two-minute warning.
 
-    ``density="situation"`` keeps every play that has possession, down,
-    distance, and yard line, plus kickoff, quarter starts, and the final.
+    ``density="situation"`` on a football summary keeps every play that has
+    possession, down, distance, and yard line, plus the opening snapshot,
+    period starts, and the final. On a hockey summary there is no down or
+    distance. Situation then means a play that changes the score, the
+    period, or the clock: every scoring change, each period start, and
+    about one clock event per minute from ``drives`` or ``plays``.
 
     ``density="all"`` keeps every play on ``drives.previous`` and any
-    top-level ``plays`` list, plus kickoff and the final.
+    top-level ``plays`` list, plus the opening snapshot and the final.
     """
     if not isinstance(summary, Mapping):
         raise TypeError("ESPN summary must be an object")
     if density not in DENSITIES:
         raise ValueError("density must be scoring, situation, or all")
-    _require_nfl(summary)
+    sport = _supported_sport(summary)
     header = summary.get("header")
     if not isinstance(header, Mapping):
         raise ValueError("ESPN summary is missing a header")
     competition = _competition(summary)
-    return _summary_states(summary, header, competition, prior_home, density)
+    return _summary_states(summary, header, competition, prior_home, density, sport)
 
 
 def states_from_espn(
@@ -138,14 +151,42 @@ def states_from_espn(
             "Pass one event object or one game summary."
         )
     raise ValueError(
-        "ESPN payload must be one NFL scoreboard event or one NFL game summary."
+        "ESPN payload must be one NFL, college-football, or NHL "
+        "scoreboard event or one game summary."
     )
 
 
-def _require_nfl(payload: Mapping[str, Any]) -> None:
-    """Refuse anything that is not a confirmed NFL payload."""
+def require_nfl_payload(payload: Mapping[str, Any]) -> None:
+    """Raise unless this payload is confirmed NFL.
+
+    A scoreboard list is allowed here. College football and any other league
+    are refused. This does not fetch.
+    """
+    if not isinstance(payload, Mapping):
+        raise TypeError("ESPN payload must be an object")
+    _require_nfl(payload)
+
+
+def home_moneyline_prior(payload: Mapping[str, Any]) -> float | None:
+    """Implied home prior from a home American moneyline, or None if absent.
+
+    ESPN's own win-probability field is not read.
+    """
+    if not isinstance(payload, Mapping):
+        raise TypeError("ESPN payload must be an object")
+    odds = _home_american_odds(payload)
+    if odds is None:
+        return None
+    return _american_implied(odds)
+
+
+def _classify_league(
+    payload: Mapping[str, Any],
+) -> tuple[bool, bool, bool, list[str]]:
+    """Return college, nfl, nhl, and any other league tokens on the payload."""
     college = False
     nfl = False
+    nhl = False
     other: list[str] = []
 
     for league in _league_objects(payload):
@@ -168,6 +209,13 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
             or name == "national football league"
         ):
             nfl = True
+        elif (
+            slug == "nhl"
+            or abbreviation == "NHL"
+            or league_id == _NHL_LEAGUE_ID
+            or name == "national hockey league"
+        ):
+            nhl = True
         elif slug or abbreviation or league_id:
             other.append(slug or abbreviation.lower() or league_id)
 
@@ -177,6 +225,8 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
                 college = True
             elif league_id == _NFL_LEAGUE_ID:
                 nfl = True
+            elif league_id == _NHL_LEAGUE_ID:
+                nhl = True
             else:
                 other.append(f"l:{league_id}")
 
@@ -186,22 +236,78 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
             college = True
         elif "/nfl/" in lowered:
             nfl = True
+        elif "/nhl/" in lowered or "/hockey/nhl" in lowered:
+            nhl = True
 
+    return college, nfl, nhl, other
+
+
+def _require_nfl(payload: Mapping[str, Any]) -> None:
+    """Refuse anything that is not a confirmed NFL payload.
+
+    Follow uses this. College football and NHL are legal ingest sports and
+    are still refused here.
+    """
+    college, nfl, nhl, other = _classify_league(payload)
     if college:
         raise ValueError(
             "ESPN payload is college football (cfb), not NFL. "
             "This adapter maps NFL games only."
         )
+    if nhl and not nfl:
+        raise ValueError("ESPN payload is nhl, not NFL.")
     if other and not nfl:
         raise ValueError(f"ESPN payload is {other[0]}, not NFL.")
-    if other and nfl:
+    if (other or nhl) and nfl:
+        token = other[0] if other else "nhl"
         raise ValueError(
-            f"ESPN payload mixes NFL with {other[0]}. Refusing to map it as nfl."
+            f"ESPN payload mixes NFL with {token}. Refusing to map it as nfl."
         )
     if not nfl:
         raise ValueError(
             "ESPN payload is not NFL. The league could not be confirmed as nfl."
         )
+
+
+def _supported_sport(payload: Mapping[str, Any]) -> str:
+    """``nfl``, ``cfb``, or ``nhl``. Anything else is refused."""
+    college, nfl, nhl, other = _classify_league(payload)
+    selected: list[str] = []
+    if nfl:
+        selected.append("NFL")
+    if college:
+        selected.append("college football")
+    if nhl:
+        selected.append("nhl")
+    if len(selected) > 1:
+        raise ValueError(
+            f"ESPN payload mixes {selected[0]} with {selected[1]}. "
+            "Refusing to map it."
+        )
+    if other and selected:
+        raise ValueError(
+            f"ESPN payload mixes {selected[0]} with {other[0]}. "
+            "Refusing to map it."
+        )
+    if other:
+        raise ValueError(f"ESPN payload is {other[0]}, not NFL.")
+    if college:
+        return "cfb"
+    if nhl:
+        return "nhl"
+    if nfl:
+        return "nfl"
+    raise ValueError(
+        "ESPN payload is not NFL. The league could not be confirmed as nfl."
+    )
+
+
+def _config_for(sport: str) -> SportConfig:
+    if sport == "cfb":
+        return CFB_CONFIG
+    if sport == "nhl":
+        return NHL_CONFIG
+    return NFL_CONFIG
 
 
 def _league_objects(payload: Mapping[str, Any]) -> list[Mapping[str, Any]]:
@@ -283,10 +389,12 @@ def _summary_states(
     competition: Mapping[str, Any],
     prior_home: float | None,
     density: str,
+    sport: str,
 ) -> list[GameState]:
     home, away, final_home, final_away = _competitors(competition)
+    config = _config_for(sport)
     espn_state, status_period, status_display = _status_parts(
-        _status_block(competition, header)
+        _status_block(competition, header), sport
     )
     prior = _resolve_prior(summary, prior_home)
     game_id = _event_id(header, competition)
@@ -331,6 +439,7 @@ def _summary_states(
             as_of=stamped,
             spot=spot,
             possessing_id=possessing_id,
+            sport=sport,
         )
         # situation density drops only an identical clock, score, and situation.
         # all density keeps every play.
@@ -344,7 +453,7 @@ def _summary_states(
     # Q1 kickoff is the pre snapshot. Later periods get their own start.
     emit(
         period=1,
-        period_seconds=NFL_CONFIG.period_seconds,
+        period_seconds=config.period_seconds,
         home_score=0,
         away_score=0,
         status="pre",
@@ -355,13 +464,19 @@ def _summary_states(
     started = {1}
     two_minute_done: set[int] = set()
     last_clock: dict[int, int] = {}
-    plays = _listed_plays(summary) if density == "all" else _plays(summary)
+    # Hockey situation density keeps one clock event per elapsed minute.
+    seen_minutes: set[tuple[int, int]] = set()
+    plays = (
+        _listed_plays(summary, sport)
+        if density == "all"
+        else _plays(summary, sport)
+    )
 
     for play in plays:
         period = _play_period(play)
         if period is None:
             continue
-        clock = _play_clock_seconds(play)
+        clock = _play_clock_seconds(play, sport)
         when = _parse_time(play.get("wallclock") or play.get("modified")) or game_date
         spot = _play_spot(play)
         possessing = _play_possession_id(spot)
@@ -375,7 +490,7 @@ def _summary_states(
                 started.add(quarter)
                 emit(
                     period=quarter,
-                    period_seconds=_period_length(quarter),
+                    period_seconds=_period_length(quarter, sport),
                     home_score=entered_home,
                     away_score=entered_away,
                     status="live",
@@ -385,7 +500,7 @@ def _summary_states(
         else:
             started.add(period)
 
-        if density == "scoring" and _has_two_minute(period) and period not in two_minute_done:
+        if density == "scoring" and _has_two_minute(period, sport) and period not in two_minute_done:
             previous_clock = last_clock.get(period)
             crosses = previous_clock is not None and previous_clock > 120 >= clock
             lands = clock == 120 and (previous_clock is None or previous_clock > 120)
@@ -403,11 +518,21 @@ def _summary_states(
                 two_minute_done.add(period)
 
         reported = _play_scores(play)
-        keep_play = density == "all" or (
-            density == "situation"
-            and _situation_complete(spot, possessing, home, away)
-        )
         score_changed = reported is not None and reported != (entered_home, entered_away)
+        if sport == "nhl":
+            minute_key = (period, _nhl_elapsed_minute(period, clock))
+            fresh_minute = minute_key not in seen_minutes
+            seen_minutes.add(minute_key)
+            # No down or distance. A situation event changes the score,
+            # the period, or the clock. Clock events are one per minute.
+            keep_play = density == "all" or (
+                density == "situation" and (score_changed or fresh_minute)
+            )
+        else:
+            keep_play = density == "all" or (
+                density == "situation"
+                and _situation_complete(spot, possessing, home, away)
+            )
         if keep_play or (density == "scoring" and score_changed):
             emit(
                 period=period,
@@ -426,9 +551,18 @@ def _summary_states(
     if espn_state == "post":
         # A finished summary often omits period and displayClock.
         final_period = status_period or (
-            max(started) if started else NFL_CONFIG.regulation_periods
+            max(started) if started else config.regulation_periods
         )
-        final_clock = 0 if status_display is None else _parse_clock(status_display)
+        if status_display is None:
+            final_clock = 0
+            if sport == "nhl" and states:
+                # The status clock is blank after an overtime goal. Keep
+                # the last play's remaining time instead of jumping to 0:00.
+                final_clock = states[-1].seconds_remaining_period
+                if status_period is None:
+                    final_period = states[-1].period
+        else:
+            final_clock = _parse_clock(status_display)
         emit(
             period=final_period,
             period_seconds=final_clock,
@@ -486,7 +620,9 @@ def _situation_complete(
     return all(name in fields for name in ("possession", "down", "distance", "yardline"))
 
 
-def _listed_plays(summary: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+def _listed_plays(
+    summary: Mapping[str, Any], sport: str = "nfl"
+) -> list[Mapping[str, Any]]:
     """Every play on drives.previous, plus a top-level plays list."""
     ordered: list[Mapping[str, Any]] = []
     seen: set[str] = set()
@@ -511,11 +647,11 @@ def _listed_plays(summary: Mapping[str, Any]) -> list[Mapping[str, Any]]:
     if isinstance(summary.get("plays"), list):
         for play in summary["plays"]:
             add(play)
-    ordered.sort(key=_play_sort_key)
+    ordered.sort(key=lambda play: _play_sort_key(play, sport))
     return ordered
 
 
-def _plays(summary: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+def _plays(summary: Mapping[str, Any], sport: str = "nfl") -> list[Mapping[str, Any]]:
     ordered: list[Mapping[str, Any]] = []
     seen: set[str] = set()
 
@@ -550,13 +686,15 @@ def _plays(summary: Mapping[str, Any]) -> list[Mapping[str, Any]]:
     if isinstance(scoring, list):
         for play in scoring:
             add(play)
-    ordered.sort(key=_play_sort_key)
+    ordered.sort(key=lambda play: _play_sort_key(play, sport))
     return ordered
 
 
-def _play_sort_key(play: Mapping[str, Any]) -> tuple[int, int, int]:
+def _play_sort_key(
+    play: Mapping[str, Any], sport: str = "nfl"
+) -> tuple[int, int, int]:
     period = _play_period(play) or 0
-    clock = _play_clock_seconds(play)
+    clock = _play_clock_seconds(play, sport)
     raw = play.get("sequenceNumber")
     try:
         sequence = int(raw) if raw is not None else 0
@@ -574,7 +712,24 @@ def _play_period(play: Mapping[str, Any]) -> int | None:
     return parsed
 
 
-def _play_clock_seconds(play: Mapping[str, Any]) -> int:
+def _play_clock_seconds(play: Mapping[str, Any], sport: str = "nfl") -> int:
+    """Seconds remaining in the period.
+
+    Football play clocks are already time remaining. NHL play-by-play
+    clocks count up from 0:00 at the period start, so those are flipped.
+    A scoreboard ``displayClock`` is time remaining for every sport and
+    does not come through here.
+    """
+    raw = _raw_play_clock_seconds(play)
+    if sport != "nhl":
+        return raw
+    period = _play_period(play) or 1
+    length = _period_length(period, sport)
+    elapsed = min(max(raw, 0), length)
+    return length - elapsed
+
+
+def _raw_play_clock_seconds(play: Mapping[str, Any]) -> int:
     clock = play.get("clock")
     if isinstance(clock, Mapping):
         display = clock.get("displayValue")
@@ -586,6 +741,12 @@ def _play_clock_seconds(play: Mapping[str, Any]) -> int:
     if isinstance(clock, str) and clock.strip():
         return _parse_clock(clock)
     return 0
+
+
+def _nhl_elapsed_minute(period: int, remaining: int) -> int:
+    length = _period_length(period, "nhl")
+    elapsed = length - min(max(int(remaining), 0), length)
+    return elapsed // 60
 
 
 def _play_scores(play: Mapping[str, Any]) -> tuple[int, int] | None:
@@ -620,9 +781,15 @@ def _play_possession_id(spot: Mapping[str, Any] | None) -> object | None:
     return None
 
 
-def _has_two_minute(period: int) -> bool:
-    # Regulation warnings are at the end of each half. Overtime has one too.
-    return period in {2, 4} or period > NFL_CONFIG.regulation_periods
+def _has_two_minute(period: int, sport: str) -> bool:
+    # Regulation warnings are at the end of each half. NFL overtime has one too.
+    # College overtime is untimed, and hockey has no two-minute warning.
+    if sport == "nhl":
+        return False
+    config = _config_for(sport)
+    if period in {2, 4}:
+        return True
+    return sport != "cfb" and period > config.regulation_periods
 
 
 def _build(
@@ -639,11 +806,18 @@ def _build(
     as_of: datetime,
     spot: Mapping[str, Any] | None,
     possessing_id: object | None,
+    sport: str,
 ) -> GameState:
-    period_clock, total_clock = _remaining_pair(period, period_seconds)
-    optional = _football_fields(spot, possessing_id, home, away)
+    period_clock, total_clock = _remaining_pair(period, period_seconds, sport)
+    # Hockey snapshots are clock and score. Strength and extra attacker
+    # are not read yet, and a play has no down or distance.
+    optional = (
+        {}
+        if sport == "nhl"
+        else _football_fields(spot, possessing_id, home, away)
+    )
     return GameState(
-        sport="nfl",
+        sport=sport,
         game_id=game_id,
         home=home.name,
         away=away.name,
@@ -843,6 +1017,7 @@ def _status_block(
 
 def _status_parts(
     status: Mapping[str, Any],
+    sport: str,
 ) -> tuple[str, int | None, str | None]:
     """Map ESPN status to a state, period, and display clock.
 
@@ -866,23 +1041,30 @@ def _status_parts(
     else:
         display = None
     if espn_state == "pre":
-        return "pre", 1, _seconds_to_display(NFL_CONFIG.period_seconds)
+        return "pre", 1, _seconds_to_display(_config_for(sport).period_seconds)
     if espn_state != "post" and period is None:
         raise ValueError("ESPN status period must be >= 1 once the game has started")
     return espn_state, period, display
 
 
-def _period_length(period: int) -> int:
-    if period <= NFL_CONFIG.regulation_periods:
-        return NFL_CONFIG.period_seconds
-    return NFL_CONFIG.ot_period_seconds
+def _period_length(period: int, sport: str) -> int:
+    config = _config_for(sport)
+    if period <= config.regulation_periods:
+        return config.period_seconds
+    if sport == "cfb":
+        # College overtime is not a timed period. A reported clock is stored
+        # for the ticker and capped like a regulation period. The model does
+        # not treat this cap as ot_period_seconds.
+        return config.period_seconds
+    return config.ot_period_seconds
 
 
-def _remaining_pair(period: int, period_seconds: int) -> tuple[int, int]:
-    length = _period_length(period)
+def _remaining_pair(period: int, period_seconds: int, sport: str) -> tuple[int, int]:
+    config = _config_for(sport)
+    length = _period_length(period, sport)
     remaining = max(0, min(int(period_seconds), length))
-    if period <= NFL_CONFIG.regulation_periods:
-        after = (NFL_CONFIG.regulation_periods - period) * NFL_CONFIG.period_seconds
+    if period <= config.regulation_periods:
+        after = (config.regulation_periods - period) * config.period_seconds
         return remaining, remaining + after
     return remaining, remaining
 

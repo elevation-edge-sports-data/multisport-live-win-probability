@@ -1,0 +1,125 @@
+{
+  "header": {
+    "id": "88001",
+    "uid": "s:20~l:23~e:88001",
+    "league": {
+      "id": "23",
+      "uid": "s:20~l:23",
+      "name": "NCAA Football",
+      "abbreviation": "NCAAF",
+      "slug": "college-football"
+    },
+    "competitions": [
+      {
+        "id": "88001",
+        "uid": "s:20~l:23~e:88001",
+        "date": "2026-10-11T19:00:00Z",
+        "competitors": [
+          {
+            "id": "301",
+            "homeAway": "home",
+            "score": "21",
+            "team": {
+              "id": "301",
+              "uid": "s:20~l:23~t:301",
+              "abbreviation": "TEX",
+              "displayName": "TEX"
+            }
+          },
+          {
+            "id": "302",
+            "homeAway": "away",
+            "score": "14",
+            "team": {
+              "id": "302",
+              "uid": "s:20~l:23~t:302",
+              "abbreviation": "OU",
+              "displayName": "OU"
+            }
+          }
+        ],
+        "status": {
+          "displayClock": "0:00",
+          "period": 5,
+          "type": {"state": "post", "name": "STATUS_FINAL", "completed": true}
+        },
+        "odds": [
+          {"homeTeamOdds": {"moneyLine": -150}}
+        ]
+      }
+    ]
+  },
+  "drives": {
+    "previous": [
+      {
+        "id": "d1",
+        "plays": [
+          {
+            "id": "cfp1",
+            "sequenceNumber": "1",
+            "awayScore": 0,
+            "homeScore": 7,
+            "period": {"number": 1},
+            "clock": {"displayValue": "10:00"},
+            "scoringPlay": true,
+            "wallclock": "2026-10-11T19:12:00Z",
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardsToEndzone": 75,
+              "team": {"id": "301"}
+            }
+          },
+          {
+            "id": "cfp2",
+            "sequenceNumber": "2",
+            "awayScore": 7,
+            "homeScore": 7,
+            "period": {"number": 2},
+            "clock": {"displayValue": "8:00"},
+            "scoringPlay": true,
+            "wallclock": "2026-10-11T19:40:00Z",
+            "start": {
+              "down": 2,
+              "distance": 7,
+              "yardsToEndzone": 40,
+              "team": {"id": "302"}
+            }
+          },
+          {
+            "id": "cfp3",
+            "sequenceNumber": "3",
+            "awayScore": 14,
+            "homeScore": 14,
+            "period": {"number": 4},
+            "clock": {"displayValue": "1:00"},
+            "scoringPlay": true,
+            "wallclock": "2026-10-11T21:40:00Z",
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardsToEndzone": 22,
+              "team": {"id": "302"}
+            }
+          },
+          {
+            "id": "cfp4",
+            "sequenceNumber": "4",
+            "awayScore": 14,
+            "homeScore": 21,
+            "period": {"number": 5},
+            "clock": {"displayValue": "12:00"},
+            "scoringPlay": true,
+            "wallclock": "2026-10-11T22:05:00Z",
+            "start": {
+              "down": 1,
+              "distance": 10,
+              "yardsToEndzone": 25,
+              "team": {"id": "301"}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
