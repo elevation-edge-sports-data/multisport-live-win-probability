@@ -23,8 +23,8 @@ NFL_CONFIG = SportConfig(
 # deviation of 16: 2 * (256/54) * 27 = 16**2.
 # ``ot_period_seconds`` is only here because SportConfig requires a positive
 # length. College overtime is not that clock. The model does not read it.
-CFB_CONFIG = SportConfig(
-    sport="cfb",
+NCAAF_CONFIG = SportConfig(
+    sport="ncaaf",
     family="football",
     regulation_periods=4,
     period_seconds=15 * 60,

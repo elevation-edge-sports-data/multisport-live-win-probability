@@ -43,7 +43,7 @@ NFL_PRIMARY: dict[str, str] = {
 # College primaries for the widget demo. Georgia Tech gold is the home
 # color. Colorado is black; a gold accent is not the primary. Unknown
 # abbreviations, including the TEX–OU sample, are omitted.
-CFB_PRIMARY: dict[str, str] = {
+NCAAF_PRIMARY: dict[str, str] = {
     "GT": "#B3A369",
     "COLO": "#000000",
     "CU": "#000000",
@@ -55,6 +55,12 @@ CFB_PRIMARY: dict[str, str] = {
 NHL_PRIMARY: dict[str, str] = {
     "COL": "#6F263D",
     "MIN": "#154734",
+    "EDM": "#FF4C00",
+}
+
+NCAAH_PRIMARY: dict[str, str] = {
+    "DEN": "#8B2332",
+    "MICH": "#FFCB05",
 }
 
 
@@ -63,10 +69,12 @@ def team_color(name: str, sport: str = "nfl") -> str | None:
     if not isinstance(name, str):
         return None
     key = name.strip().upper()
-    if sport == "cfb":
-        return CFB_PRIMARY.get(key)
+    if sport == "ncaaf":
+        return NCAAF_PRIMARY.get(key)
     if sport == "nhl":
         return NHL_PRIMARY.get(key)
+    if sport == "ncaah":
+        return NCAAH_PRIMARY.get(key)
     if sport == "nfl":
         return NFL_PRIMARY.get(key)
     return None

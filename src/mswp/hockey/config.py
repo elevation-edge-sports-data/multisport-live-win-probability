@@ -20,3 +20,14 @@ NHL_CONFIG = SportConfig(
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
 )
+
+NCAAH_CONFIG = SportConfig(
+    sport="ncaah",
+    family="hockey",
+    regulation_periods=3,
+    period_seconds=20 * 60,
+    mean_score_per_team=2.85,
+    score_dispersion=1.0,
+    ot_period_seconds=20 * 60,
+    tie_after_ot=False,
+)

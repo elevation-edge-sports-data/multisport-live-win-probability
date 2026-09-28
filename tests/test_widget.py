@@ -1,4 +1,4 @@
-"""Static widget contract: three sports, two views, no second model."""
+"""Static widget contract: six sports on two levels, two views, no second model."""
 
 from __future__ import annotations
 
@@ -36,7 +36,7 @@ class _Buttons(HTMLParser):
             self._text.append(data)
 
 
-def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
+def test_widget_has_six_sports_on_two_levels_and_two_views():
     html = (WIDGET / "index.html").read_text(encoding="utf-8")
     css = (WIDGET / "widget.css").read_text(encoding="utf-8")
     script = (WIDGET / "widget.js").read_text(encoding="utf-8")
@@ -56,17 +56,20 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
     assert "applyLogo" in script
     assert "img.hidden = true" in script
     assert "frame.home_logo" in script and "frame.away_logo" in script
-    assert 'src="nfl_jax_den.js"' in html
-    assert 'src="cfb_cu_gt.js"' in html
-    assert 'src="nhl_col_min_g5.js"' in html
-    assert 'src="cfb_replay.js"' not in html
+    assert 'src="nfl_nyg_den.js"' in html
+    assert 'src="nhl_edm_col.js"' in html
+    assert 'src="nba_den_lal.js"' in html
+    assert 'src="ncaaf_cu_ttu.js"' in html
+    assert 'src="ncaah_den_mich.js"' in html
+    assert 'src="ncaab_cu_fla.js"' in html
+    assert 'src="ncaaf_replay.js"' not in html
     assert (WIDGET / "nfl_replay.js").is_file()
     assert "Harbor" not in script and "Red Oak" not in script
     assert "frame.home_color" in script or "home_color" in script
     assert "away_color" in script
     assert "--home: #1f8f86" in css
     assert "--away: #c94b32" in css
-    demo = (WIDGET / "nfl_jax_den.js").read_text(encoding="utf-8").lower()
+    demo = (WIDGET / "nfl_nyg_den.js").read_text(encoding="utf-8").lower()
     assert "espn" not in demo
     assert "fetch(" not in demo
     assert "https://" not in demo and "http://" not in demo
@@ -77,10 +80,19 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
     parser.feed(html)
     sports = [item for item in parser.buttons if "sport" in item[0].get("class", "")]
     views = [item for item in parser.buttons if "data-view-choice" in item[0]]
-    assert [text.strip() for _, text in sports] == ["NFL", "CFB", "NHL"]
-    assert "disabled" not in sports[0][0]
-    assert "disabled" not in sports[1][0]
-    assert "disabled" not in sports[2][0]
+    assert [text.strip() for _, text in sports] == [
+        "NFL",
+        "NHL",
+        "NBA",
+        "NCAAF",
+        "NCAAH",
+        "NCAAB",
+    ]
+    assert all("disabled" not in item[0] for item in sports)
+    assert ">Pro<" in html and ">College<" in html
+    assert html.index('id="level-pro"') < html.index('id="sport-nfl"')
+    assert html.index('id="sport-nba"') < html.index('id="level-college"')
+    assert html.index('id="level-college"') < html.index('id="sport-ncaaf"')
     assert [item[0]["data-view-choice"] for item in views] == ["compact", "expanded"]
     assert 'data-view="expanded"' in html
     assert views[0][0].get("aria-pressed") == "false"
@@ -94,11 +106,10 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
     assert "Split colors" not in html and "Large marks" not in html
 
     sport_text = " ".join(text for _, text in sports)
-    assert "NBA" not in sport_text
-    assert "CBB" not in html
+    assert "CFB" not in sport_text and "CBB" not in html
     assert "college hockey" not in (html + css + script).lower()
     assert html.index("title-line") < html.index("data-view-choice") < html.index('class="toolbar"')
-    assert ">V2<" in html
+    assert ">V3<" in html
     assert ">V0<" not in html
     assert 'id="play"' in html
     assert html.index('id="play"') < html.index('id="step-forward"') < html.index('id="step-back"')
@@ -126,19 +137,19 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
     assert "function frameIsOvertime" in script
     assert "Number(frame.period) > 4" in script
     assert '=== "ot"' in script
-    assert 'text: "Q1"' in script and 'text: "Q4"' in script
+    assert '"Q" + (bi + 1)' in script
     assert 'text: "OT"' in script
     assert 'text: "2OT"' not in script
     assert "OT_PANE_FLOOR" in script
     assert "function bandPosition" in script
     assert "function loadSport" in script
-    assert "root.NFL_REPLAY" in script and "root.CFB_REPLAY" in script
-    assert "root.NHL_REPLAY" in script
+    assert "root.NFL_REPLAY" in script and "root.NCAAF_REPLAY" in script
+    assert "root.NHL_REPLAY" in script and "root.NBA_REPLAY" in script
+    assert "root.NCAAH_REPLAY" in script and "root.NCAAB_REPLAY" in script
     assert 'text: "P1"' in script and 'text: "P3"' in script
-    assert 'getElementById("sport-cfb").addEventListener("click"' in script
-    assert 'getElementById("sport-nhl").addEventListener("click"' in script
-    assert 'loadSport("cfb")' in script
-    assert 'loadSport("nhl")' in script
+    for sport in ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"):
+        assert f'getElementById("sport-{sport}").addEventListener("click"' in script
+        assert f'loadSport("{sport}")' in script
     for path in WIDGET.rglob("*"):
         if path.suffix.lower() not in {".html", ".js", ".css"}:
             continue
@@ -148,8 +159,8 @@ def test_widget_has_three_sports_and_two_views_and_no_remote_feed():
         assert "https://" not in text, path.name
         bare = text.replace("http://www.w3.org/2000/svg", "")
         assert "http://" not in bare, path.name
-    cfb_logos = sorted(path.name for path in (WIDGET / "logos" / "cfb").iterdir())
-    assert cfb_logos == ["COLO.png", "GT.png"]
+    ncaaf_logos = sorted(path.name for path in (WIDGET / "logos" / "ncaaf").iterdir())
+    assert ncaaf_logos == ["COLO.png", "GT.png", "TTU.png"]
 
 
 def test_period_bands_put_overtime_in_one_pane_right_of_q4():
@@ -162,12 +173,12 @@ const sandbox = {};
 vm.createContext(sandbox);
 vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
 const bands = sandbox.mswpBands;
-const text = fs.readFileSync("widget/cfb_replay.js", "utf8");
+const text = fs.readFileSync("widget/ncaaf_replay.js", "utf8");
 const frames = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
 const layout = bands.layoutBands(frames);
 const placed = frames.map((frame) => ({
   period: frame.period,
-  x: bands.bandPosition(frame, frames, layout, "cfb")
+  x: bands.bandPosition(frame, frames, layout, "ncaaf")
 }));
 const q4 = placed.filter((row) => row.period === 4).map((row) => row.x);
 const ot = placed.filter((row) => row.period === 5).map((row) => row.x);
@@ -271,13 +282,44 @@ console.log(JSON.stringify({
     assert report["bareOt"] == 0
     assert report["otCount"] == 3
     assert report["otWidth"] >= 0.38
-    assert report["span"] == 3 + report["otWidth"]
+    assert report["span"] < 3 + report["otWidth"]
     assert report["p3"] == 3
     assert report["otStart"] > 3
     assert report["otGoal"] > report["otStart"]
     assert report["finalX"] == report["otGoal"]
-    assert report["finalX"] < report["span"]
+    assert report["finalX"] == report["span"]
     assert report["footballSpan"] == 4
+    ncaah = r"""
+const fs = require("fs");
+const vm = require("vm");
+const sandbox = {};
+vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+const bands = sandbox.mswpBands;
+const text = fs.readFileSync("widget/ncaah_den_mich.js", "utf8");
+const frames = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
+const layout = bands.layoutBands(frames, "ncaah");
+const last = frames[frames.length - 1];
+const finalX = bands.bandPosition(last, frames, layout, "ncaah");
+const goal = frames.filter((frame) => frame.clock === "2OT 7:25")[0];
+console.log(JSON.stringify({
+  span: layout.span,
+  reserved: layout.regulation + layout.otWidth,
+  finalX: finalX,
+  goalX: bands.bandPosition(goal, frames, layout, "ncaah")
+}));
+"""
+    completed = subprocess.run(
+        [node, "-e", ncaah],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    ncaah_report = json.loads(completed.stdout)
+    assert ncaah_report["finalX"] == ncaah_report["span"]
+    assert ncaah_report["goalX"] == ncaah_report["span"]
+    assert ncaah_report["span"] < ncaah_report["reserved"]
     node = shutil.which("node")
     assert node, "node is required to check the chart geometry"
     probe = r"""
@@ -287,7 +329,7 @@ const sandbox = {};
 vm.createContext(sandbox);
 vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
 const bands = sandbox.mswpBands;
-const text = fs.readFileSync("widget/cfb_cu_gt.js", "utf8");
+const text = fs.readFileSync("widget/ncaaf_cu_gt.js", "utf8");
 const frames = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
 const layout = bands.layoutBands(frames);
 const overtime = frames.filter((frame) => bands.frameIsOvertime(frame));

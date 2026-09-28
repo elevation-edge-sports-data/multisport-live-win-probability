@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pytest
 
-from mswp import CFB_CONFIG, NFL_CONFIG, NHL_CONFIG, compute_wp
+from mswp import NCAAF_CONFIG, NFL_CONFIG, NHL_CONFIG, compute_wp
 
 from live_wp.colors import team_color
 from live_wp.feeds.espn import (
@@ -29,7 +29,7 @@ from live_wp.replay import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SNIPPET = ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json"
-CFB_SNIPPET = ROOT / "tests" / "fixtures" / "espn_cfb_summary_snippet.json"
+NCAAF_SNIPPET = ROOT / "tests" / "fixtures" / "espn_ncaaf_summary_snippet.json"
 NHL_SNIPPET = ROOT / "tests" / "fixtures" / "espn_nhl_summary_snippet.json"
 SAMPLE = ROOT / "examples" / "nfl_espn_sample.json"
 HARBOR = ROOT / "examples" / "nfl_sample.json"
@@ -287,15 +287,15 @@ def test_college_football_maps_and_other_leagues_are_refused():
     }
     states = espn_summary_to_states(college)
     assert states
-    assert {state.sport for state in states} == {"cfb"}
-    assert states[0].seconds_remaining_period == CFB_CONFIG.period_seconds
-    assert states[1].seconds_remaining_total == 612 + 3 * CFB_CONFIG.period_seconds
+    assert {state.sport for state in states} == {"ncaaf"}
+    assert states[0].seconds_remaining_period == NCAAF_CONFIG.period_seconds
+    assert states[1].seconds_remaining_total == 612 + 3 * NCAAF_CONFIG.period_seconds
 
     uid_only = _event(uid="s:20~l:23~e:9", team_uid_league="23")
     mapped = espn_scoreboard_event_to_state(uid_only)
-    assert mapped.sport == "cfb"
+    assert mapped.sport == "ncaaf"
     assert mapped.seconds_remaining_period == 6 * 60 + 40
-    assert mapped.seconds_remaining_total == mapped.seconds_remaining_period + 2 * CFB_CONFIG.period_seconds
+    assert mapped.seconds_remaining_total == mapped.seconds_remaining_period + 2 * NCAAF_CONFIG.period_seconds
 
     with pytest.raises(ValueError, match="college football"):
         require_nfl_payload(college)
@@ -507,10 +507,10 @@ def test_jax_at_den_is_the_widget_replay():
     assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
 
 
-def test_colo_at_gt_is_the_cfb_widget_replay():
-    states = load_replay(ROOT / "examples" / "cfb_cu_gt.json")
+def test_colo_at_gt_is_the_ncaaf_widget_replay():
+    states = load_replay(ROOT / "examples" / "ncaaf_cu_gt.json")
     assert len(states) >= 100
-    assert {state.sport for state in states} == {"cfb"}
+    assert {state.sport for state in states} == {"ncaaf"}
     assert {state.home for state in states} == {"GT"}
     assert {state.away for state in states} == {"COLO"}
     assert {state.game_id for state in states} == {"401856776"}
@@ -544,14 +544,14 @@ def test_colo_at_gt_is_the_cfb_widget_replay():
     assert final.status == "final"
     assert final.home_score == 13
     assert final.away_score == 14
-    assert compute_wp(final, final.prior_home, CFB_CONFIG) == 0.0
-    assert team_color("GT", "cfb") == "#B3A369"
-    assert team_color("COLO", "cfb") == "#000000"
-    assert team_color("CU", "cfb") == "#000000"
+    assert compute_wp(final, final.prior_home, NCAAF_CONFIG) == 0.0
+    assert team_color("GT", "ncaaf") == "#B3A369"
+    assert team_color("COLO", "ncaaf") == "#000000"
+    assert team_color("CU", "ncaaf") == "#000000"
 
-    script_path = ROOT / "widget" / "cfb_cu_gt.js"
+    script_path = ROOT / "widget" / "ncaaf_cu_gt.js"
     script = script_path.read_text(encoding="utf-8")
-    assert "window.CFB_REPLAY = " in script
+    assert "window.NCAAF_REPLAY = " in script
     lowered = script.lower()
     assert "espn" not in lowered
     assert "https://" not in script and "http://" not in script
@@ -565,9 +565,9 @@ def test_colo_at_gt_is_the_cfb_widget_replay():
         assert frame["away"] == "COLO"
         assert frame["home_color"] == "#B3A369"
         assert frame["away_color"] == "#000000"
-        assert frame["wp"] == compute_wp(state, state.prior_home, CFB_CONFIG)
-        assert frame["home_logo"] == "logos/cfb/GT.png"
-        assert frame["away_logo"] == "logos/cfb/COLO.png"
+        assert frame["wp"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
+        assert frame["home_logo"] == "logos/ncaaf/GT.png"
+        assert frame["away_logo"] == "logos/ncaaf/COLO.png"
         assert frame["period"] <= 4
     assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
     assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
@@ -575,8 +575,8 @@ def test_colo_at_gt_is_the_cfb_widget_replay():
     assert frames[-1]["home_score"] == 13
     assert frames[-1]["away_score"] == 14
     assert frames[-1]["wp"] == 0.0
-    cfb_logos = ROOT / "widget" / "logos" / "cfb"
-    assert sorted(path.name for path in cfb_logos.iterdir()) == ["COLO.png", "GT.png"]
+    ncaaf_logos = ROOT / "widget" / "logos" / "ncaaf"
+    assert sorted(path.name for path in ncaaf_logos.iterdir()) == ["COLO.png", "GT.png", "TTU.png"]
 
 
 def test_checked_in_sample_matches_the_snippet_and_loads():
@@ -658,33 +658,33 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     assert len(harbor_rendered) == len(harbor_states)
     assert harbor_rendered[-1]["wp"] == 1.0
 
-    ingested_cfb = tmp_path / "cfb.json"
-    completed_cfb = subprocess.run(
+    ingested_ncaaf = tmp_path / "ncaaf.json"
+    completed_ncaaf = subprocess.run(
         [
             sys.executable,
             "-m",
             "live_wp",
             "ingest-espn",
-            str(CFB_SNIPPET),
-            str(ingested_cfb),
+            str(NCAAF_SNIPPET),
+            str(ingested_ncaaf),
         ],
         cwd=ROOT,
         check=True,
         capture_output=True,
         text=True,
     )
-    assert completed_cfb.stdout == ""
-    cfb_states = load_replay(ingested_cfb)
-    assert cfb_states == espn_summary_to_states(json.loads(CFB_SNIPPET.read_text(encoding="utf-8")))
-    assert {state.sport for state in cfb_states} == {"cfb"}
-    overtime = next(state for state in cfb_states if state.period == 5 and state.home_score == 21)
+    assert completed_ncaaf.stdout == ""
+    ncaaf_states = load_replay(ingested_ncaaf)
+    assert ncaaf_states == espn_summary_to_states(json.loads(NCAAF_SNIPPET.read_text(encoding="utf-8")))
+    assert {state.sport for state in ncaaf_states} == {"ncaaf"}
+    overtime = next(state for state in ncaaf_states if state.period == 5 and state.home_score == 21)
     assert overtime.seconds_remaining_period == 12 * 60
     assert all(
         state.seconds_remaining_period != 10 * 60
-        for state in cfb_states
+        for state in ncaaf_states
         if state.period > 4
     )
-    assert compute_wp(cfb_states[-1], cfb_states[-1].prior_home, CFB_CONFIG) == 1.0
+    assert compute_wp(ncaaf_states[-1], ncaaf_states[-1].prior_home, NCAAF_CONFIG) == 1.0
 
 
 def _nhl_summary() -> dict:

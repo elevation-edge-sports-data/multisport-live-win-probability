@@ -1,4 +1,5 @@
-// Displays window.NFL_REPLAY, window.CFB_REPLAY, or window.NHL_REPLAY.
+// Displays window.NFL_REPLAY, window.NHL_REPLAY, window.NBA_REPLAY,
+// window.NCAAF_REPLAY, window.NCAAH_REPLAY, and window.NCAAB_REPLAY.
 // Each value was produced by the Python pack for that sport. This file
 // does not estimate win probability and does not load a remote replay.
 
@@ -8,17 +9,25 @@
   var QUARTER_SECONDS = 900;
   var NFL_OT_SECONDS = 600;
   var HOCKEY_PERIOD_SECONDS = 1200;
+  var NBA_QUARTER_SECONDS = 720;
+  var NBA_OT_SECONDS = 300;
+  var NCAAB_HALF_SECONDS = 1200;
+  var NCAAB_OT_SECONDS = 300;
   // One extra-period snapshot stays thinner than a regulation column.
   // More snapshots widen the single OT pane. 2OT stays inside that pane.
   var OT_PANE_FLOOR = 0.38;
 
   function regulationCount(sport) {
-    return sport === "nhl" ? 3 : 4;
+    if (sport === "nhl" || sport === "ncaah") return 3;
+    if (sport === "ncaab") return 2;
+    return 4;
   }
 
   function frameIsOvertime(frame, sport) {
-    if (sport === "nhl") {
+    if (sport === "nhl" || sport === "ncaah") {
       if (Number(frame.period) > 3) return true;
+    } else if (sport === "ncaab") {
+      if (Number(frame.period) > 2) return true;
     } else if (Number(frame.period) > 4) {
       return true;
     }
@@ -52,12 +61,33 @@
     var typical = used === 0 ? 1 : sum / used;
     var otWidth = 0;
     if (otCount > 0) otWidth = Math.max(OT_PANE_FLOOR, otCount / typical);
-    return {
+    var layout = {
       otCount: otCount,
       otWidth: otWidth,
       span: nReg + otWidth,
       regulation: nReg
     };
+    // A final sudden-death goal ends the period. Do not keep the unused
+    // clock after that goal, or the series stops short of the right edge.
+    if (otWidth > 0 && timedFinalOvertime(rows, sport)) {
+      var maxPos = 0;
+      var j;
+      for (j = 0; j < rows.length; j++) {
+        var pos = bandPosition(rows[j], rows, layout, sport);
+        if (pos > maxPos) maxPos = pos;
+      }
+      if (maxPos > nReg && maxPos < layout.span) layout.span = maxPos;
+    }
+    return layout;
+  }
+
+  function timedFinalOvertime(rows, sport) {
+    if (sport !== "nfl" && sport !== "nhl" && sport !== "ncaah" && sport !== "nba" && sport !== "ncaab") {
+      return false;
+    }
+    if (!rows || !rows.length) return false;
+    var last = rows[rows.length - 1];
+    return String(last.status || "").toLowerCase() === "final" && frameIsOvertime(last, sport);
   }
 
   function otOrdinal(frame, rows) {
@@ -72,15 +102,17 @@
   }
 
   function regulationPosition(frame, sport) {
-    if (sport === "nhl") return hockeyRegulationPosition(frame);
+    if (sport === "nhl" || sport === "ncaah") return hockeyRegulationPosition(frame);
+    var length = sport === "nba" ? NBA_QUARTER_SECONDS : sport === "ncaab" ? NCAAB_HALF_SECONDS : QUARTER_SECONDS;
+    var maxPeriod = sport === "ncaab" ? 2 : 4;
     var period = Number(frame.period);
     if (!(period >= 1)) period = 1;
-    if (period > 4) period = 4;
+    if (period > maxPeriod) period = maxPeriod;
     var remaining = Number(frame.seconds_remaining_period);
-    if (!isFinite(remaining)) remaining = QUARTER_SECONDS;
+    if (!isFinite(remaining)) remaining = length;
     if (remaining < 0) remaining = 0;
-    if (remaining > QUARTER_SECONDS) remaining = QUARTER_SECONDS;
-    return (period - 1) + (QUARTER_SECONDS - remaining) / QUARTER_SECONDS;
+    if (remaining > length) remaining = length;
+    return (period - 1) + (length - remaining) / length;
   }
 
   function hockeyRegulationPosition(frame) {
@@ -121,7 +153,7 @@
     return timedOtFraction(frame, rows, "nfl", NFL_OT_SECONDS);
   }
 
-  function cfbOtFraction(frame, rows, layout) {
+  function ncaafOtFraction(frame, rows, layout) {
     if (layout.otCount <= 1) return 0.5;
     return (otOrdinal(frame, rows) + 1) / (layout.otCount + 1);
   }
@@ -131,9 +163,13 @@
     if (!frameIsOvertime(frame, sport)) return regulationPosition(frame, sport);
     var frac = sport === "nfl"
       ? nflOtFraction(frame, rows)
-      : sport === "nhl"
-        ? timedOtFraction(frame, rows, "nhl", HOCKEY_PERIOD_SECONDS)
-        : cfbOtFraction(frame, rows, layout);
+      : (sport === "nhl" || sport === "ncaah")
+        ? timedOtFraction(frame, rows, sport, HOCKEY_PERIOD_SECONDS)
+        : sport === "nba"
+          ? timedOtFraction(frame, rows, "nba", NBA_OT_SECONDS)
+          : sport === "ncaab"
+            ? timedOtFraction(frame, rows, "ncaab", NCAAB_OT_SECONDS)
+            : ncaafOtFraction(frame, rows, layout);
     return origin + frac * layout.otWidth;
   }
 
@@ -228,7 +264,7 @@
     text("position", frame.clock + " · " + (index + 1) + "/" + frames.length);
 
     text("c-clock", frame.clock);
-    text("c-score", frame.home + " " + frame.home_score + " – " + frame.away + " " + frame.away_score);
+    text("c-score", frame.away + " " + frame.away_score + " – " + frame.home + " " + frame.home_score);
     text("c-wp", homePct + "%");
     paintTicker(frame);
     applyLogo("c-home-logo", frame.home_logo);
@@ -300,7 +336,7 @@
   }
 
   function markSport(selectedId) {
-    ["sport-nfl", "sport-cfb", "sport-nhl"].forEach(function (id) {
+    ["sport-nfl", "sport-ncaaf", "sport-nhl", "sport-ncaah", "sport-nba", "sport-ncaab"].forEach(function (id) {
       var button = document.getElementById(id);
       if (!button) return;
       var on = id === selectedId;
@@ -311,8 +347,11 @@
   }
 
   function framesFor(next) {
-    if (next === "cfb") return root.CFB_REPLAY;
+    if (next === "ncaaf") return root.NCAAF_REPLAY;
     if (next === "nhl") return root.NHL_REPLAY;
+    if (next === "ncaah") return root.NCAAH_REPLAY;
+    if (next === "nba") return root.NBA_REPLAY;
+    if (next === "ncaab") return root.NCAAB_REPLAY;
     return root.NFL_REPLAY;
   }
 
@@ -376,12 +415,24 @@
     loadSport("nfl");
   });
 
-  document.getElementById("sport-cfb").addEventListener("click", function () {
-    loadSport("cfb");
+  document.getElementById("sport-ncaaf").addEventListener("click", function () {
+    loadSport("ncaaf");
   });
 
   document.getElementById("sport-nhl").addEventListener("click", function () {
     loadSport("nhl");
+  });
+
+  document.getElementById("sport-ncaah").addEventListener("click", function () {
+    loadSport("ncaah");
+  });
+
+  document.getElementById("sport-nba").addEventListener("click", function () {
+    loadSport("nba");
+  });
+
+  document.getElementById("sport-ncaab").addEventListener("click", function () {
+    loadSport("ncaab");
   });
 
   function cssVar(name) {
@@ -487,13 +538,16 @@
   }
 
   function drawBands(svg, layout, muted) {
-    if (sportName === "nhl") {
+    if (sportName === "nhl" || sportName === "ncaah") {
       drawHockeyBands(svg, layout, muted);
       return;
     }
     var span = layout.span;
-    var edges = [1, 2, 3];
-    if (layout.otWidth > 0) edges.push(4);
+    var nReg = layout.regulation || 4;
+    var edges = [];
+    var bi;
+    for (bi = 1; bi < nReg; bi++) edges.push(bi);
+    if (layout.otWidth > 0) edges.push(nReg);
     edges.forEach(function (at) {
       var x = xAt(at, span);
       svg.appendChild(svgEl("line", {
@@ -505,17 +559,19 @@
         "stroke-width": "1",
         "stroke-dasharray": "2 3",
         "data-series": "period-rail",
-        "data-band": at === 4 ? "OT" : "Q" + at
+        "data-band": at === nReg ? "OT" : (sportName === "ncaab" ? "H" + at : "Q" + at)
       }));
     });
-    var labels = [
-      { at: 0.5, text: "Q1" },
-      { at: 1.5, text: "Q2" },
-      { at: 2.5, text: "Q3" },
-      { at: 3.5, text: "Q4" }
-    ];
+    var labels = [];
+    for (bi = 0; bi < nReg; bi++) {
+      labels.push({
+        at: bi + 0.5,
+        text: sportName === "ncaab" ? "H" + (bi + 1) : "Q" + (bi + 1)
+      });
+    }
     if (layout.otWidth > 0) {
-      labels.push({ at: 4 + layout.otWidth / 2, text: "OT" });
+      var otEnd = Math.min(nReg + layout.otWidth, layout.span);
+      labels.push({ at: nReg + (otEnd - nReg) / 2, text: "OT" });
     }
     labels.forEach(function (item) {
       var caption = svgEl("text", {
@@ -557,7 +613,8 @@
       { at: 2.5, text: "P3" }
     ];
     if (layout.otWidth > 0) {
-      labels.push({ at: 3 + layout.otWidth / 2, text: "OT" });
+      var otEnd = Math.min(3 + layout.otWidth, layout.span);
+      labels.push({ at: 3 + (otEnd - 3) / 2, text: "OT" });
     }
     labels.forEach(function (item) {
       var caption = svgEl("text", {
@@ -575,9 +632,12 @@
     });
   }
 
-  function drawLegendName(svg, x, y, color, name, series, detail) {
+  function drawLegendName(svg, x, y, color, name, series, detail, anchor) {
+    var align = anchor || "start";
+    var swatchX = align === "end" ? x - 8 : x;
+    var textX = align === "end" ? x - 12 : x + 12;
     svg.appendChild(svgEl("rect", {
-      x: String(x),
+      x: String(swatchX),
       y: String(y - 8),
       width: "8",
       height: "8",
@@ -586,12 +646,12 @@
       "data-series": series + "-swatch"
     }));
     var caption = svgEl("text", {
-      x: String(x + 12),
+      x: String(textX),
       y: String(y),
       fill: cssVar("--ink"),
       "font-size": "11",
       "font-family": "Segoe UI, Helvetica Neue, sans-serif",
-      "text-anchor": "start",
+      "text-anchor": align,
       "data-series": series
     });
     caption.textContent = detail ? name + "  " + detail : name;
@@ -622,7 +682,7 @@
     var currentFrame = shown[shown.length - 1];
     playhead(svg, xOf(currentFrame), gold);
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", String(currentFrame.away_score));
-    drawLegendName(svg, plot.left + 6, plot.top + 32, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score));
+    drawLegendName(svg, plot.width - plot.right - 6, plot.top + 14, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score), "end");
   }
 
   function stepSeries(svg, shown, xOf, scoreMax, field, series, color) {
@@ -702,7 +762,7 @@
     var currentFrame = shown[shown.length - 1];
     playhead(svg, current.x, gold);
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", formatAwayPercent(currentFrame) + "%");
-    drawLegendName(svg, plot.left + 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%");
+    drawLegendName(svg, plot.width - plot.right - 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%", "end");
   }
 
   writePrior();

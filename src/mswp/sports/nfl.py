@@ -1,6 +1,6 @@
 """NFL entry point for the football pack.
 
-College football is ``CfbModel`` beside this module: another config of the
+College football is ``NcaafModel`` beside this module: another config of the
 same pack, not a copy of this file.
 """
 

@@ -12,6 +12,7 @@ import math
 from statistics import NormalDist
 
 from mswp.config import SportConfig
+from mswp.hockey.strength import rate_multipliers
 from mswp.state import GameState
 
 _NORMAL = NormalDist()
@@ -44,11 +45,14 @@ def hockey_win_probability(
 ) -> float:
     """Unclipped home win probability. ``compute_wp`` applies the clip.
 
-    ``state.strength`` and ``state.extra_attacker`` are ignored.
+    Missing strength is 5-on-5. Power play and empty net scale the rates.
     """
     if config.family != "hockey":
         raise ValueError(f"hockey model cannot use family {config.family!r}")
     rate_home, rate_away = team_goals_per_second(prior, config)
+    home_mult, away_mult = rate_multipliers(state)
+    rate_home *= home_mult
+    rate_away *= away_mult
     margin = state.home_score - state.away_score
     if state.status == "final":
         return _score_decided(margin)

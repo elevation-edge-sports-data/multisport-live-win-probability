@@ -12,17 +12,30 @@
       <p class="brand">ELEVATION EDGE SPORTS DATA</p>
       <div class="title-line">
         <h1>MULTISPORT LIVE WIN PROBABILITY</h1>
-        <p class="badge">V2</p>
+        <p class="badge">V3</p>
         <div class="views" role="group" aria-label="View">
           <button type="button" class="view" data-view-choice="compact" aria-pressed="false">Compact</button>
           <button type="button" class="view" data-view-choice="expanded" aria-pressed="true">Expanded</button>
         </div>
       </div>
       <div class="toolbar">
-        <div class="sports" role="group" aria-label="Sport">
-          <button type="button" class="sport is-selected" id="sport-nfl" aria-pressed="true">NFL</button>
-          <button type="button" class="sport" id="sport-cfb" aria-pressed="false">CFB</button>
-          <button type="button" class="sport" id="sport-nhl" aria-pressed="false">NHL</button>
+        <div class="levels">
+          <div class="level">
+            <p class="level-label" id="level-pro">Pro</p>
+            <div class="sports" role="group" aria-labelledby="level-pro">
+              <button type="button" class="sport is-selected" id="sport-nfl" aria-pressed="true">NFL</button>
+              <button type="button" class="sport" id="sport-nhl" aria-pressed="false">NHL</button>
+              <button type="button" class="sport" id="sport-nba" aria-pressed="false">NBA</button>
+            </div>
+          </div>
+          <div class="level">
+            <p class="level-label" id="level-college">College</p>
+            <div class="sports" role="group" aria-labelledby="level-college">
+              <button type="button" class="sport" id="sport-ncaaf" aria-pressed="false">NCAAF</button>
+              <button type="button" class="sport" id="sport-ncaah" aria-pressed="false">NCAAH</button>
+              <button type="button" class="sport" id="sport-ncaab" aria-pressed="false">NCAAB</button>
+            </div>
+          </div>
         </div>
       </div>
     </header>
@@ -31,15 +44,15 @@
       <article class="panel compact">
         <div class="ticker">
           <div class="ticker-field" aria-hidden="true">
-            <span class="home-fill" id="c-home-bar"></span>
             <span class="away-fill" id="c-away-bar"></span>
+            <span class="home-fill" id="c-home-bar"></span>
           </div>
           <p class="ticker-copy">
             <span id="c-clock"></span>
             <span class="ticker-score">
-              <img class="logo" id="c-home-logo" alt="" hidden>
-              <span id="c-score"></span>
               <img class="logo" id="c-away-logo" alt="" hidden>
+              <span id="c-score"></span>
+              <img class="logo" id="c-home-logo" alt="" hidden>
             </span>
             <span id="c-wp"></span>
           </p>
@@ -49,21 +62,21 @@
       <article class="panel expanded">
         <p class="expanded-clock" id="e-clock"></p>
         <div class="marks">
-          <div class="mark home-mark">
-            <p class="big"><span id="e-home-pct"></span><span class="unit">%</span></p>
-            <p class="team-line">
-              <img class="logo" id="e-home-logo" alt="" hidden>
-              <span class="team" id="e-home-name"></span>
-            </p>
-            <p class="points" id="e-home-score"></p>
-          </div>
           <div class="mark away-mark">
             <p class="big"><span id="e-away-pct"></span><span class="unit">%</span></p>
             <p class="team-line">
-              <span class="team" id="e-away-name"></span>
               <img class="logo" id="e-away-logo" alt="" hidden>
+              <span class="team" id="e-away-name"></span>
             </p>
             <p class="points" id="e-away-score"></p>
+          </div>
+          <div class="mark home-mark">
+            <p class="big"><span id="e-home-pct"></span><span class="unit">%</span></p>
+            <p class="team-line">
+              <span class="team" id="e-home-name"></span>
+              <img class="logo" id="e-home-logo" alt="" hidden>
+            </p>
+            <p class="points" id="e-home-score"></p>
           </div>
         </div>
       </article>
@@ -96,9 +109,12 @@
       Unofficial project from Elevation Edge Sports Data. Not affiliated with the NFL, NHL, NBA, or NCAA.
     </footer>
   </main>
-  <script src="nfl_jax_den.js"></script>
-  <script src="cfb_cu_gt.js"></script>
-  <script src="nhl_col_min_g5.js"></script>
+  <script src="nfl_nyg_den.js"></script>
+  <script src="ncaaf_cu_ttu.js"></script>
+  <script src="nhl_edm_col.js"></script>
+  <script src="ncaah_den_mich.js"></script>
+  <script src="nba_den_lal.js"></script>
+  <script src="ncaab_cu_fla.js"></script>
   <script src="widget.js"></script>
 </body>
 </html>

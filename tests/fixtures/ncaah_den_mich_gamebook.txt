@@ -1,0 +1,504 @@
+                                                Denver (28-11-3) -vs- Michigan (31-8-1)
+                                                   04/09/2026 at Las Vegas, Nevada
+
+Date: 04/09/2026                                                       Goals By Period                1      2       3   OT 1    OT 2 Total
+Start: 05:45 PM                                                        Denver                         1      1       1      0       1    4
+Time: 0
+Attendance: 17,942                                                     Michigan                       2      0       1      0       0    3
+Location: Las Vegas, Nevada
+                                                                      DEN: Ashcroft, Cale (1); Chyzowski, Kyle (1); Anderson, Kent (1);
+Officials: Referee: Jeremy Tufts; Referee: Steven Rouillard;
+                                                                      Caswell, Clarke (1)
+Linesman: Shane Kanaly; Linesman: James McQuesten
+                                                                      MIC: Eernisse, Josh (1); Hughes, T.J. (1); Perron, Jayden (1)
+
+
+Scoring Summary
+
+Period   Time      Team     Scored By                           Assisted By                                     Type            DEN     MIC
+ 1st     09:29      DEN     Chyzowski, Kyle                     McMorrow, Brendan, Cebrian, Kieran             EV, FG            1       0
+ 1st     16:18      MIC     Eernisse, Josh                      Draper, Kienan                                   EV              1       1
+ 1st     17:17      MIC     Hughes, T.J.                        Valentini, Adam, Hage, Michael                   EV              1       2
+ 2nd     02:30      DEN     Ashcroft, Cale                      Harris, Sam, Caswell, Clarke                     EV              2       2
+ 3rd     11:02      MIC     Perron, Jayden                      Horcoff, Will, Spence, Malcolm                   PP              2       3
+ 3rd     17:14      DEN     Caswell, Clarke                     Brown, Garrett, Epperson, Kristian               EV              3       3
+ OT      12:35      DEN     Anderson, Kent                      Epperson, Kristian, Jamieson, Eric         EV, OT, SD, GW        4       3
+
+                          Denver Power Plays                                                Michigan Power Plays
+
+
+  Prd      Start     End    Elapsed     Shots    Opp-Shots     PPG       Prd    Start     End    Elapsed    Shots     Opp-Shots         PPG
+  1st      06:43    08:43    02:00        1          0          --       3rd    10:14    11:02    00:48       1           0             PPG
+  2nd      00:19    02:19    02:00        2          0          --       4th    19:34    00:29    00:55       1           0              --
+  3rd      00:24    02:24    02:00        2          0          --                                01:43       2           0             1/2
+  3rd      05:04    07:04    02:00        0          0          --
+  4th      17:34    18:29    00:55        0          0          --
+                             08:55        5          0         0/5
+
+
+Penalty Summary
+
+Period     Team     Player                                            MIN Offense                                    Type       Time     PP
+ 1st        MIC     Duke, Tyler                                      02:00 Holding                                  MINOR       06:43    PP
+ 2nd        MIC     Duke, Tyler                                      02:00 High Sticking                            MINOR       00:19    PP
+ 3rd        MIC     Duke, Tyler                                      02:00 Tripping                                 MINOR       00:24    PP
+ 3rd        MIC     Schifsky, Garrett                                02:00 Boarding                                 MINOR       05:04    PP
+ 3rd        DEN     Jamieson, Eric                                   02:00 Cross Checking                           MINOR       10:14    PP
+ 4th        MIC     Horcoff, Will                                    02:00 Slashing                                 MINOR       17:34    PP
+ 4th        DEN     Harris, Sam                                      02:00 Tripping                                 MINOR       18:29    PP
+                                      Individual
+Denver 4
+
+ Pos    #    Player                   G   A    1   2   3   4   5   Total   +/-     FO    Pen   BLK
+        2    Pitner, Tory             0   0    0   0   0   0   0     0      0       -     -     0
+        3    Ashcroft, Cale           1   0    0   1   0   0   0     1      2       -     -     0
+        5    Brown, Garrett           0   1    0   0   0   0   0     0      2       -     -     2
+        6    Whipple, Alec            0   0    0   0   0   0   0     0      0       -     -     0
+        8    Epperson, Kristian       0   2    0   0   0   0   1     1      3       -     -     2
+        9    Buckberger, Boston       0   0    2   0   0   1   0     3     -1       -     -     2
+       10    Milburn, Brady           0   0    0   0   0   0   0     0      0       -     -     0
+       11    Salminen, Samu           0   0    2   0   0   1   0     3     -1    15-22    -     0
+       12    Harris, Sam              0   1    2   0   2   0   0     4      2      0-1   1-2    2
+       13    Burrows, Hagen           0   0    0   0   0   0   0     0      0       -     -     2
+       14    Lorenz, Rieger           0   0    0   0   0   0   0     0      0       -     -     1
+       15    Jamieson, Eric           0   1    0   0   0   1   0     1      0       -    1-2    0
+       16    Chyzowski, Kyle          1   0    2   0   0   0   0     2      1       -     -     1
+       17    LaJoy, Peter             0   0    0   0   0   0   0     0      0       -     -     0
+       18    Nelson, Payton           0   0    0   0   0   0   0     0      0       -     -     0
+       19    Fisher, Jake             0   0    0   0   0   0   0     0      0     6-12    -     0
+       21    Anderson, Kent           1   0    0   0   0   0   1     1      1       -     -     1
+       22    McMorrow, Brendan        0   1    0   1   0   1   0     2      1       -     -     0
+       23    Pohlkamp, Eric           0   0    2   1   0   0   0     3     -1       -     -     1
+       24    Cebrian, Kieran          0   1    0   1   0   0   1     2      1    11-30    -     1
+       25    Caswell, Clarke          1   1    0   0   1   0   0     1      2    13-27    -     0
+       27    Reeder, James            0   0    0   1   0   1   0     2     -1       -     -     3
+       28    Varkonyi, Reid           0   0    0   0   0   0   0     0     -1       -     -     0
+       29    Miller, Quentin          0   0    0   0   0   0   0     0      0       -     -     0
+       30    Geisel, Paxton           0   0    0   0   0   0   0     0      0       -     -     0
+       31    Hicks, Johnny            0   0    0   0   0   0   0     0      0       -     -     0
+       TM    TEAM                     0   0    0   0   0   0   0     0      0       -     -     0
+             Totals                   4   8   10   5   3   5   3    26     10    45-92   2-4   18
+
+
+Michigan 3
+
+ Pos   #     Player                   G   A    1   2   3   4   5   Total   +/-     FO    Pen   BLK
+        3    Hady, Hunter             0   0    0   0   0   0   0     0      0       -     -     0
+        4    Barnett, Asher           0   0    1   0   0   1   0     2     -2       -     -     1
+        5    Duke, Tyler              0   0    1   0   0   0   0     1     -2       -    3-6    3
+        6    Eernisse, Josh           1   0    1   0   0   0   0     1      0       -     -     0
+        7    Rheaume-Mullen, Dakoda   0   0    0   0   1   0   2     3      0       -     -     0
+        9    Moldenhauer, Nick        0   0    0   3   0   0   1     4     -1       -     -     2
+       10    Schock, Drew             0   0    0   1   1   0   1     3      1       -     -     0
+       11    McKinney, Cole           0   0    0   2   0   1   1     4     -1    18-27    -     0
+       13    Hughes, T.J.             1   0    2   1   1   0   0     4     -1    17-34    -     3
+       16    Park, Aidan              0   0    0   1   0   0   0     1      0       -     -     0
+       17    Schifsky, Garrett        0   0    1   0   1   2   1     5      1       -    1-2    2
+       18    Perron, Jayden           1   0    0   0   1   1   3     5     -3       -     -     0
+       19    Hage, Michael            0   1    0   0   1   1   0     2      1      3-7    -     1
+       21    Robertson, Ben           0   0    0   1   0   0   1     2      0       -     -     1
+       22    Muscutt, Kason           0   0    0   0   0   0   1     1      0      3-5    -     3
+       23    Gust, Miles              0   0    0   0   0   0   0     0      0       -     -     0
+       27    Spence, Malcolm          0   1    0   1   1   1   0     3     -1       -     -     1
+       30    Neuhardt, Grant          0   0    0   0   0   0   0     0      0       -     -     0
+       31    Peck, Stephen            0   0    0   0   0   0   0     0      0       -     -     0
+       33    Draper, Kienan           0   1    0   0   2   1   1     4      1     5-16    -     0
+       34    Molinaro, Julian         0   0    0   0   0   0   0     0      0       -     -     0
+       44    Horcoff, Will            0   1    1   2   0   0   0     3      0      0-2   1-2    0
+       63    Fantilli, Luca           0   0    0   0   0   0   1     1     -2       -     -     1
+       68    Orrico, Josh             0   0    0   0   0   0   0     0      0       -     -     0
+       72    Ivankovic, Jack          0   0    0   0   0   0   0     0      0       -     -     0
+       88   Mews, Henry                                         0        0     0     0     0       0       0      0       0       -           -         0
+       92   Valentini, Adam                                     0        1     2     1     0       0       0      3       -1      -           -         0
+       93   Mania, Matthew                                      0        0     0     0     0       0       0      0       0       -           -         0
+       TM   TEAM                                                0        0     0     0     0       0       0      0       0       -           -         0
+            Totals                                              3        5     9    13     9       8      13     52      -10    47-92       5-10       18
+
+                        Denver Goalkeeping                                                             Michigan Goalkeeping
+
+Denver Goalkeeping                                                           Michigan Goalkeeping
+
+                          De         G   E                      Tota                                       De         G     E                          Tota
+# Player                   c Mins    A   N      1 2 3    4 5      l          # Player                       c Mins    A     N   1   2   3    4     5     l
+31 Hicks, Johnny          W 92:35    3   0      7 13 8   8 13    49          72 Ivankovic, Jack             L 92:35   4     0   9   4   2    5     2    22
+29 Miller, Quentin           00:00   0   0      0 0 0    0 0      0          30 Neuhardt, Grant               00:00   0     0   0   0   0    0     0     0
+30 Geisel, Paxton            00:00   0   0      0 0 0    0 0      0          31 Peck, Stephen                 00:00   0     0   0   0   0    0     0     0
+ T                                                                           34 Molinaro, Julian              00:00   0     0   0   0   0    0     0     0
+M TEAM                        00:00 0       0   0 0 0    0 0         0        T
+   Totals                           3       0   7 13 8   8 13       49       M TEAM                            00:00 0      0   0   0   0    0     0    0
+                                                                                Totals                               4      0   9   4   2    5     2   22
+
+
+                          Denver Faceoffs                                                               Michigan Faceoffs
+
+
+ #    Player                                             W       L            #    Player                                                    W          L
+ 11   Salminen, Samu                                     15     7             11   McKinney, Cole                                            18         9
+ 25   Caswell, Clarke                                    13     14            13   Hughes, T.J.                                              17        17
+ 24   Cebrian, Kieran                                    11     19            33   Draper, Kienan                                            5         11
+ 19   Fisher, Jake                                        6     6             19   Hage, Michael                                             3          4
+ 12   Harris, Sam                                         0     1             22   Muscutt, Kason                                            3          2
+      Totals                                             45     47            6    Eernisse, Josh                                            1          0
+                                                                              44   Horcoff, Will                                             0          2
+                                                                                   Totals                                                    47        45
+                                                            Play By Play
+
+Score PP      Play
+
+                                                                   Period #1 Plays
+
+0-0          [00:00] Hicks, Johnny at goalie for DEN.
+0-0          [00:00] Ivankovic, Jack at goalie for MIC.
+0-0          [00:00] Start of 1st period.
+0-0          [00:00] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+0-0          [00:18] Shot by DEN Buckberger, Boston MISSED, save Ivankovic, Jack.
+0-0          [00:25] Shot by DEN Chyzowski, Kyle MISSED, save Ivankovic, Jack.
+0-0          [00:25] Faceoff Salminen, Samu vs Draper, Kienan won by DEN.
+0-0          [00:37] Shot by MIC Schifsky, Garrett MISSED, save Hicks, Johnny.
+0-0          [00:37] Faceoff Salminen, Samu vs Draper, Kienan won by DEN.
+0-0          [00:59] Shot by DEN Salminen, Samu MISSED, save Ivankovic, Jack.
+0-0          [01:01] Shot by DEN Salminen, Samu MISSED, save Ivankovic, Jack.
+0-0          [01:01] Faceoff Fisher, Jake vs McKinney, Cole won by MIC.
+0-0          [01:34] Shot by MIC Rheaume-Mullen, Dakoda BLOCKED by Burrows, Hagen.
+0-0          [01:52] Shot by MIC Rheaume-Mullen, Dakoda WIDE.
+0-0          [02:02] Shot by MIC Valentini, Adam MISSED, save Hicks, Johnny.
+0-0          [02:02] Faceoff Caswell, Clarke vs Hughes, T.J. won by MIC.
+0-0          [02:16] Shot by MIC Hughes, T.J. MISSED, save Hicks, Johnny.
+0-0          [02:29] Shot by DEN Harris, Sam MISSED, save Ivankovic, Jack.
+0-0          [02:34] Shot by DEN Harris, Sam WIDE.
+0-0          [02:40] Shot by DEN Buckberger, Boston BLOCKED by Spence, Malcolm.
+0-0          [02:42] Shot by DEN Harris, Sam MISSED, save Ivankovic, Jack.
+0-0          [02:42] Faceoff Cebrian, Kieran vs Draper, Kienan won by MIC.
+0-0          [03:22] Shot by MIC Fantilli, Luca WIDE.
+0-0          [04:46] Shot by DEN Buckberger, Boston MISSED, save Ivankovic, Jack.
+0-0          [04:46] Faceoff Caswell, Clarke vs Hughes, T.J. won by MIC.
+0-0          [05:40] Shot by MIC Valentini, Adam MISSED, save Hicks, Johnny.
+0-0          [05:40] Timeout Media.
+0-0          [05:40] Faceoff Cebrian, Kieran vs Hage, Michael won by MIC.
+0-0          [05:46] Shot by MIC Robertson, Ben WIDE.
+0-0          [06:25] Shot by MIC Hughes, T.J. WIDE.
+0-0          [06:43] Penalty on Duke, Tyler MIC 2 minutes for Holding.
+0-0   PP DEN [06:43] Start power play for DEN.
+0-0   PP DEN [06:43] Faceoff Caswell, Clarke vs McKinney, Cole won by DEN.
+0-0   PP DEN [06:58] Shot by DEN Pohlkamp, Eric MISSED, save Ivankovic, Jack.
+0-0   PP DEN [08:43] Duke, Tyler (MIC) penalty complete.
+0-0   PP DEN [08:43] End power play for DEN.
+             [09:29] GOAL by Denver Chyzowski, Kyle (EVEN STRENGTH, FIRST GOAL), Assist by McMorrow, Brendan and Cebrian,
+             Kieran, On ice for DEN: Chyzowski, Kyle; Brown, Garrett; Ashcroft, Cale; McMorrow, Brendan; Cebrian, Kieran, On ice for
+0-0          MIC: Hughes, T.J.; Spence, Malcolm; Barnett, Asher; Fantilli, Luca; Perron, Jayden, goal number 12 for season.
+              Denver 1, Michigan 0
+1-0           [09:29] Faceoff Caswell, Clarke vs Hage, Michael won by DEN.
+1-0           [09:41] Faceoff Caswell, Clarke vs Horcoff, Will won by DEN.
+1-0           [10:44] Shot by DEN Lorenz, Rieger BLOCKED by Muscutt, Kason.
+1-0           [11:22] Shot by DEN Reeder, James BLOCKED by Muscutt, Kason.
+1-0           [11:57] Faceoff Fisher, Jake vs McKinney, Cole won by MIC.
+1-0           [12:52] Shot by DEN Pohlkamp, Eric MISSED, save Ivankovic, Jack.
+1-0           [13:30] Shot by DEN Buckberger, Boston WIDE.
+1-0           [13:30] Timeout Media.
+1-0           [13:30] Faceoff Salminen, Samu vs McKinney, Cole won by MIC.
+1-0           [14:37] Shot by DEN Varkonyi, Reid WIDE.
+1-0           [14:41] Shot by DEN Fisher, Jake BLOCKED by Duke, Tyler.
+1-0           [15:14] Shot by MIC Barnett, Asher MISSED, save Hicks, Johnny.
+1-0           [15:49] Timeout Media.
+1-0           [15:49] Faceoff Cebrian, Kieran vs Horcoff, Will won by DEN.
+1-0           [16:06] Shot by MIC Duke, Tyler MISSED, save Hicks, Johnny.
+1-0           [16:06] Faceoff Salminen, Samu vs Draper, Kienan won by DEN.
+1-0           [16:14] Faceoff Salminen, Samu vs Draper, Kienan won by MIC.
+              [16:18] GOAL by Michigan Eernisse, Josh (EVEN STRENGTH), Assist by Draper, Kienan and , , On ice for MIC: Eernisse, Josh;
+              Schifsky, Garrett; Draper, Kienan; Robertson, Ben; Schock, Drew, On ice for DEN: Lorenz, Rieger; Pohlkamp, Eric; Reeder,
+1-0           James; Salminen, Samu; Jamieson, Eric, goal number 11 for season.
+              Denver 1, Michigan 1
+1-1           [16:18] Faceoff Harris, Sam vs McKinney, Cole won by MIC.
+1-1           [16:36] Shot by MIC Horcoff, Will MISSED, save Hicks, Johnny.
+1-1           [17:14] Shot by MIC Hughes, T.J. BLOCKED by Harris, Sam.
+1-1           [17:16] Shot by MIC Hughes, T.J. WIDE.
+              [17:17] GOAL by Michigan Hughes, T.J. (EVEN STRENGTH), Assist by Valentini, Adam and Hage, Michael, On ice for MIC:
+              Hughes, T.J.; Hage, Michael; Valentini, Adam; Barnett, Asher; Rheaume-Mullen, Dakoda, On ice for DEN: Buckberger,
+1-1           Boston; Caswell, Clarke; Varkonyi, Reid; Ashcroft, Cale; Brown, Garrett, goal number 22 for season.
+              Denver 1, Michigan 2
+1-2           [17:17] Faceoff Fisher, Jake vs Muscutt, Kason won by MIC.
+1-2           [18:18] Shot by DEN Pohlkamp, Eric WIDE.
+1-2           [20:00] End of period.
+
+                                                                     Period #2 Plays
+
+1-2          [00:00] Start of 2nd period.
+1-2          [00:00] Faceoff Cebrian, Kieran vs Draper, Kienan won by DEN.
+1-2          [00:19] Penalty on Duke, Tyler MIC 2 minutes for HighSticking.
+1-2   PP DEN [00:19] Start power play for DEN.
+1-2   PP DEN [00:19] Faceoff Caswell, Clarke vs McKinney, Cole won by MIC.
+1-2   PP DEN [00:25] Faceoff Caswell, Clarke vs McKinney, Cole won by DEN.
+1-2   PP DEN [00:33] Shot by DEN Pohlkamp, Eric WIDE.
+1-2   PP DEN [00:59] Shot by DEN Pohlkamp, Eric MISSED, save Ivankovic, Jack.
+1-2   PP DEN [00:59] Faceoff Salminen, Samu vs Draper, Kienan won by DEN.
+1-2   PP DEN [01:23] Shot by DEN Lorenz, Rieger BLOCKED by Schifsky, Garrett.
+1-2   PP DEN [02:02] Shot by DEN Reeder, James MISSED, save Ivankovic, Jack.
+1-2   PP DEN [02:19] Duke, Tyler (MIC) penalty complete.
+1-2   PP DEN [02:19] End power play for DEN.
+1-2          [02:22] Shot by MIC Moldenhauer, Nick MISSED, save Hicks, Johnny.
+             [02:30] GOAL by Denver Ashcroft, Cale (EVEN STRENGTH), Assist by Harris, Sam and Caswell, Clarke, On ice for DEN:
+             Ashcroft, Cale; Brown, Garrett; Epperson, Kristian; Harris, Sam; Caswell, Clarke, On ice for MIC: Duke, Tyler; Eernisse, Josh;
+1-2          Moldenhauer, Nick; Barnett, Asher; Rheaume-Mullen, Dakoda, goal number 3 for season.
+              Denver 2, Michigan 2
+2-2           [02:30] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+2-2           [03:28] Shot by MIC McKinney, Cole MISSED, save Hicks, Johnny.
+2-2           [03:28] Faceoff Fisher, Jake vs McKinney, Cole won by DEN.
+2-2           [03:47] Faceoff Salminen, Samu vs Muscutt, Kason won by DEN.
+2-2           [04:05] Shot by MIC Moldenhauer, Nick WIDE.
+2-2           [04:18] Shot by MIC Valentini, Adam MISSED, save Hicks, Johnny.
+2-2           [04:18] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+2-2           [04:46] Shot by DEN Jamieson, Eric WIDE.
+2-2           [04:46] Faceoff Salminen, Samu vs Draper, Kienan won by DEN.
+2-2           [05:09] Shot by MIC Schifsky, Garrett WIDE.
+2-2           [05:26] Shot by DEN Lorenz, Rieger WIDE.
+2-2           [05:42] Shot by MIC Horcoff, Will MISSED, save Hicks, Johnny.
+2-2           [06:05] Shot by MIC McKinney, Cole BLOCKED by Anderson, Kent.
+2-2           [06:17] Shot by MIC McKinney, Cole MISSED, save Hicks, Johnny.
+2-2           [06:20] Shot by MIC Park, Aidan MISSED, save Hicks, Johnny.
+2-2           [06:22] Faceoff Caswell, Clarke vs Hughes, T.J. won by DEN.
+2-2           [06:28] Faceoff Caswell, Clarke vs Hughes, T.J. won by MIC.
+2-2           [06:44] Faceoff Caswell, Clarke vs Muscutt, Kason won by MIC.
+2-2           [07:12] Shot by MIC Barnett, Asher BLOCKED by Epperson, Kristian.
+2-2           [07:18] Faceoff Fisher, Jake vs Hage, Michael won by MIC.
+2-2           [08:10] Shot by DEN Chyzowski, Kyle WIDE.
+2-2           [08:10] Timeout Media.
+2-2           [08:10] Faceoff Salminen, Samu vs McKinney, Cole won by DEN.
+2-2           [08:43] Shot by MIC Schock, Drew WIDE.
+2-2           [10:06] Shot by MIC Hughes, T.J. BLOCKED by Buckberger, Boston.
+2-2           [10:11] Shot by MIC Hughes, T.J. MISSED, save Hicks, Johnny.
+2-2           [10:12] Shot by MIC Moldenhauer, Nick MISSED, save Hicks, Johnny.
+2-2           [10:12] Timeout Media.
+2-2           [10:12] Faceoff Fisher, Jake vs Hughes, T.J. won by DEN.
+2-2          [10:18] Faceoff Fisher, Jake vs Hughes, T.J. won by DEN.
+2-2          [10:42] Shot by MIC Moldenhauer, Nick MISSED, save Hicks, Johnny.
+2-2          [10:45] Shot by MIC Hughes, T.J. WIDE.
+2-2          [11:06] Shot by MIC Hughes, T.J. BLOCKED by Burrows, Hagen.
+2-2          [11:06] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+2-2          [11:11] Shot by MIC Rheaume-Mullen, Dakoda WIDE.
+2-2          [11:11] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+2-2          [11:22] Shot by MIC McKinney, Cole BLOCKED by Cebrian, Kieran.
+2-2          [11:33] Shot by DEN McMorrow, Brendan MISSED, save Ivankovic, Jack.
+2-2          [11:52] Shot by DEN Cebrian, Kieran MISSED, save Ivankovic, Jack.
+2-2          [12:28] Shot by MIC Robertson, Ben BLOCKED by Reeder, James.
+2-2          [12:44] Shot by MIC Horcoff, Will MISSED, save Hicks, Johnny.
+2-2          [12:44] Faceoff Caswell, Clarke vs Draper, Kienan won by DEN.
+2-2          [15:20] Shot by MIC Perron, Jayden WIDE.
+2-2          [15:20] Timeout Media.
+2-2          [15:20] Faceoff Salminen, Samu vs Hughes, T.J. won by MIC.
+2-2          [15:26] Shot by MIC Hughes, T.J. WIDE.
+2-2          [15:34] Faceoff Caswell, Clarke vs Hughes, T.J. won by DEN.
+2-2          [15:49] Shot by MIC Spence, Malcolm MISSED, save Hicks, Johnny.
+2-2          [15:52] Shot by MIC Spence, Malcolm WIDE.
+2-2          [15:52] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+2-2          [15:57] Shot by MIC Horcoff, Will WIDE.
+2-2          [16:52] Shot by MIC Horcoff, Will BLOCKED by Chyzowski, Kyle.
+2-2          [17:36] Shot by MIC Barnett, Asher WIDE.
+2-2          [18:01] Shot by MIC Schock, Drew WIDE.
+2-2          [18:01] Faceoff Fisher, Jake vs McKinney, Cole won by MIC.
+2-2          [18:07] Shot by MIC Robertson, Ben MISSED, save Hicks, Johnny.
+2-2          [18:21] Shot by MIC Schock, Drew MISSED, save Hicks, Johnny.
+2-2          [19:09] Shot by DEN Buckberger, Boston WIDE.
+2-2          [19:24] Shot by MIC Perron, Jayden WIDE.
+2-2          [19:59] Shot by MIC Eernisse, Josh BLOCKED by Pohlkamp, Eric.
+2-2          [20:00] End of period.
+
+                                                                 Period #3 Plays
+
+2-2          [00:00] Start of 3rd period.
+2-2          [00:00] Faceoff Cebrian, Kieran vs Draper, Kienan won by MIC.
+2-2          [00:24] Penalty on Duke, Tyler MIC 2 minutes for Tripping.
+2-2   PP DEN [00:24] Start power play for DEN.
+2-2   PP DEN [00:24] Faceoff Caswell, Clarke vs McKinney, Cole won by MIC.
+2-2   PP DEN [00:49] Shot by DEN Pohlkamp, Eric BLOCKED by Barnett, Asher.
+2-2   PP DEN [01:03] Shot by DEN Buckberger, Boston WIDE.
+2-2   PP DEN [01:39] Shot by DEN Harris, Sam MISSED, save Ivankovic, Jack.
+2-2   PP DEN [01:48] Shot by DEN Harris, Sam MISSED, save Ivankovic, Jack.
+2-2   PP DEN [01:56] Shot by DEN Pohlkamp, Eric BLOCKED by Fantilli, Luca.
+2-2   PP DEN [02:24] Duke, Tyler (MIC) penalty complete.
+2-2   PP DEN [02:24] End power play for DEN.
+2-2          [03:04] Shot by MIC Perron, Jayden WIDE.
+2-2          [03:53] Shot by MIC Spence, Malcolm WIDE.
+2-2          [03:53] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+2-2          [04:22] Shot by MIC Robertson, Ben WIDE.
+2-2          [05:04] Penalty on Schifsky, Garrett MIC 2 minutes for Boarding.
+2-2          [05:04] Timeout Media.
+2-2   PP DEN [05:04] Start power play for DEN.
+2-2   PP DEN [05:04] Faceoff Caswell, Clarke vs Eernisse, Josh won by MIC.
+2-2   PP DEN [05:57] Shot by DEN Buckberger, Boston BLOCKED by Duke, Tyler.
+2-2   PP DEN [07:04] Schifsky, Garrett (MIC) penalty complete.
+2-2   PP DEN [07:04] End power play for DEN.
+2-2          [07:06] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+2-2          [07:35] Faceoff Cebrian, Kieran vs Muscutt, Kason won by MIC.
+2-2          [08:55] Shot by MIC Moldenhauer, Nick WIDE.
+2-2          [09:04] Faceoff Caswell, Clarke vs Draper, Kienan won by DEN.
+2-2          [09:45] Faceoff Caswell, Clarke vs Hage, Michael won by MIC.
+2-2          [09:50] Shot by MIC Horcoff, Will BLOCKED by Epperson, Kristian.
+2-2            [10:13] Shot by MIC Hage, Michael MISSED, save Hicks, Johnny.
+2-2            [10:14] Shot by MIC Rheaume-Mullen, Dakoda MISSED, save Hicks, Johnny.
+2-2            [10:14] Penalty on Jamieson, Eric DEN 2 minutes for CrossChecking.
+2-2            [10:14] Timeout Media.
+2-2   PP MIC   [10:14] Start power play for MIC.
+2-2   PP MIC   [10:14] Faceoff Salminen, Samu vs Hage, Michael won by DEN.
+2-2   PP MIC   [10:39] Shot by MIC Horcoff, Will WIDE.
+               [11:02] GOAL by Michigan Perron, Jayden (POWER-PLAY), Assist by Horcoff, Will and Spence, Malcolm, On ice for MIC:
+               Perron, Jayden; Horcoff, Will; Hage, Michael; Hughes, T.J.; Spence, Malcolm, On ice for DEN: Reeder, James; Buckberger,
+2-2   PP MIC   Boston; Salminen, Samu; Anderson, Kent, goal number 18 for season.
+               Denver 2, Michigan 3
+2-3   PP MIC [11:02] Jamieson, Eric (DEN) penalty complete.
+2-3   PP MIC [11:02] End power play for MIC.
+2-3          [11:02] Faceoff Caswell, Clarke vs Draper, Kienan won by MIC.
+2-3          [11:21] Shot by MIC Fantilli, Luca WIDE.
+2-3          [11:33] Shot by MIC Draper, Kienan WIDE.
+2-3          [11:43] Faceoff Caswell, Clarke vs McKinney, Cole won by MIC.
+2-3          [11:43] Shot by MIC Schock, Drew MISSED, save Hicks, Johnny.
+2-3          [12:08] Shot by MIC Valentini, Adam WIDE.
+2-3          [12:08] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+2-3          [12:41] Shot by DEN Buckberger, Boston WIDE.
+2-3          [13:31] Shot by MIC Draper, Kienan MISSED, save Hicks, Johnny.
+2-3          [13:38] Shot by MIC Eernisse, Josh WIDE.
+2-3          [14:14] Shot by MIC Perron, Jayden BLOCKED by Harris, Sam.
+2-3          [14:26] Shot by MIC Valentini, Adam WIDE.
+2-3          [14:32] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+2-3          [15:26] Shot by DEN Salminen, Samu BLOCKED by Duke, Tyler.
+2-3          [16:39] Timeout Media.
+2-3          [16:39] Faceoff Caswell, Clarke vs Hughes, T.J. won by DEN.
+2-3          [17:01] Shot by DEN Epperson, Kristian WIDE.
+2-3          [17:06] Shot by DEN Lorenz, Rieger WIDE.
+             [17:14] GOAL by Denver Caswell, Clarke (EVEN STRENGTH), Assist by Brown, Garrett and Epperson, Kristian, On ice for
+             DEN: Caswell, Clarke; Ashcroft, Cale; Brown, Garrett; Epperson, Kristian; Lorenz, Rieger, On ice for MIC: Hughes, T.J.;
+2-3          Perron, Jayden; Valentini, Adam; Barnett, Asher; Robertson, Ben, goal number 8 for season.
+               Denver 3, Michigan 3
+3-3            [17:14] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+3-3            [17:53] Shot by MIC Spence, Malcolm MISSED, save Hicks, Johnny.
+3-3            [17:58] Shot by MIC Robertson, Ben WIDE.
+3-3            [18:04] Shot by MIC Draper, Kienan MISSED, save Hicks, Johnny.
+3-3            [18:04] Faceoff Salminen, Samu vs Hughes, T.J. won by DEN.
+3-3            [18:27] Shot by MIC Hughes, T.J. MISSED, save Hicks, Johnny.
+3-3            [18:32] Shot by MIC Schifsky, Garrett MISSED, save Hicks, Johnny.
+3-3            [18:32] Faceoff Caswell, Clarke vs McKinney, Cole won by DEN.
+3-3            [18:46] Faceoff Caswell, Clarke vs McKinney, Cole won by DEN.
+3-3            [19:48] Shot by DEN Pohlkamp, Eric BLOCKED by Hughes, T.J..
+3-3            [20:00] End of period.
+
+                                                                    Period #4 Plays
+
+3-3            [00:00] Start of 1st overtime period.
+3-3            [00:00] Faceoff Cebrian, Kieran vs Draper, Kienan won by DEN.
+3-3            [00:38] Shot by DEN Buckberger, Boston MISSED, save Ivankovic, Jack.
+3-3            [01:09] Timeout MIC.
+3-3            [01:09] Faceoff Salminen, Samu vs Hughes, T.J. won by DEN.
+3-3            [01:18] Shot by DEN Jamieson, Eric BLOCKED by Hughes, T.J..
+3-3            [02:12] Shot by MIC Rheaume-Mullen, Dakoda BLOCKED by Brown, Garrett.
+3-3            [02:38] Shot by DEN McMorrow, Brendan MISSED, save Ivankovic, Jack.
+3-3            [02:47] Shot by DEN Lorenz, Rieger WIDE.
+3-3            [03:23] Shot by DEN Lorenz, Rieger WIDE.
+3-3            [03:30] Shot by DEN Buckberger, Boston BLOCKED by Muscutt, Kason.
+3-3            [04:23] Shot by MIC McKinney, Cole MISSED, save Hicks, Johnny.
+3-3            [04:25] Shot by MIC Schifsky, Garrett MISSED, save Hicks, Johnny.
+3-3            [04:42] Shot by MIC Perron, Jayden MISSED, save Hicks, Johnny.
+3-3            [04:50] Shot by MIC Duke, Tyler BLOCKED by Reeder, James.
+3-3            [05:34] Faceoff Caswell, Clarke vs Hughes, T.J. won by MIC.
+3-3          [06:02] Shot by DEN Buckberger, Boston BLOCKED by Hage, Michael.
+3-3          [06:12] Faceoff Salminen, Samu vs Hughes, T.J. won by MIC.
+3-3          [06:29] Shot by DEN Pohlkamp, Eric BLOCKED by Schifsky, Garrett.
+3-3          [06:42] Shot by MIC Rheaume-Mullen, Dakoda WIDE.
+3-3          [06:46] Faceoff Salminen, Samu vs McKinney, Cole won by MIC.
+3-3          [06:50] Shot by MIC Barnett, Asher MISSED, save Hicks, Johnny.
+3-3          [06:50] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+3-3          [07:21] Shot by MIC Fantilli, Luca BLOCKED by Reeder, James.
+3-3          [07:48] Shot by MIC Spence, Malcolm MISSED, save Hicks, Johnny.
+3-3          [07:48] Faceoff Caswell, Clarke vs Hughes, T.J. won by MIC.
+3-3          [07:56] Shot by MIC Barnett, Asher BLOCKED by Lorenz, Rieger.
+3-3          [09:05] Faceoff Cebrian, Kieran vs McKinney, Cole won by DEN.
+3-3          [09:54] Shot by MIC Hughes, T.J. BLOCKED by Buckberger, Boston.
+3-3          [10:25] Timeout Media.
+3-3          [10:25] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+3-3          [11:22] Shot by MIC Hage, Michael MISSED, save Hicks, Johnny.
+3-3          [11:27] Shot by MIC Robertson, Ben BLOCKED by Brown, Garrett.
+3-3          [11:45] Shot by DEN Lorenz, Rieger HIT PIPE.
+3-3          [11:45] Faceoff Salminen, Samu vs Hughes, T.J. won by MIC.
+3-3          [11:52] Faceoff Salminen, Samu vs Hughes, T.J. won by DEN.
+3-3          [11:56] Shot by DEN Jamieson, Eric MISSED, save Ivankovic, Jack.
+3-3          [12:15] Faceoff Caswell, Clarke vs Draper, Kienan won by MIC.
+3-3          [12:32] Shot by MIC Eernisse, Josh WIDE.
+3-3          [12:55] Shot by DEN Lorenz, Rieger WIDE.
+3-3          [13:37] Shot by MIC McKinney, Cole WIDE.
+3-3          [14:03] Shot by DEN Reeder, James MISSED, save Ivankovic, Jack.
+3-3          [14:47] Shot by MIC Draper, Kienan MISSED, save Hicks, Johnny.
+3-3          [15:38] Timeout DEN.
+3-3          [15:38] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+3-3          [15:45] Shot by MIC Fantilli, Luca WIDE.
+3-3          [16:19] Shot by DEN Chyzowski, Kyle WIDE.
+3-3          [16:21] Faceoff Fisher, Jake vs Draper, Kienan won by DEN.
+3-3          [16:49] Shot by MIC Eernisse, Josh WIDE.
+3-3          [17:32] Shot by DEN Salminen, Samu MISSED, save Ivankovic, Jack.
+3-3          [17:34] Penalty on Horcoff, Will MIC 2 minutes for Slashing.
+3-3   PP DEN [17:34] Start power play for DEN.
+3-3   PP DEN [17:34] Faceoff Caswell, Clarke vs McKinney, Cole won by MIC.
+3-3   PP DEN [18:24] Shot by DEN Pohlkamp, Eric WIDE.
+3-3   PP DEN [18:29] Penalty on Harris, Sam DEN 2 minutes for Tripping.
+3-3   PP DEN [18:29] End power play for DEN.
+3-3          [18:29] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+3-3          [19:02] Shot by MIC Perron, Jayden WIDE.
+3-3          [19:13] Shot by MIC Schifsky, Garrett MISSED, save Hicks, Johnny.
+3-3          [19:13] Faceoff Salminen, Samu vs Hage, Michael won by DEN.
+3-3          [19:34] Horcoff, Will (MIC) penalty complete.
+3-3   PP MIC [19:34] Start power play for MIC.
+3-3   PP MIC [19:45] Shot by DEN Salminen, Samu BLOCKED by Moldenhauer, Nick.
+3-3   PP MIC [20:00] End of period.
+
+                                                                   Period #5 Plays
+
+3-3   PP MIC   [00:00] Start of 2nd overtime period.
+3-3   PP MIC   [00:00] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+3-3   PP MIC   [00:20] Shot by MIC Perron, Jayden MISSED, save Hicks, Johnny.
+3-3   PP MIC   [00:20] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+3-3   PP MIC   [00:29] Harris, Sam (DEN) penalty complete.
+3-3   PP MIC   [00:29] End power play for MIC.
+3-3            [00:30] Shot by MIC Perron, Jayden MISSED, save Hicks, Johnny.
+3-3            [01:14] Shot by DEN Caswell, Clarke WIDE.
+3-3            [01:19] Shot by DEN Chyzowski, Kyle WIDE.
+3-3            [01:34] Faceoff Cebrian, Kieran vs McKinney, Cole won by MIC.
+3-3            [01:59] Shot by DEN Cebrian, Kieran MISSED, save Ivankovic, Jack.
+3-3            [01:59] Faceoff Salminen, Samu vs Hughes, T.J. won by MIC.
+3-3            [02:36] Shot by MIC Fantilli, Luca WIDE.
+3-3   [02:49] Shot by MIC Robertson, Ben MISSED, save Hicks, Johnny.
+3-3   [02:49] Faceoff Fisher, Jake vs McKinney, Cole won by DEN.
+3-3   [03:20] Shot by MIC Robertson, Ben WIDE.
+3-3   [03:22] Shot by MIC Barnett, Asher WIDE.
+3-3   [03:22] Faceoff Caswell, Clarke vs Muscutt, Kason won by DEN.
+3-3   [04:22] Shot by MIC Hughes, T.J. WIDE.
+3-3   [05:21] Faceoff Fisher, Jake vs McKinney, Cole won by MIC.
+3-3   [06:05] Shot by MIC Moldenhauer, Nick MISSED, save Hicks, Johnny.
+3-3   [06:05] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+3-3   [06:11] Shot by MIC Rheaume-Mullen, Dakoda MISSED, save Hicks, Johnny.
+3-3   [06:11] Faceoff Salminen, Samu vs Hughes, T.J. won by DEN.
+3-3   [06:50] Shot by MIC Perron, Jayden MISSED, save Hicks, Johnny.
+3-3   [06:50] Faceoff Caswell, Clarke vs Hage, Michael won by DEN.
+3-3   [07:17] Shot by MIC Schifsky, Garrett MISSED, save Hicks, Johnny.
+3-3   [07:20] Faceoff Fisher, Jake vs Draper, Kienan won by DEN.
+3-3   [07:30] Shot by DEN Burrows, Hagen WIDE.
+3-3   [07:50] Shot by DEN Varkonyi, Reid BLOCKED by Moldenhauer, Nick.
+3-3   [07:50] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+3-3   [07:58] Faceoff Cebrian, Kieran vs Hughes, T.J. won by MIC.
+3-3   [08:25] Shot by MIC Fantilli, Luca MISSED, save Hicks, Johnny.
+3-3   [08:25] Faceoff Salminen, Samu vs McKinney, Cole won by DEN.
+3-3   [08:58] Shot by MIC McKinney, Cole MISSED, save Hicks, Johnny.
+3-3   [09:24] Shot by MIC Schock, Drew MISSED, save Hicks, Johnny.
+3-3   [09:27] Shot by MIC Draper, Kienan MISSED, save Hicks, Johnny.
+3-3   [09:52] Shot by DEN Epperson, Kristian MISSED, save Ivankovic, Jack.
+3-3   [09:52] Faceoff Salminen, Samu vs Hughes, T.J. won by DEN.
+3-3   [10:37] Shot by DEN Burrows, Hagen BLOCKED by Hughes, T.J..
+3-3   [10:53] Shot by MIC Muscutt, Kason MISSED, save Hicks, Johnny.
+3-3   [11:19] Shot by MIC Rheaume-Mullen, Dakoda MISSED, save Hicks, Johnny.
+3-3   [11:19] Timeout Media.
+3-3   [11:19] Faceoff Cebrian, Kieran vs Hughes, T.J. won by DEN.
+3-3   [11:42] Shot by DEN Cebrian, Kieran BLOCKED by Robertson, Ben.
+3-3   [12:13] Shot by MIC Valentini, Adam WIDE.
+      [12:35] GOAL by Denver Anderson, Kent (EVEN STRENGTH, OVERTIME, SUDDEN DEATH, GAME WINNING GOAL), Assist by
+      Epperson, Kristian and Jamieson, Eric, On ice for DEN: Anderson, Kent; Caswell, Clarke; Epperson, Kristian; Harris, Sam;
+      Jamieson, Eric, On ice for MIC: McKinney, Cole; Perron, Jayden; Valentini, Adam; Duke, Tyler; Fantilli, Luca, goal number 2
+3-3   for season.
+      Denver 4, Michigan 3
+4-3   [12:35] End of period.
+

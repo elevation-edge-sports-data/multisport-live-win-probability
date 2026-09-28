@@ -6,6 +6,7 @@ import math
 from collections.abc import Callable
 
 from mswp.config import SportConfig
+from mswp.basketball.model import basketball_win_probability
 from mswp.football.model import football_win_probability
 from mswp.hockey.model import hockey_win_probability
 from mswp.state import GameState
@@ -21,6 +22,7 @@ PackFn = Callable[[GameState, float, SportConfig], float]
 _PACKS: dict[str, PackFn] = {
     "football": football_win_probability,
     "hockey": hockey_win_probability,
+    "basketball": basketball_win_probability,
 }
 
 
@@ -43,8 +45,8 @@ def _decided_wp(state: GameState, sport_config: SportConfig) -> float | None:
             return 0.0
         return 0.5
 
-    if state.sport == "cfb" and state.period > sport_config.regulation_periods:
-        return _cfb_extra_period_decided(state, sport_config)
+    if state.sport == "ncaaf" and state.period > sport_config.regulation_periods:
+        return _ncaaf_extra_period_decided(state, sport_config)
 
     clock_out = (
         state.period >= sport_config.regulation_periods
@@ -60,7 +62,7 @@ def _decided_wp(state: GameState, sport_config: SportConfig) -> float | None:
     return None
 
 
-def _cfb_extra_period_decided(
+def _ncaaf_extra_period_decided(
     state: GameState, sport_config: SportConfig
 ) -> float | None:
     margin = state.home_score - state.away_score

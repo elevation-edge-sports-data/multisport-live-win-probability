@@ -14,10 +14,11 @@ from pathlib import Path
 from typing import Mapping
 
 from mswp import (
-    CFB_CONFIG,
+    NCAAF_CONFIG,
     DEFAULT_PRIOR_HOME,
     GameState,
     NFL_CONFIG,
+    NCAAH_CONFIG,
     NHL_CONFIG,
     compute_wp,
 )
@@ -27,7 +28,7 @@ from live_wp.colors import team_color
 
 # PNGs already stored next to the widget. Paths below are relative to index.html.
 _LOGO_ROOT = Path(__file__).resolve().parents[2] / "widget" / "logos"
-_LOGO_SPORTS = {"nfl", "nhl", "cfb"}
+_LOGO_SPORTS = {"nfl", "nhl", "ncaaf", "ncaah"}
 
 _REQUIRED = (
     "sport",
@@ -168,13 +169,15 @@ def dump_replay(states: list[GameState]) -> str:
 
 def config_for_state(state: GameState) -> SportConfig:
     """NFL, college football, and NHL are the configs this replay can run."""
-    if state.sport == "cfb":
-        return CFB_CONFIG
+    if state.sport == "ncaaf":
+        return NCAAF_CONFIG
     if state.sport == "nhl":
         return NHL_CONFIG
+    if state.sport == "ncaah":
+        return NCAAH_CONFIG
     if state.sport == "nfl":
         return NFL_CONFIG
-    raise ValueError(f"replay sport {state.sport!r} is not nfl, cfb, or nhl")
+    raise ValueError(f"replay sport {state.sport!r} is not nfl, ncaaf, nhl, or ncaah")
 
 
 def format_clock(state: GameState) -> str:
@@ -191,7 +194,7 @@ def format_clock(state: GameState) -> str:
 
 
 def _period_label(state: GameState) -> str:
-    if state.sport == "nhl":
+    if state.sport in {"nhl", "ncaah"}:
         if state.period <= 3:
             return f"P{state.period}"
         if state.period == 4:
@@ -237,7 +240,7 @@ def elapsed_game_seconds(state: GameState) -> int:
     if state.period <= config.regulation_periods:
         remaining = min(state.seconds_remaining_total, config.regulation_seconds)
         return config.regulation_seconds - remaining
-    if state.sport == "cfb":
+    if state.sport == "ncaaf":
         return config.regulation_seconds
     remaining_ot = min(state.seconds_remaining_total, config.ot_period_seconds)
     return config.regulation_seconds + (config.ot_period_seconds - remaining_ot)
@@ -248,7 +251,7 @@ def render_widget_script(states: list[GameState]) -> str:
 
     The page displays those values. It does not carry a second model.
     NFL replays bind ``window.NFL_REPLAY``. College replays bind
-    ``window.CFB_REPLAY``. NHL replays bind ``window.NHL_REPLAY``.
+    ``window.NCAAF_REPLAY``. NHL replays bind ``window.NHL_REPLAY``.
     A college frame includes a logo path only when that abbreviation's PNG
     is on disk. A known abbreviation still gets its primary color. NHL
     logos are used only when the PNG is on disk.
@@ -261,8 +264,9 @@ def render_widget_script(states: list[GameState]) -> str:
             raise ValueError("replay mixes sports")
     binding = {
         "nfl": "window.NFL_REPLAY",
-        "cfb": "window.CFB_REPLAY",
+        "ncaaf": "window.NCAAF_REPLAY",
         "nhl": "window.NHL_REPLAY",
+        "ncaah": "window.NCAAH_REPLAY",
     }[config.sport]
     frames = []
     for state in states:

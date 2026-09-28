@@ -243,7 +243,7 @@ def test_missing_event_uses_the_summary_once(capsys: pytest.CaptureFixture[str])
 
 def test_follow_rejects_a_college_football_summary(capsys: pytest.CaptureFixture[str]) -> None:
     payload = json.loads(
-        (ROOT / "tests" / "fixtures" / "espn_cfb_summary_snippet.json").read_text(encoding="utf-8")
+        (ROOT / "tests" / "fixtures" / "espn_ncaaf_summary_snippet.json").read_text(encoding="utf-8")
     )
     code = run_follow(["--game", "88001"], fetch=lambda _url: payload, sleep=lambda _s: None)
     captured = capsys.readouterr()

@@ -68,7 +68,7 @@ def reject_non_nfl_url(url: str) -> None:
     lowered = url.lower()
     if "college-football" in lowered or "ncaaf" in lowered:
         raise ValueError(
-            "ESPN URL is college football (cfb), not NFL. "
+            "ESPN URL is college football (ncaaf), not NFL. "
             "This command fetches NFL games only."
         )
     if not lowered.startswith(_NFL_ROOT):
@@ -359,7 +359,7 @@ def _parse_game(text: str) -> str:
     lowered = text.lower()
     if "college-football" in lowered or "ncaaf" in lowered:
         raise UsageError(
-            "ESPN URL is college football (cfb), not NFL. "
+            "ESPN URL is college football (ncaaf), not NFL. "
             "This command fetches NFL games only."
         )
     if not text.isdigit():

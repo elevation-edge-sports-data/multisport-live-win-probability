@@ -2,7 +2,7 @@
 
 The caller loads the JSON. This module does not fetch. It accepts a
 scoreboard event object or a game summary object from the unofficial ESPN
-site API. NFL maps to sport ``nfl``. College football maps to sport ``cfb``.
+site API. NFL maps to sport ``nfl``. College football maps to sport ``ncaaf``.
 NHL maps to sport ``nhl``. NBA and any other league are refused. The follow
 command still asks ``require_nfl_payload`` and does not follow college
 football or hockey.
@@ -21,12 +21,12 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from mswp import CFB_CONFIG, DEFAULT_PRIOR_HOME, NFL_CONFIG, NHL_CONFIG, GameState
+from mswp import NCAAF_CONFIG, DEFAULT_PRIOR_HOME, NFL_CONFIG, NHL_CONFIG, GameState
 from mswp.config import SportConfig
 
 # League ids on ESPN uids: NFL is l:28, college football is l:23, NHL is l:90.
 _NFL_LEAGUE_ID = "28"
-_CFB_LEAGUE_ID = "23"
+_NCAAF_LEAGUE_ID = "23"
 _NHL_LEAGUE_ID = "90"
 _UID_LEAGUE = re.compile(r"(?:^|~)l:(\d+)(?:~|$)")
 _AT_SPOT = re.compile(r"\bat\s+([A-Za-z][A-Za-z0-9.]{1,11})\s+(\d{1,2})\b", re.I)
@@ -195,9 +195,9 @@ def _classify_league(
         name = str(league.get("name") or "").strip().lower()
         league_id = str(league.get("id") or "").strip()
         if (
-            slug in {"college-football", "ncaaf", "cfb"}
-            or abbreviation in {"NCAAF", "CFB"}
-            or league_id == _CFB_LEAGUE_ID
+            slug in {"college-football", "ncaaf"}
+            or abbreviation == "NCAAF"
+            or league_id == _NCAAF_LEAGUE_ID
             or "college football" in name
             or "ncaa" in name
         ):
@@ -221,7 +221,7 @@ def _classify_league(
 
     for uid in _identity_uids(payload):
         for league_id in _UID_LEAGUE.findall(uid):
-            if league_id == _CFB_LEAGUE_ID:
+            if league_id == _NCAAF_LEAGUE_ID:
                 college = True
             elif league_id == _NFL_LEAGUE_ID:
                 nfl = True
@@ -251,7 +251,7 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
     college, nfl, nhl, other = _classify_league(payload)
     if college:
         raise ValueError(
-            "ESPN payload is college football (cfb), not NFL. "
+            "ESPN payload is college football (ncaaf), not NFL. "
             "This adapter maps NFL games only."
         )
     if nhl and not nfl:
@@ -270,7 +270,7 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
 
 
 def _supported_sport(payload: Mapping[str, Any]) -> str:
-    """``nfl``, ``cfb``, or ``nhl``. Anything else is refused."""
+    """``nfl``, ``ncaaf``, or ``nhl``. Anything else is refused."""
     college, nfl, nhl, other = _classify_league(payload)
     selected: list[str] = []
     if nfl:
@@ -292,7 +292,7 @@ def _supported_sport(payload: Mapping[str, Any]) -> str:
     if other:
         raise ValueError(f"ESPN payload is {other[0]}, not NFL.")
     if college:
-        return "cfb"
+        return "ncaaf"
     if nhl:
         return "nhl"
     if nfl:
@@ -303,8 +303,8 @@ def _supported_sport(payload: Mapping[str, Any]) -> str:
 
 
 def _config_for(sport: str) -> SportConfig:
-    if sport == "cfb":
-        return CFB_CONFIG
+    if sport == "ncaaf":
+        return NCAAF_CONFIG
     if sport == "nhl":
         return NHL_CONFIG
     return NFL_CONFIG
@@ -789,7 +789,7 @@ def _has_two_minute(period: int, sport: str) -> bool:
     config = _config_for(sport)
     if period in {2, 4}:
         return True
-    return sport != "cfb" and period > config.regulation_periods
+    return sport != "ncaaf" and period > config.regulation_periods
 
 
 def _build(
@@ -1051,7 +1051,7 @@ def _period_length(period: int, sport: str) -> int:
     config = _config_for(sport)
     if period <= config.regulation_periods:
         return config.period_seconds
-    if sport == "cfb":
+    if sport == "ncaaf":
         # College overtime is not a timed period. A reported clock is stored
         # for the ticker and capped like a regulation period. The model does
         # not treat this cap as ot_period_seconds.

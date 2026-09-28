@@ -37,8 +37,8 @@ def football_win_probability(
     """Unclipped home win probability. ``compute_wp`` applies the clip."""
     if config.family != "football":
         raise ValueError(f"football model cannot use family {config.family!r}")
-    if _cfb_overtime(state, config):
-        return cfb_overtime_win_probability(state, prior, config)
+    if _ncaaf_overtime(state, config):
+        return ncaaf_overtime_win_probability(state, prior, config)
 
     rate_home, rate_away = team_points_per_second(prior, config)
     score_margin = state.home_score - state.away_score
@@ -154,18 +154,18 @@ def _decided(margin: float) -> float:
 
 
 # Opponent 25-yard line: yards from the offense's own goal.
-_CFB_OT_YARDLINE = 75
+_NCAAF_OT_YARDLINE = 75
 # A 2-point try is worth about 0.9 points (0 or 2, not a drive).
-_CFB_TWO_POINT_EP = 0.9
+_NCAAF_TWO_POINT_EP = 0.9
 
 
-def _cfb_overtime(state: GameState, config: SportConfig) -> bool:
+def _ncaaf_overtime(state: GameState, config: SportConfig) -> bool:
     """True when this snapshot is college overtime, not a timed NFL period.
 
     A tie at 0:00 of regulation is the start of the first extra period.
     NFL overtime stays on the timed clock above.
     """
-    if state.sport != "cfb" and config.sport != "cfb":
+    if state.sport != "ncaaf" and config.sport != "ncaaf":
         return False
     if state.status == "final":
         return False
@@ -181,7 +181,7 @@ def _cfb_overtime(state: GameState, config: SportConfig) -> bool:
     )
 
 
-def cfb_overtime_win_probability(
+def ncaaf_overtime_win_probability(
     state: GameState, prior: float, config: SportConfig
 ) -> float:
     """College overtime stub. This is not a timed quarter.
@@ -197,7 +197,7 @@ def cfb_overtime_win_probability(
     (expected points about 0.9, outcome 0 or 2). ``ot_period_seconds`` is
     not the process.
     """
-    points = _cfb_ot_points(state, config)
+    points = _ncaaf_ot_points(state, config)
     if state.home_score == state.away_score:
         return _both_still_to_possess(prior, config, points)
     possession = state.possession if state.possession in ("home", "away") else None
@@ -208,13 +208,13 @@ def cfb_overtime_win_probability(
     )
 
 
-def _cfb_ot_points(state: GameState, config: SportConfig) -> float:
+def _ncaaf_ot_points(state: GameState, config: SportConfig) -> float:
     extra = state.period - config.regulation_periods
     if extra < 1:
         extra = 1
     if extra >= 3:
-        return _CFB_TWO_POINT_EP
-    return expected_points(1, 10, _CFB_OT_YARDLINE)
+        return _NCAAF_TWO_POINT_EP
+    return expected_points(1, 10, _NCAAF_OT_YARDLINE)
 
 
 def _both_still_to_possess(prior: float, config: SportConfig, points: float) -> float:
