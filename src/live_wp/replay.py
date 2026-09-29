@@ -22,13 +22,14 @@ from mswp import (
     NHL_CONFIG,
     compute_wp,
 )
+from mswp.basketball.config import NBA_CONFIG, NCAAB_CONFIG
 from mswp.config import SportConfig
 
 from live_wp.colors import team_color
 
 # PNGs already stored next to the widget. Paths below are relative to index.html.
 _LOGO_ROOT = Path(__file__).resolve().parents[2] / "widget" / "logos"
-_LOGO_SPORTS = {"nfl", "nhl", "ncaaf", "ncaah"}
+_LOGO_SPORTS = {"nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"}
 
 _REQUIRED = (
     "sport",
@@ -168,22 +169,29 @@ def dump_replay(states: list[GameState]) -> str:
 
 
 def config_for_state(state: GameState) -> SportConfig:
-    """NFL, college football, and NHL are the configs this replay can run."""
+    """Config for one replay snapshot, including the basketball packs."""
     if state.sport == "ncaaf":
         return NCAAF_CONFIG
     if state.sport == "nhl":
         return NHL_CONFIG
     if state.sport == "ncaah":
         return NCAAH_CONFIG
+    if state.sport == "nba":
+        return NBA_CONFIG
+    if state.sport == "ncaab":
+        return NCAAB_CONFIG
     if state.sport == "nfl":
         return NFL_CONFIG
-    raise ValueError(f"replay sport {state.sport!r} is not nfl, ncaaf, nhl, or ncaah")
+    raise ValueError(
+        f"replay sport {state.sport!r} is not nfl, nba, ncaaf, ncaah, ncaab, or nhl"
+    )
 
 
 def format_clock(state: GameState) -> str:
     """Period clock label. A final snapshot is labeled FINAL.
 
     Football regulation is Q1-Q4. Period 5 is OT and period 6 is 2OT.
+    College basketball regulation is H1-H2. Period 3 is OT.
     Hockey regulation is P1-P3. Period 4 is OT. The chart still draws
     extra periods as one OT pane.
     """
@@ -200,6 +208,12 @@ def _period_label(state: GameState) -> str:
         if state.period == 4:
             return "OT"
         return f"{state.period - 3}OT"
+    if state.sport == "ncaab":
+        if state.period <= 2:
+            return f"H{state.period}"
+        if state.period == 3:
+            return "OT"
+        return f"{state.period - 2}OT"
     if state.period <= 4:
         return f"Q{state.period}"
     if state.period == 5:
@@ -267,6 +281,8 @@ def render_widget_script(states: list[GameState]) -> str:
         "ncaaf": "window.NCAAF_REPLAY",
         "nhl": "window.NHL_REPLAY",
         "ncaah": "window.NCAAH_REPLAY",
+        "nba": "window.NBA_REPLAY",
+        "ncaab": "window.NCAAB_REPLAY",
     }[config.sport]
     frames = []
     for state in states:

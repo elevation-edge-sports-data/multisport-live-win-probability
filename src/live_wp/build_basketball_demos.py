@@ -28,22 +28,34 @@ def build_basketball_demos() -> int:
 
 def _nba() -> tuple[int, int]:
     payload = load_summary(FIXTURES / "espn_nba_401547684_summary.json")
-    states = events_from_espn_basketball(payload, prior_home=160 / 260)
+    states = events_from_espn_basketball(payload, prior_home=160 / 260)  # LAL -160
     EXAMPLES.mkdir(parents=True, exist_ok=True)
-    (EXAMPLES / "nba_den_lal_full.json").write_text(dump_replay(states), encoding="utf-8")
+    (EXAMPLES / "nba_den_lal_full.json").write_text(
+        dump_replay(states), encoding="utf-8", newline="\n"
+    )
     thin = thin_basketball(states, NBA_CONFIG)
-    (EXAMPLES / "nba_den_lal.json").write_text(dump_replay(thin), encoding="utf-8")
-    (WIDGET / "nba_den_lal.js").write_text(render_widget_script(thin), encoding="utf-8")
+    (EXAMPLES / "nba_den_lal.json").write_text(
+        dump_replay(thin), encoding="utf-8", newline="\n"
+    )
+    (WIDGET / "nba_den_lal.js").write_text(
+        render_widget_script(thin), encoding="utf-8", newline="\n"
+    )
     return len(states), len(thin)
 
 
 def _ncaab() -> tuple[int, int]:
     payload = load_summary(FIXTURES / "espn_ncaab_401638608_summary.json")
-    states = events_from_espn_basketball(payload, prior_home=0.55)
-    (EXAMPLES / "ncaab_cu_fla_full.json").write_text(dump_replay(states), encoding="utf-8")
+    states = events_from_espn_basketball(payload, prior_home=120 / 220)  # FLA -120
+    (EXAMPLES / "ncaab_cu_fla_full.json").write_text(
+        dump_replay(states), encoding="utf-8", newline="\n"
+    )
     thin = thin_basketball(states, NCAAB_CONFIG)
-    (EXAMPLES / "ncaab_cu_fla.json").write_text(dump_replay(thin), encoding="utf-8")
-    (WIDGET / "ncaab_cu_fla.js").write_text(render_widget_script(thin), encoding="utf-8")
+    (EXAMPLES / "ncaab_cu_fla.json").write_text(
+        dump_replay(thin), encoding="utf-8", newline="\n"
+    )
+    (WIDGET / "ncaab_cu_fla.js").write_text(
+        render_widget_script(thin), encoding="utf-8", newline="\n"
+    )
     return len(states), len(thin)
 
 

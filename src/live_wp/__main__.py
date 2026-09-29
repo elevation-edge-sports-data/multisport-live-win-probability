@@ -23,7 +23,9 @@ usage: python -m live_wp replay <json>
        python -m live_wp ingest-espn <in.json> <out.json> [--density scoring|situation|all]
        python -m live_wp render-widget <replay.json> <out.js>
        python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15]
-       python -m live_wp build-hockey-demos\
+       python -m live_wp build-football-demos
+       python -m live_wp build-hockey-demos
+       python -m live_wp build-basketball-demos\
 """
 
 
@@ -90,10 +92,18 @@ def main(argv: list[str] | None = None) -> int:
         return render_widget(Path(args[1]), Path(args[2]))
     if args and args[0] == "follow":
         return run_follow(args[1:])
+    if args and args[0] == "build-football-demos":
+        from live_wp.build_football_demos import build_football_demos
+
+        return build_football_demos()
     if args and args[0] == "build-hockey-demos":
         from live_wp.build_hockey_demos import build_hockey_demos
 
         return build_hockey_demos()
+    if args and args[0] == "build-basketball-demos":
+        from live_wp.build_basketball_demos import build_basketball_demos
+
+        return build_basketball_demos()
     print(_USAGE, file=sys.stderr)
     return 2
 

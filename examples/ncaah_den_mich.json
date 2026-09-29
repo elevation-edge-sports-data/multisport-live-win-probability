@@ -10,7 +10,7 @@
     "seconds_remaining_period": 1200,
     "seconds_remaining_total": 3600,
     "status": "pre",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -26,7 +26,7 @@
     "seconds_remaining_period": 1200,
     "seconds_remaining_total": 3600,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -42,7 +42,7 @@
     "seconds_remaining_period": 815,
     "seconds_remaining_total": 3215,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -58,7 +58,7 @@
     "seconds_remaining_period": 797,
     "seconds_remaining_total": 3197,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -74,7 +74,7 @@
     "seconds_remaining_period": 782,
     "seconds_remaining_total": 3182,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -90,7 +90,7 @@
     "seconds_remaining_period": 677,
     "seconds_remaining_total": 3077,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -106,7 +106,7 @@
     "seconds_remaining_period": 631,
     "seconds_remaining_total": 3031,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -122,7 +122,7 @@
     "seconds_remaining_period": 226,
     "seconds_remaining_total": 2626,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -138,7 +138,7 @@
     "seconds_remaining_period": 222,
     "seconds_remaining_total": 2622,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -154,7 +154,7 @@
     "seconds_remaining_period": 164,
     "seconds_remaining_total": 2564,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -170,7 +170,7 @@
     "seconds_remaining_period": 163,
     "seconds_remaining_total": 2563,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -186,7 +186,7 @@
     "seconds_remaining_period": 1200,
     "seconds_remaining_total": 2400,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -202,7 +202,7 @@
     "seconds_remaining_period": 1181,
     "seconds_remaining_total": 2381,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -218,7 +218,7 @@
     "seconds_remaining_period": 1078,
     "seconds_remaining_total": 2278,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -234,7 +234,7 @@
     "seconds_remaining_period": 1061,
     "seconds_remaining_total": 2261,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -250,7 +250,7 @@
     "seconds_remaining_period": 1058,
     "seconds_remaining_total": 2258,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -266,7 +266,7 @@
     "seconds_remaining_period": 1050,
     "seconds_remaining_total": 2250,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -282,7 +282,7 @@
     "seconds_remaining_period": 1200,
     "seconds_remaining_total": 1200,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -298,7 +298,7 @@
     "seconds_remaining_period": 1176,
     "seconds_remaining_total": 1176,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -314,7 +314,7 @@
     "seconds_remaining_period": 1084,
     "seconds_remaining_total": 1084,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -330,7 +330,7 @@
     "seconds_remaining_period": 1056,
     "seconds_remaining_total": 1056,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -346,7 +346,7 @@
     "seconds_remaining_period": 938,
     "seconds_remaining_total": 938,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -362,7 +362,7 @@
     "seconds_remaining_period": 896,
     "seconds_remaining_total": 896,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -378,7 +378,7 @@
     "seconds_remaining_period": 843,
     "seconds_remaining_total": 843,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -394,7 +394,7 @@
     "seconds_remaining_period": 776,
     "seconds_remaining_total": 776,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -410,7 +410,7 @@
     "seconds_remaining_period": 586,
     "seconds_remaining_total": 586,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -426,7 +426,7 @@
     "seconds_remaining_period": 586,
     "seconds_remaining_total": 586,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -442,7 +442,7 @@
     "seconds_remaining_period": 561,
     "seconds_remaining_total": 561,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -458,7 +458,7 @@
     "seconds_remaining_period": 538,
     "seconds_remaining_total": 538,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -474,7 +474,7 @@
     "seconds_remaining_period": 538,
     "seconds_remaining_total": 538,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -490,7 +490,7 @@
     "seconds_remaining_period": 439,
     "seconds_remaining_total": 439,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -506,7 +506,7 @@
     "seconds_remaining_period": 346,
     "seconds_remaining_total": 346,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -522,7 +522,7 @@
     "seconds_remaining_period": 274,
     "seconds_remaining_total": 274,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -538,7 +538,7 @@
     "seconds_remaining_period": 174,
     "seconds_remaining_total": 174,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -554,7 +554,7 @@
     "seconds_remaining_period": 166,
     "seconds_remaining_total": 166,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -570,7 +570,7 @@
     "seconds_remaining_period": 1200,
     "seconds_remaining_total": 1200,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -586,7 +586,7 @@
     "seconds_remaining_period": 148,
     "seconds_remaining_total": 148,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -602,7 +602,7 @@
     "seconds_remaining_period": 146,
     "seconds_remaining_total": 146,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -618,7 +618,7 @@
     "seconds_remaining_period": 96,
     "seconds_remaining_total": 96,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -634,7 +634,7 @@
     "seconds_remaining_period": 91,
     "seconds_remaining_total": 91,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -650,7 +650,7 @@
     "seconds_remaining_period": 47,
     "seconds_remaining_total": 47,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v4",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -666,7 +666,7 @@
     "seconds_remaining_period": 26,
     "seconds_remaining_total": 26,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -682,7 +682,7 @@
     "seconds_remaining_period": 1200,
     "seconds_remaining_total": 1200,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -698,7 +698,7 @@
     "seconds_remaining_period": 1180,
     "seconds_remaining_total": 1180,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "4v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -714,7 +714,7 @@
     "seconds_remaining_period": 1171,
     "seconds_remaining_total": 1171,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -730,7 +730,7 @@
     "seconds_remaining_period": 467,
     "seconds_remaining_total": 467,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -746,7 +746,7 @@
     "seconds_remaining_period": 445,
     "seconds_remaining_total": 445,
     "status": "live",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"
@@ -762,7 +762,7 @@
     "seconds_remaining_period": 445,
     "seconds_remaining_total": 445,
     "status": "final",
-    "prior_home": 0.45,
+    "prior_home": 0.4878048780487805,
     "strength": "5v5",
     "source": "sidearm-gamebook",
     "as_of": "2026-04-10T00:00:00Z"

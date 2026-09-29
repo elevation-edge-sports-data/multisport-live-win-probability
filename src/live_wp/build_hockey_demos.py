@@ -26,20 +26,32 @@ def build_hockey_demos() -> int:
 
 def _nhl() -> tuple[int, int]:
     payload = load_summary(FIXTURES / "espn_nhl_401442762_summary.json")
-    states = events_from_espn_hockey(payload, prior_home=121 / 221)
+    states = events_from_espn_hockey(payload, prior_home=121 / 221)  # COL -121
     EXAMPLES.mkdir(parents=True, exist_ok=True)
-    (EXAMPLES / "nhl_edm_col_full.json").write_text(dump_replay(states), encoding="utf-8")
+    (EXAMPLES / "nhl_edm_col_full.json").write_text(
+        dump_replay(states), encoding="utf-8", newline="\n"
+    )
     thin = thin_states(states, NHL_CONFIG, eps=0.0005)
-    (EXAMPLES / "nhl_edm_col.json").write_text(dump_replay(thin), encoding="utf-8")
-    (WIDGET / "nhl_edm_col.js").write_text(render_widget_script(thin), encoding="utf-8")
+    (EXAMPLES / "nhl_edm_col.json").write_text(
+        dump_replay(thin), encoding="utf-8", newline="\n"
+    )
+    (WIDGET / "nhl_edm_col.js").write_text(
+        render_widget_script(thin), encoding="utf-8", newline="\n"
+    )
     return len(states), len(thin)
 
 
 def _ncaah() -> tuple[int, int]:
     text = load_gamebook_text(FIXTURES / "ncaah_den_mich_gamebook.txt")
-    states = events_from_gamebook_text(text, prior_home=0.45)
-    (EXAMPLES / "ncaah_den_mich_full.json").write_text(dump_replay(states), encoding="utf-8")
+    states = events_from_gamebook_text(text, prior_home=100 / 205)  # DEN +105
+    (EXAMPLES / "ncaah_den_mich_full.json").write_text(
+        dump_replay(states), encoding="utf-8", newline="\n"
+    )
     thin = thin_states(states, NCAAH_CONFIG, eps=0.0005)
-    (EXAMPLES / "ncaah_den_mich.json").write_text(dump_replay(thin), encoding="utf-8")
-    (WIDGET / "ncaah_den_mich.js").write_text(render_widget_script(thin), encoding="utf-8")
+    (EXAMPLES / "ncaah_den_mich.json").write_text(
+        dump_replay(thin), encoding="utf-8", newline="\n"
+    )
+    (WIDGET / "ncaah_den_mich.js").write_text(
+        render_widget_script(thin), encoding="utf-8", newline="\n"
+    )
     return len(states), len(thin)

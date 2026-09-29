@@ -17,11 +17,11 @@
 
 :root[data-theme="offwhite"] {
   color-scheme: light;
-  --bg: #ececec;
-  --card: #f7f7f7;
-  --line: #d0d0d0;
+  --bg: #d6d6d6;
+  --card: #c2c2c2;
+  --line: #9a9a9a;
   --ink: #1a1a1a;
-  --muted: #5c5c5c;
+  --muted: #4a4a4a;
 }
 
 * { box-sizing: border-box; }

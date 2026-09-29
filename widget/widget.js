@@ -987,13 +987,37 @@
     svg.appendChild(label);
   }
 
+  function isNearWhite(color) {
+    var hex = normalizeHex(color);
+    return !!hex && isStrictNearWhite(hex);
+  }
+
+  function capStroke(color) {
+    if (themeName === "offwhite" && isNearWhite(color)) return cssVar("--ink");
+    return cssVar("--card");
+  }
+
+  function appendSeriesPath(svg, attrs) {
+    if (themeName === "offwhite" && isNearWhite(attrs.stroke)) {
+      var edge = {};
+      Object.keys(attrs).forEach(function (key) {
+        edge[key] = attrs[key];
+      });
+      edge.stroke = cssVar("--ink");
+      edge["stroke-width"] = "4";
+      edge["data-edge"] = "ink";
+      svg.appendChild(svgEl("path", edge));
+    }
+    svg.appendChild(svgEl("path", attrs));
+  }
+
   function endCap(svg, x, y, color, line) {
     svg.appendChild(svgEl("circle", {
       cx: String(x),
       cy: String(y),
       r: "4.5",
       fill: color,
-      stroke: cssVar("--card"),
+      stroke: capStroke(color),
       "stroke-width": "1",
       "data-series": "end-cap",
       "data-line": line
@@ -1198,14 +1222,14 @@
       lastY = y;
       d += i === 0 ? "M " + x + " " + y : " H " + x + " V " + y;
     });
-    svg.appendChild(svgEl("path", {
+    appendSeriesPath(svg, {
       d: d,
       fill: "none",
       stroke: color,
       "stroke-width": "2",
       "stroke-linejoin": "round",
       "data-series": series
-    }));
+    });
     endCap(svg, lastX, lastY, color, series);
   }
 
@@ -1248,14 +1272,14 @@
             "data-tone": piece.tone
           }));
         }
-        svg.appendChild(svgEl("path", {
+        appendSeriesPath(svg, {
           d: "M " + piece.x0 + " " + y0 + " L " + piece.x1 + " " + y1,
           fill: "none",
           stroke: colors[piece.tone],
           "stroke-width": "2",
           "data-series": "wp-line",
           "data-tone": piece.tone
-        }));
+        });
       });
     }
     var current = points[points.length - 1];
