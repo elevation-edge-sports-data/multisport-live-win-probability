@@ -1,18 +1,27 @@
 :root {
   color-scheme: dark;
-  --bg: #10141c;
-  --card: #181e2a;
-  --line: #2c3548;
-  --ink: #f3efe6;
-  --muted: #9aa3b5;
+  --bg: #1c1c1c;
+  --card: #262626;
+  --line: #3a3a3a;
+  --ink: #f2f2f2;
+  --muted: #9a9a9a;
   --gold: #e3c27a;
-  /* Fallback fills. A replay frame's home_color / away_color overrides these. */
+  /* Fallback fills until a matchup palette is applied. */
   --home: #1f8f86;
-  --home-ink: #9eefe4;
+  --home-ink: #f2f2f2;
   --away: #c94b32;
-  --away-ink: #f6b2a2;
-  --neutral: #2a3142;
+  --away-ink: #f2f2f2;
+  --neutral: #6a6a6a;
   font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+:root[data-theme="offwhite"] {
+  color-scheme: light;
+  --bg: #ececec;
+  --card: #f7f7f7;
+  --line: #d0d0d0;
+  --ink: #1a1a1a;
+  --muted: #5c5c5c;
 }
 
 * { box-sizing: border-box; }
@@ -20,9 +29,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(1200px 500px at 10% -10%, #1a2740 0%, transparent 55%),
-    var(--bg);
+  background: var(--bg);
   color: var(--ink);
 }
 
@@ -79,6 +86,83 @@ h1 {
 }
 
 .toolbar {
+  display: block;
+}
+
+.appearance {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+  margin-top: 1.15rem;
+}
+
+.appearance-group {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.appearance-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+.themes, .swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.theme {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.28rem 0.62rem;
+  font: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.theme[aria-pressed="true"] {
+  background: var(--card);
+  border-color: var(--gold);
+}
+
+.swatch {
+  appearance: none;
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 0.25rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+}
+
+.swatch[aria-pressed="true"] {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.swatch-check {
+  display: none;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.swatch[aria-pressed="true"] .swatch-check {
   display: block;
 }
 
@@ -142,7 +226,7 @@ h1 {
 
 .sport.is-selected {
   background: var(--ink);
-  color: #151922;
+  color: var(--bg);
   border-color: var(--ink);
 }
 
@@ -253,8 +337,8 @@ button:focus-visible, input:focus-visible {
   height: 1.2rem;
 }
 
-.home-mark .team { color: var(--home-ink); }
-.away-mark .team { color: var(--away-ink); }
+.home-mark .team { color: var(--home); }
+.away-mark .team { color: var(--away); }
 
 .points {
   margin: 0.2rem 0 0;
@@ -282,8 +366,8 @@ button:focus-visible, input:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 
-.home-mark .big { color: var(--home-ink); }
-.away-mark .big { color: var(--away-ink); }
+.home-mark .big { color: var(--home); }
+.away-mark .big { color: var(--away); }
 
 .unit {
   font-size: 0.35em;
@@ -399,6 +483,7 @@ footer {
   .ticker-copy { font-size: 0.82rem; }
   .mark .logo { width: 1.7rem; height: 1.7rem; }
   .ticker-score .logo { width: 1rem; height: 1rem; }
+  .swatch { width: 1.35rem; height: 1.35rem; }
   h1 { font-size: 0.82rem; }
   .sport { min-width: 0; padding: 0.35rem 0.55rem; }
   .view { padding: 0.35rem 0.6rem; }

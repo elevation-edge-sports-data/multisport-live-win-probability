@@ -12,7 +12,7 @@ import pytest
 
 from mswp import NCAAF_CONFIG, NFL_CONFIG, NHL_CONFIG, compute_wp
 
-from live_wp.colors import team_color
+from live_wp.colors import club_colors, team_color
 from live_wp.feeds.espn import (
     espn_scoreboard_event_to_state,
     espn_summary_to_states,
@@ -546,8 +546,9 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
     assert final.away_score == 14
     assert compute_wp(final, final.prior_home, NCAAF_CONFIG) == 0.0
     assert team_color("GT", "ncaaf") == "#B3A369"
-    assert team_color("COLO", "ncaaf") == "#000000"
-    assert team_color("CU", "ncaaf") == "#000000"
+    # Palette primary is gold. The checked-in replay still carries the older black.
+    assert team_color("COLO", "ncaaf") == "#CFB87C"
+    assert team_color("CU", "ncaaf") == "#CFB87C"
 
     script_path = ROOT / "widget" / "ncaaf_cu_gt.js"
     script = script_path.read_text(encoding="utf-8")
@@ -803,3 +804,28 @@ def test_min_at_col_is_the_nhl_widget_replay():
     assert frames[-1]["home_score"] == 4
     assert frames[-1]["away_score"] == 3
     assert frames[-1]["wp"] == 1.0
+
+
+def test_demo_palette_is_sport_specific_and_colorado_gold():
+    colo = club_colors("CU", "ncaaf")
+    assert colo is not None
+    assert colo["primary"] == "#CFB87C"
+    assert colo["secondary"] == "#A2A4A3"
+    assert colo["white"] == "#FFFFFF"
+    assert colo["owns_black"] is True
+    assert colo["black"] == "#000000"
+    assert club_colors("COLO", "ncaab")["primary"] == "#CFB87C"
+    assert club_colors("DEN", "nfl")["primary"] == "#FB4F14"
+    assert club_colors("DEN", "nba")["primary"] == "#0E2240"
+    assert club_colors("DEN", "ncaah")["primary"] == "#8B2332"
+    assert club_colors("COL", "nhl")["primary"] == "#6F263D"
+    assert team_color("COLO", "ncaaf") == "#CFB87C"
+    assert team_color("JAX") == "#006778"
+    assert team_color("MIN", "nfl") != team_color("MIN", "nhl")
+    demo = json.loads((ROOT / "data" / "colors" / "demo.json").read_text(encoding="utf-8"))
+    script = (ROOT / "widget" / "colors.js").read_text(encoding="utf-8")
+    baked = json.loads(script[script.index("[") : script.rindex("]") + 1])
+    assert baked == demo
+    assert "espn" not in script.lower()
+    assert "fetch(" not in script
+    assert "https://" not in script and "http://" not in script

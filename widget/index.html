@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="charcoal">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Multisport live win probability</title>
   <link rel="stylesheet" href="widget.css">
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem("mswp:theme");
+        if (theme === "offwhite" || theme === "charcoal") {
+          document.documentElement.setAttribute("data-theme", theme);
+        } else {
+          theme = "charcoal";
+        }
+        var saved = JSON.parse(localStorage.getItem("mswp:nfl:NYG:DEN") || "null");
+        if (!saved) return;
+        var slot = saved[theme];
+        if (!slot || typeof slot !== "object" || !slot.awaySwatch || !slot.homeSwatch) {
+          slot = !saved.charcoal && !saved.offwhite ? saved : null;
+        }
+        if (!slot) return;
+        function hex(value) {
+          return typeof value === "string" && /^#[0-9A-F]{6}$/.test(value);
+        }
+        if (hex(slot.awaySwatch)) {
+          document.documentElement.style.setProperty("--away", slot.awaySwatch);
+        }
+        if (hex(slot.homeSwatch)) {
+          document.documentElement.style.setProperty("--home", slot.homeSwatch);
+        }
+      } catch (ignore) {}
+    })();
+  </script>
 </head>
 <body>
   <main id="app" class="app" data-view="expanded">
@@ -104,6 +132,24 @@
       <p id="position" class="position"></p>
     </section>
 
+    <div class="appearance" id="appearance">
+      <div class="appearance-group">
+        <p class="appearance-label" id="theme-label">Theme</p>
+        <div class="themes" role="group" aria-labelledby="theme-label">
+          <button type="button" class="theme" id="theme-dark" aria-pressed="true">Dark</button>
+          <button type="button" class="theme" id="theme-light" aria-pressed="false">Light</button>
+        </div>
+      </div>
+      <div class="appearance-group">
+        <p class="appearance-label" id="away-swatch-label">Away</p>
+        <div class="swatches" id="away-swatches" role="group" aria-labelledby="away-swatch-label"></div>
+      </div>
+      <div class="appearance-group">
+        <p class="appearance-label" id="home-swatch-label">Home</p>
+        <div class="swatches" id="home-swatches" role="group" aria-labelledby="home-swatch-label"></div>
+      </div>
+    </div>
+
     <p class="prior" id="prior"></p>
     <footer>
       Unofficial project from Elevation Edge Sports Data. Not affiliated with the NFL, NHL, NBA, or NCAA.
@@ -115,6 +161,7 @@
   <script src="ncaah_den_mich.js"></script>
   <script src="nba_den_lal.js"></script>
   <script src="ncaab_cu_fla.js"></script>
+  <script src="colors.js"></script>
   <script src="widget.js"></script>
 </body>
 </html>

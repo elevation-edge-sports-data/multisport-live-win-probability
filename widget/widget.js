@@ -183,10 +183,352 @@
     bandPosition: bandPosition
   };
 
+  // Light golds count as near-white on the off-white page. Swatch dedup stays
+  // stricter so Gold, Silver, and White remain separate tiles.
+  var LIGHT_LUMINANCE = 0.35;
+  var DARK_LUMINANCE = 0.03;
+  var PANEL_CONTRAST_MIN = 1.2;
+  var SWATCH_NAMES = {
+    "#0B2265": "Navy",
+    "#A71930": "Red",
+    "#FB4F14": "Orange",
+    "#002244": "Navy",
+    "#FF4C00": "Orange",
+    "#041E42": "Navy",
+    "#6F263D": "Burgundy",
+    "#236192": "Blue",
+    "#0E2240": "Navy",
+    "#FEC524": "Gold",
+    "#552583": "Purple",
+    "#FDB927": "Gold",
+    "#CFB87C": "Gold",
+    "#A2A4A3": "Silver",
+    "#FFFFFF": "White",
+    "#000000": "Black",
+    "#CC0000": "Red",
+    "#FFCB05": "Maize",
+    "#00274C": "Blue",
+    "#8B2332": "Crimson",
+    "#C24E1C": "Orange",
+    "#0021A5": "Blue",
+    "#FA4616": "Orange"
+  };
+
+  function normalizeHex(value) {
+    if (typeof value !== "string") return null;
+    var hex = value.trim().toUpperCase();
+    if (!hex) return null;
+    if (hex.charAt(0) !== "#") hex = "#" + hex;
+    if (/^#[0-9A-F]{3}$/.test(hex)) {
+      hex = "#" + hex.charAt(1) + hex.charAt(1) +
+        hex.charAt(2) + hex.charAt(2) +
+        hex.charAt(3) + hex.charAt(3);
+    }
+    if (!/^#[0-9A-F]{6}$/.test(hex)) return null;
+    return hex;
+  }
+
+  function rgbOf(hex) {
+    var n = parseInt(hex.slice(1), 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+
+  function linearChannel(value) {
+    var channel = value / 255;
+    if (channel <= 0.04045) return channel / 12.92;
+    return Math.pow((channel + 0.055) / 1.055, 2.4);
+  }
+
+  function luminance(hex) {
+    var color = rgbOf(hex);
+    return 0.2126 * linearChannel(color.r) +
+      0.7152 * linearChannel(color.g) +
+      0.0722 * linearChannel(color.b);
+  }
+
+  function contrast(a, b) {
+    var left = luminance(a);
+    var right = luminance(b);
+    var hi = left > right ? left : right;
+    var lo = left > right ? right : left;
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  function isLight(hex) {
+    return luminance(hex) >= LIGHT_LUMINANCE;
+  }
+
+  function isDark(hex) {
+    return luminance(hex) <= DARK_LUMINANCE;
+  }
+
+  function isStrictNearWhite(hex) {
+    var color = rgbOf(hex);
+    return color.r >= 236 && color.g >= 236 && color.b >= 236;
+  }
+
+  function isStrictNearBlack(hex) {
+    var color = rgbOf(hex);
+    return color.r <= 28 && color.g <= 28 && color.b <= 28;
+  }
+
+  function panelHex(theme) {
+    return theme === "offwhite" ? "#F7F7F7" : "#262626";
+  }
+
+  function tooClose(hex, panel) {
+    return contrast(hex, panel) < PANEL_CONTRAST_MIN;
+  }
+
+  function inkFor(fill) {
+    var dark = "#1A1A1A";
+    var light = "#F2F2F2";
+    if (!fill) return light;
+    return contrast(fill, dark) >= contrast(fill, light) ? dark : light;
+  }
+
+  function nearDuplicate(a, b) {
+    if (a === b) return true;
+    if (isStrictNearBlack(a) && isStrictNearBlack(b)) return true;
+    if (isStrictNearWhite(a) && isStrictNearWhite(b)) return true;
+    return false;
+  }
+
+  function swatchName(hex) {
+    if (SWATCH_NAMES[hex]) return SWATCH_NAMES[hex];
+    if (isStrictNearWhite(hex)) return "White";
+    if (isStrictNearBlack(hex)) return "Black";
+    var color = rgbOf(hex);
+    var max = Math.max(color.r, color.g, color.b);
+    var min = Math.min(color.r, color.g, color.b);
+    if (max - min < 16) return "Gray";
+    var hue;
+    var span = max - min;
+    if (max === color.r) hue = ((color.g - color.b) / span) % 6;
+    else if (max === color.g) hue = (color.b - color.r) / span + 2;
+    else hue = (color.r - color.g) / span + 4;
+    hue *= 60;
+    if (hue < 0) hue += 360;
+    if (hue < 20 || hue >= 345) return "Red";
+    if (hue < 45) return "Orange";
+    if (hue < 70) return "Gold";
+    if (hue < 160) return "Green";
+    if (hue < 250) return "Blue";
+    if (hue < 290) return "Purple";
+    return "Red";
+  }
+
+  function findClub(sport, name) {
+    var rows = root.MSWP_COLORS || [];
+    var key = String(name || "").trim().toUpperCase();
+    var i;
+    var aliases;
+    var a;
+    for (i = 0; i < rows.length; i++) {
+      if (String(rows[i].sport).toLowerCase() !== String(sport || "").toLowerCase()) continue;
+      if (String(rows[i].id).toUpperCase() === key) return rows[i];
+      aliases = rows[i].aliases || [];
+      for (a = 0; a < aliases.length; a++) {
+        if (String(aliases[a]).toUpperCase() === key) return rows[i];
+      }
+    }
+    return null;
+  }
+
+  function buildSwatches(club) {
+    var list = [];
+    function hasNear(hex) {
+      var i;
+      for (i = 0; i < list.length; i++) {
+        if (nearDuplicate(list[i].hex, hex)) return true;
+      }
+      return false;
+    }
+    function push(hex) {
+      list.push({ hex: hex, name: swatchName(hex) });
+    }
+    if (!club) return list;
+    var primary = normalizeHex(club.primary);
+    var secondary = normalizeHex(club.secondary);
+    if (primary) push(primary);
+    if (secondary && !hasNear(secondary)) push(secondary);
+    var white = normalizeHex(club.white);
+    if (white && !hasNear(white)) push(white);
+    if (club.owns_black) {
+      var black = normalizeHex(club.black);
+      if (black && !hasNear(black)) push(black);
+    }
+    return list;
+  }
+
+  function resolutionOrder(club, theme) {
+    var present = {};
+    var swatches = buildSwatches(club);
+    var i;
+    for (i = 0; i < swatches.length; i++) present[swatches[i].hex] = true;
+    var prefs = theme === "offwhite"
+      ? [club && club.primary, club && club.secondary, club && club.owns_black ? club.black : null, club && club.white]
+      : [club && club.primary, club && club.secondary, club && club.white];
+    var order = [];
+    for (i = 0; i < prefs.length; i++) {
+      var hex = normalizeHex(prefs[i]);
+      if (!hex || !present[hex] || order.indexOf(hex) !== -1) continue;
+      order.push(hex);
+    }
+    return order;
+  }
+
+  function pairOk(away, home, theme) {
+    var panel = panelHex(theme);
+    if (!away || !home) return false;
+    if (away === home) return false;
+    if (theme === "charcoal" && isDark(away) && isDark(home)) return false;
+    if (theme === "offwhite" && isLight(away) && isLight(home)) return false;
+    if (tooClose(away, panel) || tooClose(home, panel)) return false;
+    return true;
+  }
+
+  function acceptable(candidate, locked, theme) {
+    if (!candidate || !locked) return false;
+    if (candidate === locked) return false;
+    if (theme === "charcoal" && isDark(candidate) && isDark(locked)) return false;
+    if (theme === "offwhite" && isLight(candidate) && isLight(locked)) return false;
+    if (tooClose(candidate, panelHex(theme))) return false;
+    return true;
+  }
+
+  function firstMatching(club, theme, locked, test) {
+    var order = resolutionOrder(club, theme);
+    var i;
+    for (i = 0; i < order.length; i++) {
+      if (test(order[i], locked, theme)) return order[i];
+    }
+    return null;
+  }
+
+  function repairPair(awayClub, homeClub, theme, away, home, keepSide) {
+    if (pairOk(away, home, theme)) return { away: away, home: home };
+    if (keepSide === "away") {
+      return {
+        away: away,
+        home: firstMatching(homeClub, theme, away, acceptable) || home
+      };
+    }
+    if (keepSide === "home") {
+      return {
+        away: firstMatching(awayClub, theme, home, acceptable) || away,
+        home: home
+      };
+    }
+    var panel = panelHex(theme);
+    var awayClose = !!away && tooClose(away, panel);
+    var homeClose = !!home && tooClose(home, panel);
+    var moved;
+    if (awayClose && !homeClose) {
+      moved = firstMatching(awayClub, theme, home, pairOk);
+      if (moved) return { away: moved, home: home };
+    }
+    if (homeClose && !awayClose) {
+      moved = firstMatching(homeClub, theme, away, pairOk);
+      if (moved) return { away: away, home: moved };
+    }
+    moved = firstMatching(awayClub, theme, home, pairOk);
+    if (moved) return { away: moved, home: home };
+    moved = firstMatching(homeClub, theme, away, pairOk);
+    if (moved) return { away: away, home: moved };
+    moved = firstMatching(awayClub, theme, home, acceptable);
+    if (moved) return { away: moved, home: home };
+    moved = firstMatching(homeClub, theme, away, acceptable);
+    if (moved) return { away: away, home: moved };
+    return { away: away, home: home };
+  }
+
+  function resolveDefaults(awayClub, homeClub, theme) {
+    var awayOrder = resolutionOrder(awayClub, theme);
+    var homeOrder = resolutionOrder(homeClub, theme);
+    return repairPair(
+      awayClub,
+      homeClub,
+      theme,
+      awayOrder[0] || null,
+      homeOrder[0] || null,
+      null
+    );
+  }
+
+  function resolveChange(awayClub, homeClub, theme, awayHex, homeHex, keepSide, nextHex) {
+    var away = normalizeHex(awayHex);
+    var home = normalizeHex(homeHex);
+    if (keepSide === "away") away = normalizeHex(nextHex);
+    if (keepSide === "home") home = normalizeHex(nextHex);
+    return repairPair(awayClub, homeClub, theme, away, home, keepSide);
+  }
+
+  function restorePair(awayClub, homeClub, theme, savedAway, savedHome) {
+    var awayList = buildSwatches(awayClub);
+    var homeList = buildSwatches(homeClub);
+    function known(list, hex) {
+      var normalized = normalizeHex(hex);
+      var i;
+      if (!normalized) return null;
+      for (i = 0; i < list.length; i++) {
+        if (list[i].hex === normalized) return normalized;
+      }
+      return null;
+    }
+    var away = known(awayList, savedAway);
+    var home = known(homeList, savedHome);
+    if (!away || !home) return resolveDefaults(awayClub, homeClub, theme);
+    return { away: away, home: home };
+  }
+
+  function swatchesForTheme(saved, theme) {
+    if (!saved || (theme !== "charcoal" && theme !== "offwhite")) return null;
+    var nested = saved[theme];
+    if (nested && typeof nested === "object" && nested.awaySwatch && nested.homeSwatch) {
+      return { homeSwatch: nested.homeSwatch, awaySwatch: nested.awaySwatch };
+    }
+    if (!saved.charcoal && !saved.offwhite && saved.awaySwatch && saved.homeSwatch) {
+      return { homeSwatch: saved.homeSwatch, awaySwatch: saved.awaySwatch };
+    }
+    return null;
+  }
+
+  function appearanceRecord(existing, theme, away, home) {
+    var record = {};
+    function copyNested(name) {
+      var slot = existing && existing[name];
+      if (!slot || typeof slot !== "object" || !slot.awaySwatch || !slot.homeSwatch) return;
+      record[name] = { homeSwatch: slot.homeSwatch, awaySwatch: slot.awaySwatch };
+    }
+    copyNested("charcoal");
+    copyNested("offwhite");
+    if (theme === "charcoal" || theme === "offwhite") {
+      record[theme] = { homeSwatch: home, awaySwatch: away };
+    }
+    return record;
+  }
+
+  root.mswpAppearance = {
+    normalizeHex: normalizeHex,
+    buildSwatches: buildSwatches,
+    resolutionOrder: resolutionOrder,
+    resolveDefaults: resolveDefaults,
+    resolveChange: resolveChange,
+    restorePair: restorePair,
+    swatchesForTheme: swatchesForTheme,
+    appearanceRecord: appearanceRecord,
+    findClub: findClub,
+    inkFor: inkFor
+  };
+
   if (!root.document || !root.document.getElementById) return;
 
   var frames = root.NFL_REPLAY;
   var sportName = "nfl";
+  var themeName = "charcoal";
+  var awaySwatch = null;
+  var homeSwatch = null;
   var stage = document.getElementById("stage");
   if (!Array.isArray(frames) || frames.length === 0) {
     stage.textContent = "Replay file is missing.";
@@ -238,19 +580,160 @@
     return 0;
   }
 
-  function applyTeamColors(frame) {
+  function applyTeamColors() {
     var docRoot = document.documentElement;
     function paint(fillName, inkName, value) {
       if (value) {
         docRoot.style.setProperty(fillName, value);
-        docRoot.style.setProperty(inkName, value);
+        docRoot.style.setProperty(inkName, inkFor(value));
       } else {
         docRoot.style.removeProperty(fillName);
         docRoot.style.removeProperty(inkName);
       }
     }
-    paint("--home", "--home-ink", frame.home_color);
-    paint("--away", "--away-ink", frame.away_color);
+    paint("--home", "--home-ink", homeSwatch);
+    paint("--away", "--away-ink", awaySwatch);
+  }
+
+  function clubForSide(side) {
+    var frame = frames[0];
+    var name = frame[side];
+    var found = findClub(sportName, name);
+    if (found) return found;
+    var painted = side === "home" ? frame.home_color : frame.away_color;
+    return {
+      sport: sportName,
+      id: name,
+      aliases: [],
+      primary: painted || (side === "home" ? "#1f8f86" : "#c94b32"),
+      secondary: null,
+      white: "#FFFFFF",
+      owns_black: false,
+      black: null
+    };
+  }
+
+  function storageKey() {
+    return "mswp:" + sportName + ":" + frames[0].away + ":" + frames[0].home;
+  }
+
+  function readAppearance() {
+    try {
+      var raw = localStorage.getItem(storageKey());
+      if (!raw) return null;
+      var parsed = JSON.parse(raw);
+      if (!parsed || typeof parsed !== "object") return null;
+      return parsed;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function writeTheme() {
+    try {
+      localStorage.setItem("mswp:theme", themeName);
+    } catch (err) {}
+  }
+
+  function writeAppearance() {
+    try {
+      var record = appearanceRecord(readAppearance(), themeName, awaySwatch, homeSwatch);
+      localStorage.setItem(storageKey(), JSON.stringify(record));
+    } catch (err) {}
+  }
+
+  function renderSwatchRow(id, club, selected) {
+    var row = document.getElementById(id);
+    var swatches = buildSwatches(club);
+    var i;
+    row.textContent = "";
+    for (i = 0; i < swatches.length; i++) {
+      var swatch = swatches[i];
+      var button = document.createElement("button");
+      var mark = document.createElement("span");
+      button.type = "button";
+      button.className = "swatch";
+      button.setAttribute("data-hex", swatch.hex);
+      button.setAttribute("aria-label", swatch.name);
+      button.setAttribute("title", swatch.name);
+      button.setAttribute("aria-pressed", swatch.hex === selected ? "true" : "false");
+      button.style.background = swatch.hex;
+      button.style.color = inkFor(swatch.hex);
+      mark.className = "swatch-check";
+      mark.setAttribute("aria-hidden", "true");
+      mark.textContent = "\u2713";
+      button.appendChild(mark);
+      row.appendChild(button);
+    }
+  }
+
+  function renderAppearance() {
+    document.documentElement.setAttribute("data-theme", themeName);
+    document.getElementById("theme-dark").setAttribute(
+      "aria-pressed",
+      themeName === "charcoal" ? "true" : "false"
+    );
+    document.getElementById("theme-light").setAttribute(
+      "aria-pressed",
+      themeName === "offwhite" ? "true" : "false"
+    );
+    document.getElementById("away-swatch-label").textContent = "Away " + frames[0].away;
+    document.getElementById("home-swatch-label").textContent = "Home " + frames[0].home;
+    renderSwatchRow("away-swatches", clubForSide("away"), awaySwatch);
+    renderSwatchRow("home-swatches", clubForSide("home"), homeSwatch);
+    applyTeamColors();
+  }
+
+  function loadMatchupAppearance() {
+    var slot = swatchesForTheme(readAppearance(), themeName);
+    var pair = slot
+      ? restorePair(
+        clubForSide("away"),
+        clubForSide("home"),
+        themeName,
+        slot.awaySwatch,
+        slot.homeSwatch
+      )
+      : resolveDefaults(clubForSide("away"), clubForSide("home"), themeName);
+    awaySwatch = pair.away;
+    homeSwatch = pair.home;
+    renderAppearance();
+  }
+
+  function swatchHex(target) {
+    var node = target;
+    while (node && node !== document) {
+      if (node.getAttribute && node.getAttribute("data-hex")) return node.getAttribute("data-hex");
+      node = node.parentNode;
+    }
+    return null;
+  }
+
+  function chooseSwatch(side, hex) {
+    var resolved = resolveChange(
+      clubForSide("away"),
+      clubForSide("home"),
+      themeName,
+      awaySwatch,
+      homeSwatch,
+      side,
+      hex
+    );
+    awaySwatch = resolved.away;
+    homeSwatch = resolved.home;
+    writeAppearance();
+    renderAppearance();
+    show(index);
+  }
+
+  function setTheme(next) {
+    if (next !== "charcoal" && next !== "offwhite") return;
+    if (next === themeName) return;
+    writeAppearance();
+    themeName = next;
+    writeTheme();
+    loadMatchupAppearance();
+    show(index);
   }
 
   function show(nextIndex) {
@@ -258,7 +741,7 @@
     var frame = frames[index];
     var homePct = formatHomePercent(frame);
     var awayPct = formatAwayPercent(frame);
-    applyTeamColors(frame);
+    applyTeamColors();
     drawCharts(index);
     scrub.value = String(index);
     text("position", frame.clock + " · " + (index + 1) + "/" + frames.length);
@@ -365,6 +848,7 @@
     scrub.max = String(frames.length - 1);
     writePrior();
     markSport("sport-" + next);
+    loadMatchupAppearance();
     show(openingIndex(frames));
   }
 
@@ -435,6 +919,24 @@
     loadSport("ncaab");
   });
 
+  document.getElementById("theme-dark").addEventListener("click", function () {
+    setTheme("charcoal");
+  });
+
+  document.getElementById("theme-light").addEventListener("click", function () {
+    setTheme("offwhite");
+  });
+
+  document.getElementById("away-swatches").addEventListener("click", function (event) {
+    var hex = swatchHex(event.target);
+    if (hex) chooseSwatch("away", hex);
+  });
+
+  document.getElementById("home-swatches").addEventListener("click", function (event) {
+    var hex = swatchHex(event.target);
+    if (hex) chooseSwatch("home", hex);
+  });
+
   function cssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
   }
@@ -485,15 +987,16 @@
     svg.appendChild(label);
   }
 
-  function playhead(svg, x, color) {
-    svg.appendChild(svgEl("line", {
-      x1: String(x),
-      x2: String(x),
-      y1: String(plot.top),
-      y2: String(plot.height - plot.bottom),
-      stroke: color,
-      "stroke-width": "1.25",
-      "data-series": "playhead"
+  function endCap(svg, x, y, color, line) {
+    svg.appendChild(svgEl("circle", {
+      cx: String(x),
+      cy: String(y),
+      r: "4.5",
+      fill: color,
+      stroke: cssVar("--card"),
+      "stroke-width": "1",
+      "data-series": "end-cap",
+      "data-line": line
     }));
   }
 
@@ -532,9 +1035,8 @@
     var homeColor = cssVar("--home");
     var awayColor = cssVar("--away");
     var muted = cssVar("--muted");
-    var gold = cssVar("--gold");
-    drawScore(shown, xOf, layout, homeColor, awayColor, muted, gold);
-    drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted, gold);
+    drawScore(shown, xOf, layout, homeColor, awayColor, muted);
+    drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted);
   }
 
   function drawBands(svg, layout, muted) {
@@ -658,7 +1160,7 @@
     svg.appendChild(caption);
   }
 
-  function drawScore(shown, xOf, layout, homeColor, awayColor, muted, gold) {
+  function drawScore(shown, xOf, layout, homeColor, awayColor, muted) {
     var svg = document.getElementById("score-chart");
     clearSvg(svg);
     drawBands(svg, layout, muted);
@@ -677,19 +1179,23 @@
     }));
     axisLabel(svg, plot.left - 8, yAt(scoreMax, 0, scoreMax) + 4, String(scoreMax), "end");
     axisLabel(svg, plot.left - 8, baseline, "0", "end");
-    stepSeries(svg, shown, xOf, scoreMax, "home_score", "home-score", homeColor);
     stepSeries(svg, shown, xOf, scoreMax, "away_score", "away-score", awayColor);
+    stepSeries(svg, shown, xOf, scoreMax, "home_score", "home-score", homeColor);
     var currentFrame = shown[shown.length - 1];
-    playhead(svg, xOf(currentFrame), gold);
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", String(currentFrame.away_score));
     drawLegendName(svg, plot.width - plot.right - 6, plot.top + 14, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score), "end");
   }
 
   function stepSeries(svg, shown, xOf, scoreMax, field, series, color) {
     var d = "";
+    var lastX = 0;
+    var lastY = 0;
+    if (!shown.length) return;
     shown.forEach(function (frame, i) {
       var x = xOf(frame);
       var y = yAt(frame[field], 0, scoreMax);
+      lastX = x;
+      lastY = y;
       d += i === 0 ? "M " + x + " " + y : " H " + x + " V " + y;
     });
     svg.appendChild(svgEl("path", {
@@ -700,9 +1206,10 @@
       "stroke-linejoin": "round",
       "data-series": series
     }));
+    endCap(svg, lastX, lastY, color, series);
   }
 
-  function drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted, gold) {
+  function drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted) {
     var svg = document.getElementById("wp-chart");
     clearSvg(svg);
     drawBands(svg, layout, muted);
@@ -752,19 +1259,15 @@
       });
     }
     var current = points[points.length - 1];
-    svg.appendChild(svgEl("circle", {
-      cx: String(current.x),
-      cy: String(yAtLow(current.p, 0, 1)),
-      r: "3.5",
-      fill: colors[sideOf(current.p)],
-      "data-series": "wp-mark"
-    }));
+    endCap(svg, current.x, yAtLow(current.p, 0, 1), colors[sideOf(current.p)], "wp");
     var currentFrame = shown[shown.length - 1];
-    playhead(svg, current.x, gold);
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", formatAwayPercent(currentFrame) + "%");
     drawLegendName(svg, plot.width - plot.right - 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%", "end");
   }
 
+  var initialTheme = document.documentElement.getAttribute("data-theme");
+  if (initialTheme === "offwhite" || initialTheme === "charcoal") themeName = initialTheme;
+  loadMatchupAppearance();
   writePrior();
   show(openingIndex(frames));
 })(typeof window !== "undefined" ? window : this);

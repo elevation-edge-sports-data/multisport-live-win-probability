@@ -111,6 +111,23 @@ def test_widget_has_six_sports_on_two_levels_and_two_views():
     assert html.index("title-line") < html.index("data-view-choice") < html.index('class="toolbar"')
     assert ">V3<" in html
     assert ">V0<" not in html
+    assert 'src="colors.js"' in html
+    assert 'data-theme="charcoal"' in html
+    assert 'id="theme-dark"' in html and 'id="theme-light"' in html
+    assert ">Dark<" in html and ">Light<" in html
+    assert "Charcoal" not in html and "Off-white" not in html
+    assert html.index('id="theme-dark"') < html.index('id="theme-light"')
+    assert html.index('aria-pressed="true">Dark<') < html.index('aria-pressed="false">Light<')
+    assert html.index('id="scrub"') < html.index('id="appearance"') < html.index('id="prior"')
+    assert 'localStorage.getItem("mswp:theme")' in html
+    assert "saved.theme" not in html and "saved.theme" not in script
+    assert 'localStorage.setItem("mswp:theme", themeName)' in script
+    assert "theme: themeName" not in script
+    assert 'getElementById("theme-dark")' in script
+    assert 'getElementById("theme-light")' in script
+    assert "playhead" not in script
+    assert "end-cap" in script
+    assert "localStorage" in script
     assert 'id="play"' in html
     assert html.index('id="play"') < html.index('id="step-forward"') < html.index('id="step-back"')
     assert "Step forward" in html and "Step back" in html
@@ -354,3 +371,100 @@ console.log(JSON.stringify({
     assert report["otCount"] == 0
     assert report["overtime"] == 0
     assert report["periods"] == [1, 2, 3, 4]
+
+
+def test_appearance_keeps_the_changed_team_and_colorado_gold():
+    node = shutil.which("node")
+    assert node, "node is required to check appearance rules"
+    probe = r"""
+const fs = require("fs");
+const vm = require("vm");
+const sandbox = {};
+vm.createContext(sandbox);
+vm.runInContext(fs.readFileSync("widget/colors.js", "utf8"), sandbox);
+vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+const app = sandbox.mswpAppearance;
+function club(sport, id) {
+  return app.findClub(sport, id);
+}
+const colo = club("ncaaf", "COLO");
+const ttu = club("ncaaf", "TTU");
+const nyg = club("nfl", "NYG");
+const den = club("nfl", "DEN");
+const coloNames = app.buildSwatches(colo).map((swatch) => swatch.name + " " + swatch.hex);
+const ttuNames = app.buildSwatches(ttu).map((swatch) => swatch.name);
+const denNames = app.buildSwatches(den).map((swatch) => swatch.name);
+const defaults = app.resolveDefaults(colo, ttu, "charcoal");
+const bothWhite = app.resolveChange(nyg, den, "charcoal", "#FFFFFF", "#FFFFFF", "home", "#FFFFFF");
+const light = app.resolveChange(colo, ttu, "offwhite", "#CFB87C", "#CC0000", "home", "#FFFFFF");
+const keptNavy = app.restorePair(nyg, den, "charcoal", "#0B2265", "#FB4F14");
+const keptWhite = app.restorePair(nyg, den, "offwhite", "#A71930", "#FFFFFF");
+const unknown = app.restorePair(nyg, den, "charcoal", "#123456", "#FB4F14");
+const nflDefaults = app.resolveDefaults(nyg, den, "charcoal");
+let record = app.appearanceRecord(null, "charcoal", "#0B2265", "#FB4F14");
+record = app.appearanceRecord(record, "offwhite", "#A71930", "#FFFFFF");
+const darkSlot = app.swatchesForTheme(record, "charcoal");
+const lightSlot = app.swatchesForTheme(record, "offwhite");
+record = app.appearanceRecord(record, "charcoal", "#0B2265", "#FFFFFF");
+const darkAfter = app.swatchesForTheme(record, "charcoal");
+const lightAfter = app.swatchesForTheme(record, "offwhite");
+const legacy = { homeSwatch: "#FB4F14", awaySwatch: "#A71930" };
+const migrated = app.appearanceRecord(legacy, "charcoal", legacy.awaySwatch, legacy.homeSwatch);
+console.log(JSON.stringify({
+  coloNames: coloNames,
+  ttuNames: ttuNames,
+  denNames: denNames,
+  away: defaults.away,
+  home: defaults.home,
+  whiteAway: bothWhite.away,
+  whiteHome: bothWhite.home,
+  lightAway: light.away,
+  lightHome: light.home,
+  keptNavy: keptNavy,
+  keptWhite: keptWhite,
+  unknownAway: unknown.away,
+  unknownHome: unknown.home,
+  nflAway: nflDefaults.away,
+  nflHome: nflDefaults.home,
+  darkSlot: darkSlot,
+  lightSlot: lightSlot,
+  darkAfter: darkAfter,
+  lightAfter: lightAfter,
+  legacyDark: app.swatchesForTheme(legacy, "charcoal"),
+  migratedDark: app.swatchesForTheme(migrated, "charcoal"),
+  migratedLight: app.swatchesForTheme(migrated, "offwhite")
+}));
+"""
+    completed = subprocess.run(
+        [node, "-e", probe],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    report = json.loads(completed.stdout)
+    assert report["coloNames"] == ["Gold #CFB87C", "Silver #A2A4A3", "White #FFFFFF", "Black #000000"]
+    assert report["ttuNames"] == ["Red", "Black", "White"]
+    assert "Black" not in report["denNames"]
+    assert report["away"] == "#CFB87C"
+    assert report["home"] == "#CC0000"
+    assert report["whiteHome"] == "#FFFFFF"
+    assert report["whiteAway"] != "#FFFFFF"
+    assert report["lightHome"] == "#FFFFFF"
+    assert report["lightAway"] == "#000000"
+    assert report["keptNavy"] == {"away": "#0B2265", "home": "#FB4F14"}
+    assert report["keptWhite"] == {"away": "#A71930", "home": "#FFFFFF"}
+    assert report["unknownAway"] == report["nflAway"]
+    assert report["unknownHome"] == report["nflHome"]
+    assert report["keptNavy"]["away"] != report["nflAway"]
+    assert report["darkSlot"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#0B2265"}
+    assert report["lightSlot"] == {"homeSwatch": "#FFFFFF", "awaySwatch": "#A71930"}
+    assert report["darkAfter"] == {"homeSwatch": "#FFFFFF", "awaySwatch": "#0B2265"}
+    assert report["lightAfter"] == report["lightSlot"]
+    assert report["legacyDark"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#A71930"}
+    assert report["migratedDark"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#A71930"}
+    assert report["migratedLight"] is None
+    widget_script = (WIDGET / "widget.js").read_text(encoding="utf-8")
+    set_theme = widget_script[widget_script.index("function setTheme"):widget_script.index("function show")]
+    assert set_theme.index("writeAppearance()") < set_theme.index("themeName = next")
+    assert "repairPair(" not in set_theme
