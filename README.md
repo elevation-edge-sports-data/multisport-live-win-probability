@@ -2,9 +2,11 @@
 
 Unofficial fan project. Not affiliated with the NFL, NHL, NBA, NCAA, or ESPN. Not betting advice.
 
-College football is a second config of the football pack. Regulation is four 15-minute quarters. College overtime is not a timed quarter: each team gets a possession from the opponent 25, then 2-point tries after the second extra period.
+Regular-season NFL overtime changed in 2025. Regular season and playoffs both give each team a possession, even if the first team scores a touchdown. Regular season is one 10-minute period and can tie, including when the first offense uses the whole period. Playoff overtime is 15 minutes and cannot tie. A defensive score on the first possession still ends the game. After both teams have possessed, the next score wins.
 
-NHL is the hockey pack. Regulation is three 20-minute periods. Playoff overtime in the model is 20:00 sudden death, not the regular-season 3-on-3 period of 5:00. A scoreless playoff period starts another 20:00.
+College football is a second config of the football pack. Regulation is four 15-minute quarters. College overtime is not a timed quarter and not the NFL 10-minute clock: each team gets a possession from the opponent 25, then 2-point tries after the second extra period.
+
+NHL is the hockey pack. Regulation is three 20-minute periods. Regular-season overtime is 5:00 of 3-on-3, then a shootout. Game-win probability after a scoreless overtime follows the pregame rate gap and is not 0.5. Playoff overtime is 20:00 sudden death, not that shootout. A scoreless playoff period starts another 20:00.
 
 The widget does not fetch. Football charts use four equal columns, then one OT pane when any snapshot is in an extra period. Hockey charts use three equal columns, P1 P2 P3, then one OT pane on the same rule. The pane width follows the number of extra-period snapshots, with one OT label even if the replay reaches 2OT.
 
@@ -47,6 +49,16 @@ python -m live_wp render-widget examples/ncaaf_sample.json widget/ncaaf_replay.j
 python -m live_wp render-widget examples/ncaaf_cu_gt.json widget/ncaaf_cu_gt.js
 python -m live_wp render-widget examples/nhl_col_min_g5.json widget/nhl_col_min_g5.js
 ```
+
+## Calibration
+
+```powershell
+python -m live_wp calibrate
+```
+
+The command replays every file in `examples/` and ingests the saved ESPN fixtures through the existing adapter. A file that adapter refuses is skipped and recorded. It prints a table and writes `artifacts/calibration.json`. That directory is gitignored.
+
+This is a smoke table on the fixtures we have, not a historical backtest. The fixture count is too small to retune margin_sd, possession points, or strength multipliers.
 
 ## Follow
 

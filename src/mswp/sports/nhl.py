@@ -9,7 +9,11 @@ from mswp.state import GameState
 
 
 class NhlModel:
-    """Remaining-goals NHL model. Strength is not required."""
+    """Remaining-goals NHL model. Strength is not required.
+
+    ``sport_config`` is playoff overtime: 20 minutes of sudden death.
+    Regular season passes ``NHL_REGULAR_CONFIG`` to ``compute_wp``.
+    """
 
     sport = "nhl"
 

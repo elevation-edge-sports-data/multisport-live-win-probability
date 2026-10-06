@@ -3,7 +3,13 @@
 Clock, current score, and the pregame prior. Not a rating update.
 Home and away goal rates are split from that prior the same way the
 football pack splits point rates. The remaining goals are a Poisson
-pair, so the margin is Skellam. Strength and extra attacker are not read.
+pair, so the margin is Skellam.
+
+Playoff overtime is 20:00 sudden death and repeats if it is scoreless.
+Regular-season overtime is one window, then a shootout. Game win uses
+that shootout. The shootout tilt is the goal-rate share already implied
+by the pregame prior, not a new rating. The standings output may call
+a scoreless regular-season overtime 0.5.
 """
 
 from __future__ import annotations
@@ -43,22 +49,45 @@ def team_goals_per_second(prior: float, config: SportConfig) -> tuple[float, flo
 def hockey_win_probability(
     state: GameState, prior: float, config: SportConfig
 ) -> float:
-    """Unclipped home win probability. ``compute_wp`` applies the clip.
+    """Unclipped home game-win probability. ``compute_wp`` applies the clip.
 
-    Missing strength is 5-on-5. Power play and empty net scale the rates.
+    Missing strength is 5-on-5. Power play and empty net scale the rates
+    inside a period. A regular-season shootout does not use that strength.
     """
+    return _hockey_probability(state, prior, config, standings_tie=False)
+
+
+def hockey_standings_tie_probability(
+    state: GameState, prior: float, config: SportConfig
+) -> float:
+    """Home share when a scoreless regular-season overtime counts as a tie.
+
+    That ending may stay 0.5. Game win is ``hockey_win_probability`` and
+    is the shootout instead. Playoff overtime is not a tie and not a
+    shootout, so the two outputs match.
+    """
+    return _hockey_probability(state, prior, config, standings_tie=True)
+
+
+def _hockey_probability(
+    state: GameState,
+    prior: float,
+    config: SportConfig,
+    *,
+    standings_tie: bool,
+) -> float:
     if config.family != "hockey":
         raise ValueError(f"hockey model cannot use family {config.family!r}")
-    rate_home, rate_away = team_goals_per_second(prior, config)
+    base_home, base_away = team_goals_per_second(prior, config)
     home_mult, away_mult = rate_multipliers(state)
-    rate_home *= home_mult
-    rate_away *= away_mult
+    rate_home = base_home * home_mult
+    rate_away = base_away * away_mult
     margin = state.home_score - state.away_score
     if state.status == "final":
         return _score_decided(margin)
 
     in_regulation = state.period <= config.regulation_periods
-    # A goal in sudden-death overtime has already ended the game.
+    # A goal in overtime has already ended the game.
     if not in_regulation and margin != 0:
         return _score_decided(margin)
 
@@ -71,10 +100,26 @@ def hockey_win_probability(
     if remaining <= 0 and margin != 0:
         return _score_decided(margin)
 
+    # The overtime clock has expired and the score is still tied.
+    # Regular season is a shootout. Playoff sudden death starts another
+    # period and does not use the shootout.
+    if not in_regulation and remaining <= 0:
+        if config.tie_after_ot:
+            if standings_tie:
+                return 0.5
+            return _rate_share(base_home, base_away)
+        return _overtime_home_win(
+            rate_home, rate_away, float(config.ot_period_seconds), False
+        )
+
     if remaining <= 0 or not in_regulation:
         window = float(config.ot_period_seconds if remaining <= 0 else remaining)
         return _overtime_home_win(
-            rate_home, rate_away, window, config.tie_after_ot
+            rate_home,
+            rate_away,
+            window,
+            config.tie_after_ot,
+            _scoreless_value(base_home, base_away, config, standings_tie),
         )
 
     overtime_win = _overtime_home_win(
@@ -82,6 +127,7 @@ def hockey_win_probability(
         rate_away,
         float(config.ot_period_seconds),
         config.tie_after_ot,
+        _scoreless_value(base_home, base_away, config, standings_tie),
     )
     return _skellam_home_win(
         margin,
@@ -91,29 +137,58 @@ def hockey_win_probability(
     )
 
 
+def _scoreless_value(
+    rate_home: float,
+    rate_away: float,
+    config: SportConfig,
+    standings_tie: bool,
+) -> float | None:
+    """Residual for one regular-season window. Playoffs ignore it."""
+    if not config.tie_after_ot:
+        return None
+    if standings_tie:
+        return 0.5
+    return _rate_share(rate_home, rate_away)
+
+
+def _rate_share(rate_home: float, rate_away: float) -> float:
+    """Goal-rate share implied by the pregame prior. Not a new rating."""
+    total = rate_home + rate_away
+    if total <= 0.0:
+        return 0.5
+    return rate_home / total
+
+
 def _overtime_home_win(
     rate_home: float,
     rate_away: float,
     window: float,
     tie_after_ot: bool,
+    scoreless: float | None = None,
 ) -> float:
-    """Home win probability from a tied sudden-death window.
+    """Home win probability from a tied overtime window.
 
-    Playoff overtime (``tie_after_ot`` false) repeats the 20:00 window until
-    a goal, so the length cancels and the answer is the goal-rate share.
-    A regular-season flag would stop after one window and call a scoreless
-    period a tie.
+    Playoff overtime (``tie_after_ot`` false) repeats the window until a
+    goal, so the length cancels and the answer is the goal-rate share.
+    That path is not a shootout. Regular season stops after one window.
+    Game win then uses the shootout share. The standings output may use
+    0.5. The shootout share matches the next-goal share, so game win from
+    a tied score does not depend on the window length. The standings
+    output still does.
     """
     total = rate_home + rate_away
     if total <= 0.0:
         return 0.5
     share = rate_home / total
     if window <= 0.0:
-        return 0.5 if tie_after_ot else share
+        if tie_after_ot:
+            return 0.5 if scoreless is None else scoreless
+        return share
     quiet = math.exp(-total * window)
     home_in_window = share * (1.0 - quiet)
     if tie_after_ot:
-        return home_in_window + 0.5 * quiet
+        quiet_value = 0.5 if scoreless is None else scoreless
+        return home_in_window + quiet_value * quiet
     if quiet >= 1.0:
         return share
     return home_in_window / (1.0 - quiet)

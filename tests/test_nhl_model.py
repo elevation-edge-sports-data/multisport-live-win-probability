@@ -6,7 +6,19 @@ from datetime import datetime, timezone
 
 import pytest
 
-from mswp import GameState, NHL_CONFIG, NhlModel, SportModel, compute_wp
+from mswp import (
+    GameState,
+    NHL_CONFIG,
+    NHL_REGULAR_CONFIG,
+    NhlModel,
+    SportModel,
+    compute_wp,
+)
+from mswp.hockey.model import (
+    hockey_standings_tie_probability,
+    hockey_win_probability,
+    team_goals_per_second,
+)
 
 AS_OF = datetime(2026, 5, 14, 0, 0, tzinfo=timezone.utc)
 
@@ -70,11 +82,15 @@ def test_tied_end_of_p3_is_overtime_not_decided():
     shorter = replace(NHL_CONFIG, ot_period_seconds=5 * 60)
     assert compute_wp(tied, 0.60, shorter) == pytest.approx(wp, abs=1e-9)
 
-    # A one-window tie would feel the length. This config does not use that rule.
+    # Game win uses the shootout share, so the window length cancels.
+    # The standings tie still feels the length.
     series = replace(NHL_CONFIG, tie_after_ot=True, ot_period_seconds=5 * 60)
     full = replace(NHL_CONFIG, tie_after_ot=True, ot_period_seconds=20 * 60)
-    assert compute_wp(tied, 0.60, series) != pytest.approx(
-        compute_wp(tied, 0.60, full), abs=1e-4
+    assert compute_wp(tied, 0.60, series) == pytest.approx(
+        compute_wp(tied, 0.60, full), abs=1e-9
+    )
+    assert hockey_standings_tie_probability(tied, 0.60, series) != pytest.approx(
+        hockey_standings_tie_probability(tied, 0.60, full), abs=1e-4
     )
 
     decided = nhl_state(
@@ -184,6 +200,68 @@ def test_nhl_model_satisfies_sport_model():
     assert model.sport == "nhl"
     assert model.sport_config() is NHL_CONFIG
     assert model.win_probability(state, 0.60) == compute_wp(state, 0.60, NHL_CONFIG)
+
+
+def test_scoreless_regular_season_ot_is_a_shootout_for_game_win():
+    assert NHL_REGULAR_CONFIG.ot_period_seconds == 5 * 60
+    assert NHL_REGULAR_CONFIG.tie_after_ot is True
+    assert NHL_REGULAR_CONFIG.mean_score_per_team == NHL_CONFIG.mean_score_per_team
+    end = nhl_state(
+        status="live",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=2,
+        away_score=2,
+        prior_home=0.60,
+    )
+    game = compute_wp(end, 0.60, NHL_REGULAR_CONFIG)
+    standings = hockey_standings_tie_probability(end, 0.60, NHL_REGULAR_CONFIG)
+    rate_home, rate_away = team_goals_per_second(0.60, NHL_REGULAR_CONFIG)
+    assert game != pytest.approx(0.5)
+    assert game == pytest.approx(rate_home / (rate_home + rate_away))
+    assert standings == 0.5
+    assert hockey_win_probability(end, 0.60, NHL_REGULAR_CONFIG) == pytest.approx(game)
+
+
+def test_scoreless_playoff_ot_is_not_a_shootout():
+    end = nhl_state(
+        status="live",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=2,
+        away_score=2,
+        prior_home=0.60,
+    )
+    live = nhl_state(
+        status="live",
+        period=4,
+        seconds_remaining_period=20 * 60,
+        seconds_remaining_total=20 * 60,
+        home_score=2,
+        away_score=2,
+        prior_home=0.60,
+    )
+    game = compute_wp(end, 0.60, NHL_CONFIG)
+    assert game != pytest.approx(0.5)
+    assert game == pytest.approx(compute_wp(live, 0.60, NHL_CONFIG))
+    assert hockey_standings_tie_probability(end, 0.60, NHL_CONFIG) == pytest.approx(game)
+    assert hockey_standings_tie_probability(end, 0.60, NHL_REGULAR_CONFIG) == 0.5
+
+
+def test_colorado_minnesota_stays_on_playoff_overtime():
+    from pathlib import Path
+
+    from live_wp.replay import config_for_state, load_replay
+
+    root = Path(__file__).resolve().parents[1]
+    states = load_replay(root / "examples" / "nhl_col_min_g5.json")
+    config = config_for_state(states[0])
+    assert config is NHL_CONFIG
+    assert config.ot_period_seconds == 20 * 60
+    assert config.tie_after_ot is False
+    assert any(state.period > 3 for state in states)
 
 
 def test_final_home_win_is_one_from_the_score():

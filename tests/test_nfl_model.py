@@ -1,10 +1,22 @@
 """NFL remaining-score model. Situation is optional and is not a rating update."""
 
 from datetime import datetime, timezone
+from pathlib import Path
+from statistics import NormalDist
 
 import pytest
 
-from mswp import GameState, NFLModel, NFL_CONFIG, SportModel, compute_wp
+from mswp import (
+    GameState,
+    NFLModel,
+    NFL_CONFIG,
+    NFL_PLAYOFF_CONFIG,
+    SportModel,
+    compute_wp,
+)
+from mswp.football.model import football_win_probability, team_points_per_second
+
+from live_wp.replay import config_for_state, load_replay
 
 AS_OF = datetime(2026, 9, 21, 18, 0, tzinfo=timezone.utc)
 
@@ -243,6 +255,99 @@ def test_decided_game_ignores_situation():
 def test_situation_is_deterministic():
     state = _live_situation(yardline=72, down=3, distance=6)
     assert compute_wp(state, 0.5, NFL_CONFIG) == compute_wp(state, 0.5, NFL_CONFIG)
+
+
+def test_2025_overtime_does_not_end_on_an_opening_touchdown():
+    tied = nfl_state(
+        status="live",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=20,
+        away_score=20,
+        prior_home=0.60,
+    )
+    # Tied at 0:00 of regulation. The first team has not possessed.
+    assert tied.possession is None
+    start = compute_wp(tied, 0.60, NFL_CONFIG)
+    assert 0.5 < start < 0.75
+
+    # First possession scored a touchdown. The other team has not possessed.
+    opened = nfl_state(
+        status="live",
+        period=5,
+        seconds_remaining_period=8 * 60,
+        seconds_remaining_total=8 * 60,
+        home_score=27,
+        away_score=20,
+        possession=None,
+        prior_home=0.60,
+    )
+    opened_wp = compute_wp(opened, 0.60, NFL_CONFIG)
+    assert opened_wp != 1.0
+    assert opened_wp < 0.9999
+    assert football_win_probability(opened, 0.60, NFL_CONFIG) != 1.0
+
+    safety = nfl_state(
+        status="live",
+        period=5,
+        seconds_remaining_period=8 * 60,
+        seconds_remaining_total=8 * 60,
+        home_score=22,
+        away_score=20,
+        possession=None,
+        prior_home=0.60,
+    )
+    assert compute_wp(safety, 0.60, NFL_CONFIG) == 1.0
+    assert compute_wp(opened, 0.60, NFL_PLAYOFF_CONFIG) != 1.0
+
+
+def test_regular_season_ot_clock_can_expire_tied():
+    expired = nfl_state(
+        status="live",
+        period=5,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=23,
+        away_score=23,
+        prior_home=0.60,
+    )
+    assert compute_wp(expired, 0.60, NFL_CONFIG) == 0.5
+
+    playoff = compute_wp(expired, 0.60, NFL_PLAYOFF_CONFIG)
+    assert playoff != 0.5
+    assert 0.5 < playoff < 0.75
+    assert NFL_PLAYOFF_CONFIG.ot_period_seconds == 15 * 60
+    assert NFL_PLAYOFF_CONFIG.tie_after_ot is False
+    assert NFL_CONFIG.ot_period_seconds == 10 * 60
+    assert NFL_CONFIG.tie_after_ot is True
+
+
+def test_tied_overtime_is_not_more_regulation_scoring():
+    tied = nfl_state(
+        status="live",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=20,
+        away_score=20,
+        prior_home=0.60,
+    )
+    rate_home, rate_away = team_points_per_second(0.60, NFL_CONFIG)
+    mean = (rate_home - rate_away) * NFL_CONFIG.ot_period_seconds
+    scale = NFL_CONFIG.ot_period_seconds / NFL_CONFIG.regulation_seconds
+    legacy = NormalDist().cdf(mean / (NFL_CONFIG.margin_sd * scale**0.5))
+    assert compute_wp(tied, 0.60, NFL_CONFIG) != pytest.approx(legacy, abs=1e-4)
+
+
+def test_demo_replays_stay_on_regular_season_overtime():
+    root = Path(__file__).resolve().parents[1]
+    for name in ("nfl_jax_den.json", "nfl_nyg_den.json"):
+        state = load_replay(root / "examples" / name)[0]
+        config = config_for_state(state)
+        assert config is NFL_CONFIG
+        assert config.ot_period_seconds == 10 * 60
+        assert config.tie_after_ot is True
 
 
 def test_nfl_overtime_still_uses_the_timed_clock():

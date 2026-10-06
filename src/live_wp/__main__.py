@@ -1,4 +1,4 @@
-"""python -m live_wp replay|ingest-espn|render-widget|follow"""
+"""python -m live_wp replay|ingest-espn|render-widget|follow|calibrate"""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from pathlib import Path
 
 from mswp import compute_wp
 
+from live_wp.calibrate import run_calibrate
 from live_wp.feeds.espn import DENSITIES, states_from_espn
 from live_wp.follow import run_follow
 from live_wp.replay import (
@@ -23,6 +24,7 @@ usage: python -m live_wp replay <json>
        python -m live_wp ingest-espn <in.json> <out.json> [--density scoring|situation|all]
        python -m live_wp render-widget <replay.json> <out.js>
        python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15]
+       python -m live_wp calibrate [replay-or-espn.json ...]
        python -m live_wp build-football-demos
        python -m live_wp build-hockey-demos
        python -m live_wp build-basketball-demos\
@@ -92,6 +94,8 @@ def main(argv: list[str] | None = None) -> int:
         return render_widget(Path(args[1]), Path(args[2]))
     if args and args[0] == "follow":
         return run_follow(args[1:])
+    if args and args[0] == "calibrate":
+        return run_calibrate(args[1:])
     if args and args[0] == "build-football-demos":
         from live_wp.build_football_demos import build_football_demos
 

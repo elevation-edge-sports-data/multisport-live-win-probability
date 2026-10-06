@@ -2,10 +2,13 @@
 
 from dataclasses import replace
 from datetime import datetime, timezone
+from pathlib import Path
 
 import pytest
 
 from mswp import NCAAF_CONFIG, NcaafModel, GameState, NFL_CONFIG, SportModel, compute_wp
+
+from live_wp.replay import load_replay
 
 AS_OF = datetime(2026, 10, 11, 19, 0, tzinfo=timezone.utc)
 
@@ -73,6 +76,20 @@ def test_tied_end_of_regulation_starts_overtime_and_stays_a_small_favorite():
         prior_home=0.60,
     )
     assert compute_wp(decided, 0.60, NCAAF_CONFIG) == 1.0
+
+
+def test_ncaaf_sample_reaches_2ot_without_a_ten_minute_clock():
+    root = Path(__file__).resolve().parents[1]
+    states = load_replay(root / "examples" / "ncaaf_sample.json")
+    extra = [state for state in states if state.period > 4 and state.status == "live"]
+    assert any(state.period == 6 for state in extra)
+    shorter = replace(NCAAF_CONFIG, ot_period_seconds=45)
+    ten_minutes = replace(NCAAF_CONFIG, ot_period_seconds=10 * 60)
+    for state in extra:
+        base = compute_wp(state, state.prior_home, NCAAF_CONFIG)
+        assert compute_wp(state, state.prior_home, shorter) == base
+        assert compute_wp(state, state.prior_home, ten_minutes) == base
+        assert base not in (0.0, 1.0)
 
 
 def test_extra_period_clock_is_not_the_process():

@@ -13,7 +13,11 @@ from mswp.state import GameState
 
 
 class NFLModel:
-    """Remaining-score NFL model. Down and distance are not required."""
+    """Remaining-score NFL model. Down and distance are not required.
+
+    ``sport_config`` is the regular season: 10 minutes, and a tie is
+    allowed. A playoff game passes ``NFL_PLAYOFF_CONFIG`` to ``compute_wp``.
+    """
 
     sport = "nfl"
 

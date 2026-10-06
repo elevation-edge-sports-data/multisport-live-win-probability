@@ -48,6 +48,18 @@ def _decided_wp(state: GameState, sport_config: SportConfig) -> float | None:
     if state.sport == "ncaaf" and state.period > sport_config.regulation_periods:
         return _ncaaf_extra_period_decided(state, sport_config)
 
+    # A safety is the defensive score a clock-and-score snapshot can see.
+    # In NFL overtime it ends the game even if the period clock is running.
+    # A touchdown margin does not: the other team still has a possession.
+    if (
+        state.sport == "nfl"
+        and state.period > sport_config.regulation_periods
+        and abs(state.home_score - state.away_score) == 2
+    ):
+        if state.home_score > state.away_score:
+            return 1.0
+        return 0.0
+
     clock_out = (
         state.period >= sport_config.regulation_periods
         and state.seconds_remaining_period == 0

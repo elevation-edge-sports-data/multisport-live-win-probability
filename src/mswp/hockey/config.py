@@ -10,6 +10,7 @@ from mswp.config import SportConfig
 # Overtime here is playoff sudden death, a 20:00 period. It is not the
 # regular-season 3-on-3 overtime of 5:00. A scoreless playoff period
 # starts another 20:00. ``tie_after_ot`` is false for that reason.
+# The Colorado–Minnesota demo stays on this config.
 NHL_CONFIG = SportConfig(
     sport="nhl",
     family="hockey",
@@ -19,6 +20,21 @@ NHL_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
+)
+
+# Regular season: one 5:00 period, then a shootout if it is still tied.
+# ``tie_after_ot`` selects that ending. Game win uses the shootout.
+# The standings output may still call a scoreless period 0.5.
+# Scoring rates match ``NHL_CONFIG``. This is not a new rating.
+NHL_REGULAR_CONFIG = SportConfig(
+    sport="nhl",
+    family="hockey",
+    regulation_periods=3,
+    period_seconds=20 * 60,
+    mean_score_per_team=3.05,
+    score_dispersion=1.0,
+    ot_period_seconds=5 * 60,
+    tie_after_ot=True,
 )
 
 NCAAH_CONFIG = SportConfig(
