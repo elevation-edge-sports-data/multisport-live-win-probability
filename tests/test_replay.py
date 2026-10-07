@@ -5,10 +5,11 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from mswp import NCAAF_CONFIG, NFL_CONFIG as nfl_config
-from mswp import compute_wp
+from mswp import GameState, compute_wp
 
 from live_wp.replay import (
     elapsed_game_seconds,
@@ -188,6 +189,72 @@ def test_ncaaf_sample_reaches_two_overtimes_and_matches_compute_wp():
     for frame in fresh_frames:
         assert "home_logo" not in frame
         assert "away_logo" not in frame
+
+
+def _nfl_state(**overrides: object) -> GameState:
+    fields: dict[str, object] = dict(
+        sport="nfl",
+        game_id="situation",
+        home="DEN",
+        away="NYG",
+        home_score=10,
+        away_score=7,
+        period=2,
+        seconds_remaining_period=8 * 60 + 14,
+        seconds_remaining_total=2 * 900 + 8 * 60 + 14,
+        status="live",
+        source="test",
+        as_of=datetime(2026, 10, 4, 18, 0, tzinfo=timezone.utc),
+        prior_home=0.8,
+    )
+    fields.update(overrides)
+    return GameState(**fields)  # type: ignore[arg-type]
+
+
+def _script_frames(script: str) -> list[dict[str, object]]:
+    payload = script[script.index("[") : script.rindex("]") + 1]
+    frames = json.loads(payload)
+    assert isinstance(frames, list)
+    return frames
+
+
+def test_render_widget_script_copies_situation_fields_only_when_set():
+    rich = _nfl_state(
+        possession="away",
+        down=2,
+        distance=7,
+        yardline=35,
+        timeouts={"home": 3, "away": 2},
+        strength="5v4",
+        extra_attacker=True,
+    )
+    bare = _nfl_state()
+    partial = _nfl_state(down=2)
+    flagged = _nfl_state(extra_attacker=False)
+    named = _nfl_state(timeouts={"NYG": 2, "DEN": 3})
+    script = render_widget_script([rich, bare, partial, flagged, named])
+    frames = _script_frames(script)
+    assert frames[0]["possession"] == "away"
+    assert frames[0]["down"] == 2
+    assert frames[0]["distance"] == 7
+    assert frames[0]["yardline"] == 35
+    assert frames[0]["timeouts"] == {"NYG": 2, "DEN": 3}
+    assert list(frames[0]["timeouts"]) == ["NYG", "DEN"]
+    assert frames[0]["strength"] == "5v4"
+    assert frames[0]["extra_attacker"] is True
+    assert frames[0]["wp"] == compute_wp(rich, rich.prior_home, nfl_config)
+    assert frames[1]["wp"] == compute_wp(bare, bare.prior_home, nfl_config)
+    for name in _OPTIONAL:
+        assert name not in frames[1]
+    assert frames[2]["down"] == 2
+    for name in _OPTIONAL - {"down"}:
+        assert name not in frames[2]
+    assert frames[3]["extra_attacker"] is False
+    for name in _OPTIONAL - {"extra_attacker"}:
+        assert name not in frames[3]
+    assert frames[4]["timeouts"] == {"NYG": 2, "DEN": 3}
+    for name in _OPTIONAL - {"timeouts"}:
+        assert name not in frames[4]
 
 
 def test_harbor_final_is_one():

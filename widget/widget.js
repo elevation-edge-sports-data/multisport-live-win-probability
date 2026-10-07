@@ -1,6 +1,9 @@
 // Displays one rendered replay chosen from window.MSWP_MANIFEST.
 // Each replay was produced by the Python pack for that sport. This file
-// does not estimate win probability and does not fetch a remote replay.
+// does not estimate win probability. On 127.0.0.1 or localhost it reads
+// live_replay.js. It does not request any other file.
+// The page query selects a manifest game (sport and game=away-home).
+// live=1 selects Live on this host when that file has frames.
 
 (function (root) {
   "use strict";
@@ -596,7 +599,7 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V3.3";
+  var BADGE_TEXT = "V3.5";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
@@ -682,6 +685,16 @@
   var homeSwatch = null;
   var loadToken = 0;
   var frameCache = {};
+  var liveFrames = null;
+  var liveSport = "";
+  var liveAway = "";
+  var liveHome = "";
+  var liveHidden = true;
+  var liveMissing = false;
+  var viewingLive = false;
+  var preferLive = false;
+  var livePollSerial = 0;
+  var LIVE_POLL_MS = 15000;
   var stage = document.getElementById("stage");
   if (!manifest.length) {
     stage.textContent = "Replay file is missing.";
@@ -897,16 +910,18 @@
     applyTeamColors();
     drawCharts(index);
     scrub.value = String(index);
-    text("position", frame.clock);
+    var clock = clockLabel(frame);
+    text("position", clock);
+    paintSituation(frame);
 
-    text("c-clock", frame.clock);
+    text("c-clock", clock);
     text("c-score", frame.away + " " + frame.away_score + " – " + frame.home + " " + frame.home_score);
     text("c-wp", homePct + "%");
     paintTicker(frame);
     applyLogo("c-home-logo", frame.home_logo);
     applyLogo("c-away-logo", frame.away_logo);
 
-    text("e-clock", frame.clock);
+    text("e-clock", clock);
     text("e-home-pct", homePct);
     text("e-away-pct", awayPct);
     text("e-home-name", frame.home);
@@ -1005,25 +1020,302 @@
     }
   }
 
+  function hostAllowsLive() {
+    var loc = root.location;
+    if (!loc) return false;
+    if (String(loc.protocol || "") === "file:") return false;
+    var host = String(loc.hostname || "").toLowerCase();
+    return host === "127.0.0.1" || host === "localhost";
+  }
+
+  function clockLabel(frame) {
+    var clock = frame && frame.clock != null ? String(frame.clock) : "";
+    var stale = String(frame && frame.status || "").toLowerCase() === "stale";
+    if (viewingLive && liveMissing) stale = true;
+    if (!stale) return clock;
+    return clock + " STALE";
+  }
+
+  // The situation line is the current snapshot only. Pregame and final
+  // stay blank. A snapshot that omitted these keys stays blank.
+  function paintSituation(frame) {
+    var line = situationLine(frame);
+    var node = document.getElementById("situation");
+    node.textContent = line;
+    node.hidden = line === "";
+  }
+
+  function situationLine(frame) {
+    if (!frame) return "";
+    var status = String(frame.status || "").toLowerCase();
+    if (status === "pre" || status === "final") return "";
+    if (sportName === "nfl" || sportName === "ncaaf") return footballSituation(frame);
+    if (sportName === "nhl" || sportName === "ncaah") return hockeySituation(frame);
+    if (sportName === "nba" || sportName === "ncaab") return basketballSituation(frame);
+    return "";
+  }
+
+  function fieldPresent(value) {
+    return value !== undefined && value !== null && value !== "";
+  }
+
+  function footballSituation(frame) {
+    if (
+      !fieldPresent(frame.possession) ||
+      !fieldPresent(frame.down) ||
+      !fieldPresent(frame.distance) ||
+      !fieldPresent(frame.yardline)
+    ) {
+      return "";
+    }
+    var name = possessingName(frame);
+    if (!name) return "";
+    var line = name + " ball, " + downOrdinal(frame.down) + " and " +
+      frame.distance + ", yardline " + frame.yardline;
+    var suffix = timeoutSuffix(frame);
+    if (suffix) line += suffix;
+    return line;
+  }
+
+  function possessingName(frame) {
+    var token = String(frame.possession == null ? "" : frame.possession).trim();
+    var lower = token.toLowerCase();
+    if (lower === "away") return String(frame.away || "");
+    if (lower === "home") return String(frame.home || "");
+    return token;
+  }
+
+  function downOrdinal(down) {
+    var n = Number(down);
+    if (n === 1) return "1st";
+    if (n === 2) return "2nd";
+    if (n === 3) return "3rd";
+    if (n === 4) return "4th";
+    return String(down);
+  }
+
+  function timeoutSuffix(frame) {
+    var timeouts = frame.timeouts;
+    if (timeouts == null || typeof timeouts !== "object") return "";
+    var awayCount = timeoutCount(timeouts, frame.away, "away");
+    var homeCount = timeoutCount(timeouts, frame.home, "home");
+    if (awayCount == null || homeCount == null) return "";
+    return " \u00b7 " + frame.away + " " + awayCount + ", " + frame.home + " " + homeCount;
+  }
+
+  function timeoutCount(timeouts, abbr, side) {
+    if (Object.prototype.hasOwnProperty.call(timeouts, abbr) && timeouts[abbr] != null) {
+      return timeouts[abbr];
+    }
+    if (Object.prototype.hasOwnProperty.call(timeouts, side) && timeouts[side] != null) {
+      return timeouts[side];
+    }
+    return null;
+  }
+
+  function hockeySituation(frame) {
+    var strength = fieldPresent(frame.strength) ? String(frame.strength) : "";
+    var extra = frame.extra_attacker === true;
+    if (strength && extra) return strength + " \u00b7 extra attacker";
+    if (strength) return strength;
+    if (extra) return "extra attacker";
+    return "";
+  }
+
+  function basketballSituation(frame) {
+    if (!situationPresent(frame)) return "";
+    var football = footballSituation(frame);
+    if (football) return football;
+    return hockeySituation(frame);
+  }
+
+  function situationPresent(frame) {
+    return fieldPresent(frame.possession) ||
+      fieldPresent(frame.down) ||
+      fieldPresent(frame.distance) ||
+      fieldPresent(frame.yardline) ||
+      frame.timeouts != null ||
+      fieldPresent(frame.strength) ||
+      frame.extra_attacker != null;
+  }
+
+  function liveControlVisible() {
+    return liveHidden === false &&
+      !!liveFrames &&
+      liveFrames.length > 0 &&
+      liveSport === sportName &&
+      levelForSport(sportName) === levelName;
+  }
+
+  // The live file still assigns the archive binding. Read it on a side
+  // window so that assignment cannot replace the loaded replay.
+  function describeLive(rows) {
+    if (!Array.isArray(rows) || rows.length === 0) return null;
+    var first = rows[0];
+    if (!first || typeof first !== "object") return null;
+    var sport = String(first.sport || "").trim();
+    var away = String(first.away || "").trim();
+    var home = String(first.home || "").trim();
+    if (!sport || !away || !home) return null;
+    return { rows: rows, sport: sport, away: away, home: home };
+  }
+
+  function readLiveAssignment(source) {
+    if (source == null) return null;
+    var text = String(source);
+    if (!text.trim()) return null;
+    var box = {};
+    try {
+      var run = new Function("window", text);
+      run(box);
+    } catch (err) {
+      return null;
+    }
+    return describeLive(box.MSWP_LIVE);
+  }
+
+  function noteLiveMissing() {
+    liveHidden = true;
+    if (liveFrames && liveFrames.length) {
+      liveMissing = true;
+      if (viewingLive) show(index);
+    }
+    renderGames();
+  }
+
+  function noteLiveEmpty() {
+    liveHidden = true;
+    renderGames();
+  }
+
+  function applyLivePayload(parsed) {
+    var wasOnLast = viewingLive && frames.length > 0 && index === frames.length - 1;
+    var sameGame = viewingLive &&
+      parsed.sport === liveSport &&
+      parsed.away === liveAway &&
+      parsed.home === liveHome;
+    liveFrames = parsed.rows;
+    liveSport = parsed.sport;
+    liveAway = parsed.away;
+    liveHome = parsed.home;
+    liveHidden = false;
+    liveMissing = false;
+    if (preferLive) {
+      preferLive = false;
+      selectLive(false);
+      return;
+    }
+    if (!viewingLive) {
+      renderGames();
+      return;
+    }
+    frames = liveFrames;
+    scrub.max = String(frames.length - 1);
+    if (!sameGame) {
+      setPlaying(false);
+      sportName = liveSport;
+      if (levelForSport(sportName)) levelName = levelForSport(sportName);
+      writePrior();
+      loadMatchupAppearance();
+      renderPicker();
+      show(frames.length - 1);
+      return;
+    }
+    if (wasOnLast) show(frames.length - 1);
+    else {
+      if (index > frames.length - 1) index = frames.length - 1;
+      show(index);
+    }
+    renderGames();
+  }
+
+  function pollLive() {
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    livePollSerial += 1;
+    var url = "live_replay.js?t=" + Date.now() + "-" + livePollSerial;
+    var pending;
+    try {
+      pending = root.fetch(url, { cache: "no-store" });
+    } catch (err) {
+      noteLiveMissing();
+      return;
+    }
+    Promise.resolve(pending).then(function (response) {
+      if (!response || !response.ok || typeof response.text !== "function") {
+        noteLiveMissing();
+        return null;
+      }
+      return response.text();
+    }).then(function (text) {
+      if (text == null) return;
+      var parsed = readLiveAssignment(text);
+      if (!parsed) {
+        noteLiveEmpty();
+        return;
+      }
+      applyLivePayload(parsed);
+    }).catch(function () {
+      noteLiveMissing();
+    });
+  }
+
+  function startLivePoll() {
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    pollLive();
+    root.setInterval(pollLive, LIVE_POLL_MS);
+  }
+
+  function selectLive(fromClick) {
+    if (!liveFrames || !liveFrames.length || liveHidden) return;
+    preferLive = false;
+    loadToken += 1;
+    setPlaying(false);
+    viewingLive = true;
+    sportName = liveSport;
+    currentFile = "";
+    frames = liveFrames;
+    scrub.max = String(frames.length - 1);
+    if (levelForSport(sportName)) levelName = levelForSport(sportName);
+    writePrior();
+    renderPicker();
+    loadMatchupAppearance();
+    show(frames.length - 1);
+    if (fromClick !== false) writeQuery(liveSport, liveAway, liveHome, true);
+  }
+
   function renderGames() {
     var row = document.getElementById("games");
     var level = document.getElementById("game-row");
     var entries = gamesForSport(manifest, sportName);
-    var show = levelForSport(sportName) === levelName && entries.length > 1;
+    var showArchive = levelForSport(sportName) === levelName && entries.length > 1;
+    var showLive = liveControlVisible();
+    var show = showArchive || showLive;
     var i;
     row.textContent = "";
     if (level) level.hidden = !show;
     if (!show) return;
-    for (i = 0; i < entries.length; i++) {
-      var entry = entries[i];
-      var button = document.createElement("button");
-      var on = entry.file === currentFile;
-      button.type = "button";
-      button.className = on ? "sport is-selected" : "sport";
-      button.setAttribute("data-file", entry.file);
-      button.setAttribute("aria-pressed", on ? "true" : "false");
-      button.textContent = entry.label;
-      row.appendChild(button);
+    if (showArchive) {
+      for (i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        var button = document.createElement("button");
+        var on = !viewingLive && entry.file === currentFile;
+        button.type = "button";
+        button.className = on ? "sport is-selected" : "sport";
+        button.setAttribute("data-file", entry.file);
+        button.setAttribute("aria-pressed", on ? "true" : "false");
+        button.textContent = entry.label;
+        row.appendChild(button);
+      }
+    }
+    if (showLive) {
+      var liveButton = document.createElement("button");
+      var liveOn = viewingLive;
+      liveButton.type = "button";
+      liveButton.className = liveOn ? "sport is-selected" : "sport";
+      liveButton.setAttribute("data-live", "true");
+      liveButton.setAttribute("aria-pressed", liveOn ? "true" : "false");
+      liveButton.textContent = liveAway + " at " + liveHome;
+      row.appendChild(liveButton);
     }
   }
 
@@ -1035,6 +1327,7 @@
 
   function useFrames(entry, rows) {
     setPlaying(false);
+    viewingLive = false;
     sportName = entry && entry.sport ? entry.sport : sportName;
     currentFile = entry && entry.file ? entry.file : "";
     frames = rows;
@@ -1137,15 +1430,23 @@
     if (!sport) return;
     var games = gamesForSport(manifest, sport);
     if (!games.length) return;
+    writeQuery(games[0].sport, games[0].away, games[0].home, false);
     loadGame(games[0]);
   });
 
   document.getElementById("games").addEventListener("click", function (event) {
+    if (attrFrom(event, "data-live")) {
+      selectLive();
+      return;
+    }
     var file = attrFrom(event, "data-file");
     if (!file) return;
     var i;
     for (i = 0; i < manifest.length; i++) {
-      if (manifest[i].file === file && listedGame(manifest[i])) loadGame(manifest[i]);
+      if (manifest[i].file === file && listedGame(manifest[i])) {
+        writeQuery(manifest[i].sport, manifest[i].away, manifest[i].home, false);
+        loadGame(manifest[i]);
+      }
     }
   });
 
@@ -1475,11 +1776,111 @@
     return found;
   }
 
-  renderPicker();
-  var preset = presetSport();
-  if (preset) {
-    useFrames({ sport: preset, file: "" }, readSportFrames(root, preset));
-  } else {
+  function decodePart(value) {
+    var text = String(value == null ? "" : value).replace(/\+/g, " ");
+    try {
+      return decodeURIComponent(text);
+    } catch (err) {
+      return text;
+    }
+  }
+
+  function readQuery() {
+    var loc = root.location;
+    var search = loc && loc.search != null ? String(loc.search) : "";
+    if (search.charAt(0) === "?") search = search.slice(1);
+    var out = {};
+    if (!search) return out;
+    var parts = search.split("&");
+    var i;
+    for (i = 0; i < parts.length; i++) {
+      if (!parts[i]) continue;
+      var eq = parts[i].indexOf("=");
+      var rawKey = eq < 0 ? parts[i] : parts[i].slice(0, eq);
+      var rawValue = eq < 0 ? "" : parts[i].slice(eq + 1);
+      out[decodePart(rawKey)] = decodePart(rawValue);
+    }
+    return out;
+  }
+
+  function gameSlug(away, home) {
+    return String(away == null ? "" : away).trim().toLowerCase() + "-" +
+      String(home == null ? "" : home).trim().toLowerCase();
+  }
+
+  // sport is one of the six ids. game is away-home for that sport.
+  // A missing or unknown pair falls back to the ordinary default.
+  function entryFromQuery(params) {
+    var hasSport = Object.prototype.hasOwnProperty.call(params, "sport");
+    var hasGame = Object.prototype.hasOwnProperty.call(params, "game");
+    if (!hasSport && !hasGame) return { kind: "absent" };
+    var sport = String(params.sport == null ? "" : params.sport).trim().toLowerCase();
+    var game = String(params.game == null ? "" : params.game).trim().toLowerCase();
+    if (SPORT_ORDER.indexOf(sport) < 0 || !game) return { kind: "fallback" };
+    var games = gamesForSport(manifest, sport);
+    var i;
+    for (i = 0; i < games.length; i++) {
+      if (gameSlug(games[i].away, games[i].home) === game) {
+        return { kind: "match", entry: games[i] };
+      }
+    }
+    return { kind: "fallback" };
+  }
+
+  function writeQuery(sport, away, home, live) {
+    preferLive = false;
+    var history = root.history;
+    if (!history || typeof history.replaceState !== "function") return;
+    var loc = root.location || {};
+    var path = loc.pathname != null ? String(loc.pathname) : "";
+    var hash = loc.hash != null ? String(loc.hash) : "";
+    var query = "?sport=" + encodeURIComponent(String(sport || "").trim().toLowerCase()) +
+      "&game=" + encodeURIComponent(gameSlug(away, home));
+    if (live) query += "&live=1";
+    try {
+      history.replaceState(null, "", path + query + hash);
+    } catch (err) {}
+  }
+
+  function installLive(parsed) {
+    liveFrames = parsed.rows;
+    liveSport = parsed.sport;
+    liveAway = parsed.away;
+    liveHome = parsed.home;
+    liveHidden = false;
+    liveMissing = false;
+  }
+
+  function bootFromQuery() {
+    var params = readQuery();
+    var requested = entryFromQuery(params);
+    // live=1 is ignored unless this host is the one that serves the file.
+    preferLive = String(params.live == null ? "" : params.live).trim() === "1" && hostAllowsLive();
+    if (preferLive) {
+      var seeded = describeLive(root.MSWP_LIVE);
+      if (seeded) {
+        installLive(seeded);
+        selectLive(false);
+        return;
+      }
+    }
+    if (requested.kind === "match") {
+      loadGame(requested.entry);
+      return;
+    }
+    if (requested.kind === "fallback") {
+      loadGame(defaultEntry());
+      return;
+    }
+    var preset = presetSport();
+    if (preset) {
+      useFrames({ sport: preset, file: "" }, readSportFrames(root, preset));
+      return;
+    }
     loadGame(defaultEntry());
   }
+
+  renderPicker();
+  bootFromQuery();
+  startLivePoll();
 })(typeof window !== "undefined" ? window : this);

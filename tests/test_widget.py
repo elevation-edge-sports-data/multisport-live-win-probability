@@ -47,7 +47,9 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "espn" not in page
     assert "espn.com" not in page
     assert "http://" not in page and "https://" not in page
-    assert "fetch(" not in script
+    assert script.count("fetch(") == 1
+    assert "live_replay.js?" in script
+    assert "MSWP_LIVE" in script
     assert "espn" not in script
     assert "https://" not in script
     assert "fetch(" not in css
@@ -61,9 +63,9 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "img.hidden = true" in script
     assert "frame.home_logo" in script and "frame.away_logo" in script
     assert 'src="manifest.js"' in html
-    assert 'src="live_replay.js"' in html
-    assert html.index('src="manifest.js"') < html.index('src="live_replay.js"')
-    assert html.index('src="live_replay.js"') < html.index('src="colors.js"')
+    assert 'src="live_replay.js"' not in html
+    assert "live_replay.js" not in html
+    assert html.index('src="manifest.js"') < html.index('src="colors.js"')
     assert html.index('src="colors.js"') < html.index('src="widget.js"')
     for name in (
         "nfl_nyg_den.js",
@@ -102,7 +104,13 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert html.index('id="game-row"') < html.index('id="games"')
     assert 'id="scrub-panes"' not in html
     assert 'id="position"' in html
-    assert 'text("position", frame.clock)' in script
+    assert 'id="situation"' in html
+    assert html.index('id="position"') < html.index('id="situation"') < html.index('id="appearance"')
+    assert 'var clock = clockLabel(frame)' in script
+    assert 'text("position", clock)' in script
+    assert "paintSituation(frame)" in script
+    assert 'getElementById("situation")' in script
+    assert 'return clock + " STALE"' in script
     assert "renderScrubPanes" not in script
     assert [item[0]["data-view-choice"] for item in views] == ["compact", "expanded"]
     assert 'data-view="expanded"' in html
@@ -120,10 +128,11 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "CFB" not in sport_text and "CBB" not in html
     assert "college hockey" not in (html + css + script).lower()
     assert html.index("title-line") < html.index("data-view-choice") < html.index('class="toolbar"')
-    assert ">V3<" not in html and ">V3.3<" not in html and ">V0<" not in html
+    assert ">V3<" not in html and ">V3.3<" not in html and ">V3.5<" not in html and ">V0<" not in html
     assert 'id="badge"' in html
-    assert script.count("V3.3") == 1
-    assert 'var BADGE_TEXT = "V3.3"' in script
+    assert "V3.3" not in script
+    assert script.count("V3.5") == 1
+    assert 'var BADGE_TEXT = "V3.5"' in script
     assert "badge.textContent = BADGE_TEXT" in script
     assert 'src="colors.js"' in html
     assert 'data-theme="charcoal"' in html
@@ -148,6 +157,7 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "tri-right" in html and "tri-left" in html
     assert 'id="scrub"' in html
     assert ".position" in css and "text-align: right" in css
+    assert ".situation" in css and ".situation:empty" in css
     assert "function yAtLow" in script
     assert "yAtLow(current.p, 0, 1)" in script
     assert "function step" in script
@@ -197,7 +207,11 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
         text = path.read_text(encoding="utf-8").lower()
         assert "espn" not in text, path.name
         assert "espn.com" not in text, path.name
-        assert "fetch(" not in text, path.name
+        if path.name == "widget.js":
+            assert text.count("fetch(") == 1, path.name
+            assert "live_replay.js" in text, path.name
+        else:
+            assert "fetch(" not in text, path.name
         assert "https://" not in text, path.name
         bare = text.replace("http://www.w3.org/2000/svg", "")
         assert "http://" not in bare, path.name
@@ -1142,7 +1156,7 @@ console.log(JSON.stringify({
     football = ["Q1", "Q2", "Q3", "Q4", "OT", "2OT"]
     hockey = ["P1", "P2", "P3", "OT", "2OT"]
     regulation = ["Q1", "Q2", "Q3", "Q4"]
-    assert report["badge"] == "V3.3"
+    assert report["badge"] == "V3.5"
     assert "NYG" in report["bootScore"] and "DEN" in report["bootScore"]
     assert report["bootClock"] == "FINAL"
     assert report["bootPosition"] == "FINAL"
@@ -1224,3 +1238,1277 @@ console.log(JSON.stringify({
         assert "Harbor" not in label
     assert "Red Oak at Harbor" not in report["harborGames"]
     assert report["logosHidden"] is True
+
+
+def test_localhost_live_button_hides_on_404_and_keeps_the_archive(tmp_path):
+    node = shutil.which("node")
+    assert node, "node is required to poll the live replay"
+    from live_wp.replay import manifest_entries, write_manifest
+
+    live = tmp_path / "live_replay.js"
+    live.write_text(
+        "window.NFL_REPLAY = ["
+        '{"sport": "nfl", "away": "NYG", "home": "DEN", "period": 1}'
+        "];\n"
+        "window.MSWP_LIVE = window.NFL_REPLAY;\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    archive = tmp_path / "nfl_nyg_den.js"
+    archive.write_text(
+        'window.NFL_REPLAY = [{"away": "NYG", "home": "DEN", "period": 1}];\n',
+        encoding="utf-8",
+        newline="\n",
+    )
+    harbor = tmp_path / "nfl_replay.js"
+    harbor.write_text(
+        'window.NFL_REPLAY = [{"away": "Red Oak", "home": "Harbor", "period": 1}];\n',
+        encoding="utf-8",
+        newline="\n",
+    )
+    entries = manifest_entries(tmp_path)
+    assert [entry["file"] for entry in entries] == ["nfl_nyg_den.js"]
+    written = write_manifest(tmp_path)
+    manifest_text = written.read_text(encoding="utf-8")
+    assert "live_replay.js" not in manifest_text
+    assert "Harbor" not in manifest_text
+    assert "Red Oak" not in manifest_text
+    page_manifest = (WIDGET / "manifest.js").read_text(encoding="utf-8")
+    assert "live_replay.js" not in page_manifest
+
+    probe = r"""
+const fs = require("fs");
+const path = require("path");
+const vm = require("vm");
+
+function element(tag) {
+  const el = {
+    tagName: String(tag).toUpperCase(),
+    children: [],
+    attrs: {},
+    style: {
+      setProperty(name, value) { this[name] = value; },
+      removeProperty(name) { delete this[name]; }
+    },
+    hidden: false,
+    className: "",
+    parentNode: null,
+    listeners: {},
+    value: "",
+    max: "",
+    src: "",
+    _text: "",
+    id: "",
+    dataset: {}
+  };
+  el.classList = {
+    add(name) {
+      const parts = el.className.split(/\s+/).filter(Boolean);
+      if (parts.indexOf(name) < 0) parts.push(name);
+      el.className = parts.join(" ");
+    },
+    remove(name) {
+      el.className = el.className.split(/\s+/).filter((part) => part && part !== name).join(" ");
+    },
+    toggle(name, force) {
+      const parts = el.className.split(/\s+/).filter(Boolean);
+      const has = parts.indexOf(name) >= 0;
+      const on = arguments.length > 1 ? !!force : !has;
+      if (on && !has) parts.push(name);
+      if (!on) {
+        el.className = parts.filter((part) => part !== name).join(" ");
+        return on;
+      }
+      el.className = parts.join(" ");
+      return on;
+    }
+  };
+  el.setAttribute = (key, value) => { el.attrs[key] = String(value); };
+  el.getAttribute = (key) => (Object.prototype.hasOwnProperty.call(el.attrs, key) ? el.attrs[key] : null);
+  el.removeAttribute = (key) => { delete el.attrs[key]; };
+  el.appendChild = (child) => {
+    if (child) child.parentNode = el;
+    el.children.push(child);
+    return child;
+  };
+  el.removeChild = (child) => {
+    el.children = el.children.filter((item) => item !== child);
+    return child;
+  };
+  Object.defineProperty(el, "firstChild", { get: () => el.children[0] || null });
+  Object.defineProperty(el, "textContent", {
+    get: () => el._text,
+    set: (value) => {
+      el._text = value == null ? "" : String(value);
+      el.children = [];
+    }
+  });
+  el.addEventListener = (type, fn) => {
+    if (!el.listeners[type]) el.listeners[type] = [];
+    el.listeners[type].push(fn);
+  };
+  el.click = () => {
+    const event = { target: el };
+    let node = el;
+    while (node) {
+      const list = node.listeners && node.listeners.click ? node.listeners.click.slice() : [];
+      list.forEach((fn) => fn(event));
+      node = node.parentNode;
+    }
+  };
+  return el;
+}
+
+function frame(over) {
+  return Object.assign({
+    sport: "nfl",
+    clock: "Q1 10:00",
+    wp: 0.5,
+    home: "DEN",
+    away: "NYG",
+    home_score: 0,
+    away_score: 0,
+    status: "live",
+    period: 1,
+    seconds_remaining_period: 600,
+    prior_home: 0.5
+  }, over || {});
+}
+
+const frameA = frame({});
+const frameB = frame({
+  clock: "Q2 5:00",
+  period: 2,
+  seconds_remaining_period: 300,
+  home_score: 7,
+  away_score: 3,
+  wp: 0.42
+});
+const frameC = frame({
+  clock: "Q3 8:00",
+  period: 3,
+  seconds_remaining_period: 480,
+  home_score: 14,
+  away_score: 10,
+  wp: 0.61
+});
+const frameD = frame({
+  clock: "Q4 1:00",
+  period: 4,
+  seconds_remaining_period: 60,
+  home_score: 21,
+  away_score: 13,
+  wp: 0.8,
+  status: "stale"
+});
+
+function liveSource(rows) {
+  return "window.NFL_REPLAY = " + JSON.stringify(rows) + ";\nwindow.MSWP_LIVE = window.NFL_REPLAY;\n";
+}
+
+function bindingOnly() {
+  return "window.NFL_REPLAY = " + JSON.stringify([
+    frame({ away_score: 99, home_score: 1, clock: "Q1 1:00" })
+  ]) + ";\n";
+}
+
+function http(status, body) {
+  return { status: status, ok: status >= 200 && status < 300, body: body == null ? "" : String(body) };
+}
+
+function settle() {
+  return new Promise((resolve) => setImmediate(resolve));
+}
+
+async function boot(hostname, protocol, first) {
+  const byId = {};
+  function getElementById(id) {
+    if (!byId[id]) byId[id] = element("div");
+    byId[id].id = id;
+    return byId[id];
+  }
+  const viewCompact = element("button");
+  const viewExpanded = element("button");
+  viewCompact.setAttribute("data-view-choice", "compact");
+  viewExpanded.setAttribute("data-view-choice", "expanded");
+  const docEl = element("html");
+  docEl.setAttribute("data-theme", "charcoal");
+  const body = element("body");
+  const store = {};
+  const document = {
+    documentElement: docEl,
+    body: body,
+    getElementById: getElementById,
+    createElement: (tag) => element(tag),
+    createElementNS: (_ns, tag) => element(tag),
+    createTextNode: (text) => ({ nodeType: 3, textContent: String(text), parentNode: null }),
+    querySelectorAll: (selector) => (selector === "[data-view-choice]" ? [viewCompact, viewExpanded] : [])
+  };
+  const fetches = [];
+  const intervals = [];
+  const feed = { items: [first] };
+  const sandbox = {
+    console,
+    setInterval: (fn, ms) => {
+      intervals.push({ fn, ms });
+      return intervals.length;
+    },
+    clearInterval: () => {},
+    getComputedStyle: () => ({ getPropertyValue: () => "#888888" }),
+    localStorage: {
+      getItem: (key) => (Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null),
+      setItem: (key, value) => { store[key] = String(value); }
+    },
+    location: { hostname: hostname, protocol: protocol },
+    fetch: (url, options) => {
+      fetches.push({
+        url: String(url),
+        cache: options && options.cache ? options.cache : ""
+      });
+      const item = feed.items.shift() || http(404, "");
+      return Promise.resolve({
+        ok: item.ok,
+        status: item.status,
+        text: () => Promise.resolve(item.body)
+      });
+    },
+    document
+  };
+  sandbox.window = sandbox;
+  vm.createContext(sandbox);
+  const realAppend = body.appendChild.bind(body);
+  body.appendChild = (node) => {
+    const result = realAppend(node);
+    if (node && node.tagName === "SCRIPT" && node.src) {
+      const file = path.join(process.cwd(), "widget", node.src);
+      vm.runInContext(fs.readFileSync(file, "utf8"), sandbox);
+      if (typeof node.onload === "function") node.onload();
+    }
+    return result;
+  };
+  function run(name) {
+    vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), sandbox);
+  }
+  run("manifest.js");
+  run("colors.js");
+  run("widget.js");
+  const archive = sandbox.NFL_REPLAY;
+  for (let i = 0; i < 8; i++) await settle();
+  return { document, sandbox, fetches, intervals, feed, archive };
+}
+
+function snapshot(page) {
+  const games = page.document.getElementById("games").children.filter((child) => child.tagName === "BUTTON");
+  const live = games.filter((button) => button.getAttribute("data-live") === "true");
+  const last = page.sandbox.NFL_REPLAY[page.sandbox.NFL_REPLAY.length - 1];
+  return {
+    score: page.document.getElementById("c-score").textContent,
+    clock: page.document.getElementById("c-clock").textContent,
+    eClock: page.document.getElementById("e-clock").textContent,
+    position: page.document.getElementById("position").textContent,
+    play: page.document.getElementById("play").textContent,
+    liveCount: live.length,
+    liveLabel: live.length ? live[0].textContent : "",
+    liveFile: live.length ? live[0].getAttribute("data-file") : null,
+    archiveSame: page.sandbox.NFL_REPLAY === page.archive,
+    archiveAway: last.away_score,
+    archiveHome: last.home_score,
+    liveGlobal: Object.prototype.hasOwnProperty.call(page.sandbox, "MSWP_LIVE"),
+    scrub: page.document.getElementById("scrub").value,
+    scrubMax: page.document.getElementById("scrub").max
+  };
+}
+
+function scrubTo(page, value) {
+  const scrub = page.document.getElementById("scrub");
+  scrub.value = String(value);
+  (scrub.listeners.input || []).slice().forEach((fn) => fn());
+}
+
+function playTick(page) {
+  const timers = page.intervals.filter((item) => item.ms === 1000);
+  if (!timers.length) throw new Error("play timer missing");
+  timers[timers.length - 1].fn();
+}
+
+async function pollNext(page, item) {
+  page.feed.items.push(item);
+  const poll = page.intervals.find((entry) => entry.ms === 15000);
+  if (!poll) throw new Error("live poll missing");
+  poll.fn();
+  for (let i = 0; i < 8; i++) await settle();
+}
+
+(async () => {
+  const page = await boot("127.0.0.1", "http:", http(404, ""));
+  const after404 = snapshot(page);
+  await pollNext(page, http(200, ""));
+  const afterEmpty = snapshot(page);
+  await pollNext(page, http(200, bindingOnly()));
+  const afterBindingOnly = snapshot(page);
+  await pollNext(page, http(200, liveSource([frameA, frameB])));
+  const afterGood = snapshot(page);
+  const manifestFiles = page.sandbox.MSWP_MANIFEST.map((entry) => entry.file);
+  await pollNext(page, http(200, "   \n"));
+  const afterEmptyAgain = snapshot(page);
+  await pollNext(page, http(200, liveSource([frameA, frameB])));
+  const afterGoodAgain = snapshot(page);
+  page.document.getElementById("play").click();
+  const duringArchivePlay = snapshot(page);
+  const liveButton = page.document.getElementById("games").children.find((child) => child.getAttribute && child.getAttribute("data-live") === "true");
+  if (!liveButton) throw new Error("missing live button");
+  liveButton.click();
+  const afterSelect = snapshot(page);
+  page.document.getElementById("step-back").click();
+  const afterStepBack = snapshot(page);
+  page.document.getElementById("play").click();
+  playTick(page);
+  const afterPlayTick = snapshot(page);
+  scrubTo(page, 0);
+  const afterScrub = snapshot(page);
+  await pollNext(page, http(200, liveSource([frameA, frameB, frameC])));
+  const afterAppendHeld = snapshot(page);
+  scrubTo(page, 2);
+  const afterSeekEnd = snapshot(page);
+  await pollNext(page, http(200, liveSource([frameA, frameB, frameC, frameD])));
+  const afterAppendAdvance = snapshot(page);
+  const archiveButton = page.document.getElementById("games").children.find((child) => child.getAttribute && child.getAttribute("data-file") === "nfl_nyg_den.js");
+  if (!archiveButton) throw new Error("missing archive button");
+  archiveButton.click();
+  const afterArchive = snapshot(page);
+  const liveAgain = page.document.getElementById("games").children.find((child) => child.getAttribute && child.getAttribute("data-live") === "true");
+  liveAgain.click();
+  const afterLiveAgain = snapshot(page);
+  await pollNext(page, http(404, ""));
+  const afterMissing = snapshot(page);
+  scrubTo(page, 0);
+  const afterMissingScrub = snapshot(page);
+  page.document.getElementById("play").click();
+  playTick(page);
+  const afterMissingPlay = snapshot(page);
+  const filePage = await boot("localhost", "file:", http(200, liveSource([frameA, frameB])));
+  const otherPage = await boot("example.github.io", "https:", http(200, liveSource([frameA, frameB])));
+  const localPage = await boot("localhost", "http:", http(200, liveSource([frameA, frameB])));
+  console.log(JSON.stringify({
+    pollMs: page.intervals.filter((entry) => entry.ms === 15000).map((entry) => entry.ms),
+    fetches: page.fetches,
+    manifestFiles: manifestFiles,
+    after404: after404,
+    afterEmpty: afterEmpty,
+    afterBindingOnly: afterBindingOnly,
+    afterGood: afterGood,
+    afterEmptyAgain: afterEmptyAgain,
+    afterGoodAgain: afterGoodAgain,
+    duringArchivePlay: duringArchivePlay,
+    afterSelect: afterSelect,
+    afterStepBack: afterStepBack,
+    afterPlayTick: afterPlayTick,
+    afterScrub: afterScrub,
+    afterAppendHeld: afterAppendHeld,
+    afterSeekEnd: afterSeekEnd,
+    afterAppendAdvance: afterAppendAdvance,
+    afterArchive: afterArchive,
+    afterLiveAgain: afterLiveAgain,
+    afterMissing: afterMissing,
+    afterMissingScrub: afterMissingScrub,
+    afterMissingPlay: afterMissingPlay,
+    fileFetches: filePage.fetches.length,
+    fileLive: snapshot(filePage).liveCount,
+    fileScore: snapshot(filePage).score,
+    otherFetches: otherPage.fetches.length,
+    otherLive: snapshot(otherPage).liveCount,
+    localLive: snapshot(localPage).liveCount,
+    localLabel: snapshot(localPage).liveLabel,
+    localArchiveSame: snapshot(localPage).archiveSame,
+    localFetches: localPage.fetches.map((item) => item.url)
+  }));
+})().catch((err) => {
+  console.error(err && err.stack ? err.stack : err);
+  process.exit(1);
+});
+"""
+    probe_path = tmp_path / "live_poll.js"
+    probe_path.write_text(probe, encoding="utf-8", newline="\n")
+    completed = subprocess.run(
+        [node, str(probe_path)],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    report = json.loads(completed.stdout)
+    dash = "\u2013"
+    archive_score = f"NYG 32 {dash} DEN 33"
+    live_a = f"NYG 0 {dash} DEN 0"
+    live_b = f"NYG 3 {dash} DEN 7"
+    live_c = f"NYG 10 {dash} DEN 14"
+    live_d = f"NYG 13 {dash} DEN 21"
+    assert report["pollMs"] == [15000]
+    assert report["fetches"]
+    for item in report["fetches"]:
+        assert item["url"].startswith("live_replay.js?t=")
+        assert "espn" not in item["url"]
+        assert "http://" not in item["url"] and "https://" not in item["url"]
+        assert item["cache"] == "no-store"
+    assert "live_replay.js" not in report["manifestFiles"]
+    assert report["after404"]["liveCount"] == 0
+    assert report["after404"]["score"] == archive_score
+    assert report["after404"]["clock"] == "FINAL"
+    assert "STALE" not in report["after404"]["clock"]
+    assert report["after404"]["archiveSame"] is True
+    assert report["afterEmpty"]["liveCount"] == 0
+    assert report["afterEmpty"]["score"] == archive_score
+    assert report["afterBindingOnly"]["liveCount"] == 0
+    assert report["afterBindingOnly"]["archiveSame"] is True
+    assert report["afterBindingOnly"]["archiveAway"] == 32
+    assert report["afterBindingOnly"]["archiveHome"] == 33
+    assert report["afterBindingOnly"]["liveGlobal"] is False
+    assert report["afterBindingOnly"]["score"] == archive_score
+    assert report["afterGood"]["liveCount"] == 1
+    assert report["afterGood"]["liveLabel"] == "NYG at DEN"
+    assert report["afterGood"]["liveFile"] is None
+    assert report["afterGood"]["score"] == archive_score
+    assert report["afterGood"]["clock"] == "FINAL"
+    assert report["afterGood"]["archiveSame"] is True
+    assert report["afterGood"]["liveGlobal"] is False
+    assert report["afterGood"]["archiveAway"] == 32
+    assert report["afterEmptyAgain"]["liveCount"] == 0
+    assert report["afterEmptyAgain"]["clock"] == "FINAL"
+    assert report["afterEmptyAgain"]["score"] == archive_score
+    assert report["afterGoodAgain"]["liveCount"] == 1
+    assert report["afterGoodAgain"]["liveLabel"] == "NYG at DEN"
+    assert report["duringArchivePlay"]["play"] == "Pause"
+    assert report["afterSelect"]["play"] == "Play"
+    assert report["afterSelect"]["score"] == live_b
+    assert report["afterSelect"]["clock"] == "Q2 5:00"
+    assert report["afterSelect"]["archiveSame"] is True
+    assert report["afterStepBack"]["score"] == live_a
+    assert report["afterStepBack"]["clock"] == "Q1 10:00"
+    assert report["afterPlayTick"]["score"] == live_b
+    assert report["afterPlayTick"]["play"] == "Play"
+    assert report["afterScrub"]["score"] == live_a
+    assert report["afterScrub"]["clock"] == "Q1 10:00"
+    assert report["afterAppendHeld"]["score"] == live_a
+    assert report["afterAppendHeld"]["clock"] == "Q1 10:00"
+    assert report["afterAppendHeld"]["scrubMax"] == "2"
+    assert report["afterSeekEnd"]["score"] == live_c
+    assert report["afterSeekEnd"]["clock"] == "Q3 8:00"
+    assert report["afterAppendAdvance"]["score"] == live_d
+    assert report["afterAppendAdvance"]["clock"] == "Q4 1:00 STALE"
+    assert report["afterAppendAdvance"]["eClock"] == "Q4 1:00 STALE"
+    assert report["afterAppendAdvance"]["position"] == "Q4 1:00 STALE"
+    assert report["afterArchive"]["score"] == archive_score
+    assert report["afterArchive"]["clock"] == "FINAL"
+    assert "STALE" not in report["afterArchive"]["clock"]
+    assert report["afterArchive"]["liveCount"] == 1
+    assert report["afterArchive"]["archiveSame"] is True
+    assert report["afterLiveAgain"]["score"] == live_d
+    assert report["afterLiveAgain"]["clock"] == "Q4 1:00 STALE"
+    assert report["afterMissing"]["liveCount"] == 0
+    assert report["afterMissing"]["score"] == live_d
+    assert report["afterMissing"]["clock"] == "Q4 1:00 STALE"
+    assert report["afterMissing"]["archiveSame"] is True
+    assert report["afterMissingScrub"]["score"] == live_a
+    assert report["afterMissingScrub"]["clock"] == "Q1 10:00 STALE"
+    assert report["afterMissingScrub"]["liveCount"] == 0
+    assert report["afterMissingPlay"]["score"] == live_b
+    assert report["afterMissingPlay"]["clock"] == "Q2 5:00 STALE"
+    assert report["fileFetches"] == 0
+    assert report["fileLive"] == 0
+    assert report["fileScore"] == archive_score
+    assert report["otherFetches"] == 0
+    assert report["otherLive"] == 0
+    assert report["localLive"] == 1
+    assert report["localLabel"] == "NYG at DEN"
+    assert report["localArchiveSame"] is True
+    assert report["localFetches"]
+    assert report["localFetches"][0].startswith("live_replay.js?t=")
+
+
+def test_situation_line_is_the_current_frame_only(tmp_path):
+    node = shutil.which("node")
+    assert node, "node is required to check the situation line"
+    probe = r"""
+const fs = require("fs");
+const vm = require("vm");
+
+function element(tag) {
+  const el = {
+    tagName: String(tag).toUpperCase(),
+    children: [],
+    attrs: {},
+    style: {
+      setProperty(name, value) { this[name] = value; },
+      removeProperty(name) { delete this[name]; }
+    },
+    hidden: false,
+    className: "",
+    parentNode: null,
+    listeners: {},
+    value: "",
+    max: "",
+    src: "",
+    _text: "",
+    id: "",
+    dataset: {}
+  };
+  el.classList = {
+    add(name) {
+      const parts = el.className.split(/\s+/).filter(Boolean);
+      if (parts.indexOf(name) < 0) parts.push(name);
+      el.className = parts.join(" ");
+    },
+    remove(name) {
+      el.className = el.className.split(/\s+/).filter((part) => part && part !== name).join(" ");
+    },
+    toggle(name, force) {
+      const parts = el.className.split(/\s+/).filter(Boolean);
+      const has = parts.indexOf(name) >= 0;
+      const on = arguments.length > 1 ? !!force : !has;
+      if (on && !has) parts.push(name);
+      if (!on) {
+        el.className = parts.filter((part) => part !== name).join(" ");
+        return on;
+      }
+      el.className = parts.join(" ");
+      return on;
+    }
+  };
+  el.setAttribute = (key, value) => { el.attrs[key] = String(value); };
+  el.getAttribute = (key) => (Object.prototype.hasOwnProperty.call(el.attrs, key) ? el.attrs[key] : null);
+  el.removeAttribute = (key) => { delete el.attrs[key]; };
+  el.appendChild = (child) => {
+    if (child) child.parentNode = el;
+    el.children.push(child);
+    return child;
+  };
+  el.removeChild = (child) => {
+    el.children = el.children.filter((item) => item !== child);
+    return child;
+  };
+  Object.defineProperty(el, "firstChild", { get: () => el.children[0] || null });
+  Object.defineProperty(el, "textContent", {
+    get: () => el._text,
+    set: (value) => {
+      el._text = value == null ? "" : String(value);
+      el.children = [];
+    }
+  });
+  el.addEventListener = (type, fn) => {
+    if (!el.listeners[type]) el.listeners[type] = [];
+    el.listeners[type].push(fn);
+  };
+  el.click = () => {
+    const event = { target: el };
+    let node = el;
+    while (node) {
+      const list = node.listeners && node.listeners.click ? node.listeners.click.slice() : [];
+      list.forEach((fn) => fn(event));
+      node = node.parentNode;
+    }
+  };
+  return el;
+}
+
+const BINDING = {
+  nfl: "NFL_REPLAY",
+  ncaaf: "NCAAF_REPLAY",
+  nhl: "NHL_REPLAY",
+  ncaah: "NCAAH_REPLAY",
+  nba: "NBA_REPLAY",
+  ncaab: "NCAAB_REPLAY"
+};
+
+function boot(sport, rows) {
+  const byId = {};
+  function getElementById(id) {
+    if (!byId[id]) byId[id] = element("div");
+    byId[id].id = id;
+    return byId[id];
+  }
+  const viewCompact = element("button");
+  const viewExpanded = element("button");
+  viewCompact.setAttribute("data-view-choice", "compact");
+  viewExpanded.setAttribute("data-view-choice", "expanded");
+  const docEl = element("html");
+  docEl.setAttribute("data-theme", "charcoal");
+  const body = element("body");
+  const store = {};
+  const document = {
+    documentElement: docEl,
+    body: body,
+    getElementById: getElementById,
+    createElement: (tag) => element(tag),
+    createElementNS: (_ns, tag) => element(tag),
+    createTextNode: (text) => ({ nodeType: 3, textContent: String(text), parentNode: null }),
+    querySelectorAll: (selector) => (selector === "[data-view-choice]" ? [viewCompact, viewExpanded] : [])
+  };
+  const sandbox = {
+    console,
+    setInterval: () => 1,
+    clearInterval: () => {},
+    getComputedStyle: () => ({ getPropertyValue: () => "#888888" }),
+    localStorage: {
+      getItem: (key) => (Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null),
+      setItem: (key, value) => { store[key] = String(value); }
+    },
+    document
+  };
+  sandbox.window = sandbox;
+  sandbox.MSWP_MANIFEST = [{
+    sport: sport,
+    away: rows[0].away,
+    home: rows[0].home,
+    label: rows[0].away + " at " + rows[0].home,
+    file: "fixture.js"
+  }];
+  sandbox[BINDING[sport]] = rows;
+  vm.createContext(sandbox);
+  vm.runInContext(fs.readFileSync("widget/colors.js", "utf8"), sandbox);
+  vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+  return document;
+}
+
+function snap(sport, extra) {
+  const row = {
+    clock: "Q1 10:00",
+    wp: 0.62,
+    home: "DEN",
+    away: "NYG",
+    home_score: 10,
+    away_score: 7,
+    status: "live",
+    period: 2,
+    seconds_remaining_period: 494,
+    seconds_remaining_total: 2294,
+    prior_home: 0.8,
+    game_id: "fixture",
+    elapsed_seconds: 1306
+  };
+  Object.keys(extra || {}).forEach((key) => { row[key] = extra[key]; });
+  if (sport === "nhl" || sport === "ncaah") {
+    row.clock = row.clock.indexOf("FINAL") === 0 ? row.clock : "P1 10:00";
+    row.home = extra && extra.home ? extra.home : "COL";
+    row.away = extra && extra.away ? extra.away : "MIN";
+    row.period = extra && extra.period ? extra.period : 1;
+  }
+  if (sport === "nba" || sport === "ncaab") {
+    row.home = extra && extra.home ? extra.home : "LAL";
+    row.away = extra && extra.away ? extra.away : "DEN";
+  }
+  return row;
+}
+
+function read(doc) {
+  const node = doc.getElementById("situation");
+  return {
+    text: node.textContent,
+    hidden: node.hidden === true,
+    position: doc.getElementById("position").textContent
+  };
+}
+
+function step(doc, id) {
+  doc.getElementById(id).click();
+}
+
+const footballDoc = boot("nfl", [
+  snap("nfl", {
+    status: "pre",
+    clock: "Q1 15:00",
+    period: 1,
+    possession: "away",
+    down: 2,
+    distance: 7,
+    yardline: 35,
+    timeouts: { NYG: 2, DEN: 3 }
+  }),
+  snap("nfl", {
+    clock: "Q2 8:14",
+    possession: "away",
+    down: 2,
+    distance: 7,
+    yardline: 35,
+    timeouts: { NYG: 2, DEN: 3 }
+  }),
+  snap("nfl", { clock: "Q2 7:40" }),
+  snap("nfl", {
+    status: "final",
+    clock: "FINAL",
+    possession: "away",
+    down: 2,
+    distance: 7,
+    yardline: 35,
+    timeouts: { NYG: 2, DEN: 3 }
+  })
+]);
+const finalRead = read(footballDoc);
+step(footballDoc, "step-back");
+const bareRead = read(footballDoc);
+step(footballDoc, "step-back");
+const richRead = read(footballDoc);
+step(footballDoc, "step-forward");
+const afterRich = read(footballDoc);
+step(footballDoc, "step-back");
+step(footballDoc, "step-back");
+const preRead = read(footballDoc);
+
+const hockeyDoc = boot("nhl", [
+  snap("nhl", { strength: "5v4", extra_attacker: true }),
+  snap("nhl", {}),
+  snap("nhl", { strength: "5v5" }),
+  snap("nhl", { extra_attacker: true })
+]);
+const hockeyBoth = read(hockeyDoc);
+step(hockeyDoc, "step-forward");
+const hockeyNone = read(hockeyDoc);
+step(hockeyDoc, "step-forward");
+const hockeyStrength = read(hockeyDoc);
+step(hockeyDoc, "step-forward");
+const hockeyExtra = read(hockeyDoc);
+
+const nbaDoc = boot("nba", [
+  snap("nba", {}),
+  snap("nba", { possession: "away", down: 2, distance: 7, yardline: 35 }),
+  snap("nba", { status: "final", clock: "FINAL", possession: "away", down: 2, distance: 7, yardline: 35 }),
+  snap("nba", { strength: "5v5" }),
+  snap("nba", { extra_attacker: true }),
+  snap("nba", { possession: "home" })
+]);
+const nbaEmpty = read(nbaDoc);
+step(nbaDoc, "step-forward");
+const nbaFootball = read(nbaDoc);
+step(nbaDoc, "step-forward");
+const nbaFinal = read(nbaDoc);
+step(nbaDoc, "step-forward");
+const nbaStrength = read(nbaDoc);
+step(nbaDoc, "step-forward");
+const nbaExtra = read(nbaDoc);
+step(nbaDoc, "step-forward");
+const nbaPartial = read(nbaDoc);
+
+const ncaafDoc = boot("ncaaf", [
+  snap("ncaaf", {
+    possession: "away",
+    down: 1,
+    distance: 10,
+    yardline: 25,
+    timeouts: { NYG: 3, DEN: 3 }
+  })
+]);
+const ncaahDoc = boot("ncaah", [
+  snap("ncaah", { strength: "5v4", extra_attacker: false })
+]);
+
+console.log(JSON.stringify({
+  final: finalRead,
+  bare: bareRead,
+  rich: richRead,
+  afterRich: afterRich,
+  pre: preRead,
+  hockeyBoth: hockeyBoth,
+  hockeyNone: hockeyNone,
+  hockeyStrength: hockeyStrength,
+  hockeyExtra: hockeyExtra,
+  nbaEmpty: nbaEmpty,
+  nbaFootball: nbaFootball,
+  nbaFinal: nbaFinal,
+  nbaStrength: nbaStrength,
+  nbaExtra: nbaExtra,
+  nbaPartial: nbaPartial,
+  ncaaf: read(ncaafDoc),
+  ncaah: read(ncaahDoc)
+}));
+"""
+    probe_path = tmp_path / "situation_line.js"
+    probe_path.write_text(probe, encoding="utf-8", newline="\n")
+    completed = subprocess.run(
+        [node, str(probe_path)],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    report = json.loads(completed.stdout)
+    football = "NYG ball, 2nd and 7, yardline 35 \u00b7 NYG 2, DEN 3"
+    assert report["final"] == {"text": "", "hidden": True, "position": "FINAL"}
+    assert report["bare"] == {"text": "", "hidden": True, "position": "Q2 7:40"}
+    assert report["rich"] == {"text": football, "hidden": False, "position": "Q2 8:14"}
+    assert report["afterRich"] == {"text": "", "hidden": True, "position": "Q2 7:40"}
+    assert report["pre"] == {"text": "", "hidden": True, "position": "Q1 15:00"}
+    assert report["hockeyBoth"]["text"] == "5v4 \u00b7 extra attacker"
+    assert report["hockeyBoth"]["hidden"] is False
+    assert report["hockeyNone"] == {"text": "", "hidden": True, "position": "P1 10:00"}
+    assert report["hockeyStrength"]["text"] == "5v5"
+    assert report["hockeyStrength"]["hidden"] is False
+    assert report["hockeyExtra"]["text"] == "extra attacker"
+    assert report["hockeyExtra"]["hidden"] is False
+    assert report["nbaEmpty"]["text"] == ""
+    assert report["nbaEmpty"]["hidden"] is True
+    assert report["nbaFootball"]["text"] == "DEN ball, 2nd and 7, yardline 35"
+    assert report["nbaFootball"]["hidden"] is False
+    assert report["nbaFinal"]["text"] == ""
+    assert report["nbaFinal"]["hidden"] is True
+    assert report["nbaFinal"]["position"] == "FINAL"
+    assert report["nbaStrength"]["text"] == "5v5"
+    assert report["nbaExtra"]["text"] == "extra attacker"
+    assert report["nbaPartial"]["text"] == ""
+    assert report["nbaPartial"]["hidden"] is True
+    assert report["ncaaf"]["text"] == "NYG ball, 1st and 10, yardline 25 \u00b7 NYG 3, DEN 3"
+    assert report["ncaaf"]["hidden"] is False
+    assert report["ncaah"]["text"] == "5v4"
+    assert report["ncaah"]["hidden"] is False
+
+
+def test_query_opens_nyg_den_falls_back_and_selects_live(tmp_path):
+    node = shutil.which("node")
+    assert node, "node is required to read the page query"
+    probe = r"""
+const fs = require("fs");
+const path = require("path");
+const vm = require("vm");
+
+function element(tag) {
+  const el = {
+    tagName: String(tag).toUpperCase(),
+    children: [],
+    attrs: {},
+    style: {
+      setProperty(name, value) { this[name] = value; },
+      removeProperty(name) { delete this[name]; }
+    },
+    hidden: false,
+    className: "",
+    parentNode: null,
+    listeners: {},
+    value: "",
+    max: "",
+    src: "",
+    _text: "",
+    id: "",
+    dataset: {}
+  };
+  el.classList = {
+    add(name) {
+      const parts = el.className.split(/\s+/).filter(Boolean);
+      if (parts.indexOf(name) < 0) parts.push(name);
+      el.className = parts.join(" ");
+    },
+    remove(name) {
+      el.className = el.className.split(/\s+/).filter((part) => part && part !== name).join(" ");
+    },
+    toggle(name, force) {
+      const parts = el.className.split(/\s+/).filter(Boolean);
+      const has = parts.indexOf(name) >= 0;
+      const on = arguments.length > 1 ? !!force : !has;
+      if (on && !has) parts.push(name);
+      if (!on) {
+        el.className = parts.filter((part) => part !== name).join(" ");
+        return on;
+      }
+      el.className = parts.join(" ");
+      return on;
+    }
+  };
+  el.setAttribute = (key, value) => { el.attrs[key] = String(value); };
+  el.getAttribute = (key) => (Object.prototype.hasOwnProperty.call(el.attrs, key) ? el.attrs[key] : null);
+  el.removeAttribute = (key) => { delete el.attrs[key]; };
+  el.appendChild = (child) => {
+    if (child) child.parentNode = el;
+    el.children.push(child);
+    return child;
+  };
+  el.removeChild = (child) => {
+    el.children = el.children.filter((item) => item !== child);
+    return child;
+  };
+  Object.defineProperty(el, "firstChild", { get: () => el.children[0] || null });
+  Object.defineProperty(el, "textContent", {
+    get: () => el._text,
+    set: (value) => {
+      el._text = value == null ? "" : String(value);
+      el.children = [];
+    }
+  });
+  el.addEventListener = (type, fn) => {
+    if (!el.listeners[type]) el.listeners[type] = [];
+    el.listeners[type].push(fn);
+  };
+  el.click = () => {
+    const event = { target: el };
+    let node = el;
+    while (node) {
+      const list = node.listeners && node.listeners.click ? node.listeners.click.slice() : [];
+      list.forEach((fn) => fn(event));
+      node = node.parentNode;
+    }
+  };
+  return el;
+}
+
+function liveFrame(over) {
+  return Object.assign({
+    sport: "nfl",
+    clock: "Q1 10:00",
+    wp: 0.5,
+    home: "DEN",
+    away: "NYG",
+    home_score: 0,
+    away_score: 0,
+    status: "live",
+    period: 1,
+    seconds_remaining_period: 600,
+    prior_home: 0.5
+  }, over || {});
+}
+
+const liveRows = [
+  liveFrame({}),
+  liveFrame({
+    clock: "Q2 5:00",
+    period: 2,
+    seconds_remaining_period: 300,
+    home_score: 7,
+    away_score: 3,
+    wp: 0.42
+  })
+];
+
+function liveSource(rows) {
+  return "window.NFL_REPLAY = " + JSON.stringify(rows) + ";\nwindow.MSWP_LIVE = window.NFL_REPLAY;\n";
+}
+
+function http(status, body) {
+  return { ok: status >= 200 && status < 300, status: status, body: body == null ? "" : String(body) };
+}
+
+function settle() {
+  return new Promise((resolve) => setImmediate(resolve));
+}
+
+async function flush() {
+  for (let i = 0; i < 8; i++) await settle();
+}
+
+function boot(options) {
+  options = options || {};
+  const calls = [];
+  const fetches = [];
+  const feed = { items: (options.feed || []).slice() };
+  const byId = {};
+  function getElementById(id) {
+    if (!byId[id]) byId[id] = element("div");
+    byId[id].id = id;
+    return byId[id];
+  }
+  const viewCompact = element("button");
+  const viewExpanded = element("button");
+  viewCompact.setAttribute("data-view-choice", "compact");
+  viewExpanded.setAttribute("data-view-choice", "expanded");
+  const docEl = element("html");
+  docEl.setAttribute("data-theme", "charcoal");
+  const body = element("body");
+  const store = {};
+  const document = {
+    documentElement: docEl,
+    body: body,
+    getElementById: getElementById,
+    createElement: (tag) => element(tag),
+    createElementNS: (_ns, tag) => element(tag),
+    createTextNode: (text) => ({ nodeType: 3, textContent: String(text), parentNode: null }),
+    querySelectorAll: (selector) => (selector === "[data-view-choice]" ? [viewCompact, viewExpanded] : [])
+  };
+  const location = {
+    hostname: options.hostname || "127.0.0.1",
+    protocol: options.protocol || "http:",
+    search: options.search || ""
+  };
+  if (options.pathname) location.pathname = options.pathname;
+  const sandbox = {
+    console,
+    setInterval: () => 1,
+    clearInterval: () => {},
+    getComputedStyle: () => ({ getPropertyValue: () => "#888888" }),
+    localStorage: {
+      getItem: (key) => (Object.prototype.hasOwnProperty.call(store, key) ? store[key] : null),
+      setItem: (key, value) => { store[key] = String(value); }
+    },
+    location: location,
+    history: {
+      replaceState: (_state, _title, url) => { calls.push(String(url)); }
+    },
+    fetch: (url) => {
+      fetches.push(String(url));
+      if (options.hold) return new Promise(() => {});
+      const item = feed.items.shift() || http(404, "");
+      return Promise.resolve({
+        ok: item.ok,
+        status: item.status,
+        text: () => Promise.resolve(item.body)
+      });
+    },
+    document
+  };
+  sandbox.window = sandbox;
+  vm.createContext(sandbox);
+  const realAppend = body.appendChild.bind(body);
+  body.appendChild = (node) => {
+    const result = realAppend(node);
+    if (node && node.tagName === "SCRIPT" && node.src) {
+      const file = path.join(process.cwd(), "widget", node.src);
+      vm.runInContext(fs.readFileSync(file, "utf8"), sandbox);
+      if (typeof node.onload === "function") node.onload();
+    }
+    return result;
+  };
+  function run(name) {
+    vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), sandbox);
+  }
+  run("manifest.js");
+  run("colors.js");
+  if (options.live) {
+    vm.runInContext("window.MSWP_LIVE = " + JSON.stringify(options.live) + ";", sandbox);
+  }
+  run("widget.js");
+  return { document, calls, fetches };
+}
+
+function buttons(doc, id) {
+  return doc.getElementById(id).children.filter((child) => child.tagName === "BUTTON");
+}
+
+function clickSport(page, sport) {
+  const button = buttons(page.document, "sports").find((child) => child.getAttribute("data-sport") === sport);
+  if (!button) throw new Error("missing sport " + sport);
+  button.click();
+}
+
+function clickFile(page, file) {
+  const button = buttons(page.document, "games").find((child) => child.getAttribute("data-file") === file);
+  if (!button) throw new Error("missing " + file);
+  button.click();
+}
+
+function clickLive(page) {
+  const button = buttons(page.document, "games").find((child) => child.getAttribute("data-live") === "true");
+  if (!button) throw new Error("missing live");
+  button.click();
+}
+
+function snap(page) {
+  const doc = page.document;
+  const scrub = doc.getElementById("scrub");
+  const sports = buttons(doc, "sports");
+  const games = buttons(doc, "games");
+  const live = games.filter((button) => button.getAttribute("data-live") === "true");
+  return {
+    score: doc.getElementById("c-score").textContent,
+    clock: doc.getElementById("c-clock").textContent,
+    play: doc.getElementById("play").textContent,
+    atEnd: scrub.value === scrub.max && Number(scrub.max) > 0,
+    levelPro: doc.getElementById("level-pro").getAttribute("aria-pressed"),
+    levelCollege: doc.getElementById("level-college").getAttribute("aria-pressed"),
+    sport: sports.filter((button) => button.getAttribute("aria-pressed") === "true").map((button) => button.getAttribute("data-sport")),
+    pressed: games.filter((button) => button.getAttribute("aria-pressed") === "true").map((button) => (
+      button.getAttribute("data-live") === "true" ? "live" : button.getAttribute("data-file")
+    )),
+    liveCount: live.length,
+    liveLabel: live.length ? live[0].textContent : "",
+    gameRowHidden: doc.getElementById("game-row").hidden === true,
+    calls: page.calls.slice(),
+    fetches: page.fetches.slice()
+  };
+}
+
+const nyg = boot({
+  search: "?sport=NFL&game=NYG-DEN",
+  pathname: "index.html",
+  hold: true
+});
+const nygSnap = snap(nyg);
+nyg.document.getElementById("level-college").click();
+nyg.document.getElementById("level-pro").click();
+const afterLevel = snap(nyg);
+clickFile(nyg, "nfl_jax_den.js");
+const afterJax = snap(nyg);
+clickSport(nyg, "nba");
+const afterNba = snap(nyg);
+
+const jax = boot({ search: "?sport=nfl&game=jax-den", hold: true });
+const mich = boot({ search: "?sport=ncaah&game=MiCh-DeN", hold: true });
+const unknownGame = boot({ search: "?sport=ncaah&game=no-such", hold: true });
+const unknownSport = boot({ search: "?sport=zzz&game=mich-den", hold: true });
+const lal = boot({ search: "?sport=nba&game=den-lal", hold: true });
+const waiting = boot({ search: "?sport=nfl&game=jax-den&live=1", hold: true });
+const preset = boot({ search: "?live=1", live: liveRows, hold: true });
+const otherHost = boot({
+  hostname: "example.github.io",
+  protocol: "https:",
+  search: "?sport=nfl&game=nyg-den&live=1",
+  live: liveRows,
+  hold: true
+});
+const fileHost = boot({
+  hostname: "localhost",
+  protocol: "file:",
+  search: "?sport=nfl&game=jax-den&live=1",
+  live: liveRows,
+  hold: true
+});
+const arrived = boot({
+  search: "?sport=nfl&game=jax-den&live=1",
+  feed: [http(200, liveSource(liveRows))]
+});
+const arrivedBefore = snap(arrived);
+const missing = boot({
+  search: "?sport=ncaah&game=mich-den&live=1",
+  feed: [http(404, "")]
+});
+const missingBefore = snap(missing);
+
+(async () => {
+  await flush();
+  const arrivedAfter = snap(arrived);
+  const missingAfter = snap(missing);
+  clickLive(arrived);
+  const afterLiveClick = snap(arrived);
+  clickFile(arrived, "nfl_jax_den.js");
+  const afterArchiveClick = snap(arrived);
+  console.log(JSON.stringify({
+    nyg: nygSnap,
+    afterLevel: afterLevel,
+    afterJax: afterJax,
+    afterNba: afterNba,
+    jax: snap(jax),
+    mich: snap(mich),
+    unknownGame: snap(unknownGame),
+    unknownSport: snap(unknownSport),
+    lal: snap(lal),
+    waiting: snap(waiting),
+    preset: snap(preset),
+    otherHost: snap(otherHost),
+    fileHost: snap(fileHost),
+    arrivedBefore: arrivedBefore,
+    arrivedAfter: arrivedAfter,
+    missingBefore: missingBefore,
+    missingAfter: missingAfter,
+    afterLiveClick: afterLiveClick,
+    afterArchiveClick: afterArchiveClick
+  }));
+})().catch((err) => {
+  console.error(err && err.stack ? err.stack : err);
+  process.exit(1);
+});
+"""
+    probe_path = tmp_path / "deep_link.js"
+    probe_path.write_text(probe, encoding="utf-8", newline="\n")
+    completed = subprocess.run(
+        [node, str(probe_path)],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stderr
+    report = json.loads(completed.stdout)
+    dash = "\u2013"
+    nyg = f"NYG 32 {dash} DEN 33"
+    jax = f"JAX 13 {dash} DEN 20"
+    mich = f"MICH 3 {dash} DEN 4"
+    live = f"NYG 3 {dash} DEN 7"
+
+    def assert_open(row, score, sport, level):
+        assert row["score"] == score
+        assert row["clock"] == "FINAL"
+        assert row["play"] == "Play"
+        assert row["atEnd"] is True
+        assert row["sport"] == [sport]
+        if level == "pro":
+            assert row["levelPro"] == "true"
+            assert row["levelCollege"] == "false"
+        else:
+            assert row["levelPro"] == "false"
+            assert row["levelCollege"] == "true"
+
+    assert_open(report["nyg"], nyg, "nfl", "pro")
+    assert report["nyg"]["pressed"] == ["nfl_nyg_den.js"]
+    assert report["nyg"]["liveCount"] == 0
+    assert report["nyg"]["calls"] == []
+    assert report["nyg"]["gameRowHidden"] is False
+    assert report["afterLevel"]["score"] == nyg
+    assert report["afterLevel"]["calls"] == []
+    assert report["afterJax"]["calls"] == ["index.html?sport=nfl&game=jax-den"]
+    assert_open(report["afterJax"], jax, "nfl", "pro")
+    assert report["afterJax"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["afterNba"]["calls"] == [
+        "index.html?sport=nfl&game=jax-den",
+        "index.html?sport=nba&game=den-lal",
+    ]
+    assert_open(report["afterNba"], report["afterNba"]["score"], "nba", "pro")
+    assert "DEN" in report["afterNba"]["score"] and "LAL" in report["afterNba"]["score"]
+    assert report["afterNba"]["gameRowHidden"] is True
+    assert_open(report["jax"], jax, "nfl", "pro")
+    assert report["jax"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["jax"]["calls"] == []
+    assert_open(report["mich"], mich, "ncaah", "college")
+    assert report["mich"]["gameRowHidden"] is True
+    assert report["mich"]["liveCount"] == 0
+    assert_open(report["lal"], report["lal"]["score"], "nba", "pro")
+    assert "LAL" in report["lal"]["score"] and "DEN" in report["lal"]["score"]
+    assert_open(report["unknownGame"], nyg, "nfl", "pro")
+    assert "MICH" not in report["unknownGame"]["score"]
+    assert report["unknownGame"]["pressed"] == ["nfl_nyg_den.js"]
+    assert_open(report["unknownSport"], nyg, "nfl", "pro")
+    assert "MICH" not in report["unknownSport"]["score"]
+    assert report["unknownSport"]["pressed"] == ["nfl_nyg_den.js"]
+    assert_open(report["waiting"], jax, "nfl", "pro")
+    assert report["waiting"]["liveCount"] == 0
+    assert report["waiting"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["preset"]["score"] == live
+    assert report["preset"]["clock"] == "Q2 5:00"
+    assert report["preset"]["play"] == "Play"
+    assert report["preset"]["atEnd"] is True
+    assert report["preset"]["sport"] == ["nfl"]
+    assert report["preset"]["pressed"] == ["live"]
+    assert report["preset"]["liveCount"] == 1
+    assert report["preset"]["liveLabel"] == "NYG at DEN"
+    assert report["preset"]["calls"] == []
+    assert_open(report["otherHost"], nyg, "nfl", "pro")
+    assert report["otherHost"]["liveCount"] == 0
+    assert report["otherHost"]["fetches"] == []
+    assert report["otherHost"]["score"] != live
+    assert_open(report["fileHost"], jax, "nfl", "pro")
+    assert report["fileHost"]["liveCount"] == 0
+    assert report["fileHost"]["fetches"] == []
+    assert_open(report["arrivedBefore"], jax, "nfl", "pro")
+    assert report["arrivedBefore"]["liveCount"] == 0
+    assert report["arrivedBefore"]["fetches"]
+    assert report["arrivedBefore"]["fetches"][0].startswith("live_replay.js?")
+    assert "espn" not in report["arrivedBefore"]["fetches"][0]
+    assert "http://" not in report["arrivedBefore"]["fetches"][0]
+    assert "https://" not in report["arrivedBefore"]["fetches"][0]
+    assert report["arrivedAfter"]["score"] == live
+    assert report["arrivedAfter"]["clock"] == "Q2 5:00"
+    assert report["arrivedAfter"]["play"] == "Play"
+    assert report["arrivedAfter"]["pressed"] == ["live"]
+    assert report["arrivedAfter"]["liveLabel"] == "NYG at DEN"
+    assert report["arrivedAfter"]["calls"] == []
+    assert_open(report["missingBefore"], mich, "ncaah", "college")
+    assert_open(report["missingAfter"], mich, "ncaah", "college")
+    assert report["missingAfter"]["liveCount"] == 0
+    assert report["missingAfter"]["score"] != live
+    assert report["afterLiveClick"]["calls"] == ["?sport=nfl&game=nyg-den&live=1"]
+    assert report["afterLiveClick"]["score"] == live
+    assert report["afterLiveClick"]["play"] == "Play"
+    assert_open(report["afterArchiveClick"], jax, "nfl", "pro")
+    assert report["afterArchiveClick"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["afterArchiveClick"]["calls"] == [
+        "?sport=nfl&game=nyg-den&live=1",
+        "?sport=nfl&game=jax-den",
+    ]
+    for row in report.values():
+        for url in row["calls"]:
+            assert "espn" not in url
+            assert "http://" not in url and "https://" not in url
+            assert url.startswith("?") or url.startswith("index.html?")

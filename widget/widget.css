@@ -297,9 +297,9 @@ button:focus-visible, input:focus-visible {
 .home-fill { background: var(--home); }
 .away-fill { background: var(--away); }
 
-.expanded-clock, .prior, .position, footer { margin: 0; }
+.expanded-clock, .prior, .position, .situation, footer { margin: 0; }
 
-.expanded-clock, .position, .prior, footer { color: var(--muted); }
+.expanded-clock, .position, .situation, .prior, footer { color: var(--muted); }
 
 .away-mark { text-align: left; }
 .home-mark { text-align: right; }
@@ -472,8 +472,12 @@ button:focus-visible, input:focus-visible {
   accent-color: var(--gold);
 }
 
-.position {
+.position, .situation {
   text-align: right;
+}
+
+.situation:empty {
+  display: none;
 }
 
 .views { margin: 0; }

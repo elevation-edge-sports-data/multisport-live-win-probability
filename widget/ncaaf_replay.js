@@ -29,7 +29,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 3520,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 80
+    "elapsed_seconds": 80,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 25
   },
   {
     "clock": "Q1 11:40",
@@ -44,7 +48,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 3400,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 200
+    "elapsed_seconds": 200,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 32
   },
   {
     "clock": "Q1 10:10",
@@ -59,7 +67,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 3310,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 290
+    "elapsed_seconds": 290,
+    "possession": "away",
+    "down": 2,
+    "distance": 6,
+    "yardline": 48
   },
   {
     "clock": "Q1 9:00",
@@ -74,7 +86,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 3240,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 360
+    "elapsed_seconds": 360,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 88
   },
   {
     "clock": "Q1 6:40",
@@ -89,7 +105,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 3100,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 500
+    "elapsed_seconds": 500,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 22
   },
   {
     "clock": "Q1 4:10",
@@ -104,7 +124,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2950,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 650
+    "elapsed_seconds": 650,
+    "possession": "home",
+    "down": 2,
+    "distance": 7,
+    "yardline": 41
   },
   {
     "clock": "Q1 1:30",
@@ -119,7 +143,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2790,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 810
+    "elapsed_seconds": 810,
+    "possession": "away",
+    "down": 1,
+    "distance": 4,
+    "yardline": 96
   },
   {
     "clock": "Q2 15:00",
@@ -134,7 +162,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2700,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 900
+    "elapsed_seconds": 900,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 25
   },
   {
     "clock": "Q2 12:20",
@@ -149,7 +181,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2540,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1060
+    "elapsed_seconds": 1060,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 35
   },
   {
     "clock": "Q2 10:00",
@@ -164,7 +200,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2400,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1200
+    "elapsed_seconds": 1200,
+    "possession": "away",
+    "down": 4,
+    "distance": 8,
+    "yardline": 72
   },
   {
     "clock": "Q2 8:00",
@@ -179,7 +219,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2280,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1320
+    "elapsed_seconds": 1320,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 28
   },
   {
     "clock": "Q2 5:00",
@@ -194,7 +238,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 2100,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1500
+    "elapsed_seconds": 1500,
+    "possession": "home",
+    "down": 3,
+    "distance": 4,
+    "yardline": 55
   },
   {
     "clock": "Q2 3:00",
@@ -209,7 +257,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1980,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1620
+    "elapsed_seconds": 1620,
+    "possession": "home",
+    "down": 1,
+    "distance": 8,
+    "yardline": 92
   },
   {
     "clock": "Q2 1:00",
@@ -224,7 +276,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1860,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1740
+    "elapsed_seconds": 1740,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 33
   },
   {
     "clock": "Q3 15:00",
@@ -239,7 +295,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1800,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1800
+    "elapsed_seconds": 1800,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 25
   },
   {
     "clock": "Q3 12:40",
@@ -254,7 +314,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1660,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 1940
+    "elapsed_seconds": 1940,
+    "possession": "away",
+    "down": 2,
+    "distance": 8,
+    "yardline": 44
   },
   {
     "clock": "Q3 8:40",
@@ -269,7 +333,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1420,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 2180
+    "elapsed_seconds": 2180,
+    "possession": "away",
+    "down": 1,
+    "distance": 5,
+    "yardline": 95
   },
   {
     "clock": "Q3 6:00",
@@ -284,7 +352,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1260,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 2340
+    "elapsed_seconds": 2340,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 30
   },
   {
     "clock": "Q3 3:20",
@@ -299,7 +371,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 1100,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 2500
+    "elapsed_seconds": 2500,
+    "possession": "home",
+    "down": 2,
+    "distance": 3,
+    "yardline": 97
   },
   {
     "clock": "Q3 0:40",
@@ -314,7 +390,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 940,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 2660
+    "elapsed_seconds": 2660,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 20
   },
   {
     "clock": "Q4 15:00",
@@ -329,7 +409,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 900,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 2700
+    "elapsed_seconds": 2700,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 25
   },
   {
     "clock": "Q4 12:00",
@@ -344,7 +428,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 720,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 2880
+    "elapsed_seconds": 2880,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 36
   },
   {
     "clock": "Q4 9:00",
@@ -359,7 +447,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 540,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3060
+    "elapsed_seconds": 3060,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 90
   },
   {
     "clock": "Q4 6:40",
@@ -374,7 +466,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 400,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3200
+    "elapsed_seconds": 3200,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 28
   },
   {
     "clock": "Q4 4:10",
@@ -389,7 +485,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 250,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3350
+    "elapsed_seconds": 3350,
+    "possession": "home",
+    "down": 2,
+    "distance": 5,
+    "yardline": 61
   },
   {
     "clock": "Q4 2:00",
@@ -404,7 +504,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 120,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3480
+    "elapsed_seconds": 3480,
+    "possession": "home",
+    "down": 4,
+    "distance": 6,
+    "yardline": 70
   },
   {
     "clock": "Q4 0:45",
@@ -419,7 +523,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 45,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3555
+    "elapsed_seconds": 3555,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 42
   },
   {
     "clock": "Q4 0:00",
@@ -434,7 +542,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 55
   },
   {
     "clock": "OT 0:00",
@@ -449,7 +561,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 75
   },
   {
     "clock": "OT 0:00",
@@ -464,7 +580,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "away",
+    "down": 2,
+    "distance": 7,
+    "yardline": 82
   },
   {
     "clock": "OT 0:00",
@@ -479,7 +599,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "away",
+    "down": 1,
+    "distance": 4,
+    "yardline": 96
   },
   {
     "clock": "OT 0:00",
@@ -494,7 +618,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 75
   },
   {
     "clock": "OT 0:00",
@@ -509,7 +637,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 3,
+    "distance": 6,
+    "yardline": 80
   },
   {
     "clock": "OT 0:00",
@@ -524,7 +656,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 1,
+    "distance": 2,
+    "yardline": 98
   },
   {
     "clock": "2OT 0:00",
@@ -539,7 +675,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 1,
+    "distance": 10,
+    "yardline": 75
   },
   {
     "clock": "2OT 0:00",
@@ -554,7 +694,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 2,
+    "distance": 4,
+    "yardline": 86
   },
   {
     "clock": "2OT 0:00",
@@ -569,7 +713,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "home",
+    "down": 1,
+    "distance": 1,
+    "yardline": 99
   },
   {
     "clock": "2OT 0:00",
@@ -584,7 +732,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "away",
+    "down": 1,
+    "distance": 10,
+    "yardline": 75
   },
   {
     "clock": "2OT 0:00",
@@ -599,7 +751,11 @@ window.NCAAF_REPLAY = [
     "seconds_remaining_total": 0,
     "prior_home": 0.57,
     "game_id": "ncaaf-sample-001",
-    "elapsed_seconds": 3600
+    "elapsed_seconds": 3600,
+    "possession": "away",
+    "down": 4,
+    "distance": 12,
+    "yardline": 68
   },
   {
     "clock": "FINAL",

@@ -256,6 +256,45 @@ def team_logo(name: str, *, sport: str = "nfl") -> str | None:
     return f"logos/{sport}/{abbr}.png"
 
 
+_SITUATION_FIELDS = (
+    "possession",
+    "down",
+    "distance",
+    "yardline",
+    "timeouts",
+    "strength",
+    "extra_attacker",
+)
+
+
+def _frame_timeouts(state: GameState) -> dict[str, int]:
+    """Timeouts keyed by team abbreviation.
+
+    GameState stores ``home`` and ``away``. The frame uses the abbreviations
+    on the snapshot, away then home. A mapping that is already keyed by
+    abbreviation is copied through.
+    """
+    raw = state.timeouts
+    assert raw is not None
+    if set(raw) == {"home", "away"}:
+        return {state.away: int(raw["away"]), state.home: int(raw["home"])}
+    return {str(key): int(value) for key, value in raw.items()}
+
+
+def _situation_fields(state: GameState) -> dict[str, object]:
+    """Situation keys that this snapshot actually set."""
+    copied: dict[str, object] = {}
+    for name in _SITUATION_FIELDS:
+        value = getattr(state, name)
+        if value is None:
+            continue
+        if name == "timeouts":
+            copied[name] = _frame_timeouts(state)
+        else:
+            copied[name] = value
+    return copied
+
+
 def elapsed_game_seconds(state: GameState) -> int:
     """Seconds from kickoff, read from the game clock on the snapshot.
 
@@ -272,7 +311,7 @@ def elapsed_game_seconds(state: GameState) -> int:
     return config.regulation_seconds + (config.ot_period_seconds - remaining_ot)
 
 
-def render_widget_script(states: list[GameState]) -> str:
+def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
     """JavaScript assignment of the replay, including precomputed home win probability.
 
     The page displays those values. It does not carry a second model.
@@ -281,6 +320,16 @@ def render_widget_script(states: list[GameState]) -> str:
     A college frame includes a logo path only when that abbreviation's PNG
     is on disk. A known abbreviation still gets its primary color. NHL
     logos are used only when the PNG is on disk.
+
+    ``live`` keeps that sport binding and also assigns ``window.MSWP_LIVE``
+    to the same array. Each live frame includes ``sport``, ``away``, and
+    ``home``. Archive renders omit both so loading a saved replay does not
+    become the live game.
+
+    Possession, down, distance, yard line, timeouts, strength, and extra
+    attacker are copied only when that snapshot set them. Timeouts stay a
+    mapping of team abbreviation to int. ``home`` and ``away`` keys are
+    written as the snapshot's abbreviations, away then home.
     """
     if not states:
         raise ValueError("replay file must be a non-empty JSON list")
@@ -314,6 +363,9 @@ def render_widget_script(states: list[GameState]) -> str:
             "game_id": state.game_id,
             "elapsed_seconds": elapsed_game_seconds(state),
         }
+        if live:
+            frame = {"sport": config.sport, **frame}
+        frame.update(_situation_fields(state))
         home_color = team_color(state.home, state.sport)
         away_color = team_color(state.away, state.sport)
         if home_color is not None:
@@ -329,11 +381,14 @@ def render_widget_script(states: list[GameState]) -> str:
                 frame["away_logo"] = away_logo
         frames.append(frame)
     body = json.dumps(frames, indent=2)
-    return (
+    script = (
         "// Precomputed by compute_wp.\n"
         "// The widget displays these values and does not run a second model.\n"
         f"{binding} = {body};\n"
     )
+    if live:
+        script += f"window.MSWP_LIVE = {binding};\n"
+    return script
 
 
 def _manifest_sort_key(entry: dict[str, str]) -> tuple[int, int, str]:
@@ -355,9 +410,12 @@ def _is_harbor_replay(home: object, away: object) -> bool:
 def manifest_entry(path: Path) -> dict[str, str] | None:
     """One picker row from a rendered replay script, or None if it is not one.
 
-    A replay whose home or away team is Harbor is the nfl_sample prototype.
-    That file stays on disk and is omitted here, so it is not a game button.
+    ``live_replay.js`` is the file ``python -m live_wp live`` rewrites. It is
+    not a game button. A replay whose home or away team is Harbor is the
+    nfl_sample prototype. That file stays on disk and is omitted here.
     """
+    if path.name == "live_replay.js":
+        return None
     text = path.read_text(encoding="utf-8")
     match = _BINDING_RE.search(text)
     if match is None:
@@ -386,7 +444,7 @@ def manifest_entry(path: Path) -> dict[str, str] | None:
 def manifest_entries(directory: Path | None = None) -> list[dict[str, str]]:
     """Rendered replays under ``directory``, demo matchups first within each sport.
 
-    The Harbor prototype is omitted.
+    ``live_replay.js`` and the Harbor prototype are omitted.
     """
     widget = Path(directory) if directory is not None else _WIDGET_DIR
     entries: list[dict[str, str]] = []

@@ -641,8 +641,21 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     assert list(frames[0]) == list(harbor_frames[0])
     for frame, state in zip(frames, states):
         assert frame["wp"] == compute_wp(state, state.prior_home, NFL_CONFIG)
-        assert "down" not in frame
-        assert "yardline" not in frame
+        if state.down is None:
+            assert "down" not in frame
+        else:
+            assert frame["down"] == state.down
+        if state.yardline is None:
+            assert "yardline" not in frame
+        else:
+            assert frame["yardline"] == state.yardline
+        if state.timeouts is None:
+            assert "timeouts" not in frame
+        else:
+            assert frame["timeouts"] == {
+                state.away: int(state.timeouts["away"]),
+                state.home: int(state.timeouts["home"]),
+            }
         assert "home_logo" not in frame
         assert "away_logo" not in frame
 

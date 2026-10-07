@@ -167,8 +167,14 @@ def test_serve_binds_localhost_and_stops() -> None:
         status, body = _get(host, port, "/")
         assert status == 200
         assert b"Multisport live win probability" in body
-        assert b"live_replay.js" in body
+        assert b"live_replay.js" not in body
         assert b"espn" not in body.lower()
+        live_status, live_body = _get(host, port, "/live_replay.js")
+        assert live_status == 200
+        assert b"window." not in live_body
+        bust_status, bust_body = _get(host, port, "/live_replay.js?t=1")
+        assert bust_status == 200
+        assert bust_body == live_body
         css_status, css = _get(host, port, "/widget.css")
         assert css_status == 200
         assert b"text-align: right" in css
@@ -268,12 +274,17 @@ def test_serve_defaults_to_8765_and_rejects_a_bad_port(
 def test_page_points_at_the_local_replay_and_does_not_fetch() -> None:
     html = (ROOT / "widget" / "index.html").read_text(encoding="utf-8")
     lowered = html.lower()
-    assert 'src="live_replay.js"' in html
+    assert 'src="live_replay.js"' not in html
+    assert "live_replay.js" not in lowered
     assert "fetch(" not in lowered
     assert "espn" not in lowered
     assert "http://" not in lowered and "https://" not in lowered
     script = (ROOT / "widget" / "widget.js").read_text(encoding="utf-8")
-    assert "fetch(" not in script
+    assert script.count("fetch(") == 1
+    assert "live_replay.js?" in script
+    assert "127.0.0.1" in script
+    assert "localhost" in script
+    assert "MSWP_LIVE" in script
     assert "XMLHttpRequest" not in script
     assert "WebSocket" not in script
     assert "espn" not in script.lower()
@@ -344,11 +355,16 @@ def test_fake_follow_payload_rewrites_the_replay_without_a_socket(
     assert code == 0
     assert captured.err == ""
     assert fetch.urls == [scoreboard_url()] * 3
-    assert seen[0] == seen[1] == render_widget_script([expected[0]])
+    assert seen[0] == seen[1] == render_widget_script([expected[0]], live=True)
     text = out.read_text(encoding="utf-8")
     assert "\r" not in text
-    assert text == render_widget_script(expected)
+    assert text == render_widget_script(expected, live=True)
     assert "window.NFL_REPLAY = " in text
+    assert "window.MSWP_LIVE = window.NFL_REPLAY;" in text
+    assert '"sport": "nfl"' in text
+    plain = render_widget_script(expected)
+    assert "window.MSWP_LIVE" not in plain
+    assert '"sport":' not in plain
     assert "espn" not in text.lower()
     assert "http://" not in text and "https://" not in text
     assert not out.with_name(out.name + ".tmp").exists()

@@ -138,11 +138,13 @@ def run_live(
 
 
 def _write_replay_script(path: Path, states: list[GameState]) -> None:
-    """Replace ``path`` with the script render-widget already emits.
+    """Replace ``path`` with the live replay script.
 
-    A failed write leaves the previous file in place.
+    The sport binding (``window.NFL_REPLAY`` and the others) stays. The same
+    array is also assigned to ``window.MSWP_LIVE``, with sport, away, and
+    home on each frame. A failed write leaves the previous file in place.
     """
-    script = render_widget_script(states)
+    script = render_widget_script(states, live=True)
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_name(path.name + ".tmp")
     try:
