@@ -10,10 +10,15 @@ from pathlib import Path
 
 import pytest
 
-from mswp import NFL_CONFIG, compute_wp
+from mswp import NFL_CONFIG, NHL_CONFIG, compute_wp
 
 from live_wp.__main__ import main
-from live_wp.feeds.espn import espn_scoreboard_event_to_state, espn_summary_to_states
+from live_wp.feeds.espn import (
+    espn_scoreboard_event_to_state,
+    espn_summary_to_states,
+    states_from_espn,
+)
+from live_wp.feeds.espn_basketball import events_from_espn_basketball
 from live_wp.follow import (
     fetch_json,
     follow_game,
@@ -21,7 +26,7 @@ from live_wp.follow import (
     summary_url,
 )
 from live_wp.follow import run_follow
-from live_wp.replay import format_line
+from live_wp.replay import config_for_state, format_line
 
 ROOT = Path(__file__).resolve().parents[1]
 BOARD_PATH = ROOT / "tests" / "fixtures" / "espn_nfl_scoreboard_snippet.json"
@@ -398,6 +403,91 @@ def test_keyboard_interrupt_exits_zero(capsys: pytest.CaptureFixture[str]) -> No
 def test_direct_follow_rejects_a_short_interval() -> None:
     with pytest.raises(ValueError, match="at least 5"):
         follow_game("55", interval=4, fetch=lambda _url: _board(), sleep=lambda _s: None)
+
+
+def test_follow_nhl_and_nba_parse_saved_payloads(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    nhl_payload = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nhl_summary_snippet.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    nhl_fetch = _Fetch([nhl_payload])
+    nhl_sleeps: list[float] = []
+    nhl_code = run_follow(
+        ["--sport", "nhl", "--game", "9002001"],
+        fetch=nhl_fetch,
+        sleep=lambda seconds: nhl_sleeps.append(seconds),
+    )
+    nhl_state = states_from_espn(nhl_payload, density="all")[-1]
+    assert nhl_code == 0
+    assert nhl_sleeps == []
+    assert nhl_fetch.urls == [scoreboard_url(sport="nhl")]
+    assert nhl_state.sport == "nhl"
+    assert nhl_state.status == "final"
+    assert nhl_state.source == "espn"
+    nhl_captured = capsys.readouterr()
+    assert nhl_captured.err == ""
+    assert nhl_captured.out.splitlines() == [
+        format_line(
+            nhl_state, compute_wp(nhl_state, nhl_state.prior_home, NHL_CONFIG)
+        )
+    ]
+    assert "0.110" not in nhl_captured.out
+
+    nba_payload = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nba_401547684_summary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    nba_fetch = _Fetch([nba_payload])
+    nba_code = run_follow(
+        ["--sport", "nba", "--game", "401547684", "--interval", "15"],
+        fetch=nba_fetch,
+        sleep=lambda _seconds: None,
+    )
+    nba_state = events_from_espn_basketball(nba_payload, density="all")[-1]
+    assert nba_code == 0
+    assert nba_fetch.urls == [scoreboard_url(sport="nba")]
+    assert nba_state.sport == "nba"
+    assert nba_state.status == "final"
+    assert nba_state.prior_home == pytest.approx(160 / 260)
+    assert config_for_state(nba_state).sport == "nba"
+    nba_captured = capsys.readouterr()
+    assert nba_captured.err == ""
+    assert nba_captured.out.splitlines() == [
+        format_line(
+            nba_state,
+            compute_wp(nba_state, nba_state.prior_home, config_for_state(nba_state)),
+        )
+    ]
+    assert nba_captured.out.endswith("| 0.000\n")
+
+
+def test_follow_sport_ncaaf_exits_with_an_error(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    def fetch(url: str) -> dict:
+        raise AssertionError(url)
+
+    code = run_follow(["--sport", "ncaaf", "--game", "55"], fetch=fetch)
+    captured = capsys.readouterr()
+    assert code == 2
+    assert captured.out == ""
+    assert "college football" in captured.err.lower()
+    assert "ncaaf" in captured.err.lower()
+
+    for sport, label in (
+        ("ncaah", "college hockey"),
+        ("ncaab", "college basketball"),
+    ):
+        refused = run_follow(["--sport", sport, "--game", "55"], fetch=fetch)
+        refused_err = capsys.readouterr()
+        assert refused == 2
+        assert refused_err.out == ""
+        assert label in refused_err.err.lower()
+        assert sport in refused_err.err.lower()
 
 
 def test_network_import_stays_in_the_follow_command() -> None:

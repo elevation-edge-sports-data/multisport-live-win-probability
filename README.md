@@ -8,7 +8,7 @@ College football is a second config of the football pack. Regulation is four 15-
 
 NHL is the hockey pack. Regulation is three 20-minute periods. Regular-season overtime is 5:00 of 3-on-3, then a shootout. Game-win probability after a scoreless overtime follows the pregame rate gap and is not 0.5. Playoff overtime is 20:00 sudden death, not that shootout. A scoreless playoff period starts another 20:00.
 
-The widget does not fetch. Football charts use four equal columns, then one OT pane when any snapshot is in an extra period. Hockey charts use three equal columns, P1 P2 P3, then one OT pane on the same rule. The pane width follows the number of extra-period snapshots, with one OT label even if the replay reaches 2OT.
+The widget does not fetch. Each chart draws one pane per period. A completed regulation period gets one equal share. An extra period gets that share times the fraction of the period that elapsed. Football regulation is Q1 Q2 Q3 Q4. Hockey regulation is P1 P2 P3. Basketball keeps the quarters or halves already in the replay. Each extra period adds its own pane, labeled OT, then 2OT, then 3OT, on the chart axis. A 2OT football replay has six panes. A 2OT hockey replay has five. Michigan at Denver ends on the 2OT goal, so that pane is only the played fraction of a full period. OU at TEX does the same for OT and 2OT. A regulation replay has no OT pane. The scrubber readout is the current snapshot only: the period and clock, or FINAL.
 
 ## Setup
 
@@ -40,7 +40,7 @@ python -m live_wp replay examples/nhl_col_min_g5.json
 
 ## ESPN ingest
 
-A saved NFL, college-football, or NHL scoreboard event or game summary can be ingested to snapshots. The adapter does not call the network. A college-football summary is written with sport `ncaaf`. An NHL summary is written with sport `nhl`. NBA and any other league are refused. Follow stays NFL-only and still rejects college football and hockey. ESPN's unofficial site shape can change without notice. Not betting advice.
+A saved NFL, college-football, or NHL scoreboard event or game summary can be ingested to snapshots. NBA and NCAAB game summaries can be ingested on the same command. The adapter does not call the network. A college-football summary is written with sport `ncaaf`. An NHL summary is written with sport `nhl`. An NBA summary is written with sport `nba`. An NCAAB summary is written with sport `ncaab`. Any other league is refused. Follow sports are nfl, nhl, and nba. ESPN's unofficial site shape can change without notice. Not betting advice.
 
 ```powershell
 python -m live_wp ingest-espn tests/fixtures/espn_nfl_summary_snippet.json examples/nfl_espn_sample.json
@@ -56,41 +56,46 @@ python -m live_wp render-widget examples/nhl_col_min_g5.json widget/nhl_col_min_
 python -m live_wp calibrate
 ```
 
-The command replays every file in `examples/` and ingests the saved ESPN fixtures through the existing adapter. A file that adapter refuses is skipped and recorded. It prints a table and writes `artifacts/calibration.json`. That directory is gitignored.
+The command replays every file in `examples/` and ingests the saved ESPN fixtures through the same path as `ingest-espn`. A file that path refuses is skipped and recorded. It prints a table and writes `artifacts/calibration.json`. That directory is gitignored.
 
 This is a smoke table on the fixtures we have, not a historical backtest. The fixture count is too small to retune margin_sd, possession points, or strength multipliers.
 
 ## Follow
 
-Unofficial ESPN NFL feed, command line only. The widget still only replays a saved file. Not affiliated with ESPN. Not betting advice. This breaks when ESPN changes the payload shape.
+Unofficial ESPN feed, command line only. Follow sports are nfl, nhl, and nba. The widget still only replays a saved file. Not affiliated with ESPN. Not betting advice. This breaks when ESPN changes the payload shape.
 
 ```powershell
 python -m live_wp follow --date 20260920
 python -m live_wp follow --game 401872940
+python -m live_wp follow --sport nhl --game 401871420
+python -m live_wp follow --sport nba --game 401547684
 ```
 
-`--date` prints each event id, away @ home, status, and score, then exits. `--game` polls that NFL event until it is final. The default pause is 15 seconds, and a pause under 5 seconds is rejected. A line is printed only when the clock, score, period, status, or situation changes. The first home moneyline is kept for later polls. If no payload has one, that prior stays 0.5. College football is rejected.
+`--sport` is nfl, nhl, or nba. nfl is the default. `--date` prints each event id, away @ home, status, and score, then exits. `--game` polls that event until it is final. The default pause is 15 seconds, and a pause under 5 seconds is rejected. A line is printed only when the clock, score, period, status, or situation changes. The first home moneyline is kept for later polls. If no payload has one, that prior stays 0.5. College football, college hockey, and college basketball are rejected.
+
+## Serve
+
+```powershell
+python -m live_wp serve
+python -m live_wp live --game 401872940
+```
+
+Open the served page, run live in another shell, then reload or let the existing scrubber read the rewritten file.
 
 ## Widget
 
-Open [widget/index.html](widget/index.html) in a browser. There is no build step. The page loads six saved replays. Those win probabilities were already computed by the Python pack for that sport. The page does not estimate win probability and does not fetch.
+Open [widget/index.html](widget/index.html) in a browser. There is no build step. `widget/manifest.js` lists the rendered replays the picker can open, with `sport`, `away`, `home`, `label`, and `file`. Red Oak at Harbor is the `examples/nfl_sample.json` prototype in `widget/nfl_replay.js`. A replay with home Harbor or away Harbor is omitted from that list and is not a game button. The file stays on disk. Pro shows NFL, NHL, and NBA. College shows NCAAF, NCAAH, and NCAAB. Choosing a sport loads that sport's first replay. When that sport has more than one replay, the page draws one button per replay using the manifest label. A sport with one replay does not draw that row. Choosing a game loads its file. Those win probabilities were already computed by the Python pack for that sport. The page does not estimate win probability and does not fetch.
+
+```powershell
+python -m live_wp write-manifest
+```
+
+`render-widget` rewrites the same manifest when it writes a script into `widget/`.
+
+The six presentation demos stay in the list: NYG at DEN, EDM at COL, DEN at LAL, COLO at TTU, MICH at DEN, and COLO at FLA. The other rendered replays are listed with them. The Harbor prototype is not one of those buttons.
 
 Each sport uses local PNGs under widget/logos/nfl/, widget/logos/nhl/, widget/logos/nba/, widget/logos/ncaaf/, widget/logos/ncaah/, or widget/logos/ncaab/ when the abbreviation matches. Harbor has no logo. A missing logo file hides the image.
 
-The buttons sit on two levels.
-
-Pro:
-
-- **NFL** plays the Giants at Denver.
-- **NHL** plays Edmonton at Colorado.
-- **NBA** plays Denver at the Lakers.
-
-College:
-
-- **NCAAF** plays Colorado at Texas Tech.
-- **NCAAH** plays Michigan at Denver.
-- **NCAAB** plays Colorado at Florida.
-
-The page header reads Elevation Edge Sports Data, Multisport live win probability, and a small V3 badge. Compact and Expanded sit on that title line. Pro and College sit below that line. Expanded is the default. A replay whose last snapshot is final opens on that snapshot. Switching sport resets play. Compact is the ticker, including OT and 2OT as text. Expanded adds the two charts. Both charts share the period-band axis and move with play, pause, and the scrubber.
+The page header reads Elevation Edge Sports Data, Multisport live win probability, and a small V3.3 badge. Compact and Expanded sit on that title line. Pro and College sit below that line and choose which three sports are shown. Expanded is the default. The page opens NYG at DEN. A replay whose last snapshot is final opens on that snapshot. Choosing a sport or a game stops play and opens on that snapshot when it is final. Compact is the ticker, including OT and 2OT as text. Expanded adds the two charts. Period labels stay on the chart axis. The charts move with play, pause, and the scrubber. The readout under the scrubber is the current snapshot only: the period and clock, or FINAL.
 
 While a snapshot can still change, the home win probability stays off 0 and 1. The widget prints two decimals. A decided snapshot is final, or the end of regulation with a lead. It then prints 100 or 0 from the score.

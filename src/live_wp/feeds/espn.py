@@ -3,9 +3,9 @@
 The caller loads the JSON. This module does not fetch. It accepts a
 scoreboard event object or a game summary object from the unofficial ESPN
 site API. NFL maps to sport ``nfl``. College football maps to sport ``ncaaf``.
-NHL maps to sport ``nhl``. NBA and any other league are refused. The follow
-command still asks ``require_nfl_payload`` and does not follow college
-football or hockey.
+NHL maps to sport ``nhl``. NBA and NCAAB summaries are ingested through
+the basketball adapter instead of this module, so calls here still refuse
+them. Any other league is refused.
 
 A home American moneyline, when present, is converted once into
 ``prior_home`` and reused on every snapshot. ESPN's own win-probability
@@ -165,6 +165,35 @@ def require_nfl_payload(payload: Mapping[str, Any]) -> None:
     if not isinstance(payload, Mapping):
         raise TypeError("ESPN payload must be an object")
     _require_nfl(payload)
+
+
+def require_nhl_payload(payload: Mapping[str, Any]) -> None:
+    """Raise unless this payload is confirmed NHL.
+
+    A scoreboard list is allowed here. College football and any other league
+    are refused. This does not fetch.
+    """
+    if not isinstance(payload, Mapping):
+        raise TypeError("ESPN payload must be an object")
+    college, nfl, nhl, other = _classify_league(payload)
+    if college and not nhl:
+        raise ValueError(
+            "ESPN payload is college football (ncaaf), not NHL. "
+            "This adapter maps NHL games only."
+        )
+    if nfl and not nhl:
+        raise ValueError("ESPN payload is nfl, not NHL.")
+    if other and not nhl:
+        raise ValueError(f"ESPN payload is {other[0]}, not NHL.")
+    if (other or nfl or college) and nhl:
+        token = other[0] if other else ("nfl" if nfl else "college football")
+        raise ValueError(
+            f"ESPN payload mixes NHL with {token}. Refusing to map it as nhl."
+        )
+    if not nhl:
+        raise ValueError(
+            "ESPN payload is not NHL. The league could not be confirmed as nhl."
+        )
 
 
 def home_moneyline_prior(payload: Mapping[str, Any]) -> float | None:

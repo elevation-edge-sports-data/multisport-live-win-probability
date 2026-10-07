@@ -19,9 +19,11 @@ from live_wp.calibrate import (
     BUCKETS,
     build_report,
     default_paths,
+    format_report,
     summarize,
     time_bucket,
 )
+from live_wp.feeds.espn_basketball import events_from_espn_basketball
 from live_wp.__main__ import main
 from live_wp.replay import config_for_state, load_replay
 
@@ -162,7 +164,7 @@ def test_refused_espn_file_is_skipped_and_recorded():
     assert [game["path"] for game in report["games"]] == ["examples/nfl_sample.json"]
 
 
-def test_default_sources_skip_files_the_adapter_refuses():
+def test_default_sources_score_the_listed_espn_fixtures():
     paths = default_paths()
     names = [path.name for path in paths]
     assert "nfl_sample.json" in names
@@ -181,15 +183,55 @@ def test_default_sources_skip_files_the_adapter_refuses():
     assert "espn_nfl_summary_snippet.json" in scored
     assert "espn_nhl_401442762_summary.json" in scored
     assert "espn_ncaaf_summary_snippet.json" in scored
-    assert "espn_nba_401547684_summary.json" in skipped
-    assert "espn_ncaab_401638608_summary.json" in skipped
-    assert skipped["espn_nba_401547684_summary.json"]
-    assert skipped["espn_ncaab_401638608_summary.json"]
+    assert "espn_nba_401547684_summary.json" in scored
+    assert "espn_ncaab_401638608_summary.json" in scored
+    assert "espn_nba_401547684_summary.json" not in skipped
+    assert "espn_ncaab_401638608_summary.json" not in skipped
+    sports_by_file = {
+        Path(game["path"]).name: game["sport"] for game in report["games"]
+    }
+    assert sports_by_file["espn_nba_401547684_summary.json"] == "nba"
+    assert sports_by_file["espn_ncaab_401638608_summary.json"] == "ncaab"
     assert "nfl_sample.json" in scored
     assert "nhl_col_min_g5.json" in scored
     sports = {row["sport"] for row in report["by_sport"]}
     assert {"nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"}.issubset(sports)
     assert [row["bucket"] for row in report["by_bucket"]] == list(BUCKETS)
+
+
+def test_calibrate_does_not_skip_nba_or_ncaab_fixtures():
+    nba = ROOT / "tests" / "fixtures" / "espn_nba_401547684_summary.json"
+    ncaab = ROOT / "tests" / "fixtures" / "espn_ncaab_401638608_summary.json"
+    report = build_report([nba, ncaab])
+    skipped = [item["path"] for item in report["skipped"]]
+    assert "tests/fixtures/espn_nba_401547684_summary.json" not in skipped
+    assert "tests/fixtures/espn_ncaab_401638608_summary.json" not in skipped
+    text = format_report(report)
+    skipped_text = text.split("Skipped\n", 1)[1]
+    assert "espn_nba_401547684_summary.json" not in skipped_text
+    assert "espn_ncaab_401638608_summary.json" not in skipped_text
+    assert "not a historical backtest" in text
+    assert (
+        "too small to retune margin_sd, possession points, or strength multipliers"
+        in text
+    )
+
+    expected: dict[str, tuple[str, int]] = {}
+    for path, sport in ((nba, "nba"), (ncaab, "ncaab")):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        states = events_from_espn_basketball(payload, density="scoring")
+        assert {state.sport for state in states} == {sport}
+        expected[path.name] = (sport, len(states))
+
+    games = {Path(game["path"]).name: game for game in report["games"]}
+    assert set(games) == set(expected)
+    for name, (sport, count) in expected.items():
+        assert games[name]["sport"] == sport
+        assert games[name]["n"] == count
+        assert games[name]["source"] == "ingest-espn"
+    counted = {row["sport"]: row["n"] for row in report["by_sport"]}
+    assert counted["nba"] == expected["espn_nba_401547684_summary.json"][1]
+    assert counted["ncaab"] == expected["espn_ncaab_401638608_summary.json"][1]
 
 
 def test_calibrate_command_runs_on_sample_replays_without_network(monkeypatch):

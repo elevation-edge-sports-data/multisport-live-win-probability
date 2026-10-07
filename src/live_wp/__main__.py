@@ -1,4 +1,4 @@
-"""python -m live_wp replay|ingest-espn|render-widget|follow|calibrate"""
+"""python -m live_wp replay|ingest-espn|render-widget|write-manifest|follow|live|serve|calibrate"""
 
 from __future__ import annotations
 
@@ -9,21 +9,29 @@ from pathlib import Path
 from mswp import compute_wp
 
 from live_wp.calibrate import run_calibrate
-from live_wp.feeds.espn import DENSITIES, states_from_espn
+from live_wp.feeds import states_from_ingest
+from live_wp.feeds.espn import DENSITIES
 from live_wp.follow import run_follow
+from live_wp.live import run_live
 from live_wp.replay import (
     config_for_state,
     dump_replay,
     format_line,
     load_replay,
+    refresh_manifest_if_widget,
     render_widget_script,
+    write_manifest,
 )
+from live_wp.serve import run_serve
 
 _USAGE = """\
 usage: python -m live_wp replay <json>
        python -m live_wp ingest-espn <in.json> <out.json> [--density scoring|situation|all]
        python -m live_wp render-widget <replay.json> <out.js>
-       python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15]
+       python -m live_wp write-manifest
+       python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15] [--sport nfl|nhl|nba]
+       python -m live_wp live --game ESPN_EVENT_ID [--sport nfl|nhl|nba] [--interval 15] [--out widget/live_replay.js]
+       python -m live_wp serve [--port 8765]
        python -m live_wp calibrate [replay-or-espn.json ...]
        python -m live_wp build-football-demos
        python -m live_wp build-hockey-demos
@@ -50,7 +58,7 @@ def ingest_espn(source: Path, dest: Path, density: str = "scoring") -> int:
         return 1
     try:
         payload = json.loads(source.read_text(encoding="utf-8"))
-        states = states_from_espn(payload, density=density)
+        states = states_from_ingest(payload, density=density)
     except (TypeError, ValueError, json.JSONDecodeError) as exc:
         print(exc, file=sys.stderr)
         return 1
@@ -69,7 +77,21 @@ def render_widget(source: Path, dest: Path) -> int:
         print(exc, file=sys.stderr)
         return 1
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(script, encoding="utf-8")
+    dest.write_text(script, encoding="utf-8", newline="\n")
+    try:
+        refresh_manifest_if_widget(dest)
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(exc, file=sys.stderr)
+        return 1
+    return 0
+
+
+def write_manifest_command() -> int:
+    try:
+        write_manifest()
+    except (OSError, ValueError, json.JSONDecodeError) as exc:
+        print(exc, file=sys.stderr)
+        return 1
     return 0
 
 
@@ -92,8 +114,14 @@ def main(argv: list[str] | None = None) -> int:
         return ingest_espn(Path(paths[0]), Path(paths[1]), density)
     if len(args) == 3 and args[0] == "render-widget":
         return render_widget(Path(args[1]), Path(args[2]))
+    if args == ["write-manifest"]:
+        return write_manifest_command()
     if args and args[0] == "follow":
         return run_follow(args[1:])
+    if args and args[0] == "live":
+        return run_live(args[1:])
+    if args and args[0] == "serve":
+        return run_serve(args[1:])
     if args and args[0] == "calibrate":
         return run_calibrate(args[1:])
     if args and args[0] == "build-football-demos":

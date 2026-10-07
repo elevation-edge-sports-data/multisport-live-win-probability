@@ -179,6 +179,10 @@ h1 {
   flex-wrap: wrap;
 }
 
+.level[hidden] {
+  display: none;
+}
+
 .level-label {
   flex: 0 0 4.4rem;
   margin: 0;
@@ -404,18 +408,22 @@ button:focus-visible, input:focus-visible {
 }
 
 .transport-row {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  grid-template-areas: "play steps scrub";
+  column-gap: 0.5rem;
   align-items: stretch;
-  gap: 0.5rem;
   width: 100%;
 }
 
+#play { grid-area: play; }
+
 .steps {
+  grid-area: steps;
   display: flex;
   flex-direction: column;
   gap: 2px;
   width: 1.7rem;
-  flex: 0 0 auto;
 }
 
 .steps button {
@@ -457,7 +465,8 @@ button:focus-visible, input:focus-visible {
 }
 
 #scrub {
-  flex: 1 1 10rem;
+  grid-area: scrub;
+  width: 100%;
   min-width: 0;
   align-self: center;
   accent-color: var(--gold);

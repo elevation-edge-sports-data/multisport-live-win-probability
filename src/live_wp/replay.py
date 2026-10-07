@@ -9,6 +9,7 @@ read timeouts.
 from __future__ import annotations
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Mapping
@@ -28,8 +29,20 @@ from mswp.config import SportConfig
 from live_wp.colors import team_color
 
 # PNGs already stored next to the widget. Paths below are relative to index.html.
-_LOGO_ROOT = Path(__file__).resolve().parents[2] / "widget" / "logos"
+_WIDGET_DIR = Path(__file__).resolve().parents[2] / "widget"
+_LOGO_ROOT = _WIDGET_DIR / "logos"
 _LOGO_SPORTS = {"nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"}
+_BINDING_RE = re.compile(r"window\.(NFL|NHL|NBA|NCAAF|NCAAH|NCAAB)_REPLAY\s*=")
+_SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
+# The page opens the first NFL entry. Keep the six presentation demos first in each sport.
+_DEMO_FILE = {
+    "nfl": "nfl_nyg_den.js",
+    "nhl": "nhl_edm_col.js",
+    "nba": "nba_den_lal.js",
+    "ncaaf": "ncaaf_cu_ttu.js",
+    "ncaah": "ncaah_den_mich.js",
+    "ncaab": "ncaab_cu_fla.js",
+}
 
 _REQUIRED = (
     "sport",
@@ -192,8 +205,7 @@ def format_clock(state: GameState) -> str:
 
     Football regulation is Q1-Q4. Period 5 is OT and period 6 is 2OT.
     College basketball regulation is H1-H2. Period 3 is OT.
-    Hockey regulation is P1-P3. Period 4 is OT. The chart still draws
-    extra periods as one OT pane.
+    Hockey regulation is P1-P3. Period 4 is OT and period 5 is 2OT.
     """
     if state.status == "final":
         return "FINAL"
@@ -322,3 +334,93 @@ def render_widget_script(states: list[GameState]) -> str:
         "// The widget displays these values and does not run a second model.\n"
         f"{binding} = {body};\n"
     )
+
+
+def _manifest_sort_key(entry: dict[str, str]) -> tuple[int, int, str]:
+    sport = entry["sport"]
+    sport_index = _SPORT_ORDER.index(sport) if sport in _SPORT_ORDER else len(_SPORT_ORDER)
+    demo_first = 0 if entry["file"] == _DEMO_FILE.get(sport) else 1
+    return (sport_index, demo_first, entry["file"])
+
+
+def _is_harbor_replay(home: object, away: object) -> bool:
+    """True for the Red Oak at Harbor prototype on either side of the ball."""
+    names = []
+    for name in (home, away):
+        if isinstance(name, str):
+            names.append(name.strip().casefold())
+    return "harbor" in names
+
+
+def manifest_entry(path: Path) -> dict[str, str] | None:
+    """One picker row from a rendered replay script, or None if it is not one.
+
+    A replay whose home or away team is Harbor is the nfl_sample prototype.
+    That file stays on disk and is omitted here, so it is not a game button.
+    """
+    text = path.read_text(encoding="utf-8")
+    match = _BINDING_RE.search(text)
+    if match is None:
+        return None
+    start = text.find("[")
+    if start < 0:
+        raise ValueError(f"{path.name} has no replay frames")
+    frames, _end = json.JSONDecoder().raw_decode(text[start:])
+    if not isinstance(frames, list) or not frames or not isinstance(frames[0], dict):
+        raise ValueError(f"{path.name} has no replay frames")
+    away = frames[0].get("away")
+    home = frames[0].get("home")
+    if not isinstance(away, str) or not isinstance(home, str) or not away or not home:
+        raise ValueError(f"{path.name} replay frame is missing teams")
+    if _is_harbor_replay(home, away):
+        return None
+    return {
+        "sport": match.group(1).lower(),
+        "away": away,
+        "home": home,
+        "label": f"{away} at {home}",
+        "file": path.name,
+    }
+
+
+def manifest_entries(directory: Path | None = None) -> list[dict[str, str]]:
+    """Rendered replays under ``directory``, demo matchups first within each sport.
+
+    The Harbor prototype is omitted.
+    """
+    widget = Path(directory) if directory is not None else _WIDGET_DIR
+    entries: list[dict[str, str]] = []
+    for path in sorted(widget.glob("*.js")):
+        entry = manifest_entry(path)
+        if entry is not None:
+            entries.append(entry)
+    entries.sort(key=_manifest_sort_key)
+    return entries
+
+
+def render_manifest_script(entries: list[dict[str, str]]) -> str:
+    """JavaScript assignment of the game list. The page does not fetch it."""
+    body = json.dumps(entries, indent=2)
+    return (
+        "// Rendered replays the page can open.\n"
+        "// The page lists these files and does not fetch.\n"
+        f"window.MSWP_MANIFEST = {body};\n"
+    )
+
+
+def write_manifest(directory: Path | None = None) -> Path:
+    """Write ``manifest.js`` for the replays the picker can open."""
+    widget = Path(directory) if directory is not None else _WIDGET_DIR
+    dest = widget / "manifest.js"
+    dest.write_text(
+        render_manifest_script(manifest_entries(widget)),
+        encoding="utf-8",
+        newline="\n",
+    )
+    return dest
+
+
+def refresh_manifest_if_widget(dest: Path) -> None:
+    """Rewrite ``widget/manifest.js`` when ``dest`` is a script in that directory."""
+    if dest.resolve().parent == _WIDGET_DIR.resolve():
+        write_manifest(_WIDGET_DIR)

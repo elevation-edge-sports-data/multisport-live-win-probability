@@ -5,9 +5,9 @@ returns. It does not fit or edit margin_sd, possession points, or strength
 multipliers. The fixture count is too small for that, and this is not a
 historical backtest.
 
-Replay lists are read as saved. ESPN objects go through ``states_from_espn``
-at scoring density. A file that adapter refuses is skipped and recorded.
-This module does not fetch.
+Replay lists are read as saved. ESPN objects go through the same path as
+``python -m live_wp ingest-espn``, at scoring density. A file that path
+refuses is skipped and recorded. This module does not fetch.
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from mswp import compute_wp
 from mswp.config import SportConfig
 from mswp.state import GameState
 
-from live_wp.feeds.espn import states_from_espn
+from live_wp.feeds import states_from_ingest
 from live_wp.replay import config_for_state, load_replay
 
 # Natural-log loss only. Brier and the mean keep the raw probability,
@@ -34,7 +34,7 @@ NOTE = (
     "or strength multipliers."
 )
 
-# ``states_from_espn`` default. Replay files are not thinned to this density.
+# Same default as ``ingest-espn``. Replay files are not thinned to this density.
 ESPN_DENSITY = "scoring"
 
 BUCKETS: tuple[str, ...] = (
@@ -273,12 +273,12 @@ def _load_path(path: Path) -> tuple[list[GameState], str, str | None]:
             return [], "", str(exc)
     if isinstance(payload, dict):
         try:
-            states = list(states_from_espn(payload, density=ESPN_DENSITY))
+            states = list(states_from_ingest(payload, density=ESPN_DENSITY))
         except (TypeError, ValueError) as exc:
             return [], "", str(exc)
         if not states:
             return [], "", "adapter returned no snapshots"
-        return states, "states_from_espn", None
+        return states, "ingest-espn", None
     return [], "", "file is not a replay list or an ESPN object"
 
 

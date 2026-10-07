@@ -40,7 +40,7 @@
       <p class="brand">ELEVATION EDGE SPORTS DATA</p>
       <div class="title-line">
         <h1>MULTISPORT LIVE WIN PROBABILITY</h1>
-        <p class="badge">V3</p>
+        <p class="badge" id="badge"></p>
         <div class="views" role="group" aria-label="View">
           <button type="button" class="view" data-view-choice="compact" aria-pressed="false">Compact</button>
           <button type="button" class="view" data-view-choice="expanded" aria-pressed="true">Expanded</button>
@@ -49,20 +49,16 @@
       <div class="toolbar">
         <div class="levels">
           <div class="level">
-            <p class="level-label" id="level-pro">Pro</p>
-            <div class="sports" role="group" aria-labelledby="level-pro">
-              <button type="button" class="sport is-selected" id="sport-nfl" aria-pressed="true">NFL</button>
-              <button type="button" class="sport" id="sport-nhl" aria-pressed="false">NHL</button>
-              <button type="button" class="sport" id="sport-nba" aria-pressed="false">NBA</button>
+            <div class="sports" role="group" aria-label="Level">
+              <button type="button" class="sport is-selected" id="level-pro" aria-pressed="true">Pro</button>
+              <button type="button" class="sport" id="level-college" aria-pressed="false">College</button>
             </div>
           </div>
           <div class="level">
-            <p class="level-label" id="level-college">College</p>
-            <div class="sports" role="group" aria-labelledby="level-college">
-              <button type="button" class="sport" id="sport-ncaaf" aria-pressed="false">NCAAF</button>
-              <button type="button" class="sport" id="sport-ncaah" aria-pressed="false">NCAAH</button>
-              <button type="button" class="sport" id="sport-ncaab" aria-pressed="false">NCAAB</button>
-            </div>
+            <div class="sports" id="sports" role="group" aria-label="Sport"></div>
+          </div>
+          <div class="level" id="game-row" hidden>
+            <div class="sports" id="games" role="group" aria-label="Game"></div>
           </div>
         </div>
       </div>
@@ -155,12 +151,8 @@
       Unofficial project from Elevation Edge Sports Data. Not affiliated with the NFL, NHL, NBA, or NCAA.
     </footer>
   </main>
-  <script src="nfl_nyg_den.js"></script>
-  <script src="ncaaf_cu_ttu.js"></script>
-  <script src="nhl_edm_col.js"></script>
-  <script src="ncaah_den_mich.js"></script>
-  <script src="nba_den_lal.js"></script>
-  <script src="ncaab_cu_fla.js"></script>
+  <script src="manifest.js"></script>
+  <script src="live_replay.js"></script>
   <script src="colors.js"></script>
   <script src="widget.js"></script>
 </body>

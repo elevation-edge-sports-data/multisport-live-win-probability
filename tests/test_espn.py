@@ -19,7 +19,9 @@ from live_wp.feeds.espn import (
     require_nfl_payload,
     states_from_espn,
 )
+from live_wp.feeds.espn_basketball import events_from_espn_basketball
 from live_wp.replay import (
+    config_for_state,
     dump_replay,
     format_clock,
     format_line,
@@ -804,6 +806,136 @@ def test_min_at_col_is_the_nhl_widget_replay():
     assert frames[-1]["home_score"] == 4
     assert frames[-1]["away_score"] == 3
     assert frames[-1]["wp"] == 1.0
+
+
+def test_ingest_still_accepts_nfl_ncaaf_and_nhl_snippets(tmp_path: Path) -> None:
+    cases = (
+        (SNIPPET, "nfl"),
+        (NCAAF_SNIPPET, "ncaaf"),
+        (NHL_SNIPPET, "nhl"),
+    )
+    for source, sport in cases:
+        dest = tmp_path / f"{sport}.json"
+        completed = subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "live_wp",
+                "ingest-espn",
+                str(source),
+                str(dest),
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        assert completed.stdout == ""
+        states = load_replay(dest)
+        payload = json.loads(source.read_text(encoding="utf-8"))
+        assert states == espn_summary_to_states(payload)
+        assert {state.sport for state in states} == {sport}
+
+
+def test_ingest_accepts_nba_and_ncaab_summaries(tmp_path: Path) -> None:
+    cases = (
+        ("espn_nba_401547684_summary.json", "nba", "401547684", "LAL", "DEN", 111, 113),
+        ("espn_ncaab_401638608_summary.json", "ncaab", "401638608", "FLA", "COLO", 100, 102),
+    )
+    for name, sport, game_id, home, away, home_score, away_score in cases:
+        source = ROOT / "tests" / "fixtures" / name
+        payload = json.loads(source.read_text(encoding="utf-8"))
+        scoring_path = tmp_path / f"{sport}-scoring.json"
+        situation_path = tmp_path / f"{sport}-situation.json"
+        all_path = tmp_path / f"{sport}-all.json"
+        for dest, flag in (
+            (scoring_path, None),
+            (situation_path, "situation"),
+            (all_path, "all"),
+        ):
+            command = [
+                sys.executable,
+                "-m",
+                "live_wp",
+                "ingest-espn",
+                str(source),
+                str(dest),
+            ]
+            if flag is not None:
+                command.extend(["--density", flag])
+            completed = subprocess.run(
+                command,
+                cwd=ROOT,
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            assert completed.stdout == ""
+        scoring = load_replay(scoring_path)
+        situation = load_replay(situation_path)
+        everything = load_replay(all_path)
+        assert scoring == events_from_espn_basketball(payload, density="scoring")
+        assert situation == events_from_espn_basketball(payload, density="situation")
+        assert everything == events_from_espn_basketball(payload, density="all")
+        assert len(scoring) < len(situation) < len(everything)
+        for states in (scoring, situation, everything):
+            assert {state.sport for state in states} == {sport}
+            assert {state.game_id for state in states} == {game_id}
+            assert {state.home for state in states} == {home}
+            assert {state.away for state in states} == {away}
+            assert states[0].status == "pre"
+            assert states[0].home_score == 0 and states[0].away_score == 0
+            assert states[-1].status == "final"
+            assert states[-1].home_score == home_score
+            assert states[-1].away_score == away_score
+            assert len({state.prior_home for state in states}) == 1
+            assert compute_wp(
+                states[-1], states[-1].prior_home, config_for_state(states[-1])
+            ) == (1.0 if home_score > away_score else 0.0)
+        if sport == "nba":
+            assert scoring[0].prior_home == pytest.approx(160 / 260)
+        else:
+            assert scoring[0].prior_home == 0.5
+
+
+def test_ingest_refuses_a_league_outside_the_five(tmp_path: Path) -> None:
+    source = tmp_path / "mlb.json"
+    source.write_text(
+        json.dumps(
+            {
+                "header": {
+                    "id": "1",
+                    "league": {
+                        "id": "10",
+                        "slug": "mlb",
+                        "abbreviation": "MLB",
+                        "name": "Major League Baseball",
+                    },
+                    "competitions": [],
+                },
+                "plays": [{"id": "1"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "live_wp",
+            "ingest-espn",
+            str(source),
+            str(tmp_path / "out.json"),
+        ],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 1
+    assert completed.stdout == ""
+    assert "not NFL" in completed.stderr
+    assert not (tmp_path / "out.json").exists()
 
 
 def test_demo_palette_is_sport_specific_and_colorado_gold():

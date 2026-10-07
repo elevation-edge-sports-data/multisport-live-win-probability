@@ -1,1 +1,1 @@
-"""Replay and follow commands for the multisport win-probability library."""
+"""Replay, follow, live, and serve commands for the win-probability library."""

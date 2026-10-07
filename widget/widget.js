@@ -1,7 +1,6 @@
-// Displays window.NFL_REPLAY, window.NHL_REPLAY, window.NBA_REPLAY,
-// window.NCAAF_REPLAY, window.NCAAH_REPLAY, and window.NCAAB_REPLAY.
-// Each value was produced by the Python pack for that sport. This file
-// does not estimate win probability and does not load a remote replay.
+// Displays one rendered replay chosen from window.MSWP_MANIFEST.
+// Each replay was produced by the Python pack for that sport. This file
+// does not estimate win probability and does not fetch a remote replay.
 
 (function (root) {
   "use strict";
@@ -13,9 +12,6 @@
   var NBA_OT_SECONDS = 300;
   var NCAAB_HALF_SECONDS = 1200;
   var NCAAB_OT_SECONDS = 300;
-  // One extra-period snapshot stays thinner than a regulation column.
-  // More snapshots widen the single OT pane. 2OT stays inside that pane.
-  var OT_PANE_FLOOR = 0.38;
 
   function regulationCount(sport) {
     if (sport === "nhl" || sport === "ncaah") return 3;
@@ -36,69 +32,78 @@
     return /(?:^|[^A-Za-z0-9])\d*OT\b/.test(String(frame.clock || ""));
   }
 
+  // One pane per period. A regulation period is one equal share. An extra
+  // period is that share times the fraction of the period that elapsed.
+  // The first extra period is OT, then 2OT, then 3OT. A regulation replay
+  // has no OT pane. Labels stay on the chart axis.
+  function maxExtraOrdinal(rows, sport) {
+    var highest = 0;
+    var i;
+    if (!rows) return 0;
+    for (i = 0; i < rows.length; i++) {
+      if (!frameIsOvertime(rows[i], sport)) continue;
+      var ordinal = extraOrdinal(rows[i], sport);
+      if (ordinal > highest) highest = ordinal;
+    }
+    return highest;
+  }
+
+  function framesForExtra(rows, sport, ordinal) {
+    var group = [];
+    var i;
+    if (!rows) return group;
+    for (i = 0; i < rows.length; i++) {
+      if (!frameIsOvertime(rows[i], sport)) continue;
+      if (extraOrdinal(rows[i], sport) !== ordinal) continue;
+      group.push(rows[i]);
+    }
+    return group;
+  }
+
+  // Timed extra periods use the furthest clock in the replay. College
+  // overtime stays at 0:00, so those snaps are ordered and the pane is
+  // only the fraction of a share that order fills.
+  function extraPaneWidth(rows, sport, ordinal) {
+    var group = framesForExtra(rows, sport, ordinal);
+    var length = otLength(sport);
+    var maxFrac = 0;
+    var i;
+    if (!group.length) return 1;
+    if (!(length > 0)) {
+      if (group.length === 1) return 0.5;
+      return group.length / (group.length + 1);
+    }
+    for (i = 0; i < group.length; i++) {
+      var frac = clockFraction(group[i], length);
+      if (frac > maxFrac) maxFrac = frac;
+    }
+    return maxFrac;
+  }
+
   function layoutBands(rows, sport) {
     var nReg = regulationCount(sport);
-    var counts = [];
-    var otCount = 0;
+    var extra = maxExtraOrdinal(rows, sport);
+    var extras = [];
+    var widths = [];
+    var span = 0;
     var i;
-    for (i = 0; i < nReg; i++) counts.push(0);
-    for (i = 0; i < rows.length; i++) {
-      if (frameIsOvertime(rows[i], sport)) {
-        otCount += 1;
-      } else {
-        var period = Number(rows[i].period);
-        if (period >= 1 && period <= nReg) counts[period - 1] += 1;
-      }
-    }
-    var sum = 0;
-    var used = 0;
     for (i = 0; i < nReg; i++) {
-      if (counts[i] > 0) {
-        sum += counts[i];
-        used += 1;
-      }
+      widths.push(1);
+      span += 1;
     }
-    var typical = used === 0 ? 1 : sum / used;
-    var otWidth = 0;
-    if (otCount > 0) otWidth = Math.max(OT_PANE_FLOOR, otCount / typical);
-    var layout = {
-      otCount: otCount,
-      otWidth: otWidth,
-      span: nReg + otWidth,
-      regulation: nReg
+    for (i = 1; i <= extra; i++) {
+      var width = extraPaneWidth(rows, sport, i);
+      extras.push(i);
+      widths.push(width);
+      span += width;
+    }
+    return {
+      regulation: nReg,
+      extras: extras,
+      widths: widths,
+      paneCount: nReg + extra,
+      span: span
     };
-    // A final sudden-death goal ends the period. Do not keep the unused
-    // clock after that goal, or the series stops short of the right edge.
-    if (otWidth > 0 && timedFinalOvertime(rows, sport)) {
-      var maxPos = 0;
-      var j;
-      for (j = 0; j < rows.length; j++) {
-        var pos = bandPosition(rows[j], rows, layout, sport);
-        if (pos > maxPos) maxPos = pos;
-      }
-      if (maxPos > nReg && maxPos < layout.span) layout.span = maxPos;
-    }
-    return layout;
-  }
-
-  function timedFinalOvertime(rows, sport) {
-    if (sport !== "nfl" && sport !== "nhl" && sport !== "ncaah" && sport !== "nba" && sport !== "ncaab") {
-      return false;
-    }
-    if (!rows || !rows.length) return false;
-    var last = rows[rows.length - 1];
-    return String(last.status || "").toLowerCase() === "final" && frameIsOvertime(last, sport);
-  }
-
-  function otOrdinal(frame, rows) {
-    var seen = 0;
-    var i;
-    for (i = 0; i < rows.length; i++) {
-      if (!frameIsOvertime(rows[i])) continue;
-      if (rows[i] === frame) return seen;
-      seen += 1;
-    }
-    return 0;
   }
 
   function regulationPosition(frame, sport) {
@@ -126,61 +131,130 @@
     return (period - 1) + (HOCKEY_PERIOD_SECONDS - remaining) / HOCKEY_PERIOD_SECONDS;
   }
 
-  function timedOtFraction(frame, rows, sport, otSeconds) {
-    var periods = [];
+  function otLength(sport) {
+    if (sport === "nhl" || sport === "ncaah") return HOCKEY_PERIOD_SECONDS;
+    if (sport === "nba") return NBA_OT_SECONDS;
+    if (sport === "ncaab") return NCAAB_OT_SECONDS;
+    if (sport === "nfl") return NFL_OT_SECONDS;
+    return 0;
+  }
+
+  function clockFraction(frame, length) {
+    var remaining = Number(frame.seconds_remaining_period);
+    if (!isFinite(remaining)) remaining = length;
+    if (remaining < 0) remaining = 0;
+    if (remaining > length) remaining = length;
+    if (!(length > 0)) return 0;
+    return (length - remaining) / length;
+  }
+
+  function untimedExtraFraction(frame, rows, sport, ordinal) {
+    var group = [];
     var i;
     for (i = 0; i < rows.length; i++) {
       if (!frameIsOvertime(rows[i], sport)) continue;
-      var period = Number(rows[i].period);
-      if (periods.indexOf(period) === -1) periods.push(period);
+      if (extraOrdinal(rows[i], sport) !== ordinal) continue;
+      group.push(rows[i]);
     }
-    periods.sort(function (a, b) { return a - b; });
-    if (periods.length === 0) periods.push(Number(frame.period) || 5);
-    var pIndex = periods.indexOf(Number(frame.period));
-    if (pIndex < 0) pIndex = 0;
-    var remaining = Number(frame.seconds_remaining_period);
-    if (!isFinite(remaining)) remaining = 0;
-    if (remaining < 0) remaining = 0;
-    if (remaining > otSeconds) remaining = otSeconds;
-    var within = (otSeconds - remaining) / otSeconds;
-    var slot = (pIndex + 0.12 + 0.76 * within) / periods.length;
-    if (slot < 0.02) slot = 0.02;
-    if (slot > 0.98) slot = 0.98;
-    return slot;
+    if (group.length <= 1) return 0.5;
+    var idx = group.indexOf(frame);
+    if (idx < 0) idx = 0;
+    return (idx + 1) / (group.length + 1);
   }
 
-  function nflOtFraction(frame, rows) {
-    return timedOtFraction(frame, rows, "nfl", NFL_OT_SECONDS);
-  }
-
-  function ncaafOtFraction(frame, rows, layout) {
-    if (layout.otCount <= 1) return 0.5;
-    return (otOrdinal(frame, rows) + 1) / (layout.otCount + 1);
+  function paneStart(layout, sport, slot) {
+    var nReg = layout && layout.regulation ? layout.regulation : regulationCount(sport);
+    var start = 0;
+    var i;
+    var count = nReg + slot;
+    if (layout && layout.widths && layout.widths.length) {
+      for (i = 0; i < count && i < layout.widths.length; i++) start += layout.widths[i];
+      return start;
+    }
+    return nReg + slot;
   }
 
   function bandPosition(frame, rows, layout, sport) {
-    var origin = layout && layout.regulation ? layout.regulation : 4;
+    var nReg = layout && layout.regulation ? layout.regulation : regulationCount(sport);
     if (!frameIsOvertime(frame, sport)) return regulationPosition(frame, sport);
-    var frac = sport === "nfl"
-      ? nflOtFraction(frame, rows)
-      : (sport === "nhl" || sport === "ncaah")
-        ? timedOtFraction(frame, rows, sport, HOCKEY_PERIOD_SECONDS)
-        : sport === "nba"
-          ? timedOtFraction(frame, rows, "nba", NBA_OT_SECONDS)
-          : sport === "ncaab"
-            ? timedOtFraction(frame, rows, "ncaab", NCAAB_OT_SECONDS)
-            : ncaafOtFraction(frame, rows, layout);
-    return origin + frac * layout.otWidth;
+    var ordinal = extraOrdinal(frame, sport);
+    if (ordinal < 1) ordinal = 1;
+    var extras = layout && layout.extras && layout.extras.length ? layout.extras : [ordinal];
+    var slot = extras.indexOf(ordinal);
+    if (slot < 0) slot = 0;
+    var length = otLength(sport);
+    var frac = length > 0
+      ? clockFraction(frame, length)
+      : untimedExtraFraction(frame, rows, sport, ordinal);
+    var width = layout && layout.widths ? layout.widths[nReg + slot] : 1;
+    if (!(width > 0)) width = 0;
+    if (frac > width) frac = width;
+    return paneStart(layout, sport, slot) + frac;
+  }
+
+  function extraOrdinal(frame, sport) {
+    var fromClock = 0;
+    var match = String(frame && frame.clock || "").match(/(?:^|[^A-Za-z0-9])(\d*)OT\b/);
+    if (match) fromClock = match[1] ? Number(match[1]) : 1;
+    var fromPeriod = 0;
+    var period = Number(frame && frame.period);
+    if (period > regulationCount(sport)) fromPeriod = period - regulationCount(sport);
+    var status = String(frame && frame.status || "").trim().toLowerCase();
+    var fromStatus = (status === "ot" || status === "overtime") ? 1 : 0;
+    var n = fromClock;
+    if (fromPeriod > n) n = fromPeriod;
+    if (fromStatus > n) n = fromStatus;
+    return n;
+  }
+
+  function paneName(ordinal) {
+    var n = Number(ordinal);
+    if (n <= 1) return "OT";
+    return String(n) + "OT";
+  }
+
+  function overtimeLabel(rows, sport) {
+    var highest = maxExtraOrdinal(rows, sport);
+    if (highest <= 0) return "";
+    return paneName(highest);
+  }
+
+  function axisLabels(rows, sport, layout) {
+    var labels = [];
+    var nReg = layout && layout.regulation ? layout.regulation : regulationCount(sport);
+    var widths = layout && layout.widths ? layout.widths : null;
+    var cursor = 0;
+    var bi;
+    for (bi = 0; bi < nReg; bi++) {
+      var width = widths ? widths[bi] : 1;
+      var text = (sport === "nhl" || sport === "ncaah")
+        ? "P" + (bi + 1)
+        : sport === "ncaab"
+          ? "H" + (bi + 1)
+          : "Q" + (bi + 1);
+      labels.push({ at: cursor + width / 2, text: text });
+      cursor += width;
+    }
+    var extras = layout && layout.extras ? layout.extras : [];
+    var ei;
+    for (ei = 0; ei < extras.length; ei++) {
+      var extraWidth = widths ? widths[nReg + ei] : 1;
+      labels.push({ at: cursor + extraWidth / 2, text: paneName(extras[ei]) });
+      cursor += extraWidth;
+    }
+    return labels;
   }
 
   root.mswpBands = {
     QUARTER_SECONDS: QUARTER_SECONDS,
     NFL_OT_SECONDS: NFL_OT_SECONDS,
     HOCKEY_PERIOD_SECONDS: HOCKEY_PERIOD_SECONDS,
-    OT_PANE_FLOOR: OT_PANE_FLOOR,
     frameIsOvertime: frameIsOvertime,
     layoutBands: layoutBands,
-    bandPosition: bandPosition
+    bandPosition: bandPosition,
+    paneName: paneName,
+    overtimeLabel: overtimeLabel,
+    axisLabels: axisLabels
   };
 
   // Light golds count as near-white on the off-white page. Swatch dedup stays
@@ -522,15 +596,94 @@
     inkFor: inkFor
   };
 
+  var BADGE_TEXT = "V3.3";
+  var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
+  var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
+  var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
+
+  function levelForSport(sport) {
+    if (PRO_SPORTS.indexOf(sport) >= 0) return "pro";
+    if (COLLEGE_SPORTS.indexOf(sport) >= 0) return "college";
+    return "";
+  }
+
+  function sportsForLevel(level) {
+    return level === "college" ? COLLEGE_SPORTS : PRO_SPORTS;
+  }
+
+  // Either side named Harbor is the nfl_sample prototype. It stays out of
+  // the game buttons. The replay file itself can still be opened.
+  function listedGame(entry) {
+    var home = String(entry && entry.home || "").trim().toLowerCase();
+    var away = String(entry && entry.away || "").trim().toLowerCase();
+    return home !== "harbor" && away !== "harbor";
+  }
+
+  function gamesForSport(entries, sport) {
+    var out = [];
+    var i;
+    if (!entries) return out;
+    for (i = 0; i < entries.length; i++) {
+      if (entries[i].sport === sport && listedGame(entries[i])) out.push(entries[i]);
+    }
+    return out;
+  }
+
+  function gamesForLevel(entries, level) {
+    var out = [];
+    var i;
+    if (!entries) return out;
+    for (i = 0; i < entries.length; i++) {
+      if (levelForSport(entries[i].sport) === level && listedGame(entries[i])) out.push(entries[i]);
+    }
+    return out;
+  }
+
+  function bindingName(sport) {
+    if (sport === "nfl") return "NFL_REPLAY";
+    if (sport === "ncaaf") return "NCAAF_REPLAY";
+    if (sport === "nhl") return "NHL_REPLAY";
+    if (sport === "ncaah") return "NCAAH_REPLAY";
+    if (sport === "nba") return "NBA_REPLAY";
+    if (sport === "ncaab") return "NCAAB_REPLAY";
+    return "";
+  }
+
+  function readSportFrames(scope, sport) {
+    var name = bindingName(sport);
+    if (!name || !scope) return null;
+    var rows = scope[name];
+    if (!Array.isArray(rows) || rows.length === 0) return null;
+    return rows;
+  }
+
+  root.MSWP_BADGE = BADGE_TEXT;
+  root.mswpPicker = {
+    levelForSport: levelForSport,
+    sportsForLevel: sportsForLevel,
+    gamesForSport: gamesForSport,
+    gamesForLevel: gamesForLevel,
+    bindingName: bindingName,
+    readSportFrames: readSportFrames
+  };
+
   if (!root.document || !root.document.getElementById) return;
 
-  var frames = root.NFL_REPLAY;
+  var badge = document.getElementById("badge");
+  if (badge) badge.textContent = BADGE_TEXT;
+
+  var manifest = Array.isArray(root.MSWP_MANIFEST) ? root.MSWP_MANIFEST.slice() : [];
+  var frames = [];
   var sportName = "nfl";
+  var currentFile = "";
+  var levelName = "pro";
   var themeName = "charcoal";
   var awaySwatch = null;
   var homeSwatch = null;
+  var loadToken = 0;
+  var frameCache = {};
   var stage = document.getElementById("stage");
-  if (!Array.isArray(frames) || frames.length === 0) {
+  if (!manifest.length) {
     stage.textContent = "Replay file is missing.";
     return;
   }
@@ -744,7 +897,7 @@
     applyTeamColors();
     drawCharts(index);
     scrub.value = String(index);
-    text("position", frame.clock + " · " + (index + 1) + "/" + frames.length);
+    text("position", frame.clock);
 
     text("c-clock", frame.clock);
     text("c-score", frame.away + " " + frame.away_score + " – " + frame.home + " " + frame.home_score);
@@ -818,38 +971,103 @@
     }, 1000);
   }
 
-  function markSport(selectedId) {
-    ["sport-nfl", "sport-ncaaf", "sport-nhl", "sport-ncaah", "sport-nba", "sport-ncaab"].forEach(function (id) {
-      var button = document.getElementById(id);
-      if (!button) return;
-      var on = id === selectedId;
-      if (on) button.classList.add("is-selected");
-      else button.classList.remove("is-selected");
-      if (!button.disabled) button.setAttribute("aria-pressed", on ? "true" : "false");
-    });
+  function defaultEntry() {
+    var nfl = gamesForSport(manifest, "nfl");
+    if (nfl.length) return nfl[0];
+    if (manifest.length) return manifest[0];
+    return null;
   }
 
-  function framesFor(next) {
-    if (next === "ncaaf") return root.NCAAF_REPLAY;
-    if (next === "nhl") return root.NHL_REPLAY;
-    if (next === "ncaah") return root.NCAAH_REPLAY;
-    if (next === "nba") return root.NBA_REPLAY;
-    if (next === "ncaab") return root.NCAAB_REPLAY;
-    return root.NFL_REPLAY;
+  function renderLevel() {
+    var proButton = document.getElementById("level-pro");
+    var collegeButton = document.getElementById("level-college");
+    proButton.setAttribute("aria-pressed", levelName === "pro" ? "true" : "false");
+    collegeButton.setAttribute("aria-pressed", levelName === "college" ? "true" : "false");
+    proButton.classList.toggle("is-selected", levelName === "pro");
+    collegeButton.classList.toggle("is-selected", levelName === "college");
   }
 
-  function loadSport(next) {
-    var nextFrames = framesFor(next);
-    if (!Array.isArray(nextFrames) || nextFrames.length === 0) return;
-    if (next === sportName) return;
+  function renderSports() {
+    var row = document.getElementById("sports");
+    var sports = sportsForLevel(levelName);
+    var i;
+    row.textContent = "";
+    for (i = 0; i < sports.length; i++) {
+      var sport = sports[i];
+      var button = document.createElement("button");
+      var on = sport === sportName && levelForSport(sportName) === levelName;
+      button.type = "button";
+      button.className = on ? "sport is-selected" : "sport";
+      button.setAttribute("data-sport", sport);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      button.textContent = sport.toUpperCase();
+      row.appendChild(button);
+    }
+  }
+
+  function renderGames() {
+    var row = document.getElementById("games");
+    var level = document.getElementById("game-row");
+    var entries = gamesForSport(manifest, sportName);
+    var show = levelForSport(sportName) === levelName && entries.length > 1;
+    var i;
+    row.textContent = "";
+    if (level) level.hidden = !show;
+    if (!show) return;
+    for (i = 0; i < entries.length; i++) {
+      var entry = entries[i];
+      var button = document.createElement("button");
+      var on = entry.file === currentFile;
+      button.type = "button";
+      button.className = on ? "sport is-selected" : "sport";
+      button.setAttribute("data-file", entry.file);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      button.textContent = entry.label;
+      row.appendChild(button);
+    }
+  }
+
+  function renderPicker() {
+    renderLevel();
+    renderSports();
+    renderGames();
+  }
+
+  function useFrames(entry, rows) {
     setPlaying(false);
-    sportName = next;
-    frames = nextFrames;
+    sportName = entry && entry.sport ? entry.sport : sportName;
+    currentFile = entry && entry.file ? entry.file : "";
+    frames = rows;
     scrub.max = String(frames.length - 1);
+    if (levelForSport(sportName)) levelName = levelForSport(sportName);
     writePrior();
-    markSport("sport-" + next);
+    renderPicker();
     loadMatchupAppearance();
     show(openingIndex(frames));
+  }
+
+  function loadGame(entry) {
+    if (!entry || !entry.file) return;
+    if (entry.file === currentFile && frames.length) {
+      useFrames(entry, frames);
+      return;
+    }
+    setPlaying(false);
+    if (frameCache[entry.file]) {
+      useFrames(entry, frameCache[entry.file]);
+      return;
+    }
+    var token = ++loadToken;
+    var script = document.createElement("script");
+    script.src = entry.file;
+    script.onload = function () {
+      if (token !== loadToken) return;
+      var rows = readSportFrames(root, entry.sport);
+      if (!rows) return;
+      frameCache[entry.file] = rows;
+      useFrames(entry, rows);
+    };
+    document.body.appendChild(script);
   }
 
   playButton.addEventListener("click", function () {
@@ -895,28 +1113,40 @@
     });
   });
 
-  document.getElementById("sport-nfl").addEventListener("click", function () {
-    loadSport("nfl");
+  function attrFrom(event, name) {
+    var node = event.target;
+    while (node && node !== document) {
+      if (node.getAttribute && node.getAttribute(name)) return node.getAttribute(name);
+      node = node.parentNode;
+    }
+    return "";
+  }
+
+  document.getElementById("level-pro").addEventListener("click", function () {
+    levelName = "pro";
+    renderPicker();
   });
 
-  document.getElementById("sport-ncaaf").addEventListener("click", function () {
-    loadSport("ncaaf");
+  document.getElementById("level-college").addEventListener("click", function () {
+    levelName = "college";
+    renderPicker();
   });
 
-  document.getElementById("sport-nhl").addEventListener("click", function () {
-    loadSport("nhl");
+  document.getElementById("sports").addEventListener("click", function (event) {
+    var sport = attrFrom(event, "data-sport");
+    if (!sport) return;
+    var games = gamesForSport(manifest, sport);
+    if (!games.length) return;
+    loadGame(games[0]);
   });
 
-  document.getElementById("sport-ncaah").addEventListener("click", function () {
-    loadSport("ncaah");
-  });
-
-  document.getElementById("sport-nba").addEventListener("click", function () {
-    loadSport("nba");
-  });
-
-  document.getElementById("sport-ncaab").addEventListener("click", function () {
-    loadSport("ncaab");
+  document.getElementById("games").addEventListener("click", function (event) {
+    var file = attrFrom(event, "data-file");
+    if (!file) return;
+    var i;
+    for (i = 0; i < manifest.length; i++) {
+      if (manifest[i].file === file && listedGame(manifest[i])) loadGame(manifest[i]);
+    }
   });
 
   document.getElementById("theme-dark").addEventListener("click", function () {
@@ -1064,18 +1294,14 @@
   }
 
   function drawBands(svg, layout, muted) {
-    if (sportName === "nhl" || sportName === "ncaah") {
-      drawHockeyBands(svg, layout, muted);
-      return;
-    }
     var span = layout.span;
-    var nReg = layout.regulation || 4;
-    var edges = [];
-    var bi;
-    for (bi = 1; bi < nReg; bi++) edges.push(bi);
-    if (layout.otWidth > 0) edges.push(nReg);
-    edges.forEach(function (at) {
-      var x = xAt(at, span);
+    var labels = axisLabels(frames, sportName, layout);
+    var widths = layout.widths || [];
+    var cursor = 0;
+    var i;
+    for (i = 0; i < widths.length - 1; i++) {
+      cursor += widths[i];
+      var x = xAt(cursor, span);
       svg.appendChild(svgEl("line", {
         x1: String(x),
         x2: String(x),
@@ -1085,62 +1311,8 @@
         "stroke-width": "1",
         "stroke-dasharray": "2 3",
         "data-series": "period-rail",
-        "data-band": at === nReg ? "OT" : (sportName === "ncaab" ? "H" + at : "Q" + at)
+        "data-band": labels[i + 1] ? labels[i + 1].text : ""
       }));
-    });
-    var labels = [];
-    for (bi = 0; bi < nReg; bi++) {
-      labels.push({
-        at: bi + 0.5,
-        text: sportName === "ncaab" ? "H" + (bi + 1) : "Q" + (bi + 1)
-      });
-    }
-    if (layout.otWidth > 0) {
-      var otEnd = Math.min(nReg + layout.otWidth, layout.span);
-      labels.push({ at: nReg + (otEnd - nReg) / 2, text: "OT" });
-    }
-    labels.forEach(function (item) {
-      var caption = svgEl("text", {
-        x: String(xAt(item.at, span)),
-        y: String(plot.height - 8),
-        fill: muted,
-        "font-size": "11",
-        "font-family": "Segoe UI, Helvetica Neue, sans-serif",
-        "text-anchor": "middle",
-        "data-series": "period-label",
-        "data-band": item.text
-      });
-      caption.textContent = item.text;
-      svg.appendChild(caption);
-    });
-  }
-
-  function drawHockeyBands(svg, layout, muted) {
-    var span = layout.span;
-    var edges = [1, 2];
-    if (layout.otWidth > 0) edges.push(3);
-    edges.forEach(function (at) {
-      var x = xAt(at, span);
-      svg.appendChild(svgEl("line", {
-        x1: String(x),
-        x2: String(x),
-        y1: String(plot.top),
-        y2: String(plot.height - plot.bottom),
-        stroke: muted,
-        "stroke-width": "1",
-        "stroke-dasharray": "2 3",
-        "data-series": "period-rail",
-        "data-band": at === 3 ? "OT" : "P" + at
-      }));
-    });
-    var labels = [
-      { at: 0.5, text: "P1" },
-      { at: 1.5, text: "P2" },
-      { at: 2.5, text: "P3" }
-    ];
-    if (layout.otWidth > 0) {
-      var otEnd = Math.min(3 + layout.otWidth, layout.span);
-      labels.push({ at: 3 + (otEnd - 3) / 2, text: "OT" });
     }
     labels.forEach(function (item) {
       var caption = svgEl("text", {
@@ -1291,7 +1463,23 @@
 
   var initialTheme = document.documentElement.getAttribute("data-theme");
   if (initialTheme === "offwhite" || initialTheme === "charcoal") themeName = initialTheme;
-  loadMatchupAppearance();
-  writePrior();
-  show(openingIndex(frames));
+
+  function presetSport() {
+    var found = "";
+    var i;
+    for (i = 0; i < SPORT_ORDER.length; i++) {
+      if (!readSportFrames(root, SPORT_ORDER[i])) continue;
+      if (found) return "";
+      found = SPORT_ORDER[i];
+    }
+    return found;
+  }
+
+  renderPicker();
+  var preset = presetSport();
+  if (preset) {
+    useFrames({ sport: preset, file: "" }, readSportFrames(root, preset));
+  } else {
+    loadGame(defaultEntry());
+  }
 })(typeof window !== "undefined" ? window : this);
