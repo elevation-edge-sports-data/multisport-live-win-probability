@@ -1,9 +1,14 @@
 // Displays one rendered replay chosen from window.MSWP_MANIFEST.
 // Each replay was produced by the Python pack for that sport. This file
 // does not estimate win probability. On 127.0.0.1 or localhost it reads
-// live_replay.js. It does not request any other file.
+// live_replay.js and slate.js. A pro slate click on that host POSTs
+// /follow. On that host, when the query does not already choose a game,
+// it also GETs follow.json once (the static widget/follow.json file).
+// If that pro sport and game_id are on the slate, the page opens that row.
+// GitHub Pages does not request follow.json. College does not read it.
 // The page query selects a manifest game (sport and game=away-home).
 // live=1 selects Live on this host when that file has frames.
+// id= selects a slate event on this host. A query string wins over the file.
 
 (function (root) {
   "use strict";
@@ -599,7 +604,7 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V3.5";
+  var BADGE_TEXT = "V4";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
@@ -693,7 +698,21 @@
   var liveMissing = false;
   var viewingLive = false;
   var preferLive = false;
+  var liveGameId = "";
   var livePollSerial = 0;
+  var liveSettled = false;
+  var slateRows = [];
+  var slateReady = false;
+  var slateSettled = false;
+  var slatePollSerial = 0;
+  var viewingBoard = false;
+  var boardRow = null;
+  var preferId = "";
+  var queryOwned = false;
+  var collegeBoot = false;
+  var followBlocked = false;
+  var followWant = null;
+  var followSettled = false;
   var LIVE_POLL_MS = 15000;
   var stage = document.getElementById("stage");
   if (!manifest.length) {
@@ -711,13 +730,21 @@
 
   var plot = { width: 640, height: 200, left: 44, right: 16, top: 16, bottom: 28 };
 
-  function writePrior() {
-    var pregame = frames[0].prior_home;
+  function formatPriorText(prior, away, home) {
+    var pregame = Number(prior);
+    if (!isFinite(pregame)) pregame = 0.5;
     var pregameHome = pregame > 0.5;
-    var pregameName = pregameHome ? frames[0].home : frames[0].away;
+    var pregameName = pregameHome ? home : away;
     var pregamePct = (pregameHome ? pregame : 1 - pregame) * 100;
-    document.getElementById("prior").textContent =
-      "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "%";
+    return "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "%";
+  }
+
+  function writePrior() {
+    document.getElementById("prior").textContent = formatPriorText(
+      frames[0].prior_home,
+      frames[0].away,
+      frames[0].home
+    );
   }
 
   function formatHomePercent(frame) {
@@ -802,6 +829,7 @@
   }
 
   function writeAppearance() {
+    if (!frames.length || viewingBoard) return;
     try {
       var record = appearanceRecord(readAppearance(), themeName, awaySwatch, homeSwatch);
       localStorage.setItem(storageKey(), JSON.stringify(record));
@@ -843,6 +871,7 @@
       "aria-pressed",
       themeName === "offwhite" ? "true" : "false"
     );
+    if (!frames.length) return;
     document.getElementById("away-swatch-label").textContent = "Away " + frames[0].away;
     document.getElementById("home-swatch-label").textContent = "Home " + frames[0].home;
     renderSwatchRow("away-swatches", clubForSide("away"), awaySwatch);
@@ -851,6 +880,10 @@
   }
 
   function loadMatchupAppearance() {
+    if (!frames.length) {
+      renderAppearance();
+      return;
+    }
     var slot = swatchesForTheme(readAppearance(), themeName);
     var pair = slot
       ? restorePair(
@@ -876,6 +909,7 @@
   }
 
   function chooseSwatch(side, hex) {
+    if (!frames.length || viewingBoard) return;
     var resolved = resolveChange(
       clubForSide("away"),
       clubForSide("home"),
@@ -903,6 +937,7 @@
   }
 
   function show(nextIndex) {
+    if (viewingBoard || !frames.length) return;
     index = nextIndex;
     var frame = frames[index];
     var homePct = formatHomePercent(frame);
@@ -1149,6 +1184,16 @@
 
   // The live file still assigns the archive binding. Read it on a side
   // window so that assignment cannot replace the loaded replay.
+  function liveGameIdOf(rows) {
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      if (!rows[i] || rows[i].game_id == null) continue;
+      var id = String(rows[i].game_id).trim();
+      if (id) return id;
+    }
+    return "";
+  }
+
   function describeLive(rows) {
     if (!Array.isArray(rows) || rows.length === 0) return null;
     var first = rows[0];
@@ -1157,10 +1202,16 @@
     var away = String(first.away || "").trim();
     var home = String(first.home || "").trim();
     if (!sport || !away || !home) return null;
-    return { rows: rows, sport: sport, away: away, home: home };
+    return {
+      rows: rows,
+      sport: sport,
+      away: away,
+      home: home,
+      gameId: liveGameIdOf(rows)
+    };
   }
 
-  function readLiveAssignment(source) {
+  function readAssignment(source) {
     if (source == null) return null;
     var text = String(source);
     if (!text.trim()) return null;
@@ -1171,21 +1222,123 @@
     } catch (err) {
       return null;
     }
+    return box;
+  }
+
+  function readLiveAssignment(source) {
+    var box = readAssignment(source);
+    if (!box) return null;
     return describeLive(box.MSWP_LIVE);
+  }
+
+  function normalizeSlate(rows) {
+    var out = [];
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      var row = rows[i];
+      if (!row || typeof row !== "object") continue;
+      var sport = String(row.sport || "").trim().toLowerCase();
+      var gameId = String(row.game_id == null ? "" : row.game_id).trim();
+      var away = String(row.away || "").trim();
+      var home = String(row.home || "").trim();
+      var status = String(row.status || "").trim().toLowerCase();
+      var prior = Number(row.prior_home);
+      if (PRO_SPORTS.indexOf(sport) < 0) continue;
+      if (!gameId || !away || !home) continue;
+      if (!isFinite(prior)) prior = 0.5;
+      out.push({
+        sport: sport,
+        gameId: gameId,
+        away: away,
+        home: home,
+        status: status,
+        awayScore: row.away_score,
+        homeScore: row.home_score,
+        priorHome: prior
+      });
+    }
+    return out;
+  }
+
+  function readSlateRows(source) {
+    var box = readAssignment(source);
+    if (!box || !Array.isArray(box.MSWP_SLATE)) return null;
+    return normalizeSlate(box.MSWP_SLATE);
+  }
+
+  function findSlateRow(gameId) {
+    var id = String(gameId == null ? "" : gameId).trim();
+    var i;
+    if (!id) return null;
+    for (i = 0; i < slateRows.length; i++) {
+      if (slateRows[i].gameId === id) return slateRows[i];
+    }
+    return null;
+  }
+
+  function slateRowsForSport(sport) {
+    var out = [];
+    var i;
+    if (levelName !== "pro") return out;
+    if (PRO_SPORTS.indexOf(sport) < 0) return out;
+    for (i = 0; i < slateRows.length; i++) {
+      if (slateRows[i].sport === sport) out.push(slateRows[i]);
+    }
+    return out;
+  }
+
+  function slateButtonLabel(row) {
+    var label = row.away + " at " + row.home;
+    if (row.status === "live" || row.status === "final" || row.status === "stale") {
+      label += " " + row.awayScore + "-" + row.homeScore;
+    }
+    return label;
+  }
+
+  function slateButtonOn(row) {
+    if (viewingBoard && boardRow && boardRow.gameId === row.gameId) return true;
+    if (viewingLive && liveGameId && liveGameId === row.gameId) return true;
+    return false;
+  }
+
+  function liveHasThisGame() {
+    return !!(
+      preferId &&
+      liveGameId &&
+      liveGameId === preferId &&
+      liveFrames &&
+      liveFrames.length &&
+      !liveHidden
+    );
   }
 
   function noteLiveMissing() {
     liveHidden = true;
+    liveSettled = true;
     if (liveFrames && liveFrames.length) {
       liveMissing = true;
       if (viewingLive) show(index);
     }
     renderGames();
+    resolvePreferredId();
   }
 
   function noteLiveEmpty() {
     liveHidden = true;
+    liveSettled = true;
     renderGames();
+    resolvePreferredId();
+  }
+
+  function installLive(parsed) {
+    liveFrames = parsed.rows;
+    liveSport = parsed.sport;
+    liveAway = parsed.away;
+    liveHome = parsed.home;
+    liveGameId = parsed.gameId || "";
+    liveHidden = false;
+    liveMissing = false;
+    liveSettled = true;
   }
 
   function applyLivePayload(parsed) {
@@ -1194,12 +1347,18 @@
       parsed.sport === liveSport &&
       parsed.away === liveAway &&
       parsed.home === liveHome;
-    liveFrames = parsed.rows;
-    liveSport = parsed.sport;
-    liveAway = parsed.away;
-    liveHome = parsed.home;
-    liveHidden = false;
-    liveMissing = false;
+    installLive(parsed);
+    if (preferId && parsed.gameId === preferId) {
+      preferId = "";
+      preferLive = false;
+      selectLive(false);
+      return;
+    }
+    if (preferId) {
+      resolvePreferredId();
+      if (!viewingLive) renderGames();
+      return;
+    }
     if (preferLive) {
       preferLive = false;
       selectLive(false);
@@ -1229,40 +1388,236 @@
     renderGames();
   }
 
-  function pollLive() {
+  function noteSlateMissing() {
+    slateRows = [];
+    slateReady = false;
+    slateSettled = true;
+    renderSlate();
+    renderGames();
+    resolvePreferredId();
+    resolveFollowBoot();
+  }
+
+  function applySlateRows(rows) {
+    slateRows = rows;
+    slateReady = true;
+    slateSettled = true;
+    if (viewingBoard && boardRow) {
+      var updated = findSlateRow(boardRow.gameId);
+      if (updated) {
+        boardRow = updated;
+        paintBoard(updated);
+      }
+    }
+    renderSlate();
+    renderGames();
+    resolvePreferredId();
+    resolveFollowBoot();
+  }
+
+  function requestScript(fileName, serial) {
+    var stem = fileName === "slate.js" ? "slate.js?" : "live_replay.js?";
+    return root.fetch(stem + "t=" + Date.now() + "-" + serial, { cache: "no-store" });
+  }
+
+  // The click selects the row. This POST does not write a file. College
+  // rows are not on the board, and this host is the only one that sends.
+  function postFollow(row) {
     if (!hostAllowsLive() || typeof root.fetch !== "function") return;
-    livePollSerial += 1;
-    var url = "live_replay.js?t=" + Date.now() + "-" + livePollSerial;
+    if (!row || PRO_SPORTS.indexOf(row.sport) < 0 || !row.gameId) return;
+    var body = JSON.stringify({ sport: row.sport, game_id: row.gameId });
+    try {
+      var pending = root.fetch("/follow", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: body,
+        cache: "no-store"
+      });
+      if (pending && typeof pending.catch === "function") pending.catch(function () {});
+    } catch (err) {}
+  }
+
+  function pollScript(fileName, onText, onMissing) {
     var pending;
     try {
-      pending = root.fetch(url, { cache: "no-store" });
+      pending = requestScript(fileName, fileName === "slate.js" ? slatePollSerial : livePollSerial);
     } catch (err) {
-      noteLiveMissing();
+      onMissing();
       return;
     }
     Promise.resolve(pending).then(function (response) {
       if (!response || !response.ok || typeof response.text !== "function") {
-        noteLiveMissing();
+        onMissing();
         return null;
       }
       return response.text();
     }).then(function (text) {
       if (text == null) return;
+      onText(text);
+    }).catch(function () {
+      onMissing();
+    });
+  }
+
+  function pollLive() {
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    livePollSerial += 1;
+    pollScript("live_replay.js", function (text) {
       var parsed = readLiveAssignment(text);
       if (!parsed) {
         noteLiveEmpty();
         return;
       }
       applyLivePayload(parsed);
+    }, noteLiveMissing);
+  }
+
+  function pollSlate() {
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    slatePollSerial += 1;
+    pollScript("slate.js", function (text) {
+      var rows = readSlateRows(text);
+      if (!rows) {
+        noteSlateMissing();
+        return;
+      }
+      applySlateRows(rows);
+    }, noteSlateMissing);
+  }
+
+  // widget/follow.json is a static file on this host. One GET at boot.
+  // A query string, a college page, and any other host skip it.
+  function readFollowPayload(text) {
+    var data;
+    try {
+      data = JSON.parse(String(text || ""));
+    } catch (err) {
+      return null;
+    }
+    if (!data || typeof data !== "object" || Array.isArray(data)) return null;
+    var sport = String(data.sport == null ? "" : data.sport).trim().toLowerCase();
+    var gameId = String(data.game_id == null ? "" : data.game_id).trim();
+    if (PRO_SPORTS.indexOf(sport) < 0 || !gameId) return null;
+    return { sport: sport, gameId: gameId };
+  }
+
+  function findFollowRow(want) {
+    var i;
+    if (!want) return null;
+    for (i = 0; i < slateRows.length; i++) {
+      if (slateRows[i].sport === want.sport && slateRows[i].gameId === want.gameId) {
+        return slateRows[i];
+      }
+    }
+    return null;
+  }
+
+  // The archive game stays until this file names a pro slate row. The same
+  // live path then draws charts, or the board card when the live file is
+  // still on another game. Boot does not rewrite the URL.
+  function resolveFollowBoot() {
+    var row;
+    if (queryOwned || followBlocked || collegeBoot || levelName === "college") return;
+    if (!followSettled || !followWant) return;
+    if (!slateSettled || !slateReady) return;
+    row = findFollowRow(followWant);
+    if (!row) {
+      followWant = null;
+      return;
+    }
+    if (viewingBoard && boardRow && boardRow.gameId === row.gameId) return;
+    if (viewingLive && liveGameId === row.gameId) return;
+    selectSlate(row, false);
+  }
+
+  function readFollowFile() {
+    var pending;
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    if (queryOwned || collegeBoot || levelName === "college") return;
+    try {
+      pending = root.fetch("follow.json", { method: "GET", cache: "no-store" });
+    } catch (err) {
+      followSettled = true;
+      return;
+    }
+    Promise.resolve(pending).then(function (response) {
+      if (!response || !response.ok || typeof response.text !== "function") return null;
+      return response.text();
+    }).then(function (text) {
+      followSettled = true;
+      if (text == null) return;
+      if (queryOwned || followBlocked || collegeBoot || levelName === "college") return;
+      followWant = readFollowPayload(text);
+      resolveFollowBoot();
     }).catch(function () {
-      noteLiveMissing();
+      followSettled = true;
     });
   }
 
-  function startLivePoll() {
+  function startHostPolls() {
     if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    readFollowFile();
     pollLive();
-    root.setInterval(pollLive, LIVE_POLL_MS);
+    pollSlate();
+    root.setInterval(function () {
+      pollLive();
+      pollSlate();
+    }, LIVE_POLL_MS);
+  }
+
+  function showReplayChrome() {
+    viewingBoard = false;
+    document.getElementById("board").hidden = true;
+    document.getElementById("charts").hidden = false;
+    document.getElementById("stage").hidden = false;
+    document.getElementById("transport").hidden = false;
+  }
+
+  function clearCharts() {
+    clearSvg(document.getElementById("score-chart"));
+    clearSvg(document.getElementById("wp-chart"));
+  }
+
+  function showBoardChrome() {
+    viewingBoard = true;
+    document.getElementById("board").hidden = false;
+    document.getElementById("charts").hidden = true;
+    document.getElementById("stage").hidden = true;
+    document.getElementById("transport").hidden = true;
+    clearCharts();
+    var situation = document.getElementById("situation");
+    situation.textContent = "";
+    situation.hidden = true;
+    text("position", "");
+  }
+
+  function paintBoard(row) {
+    var prior = formatPriorText(row.priorHome, row.away, row.home);
+    text("board-away", row.away);
+    text("board-home", row.home);
+    text("board-score", String(row.awayScore) + "-" + String(row.homeScore));
+    text("board-status", row.status);
+    text("board-prior", prior);
+    text("prior", prior);
+  }
+
+  function showBoard(row, fromClick) {
+    if (!row) return;
+    var sameCard = viewingBoard && boardRow && boardRow.gameId === row.gameId;
+    if (!sameCard) loadToken += 1;
+    setPlaying(false);
+    viewingLive = false;
+    boardRow = row;
+    sportName = row.sport;
+    currentFile = "";
+    if (levelForSport(sportName)) levelName = levelForSport(sportName);
+    showBoardChrome();
+    paintBoard(row);
+    renderPicker();
+    if (fromClick !== false) writeQuery(row.sport, row.away, row.home, false, row.gameId);
+    // writeQuery clears the id. Keep it so a later live file with this
+    // game uses the existing live path. Until then the board card stays.
+    preferId = row.gameId;
   }
 
   function selectLive(fromClick) {
@@ -1271,6 +1626,8 @@
     loadToken += 1;
     setPlaying(false);
     viewingLive = true;
+    boardRow = null;
+    showReplayChrome();
     sportName = liveSport;
     currentFile = "";
     frames = liveFrames;
@@ -1280,14 +1637,78 @@
     renderPicker();
     loadMatchupAppearance();
     show(frames.length - 1);
-    if (fromClick !== false) writeQuery(liveSport, liveAway, liveHome, true);
+    if (fromClick !== false) writeQuery(liveSport, liveAway, liveHome, true, liveGameId);
+  }
+
+  function selectSlate(row, fromClick) {
+    if (!row) return;
+    if (
+      liveGameId &&
+      row.gameId === liveGameId &&
+      liveFrames &&
+      liveFrames.length &&
+      !liveHidden
+    ) {
+      selectLive(fromClick);
+      return;
+    }
+    showBoard(row, fromClick);
+  }
+
+  function resolvePreferredId() {
+    var row;
+    if (!preferId) return;
+    if (liveHasThisGame()) {
+      preferId = "";
+      preferLive = false;
+      selectLive(false);
+      return;
+    }
+    row = findSlateRow(preferId);
+    if (row && slateReady) {
+      if (!viewingBoard || !boardRow || boardRow.gameId !== row.gameId) {
+        showBoard(row, false);
+      } else {
+        boardRow = row;
+        paintBoard(row);
+      }
+      return;
+    }
+    if (slateReady && liveSettled && !row) {
+      preferId = "";
+      preferLive = false;
+      loadGame(defaultEntry());
+    }
+  }
+
+  function renderSlate() {
+    var row = document.getElementById("slate");
+    var level = document.getElementById("slate-row");
+    var rows = slateRowsForSport(sportName);
+    var i;
+    if (!row) return;
+    row.textContent = "";
+    if (level) level.hidden = rows.length === 0;
+    for (i = 0; i < rows.length; i++) {
+      var item = rows[i];
+      var button = document.createElement("button");
+      var on = slateButtonOn(item);
+      button.type = "button";
+      button.className = on ? "sport is-selected" : "sport";
+      button.setAttribute("data-slate-id", item.gameId);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      button.textContent = slateButtonLabel(item);
+      row.appendChild(button);
+    }
   }
 
   function renderGames() {
     var row = document.getElementById("games");
     var level = document.getElementById("game-row");
     var entries = gamesForSport(manifest, sportName);
-    var showArchive = levelForSport(sportName) === levelName && entries.length > 1;
+    var onLevel = levelForSport(sportName) === levelName;
+    var showSlate = slateRowsForSport(sportName).length > 0;
+    var showArchive = onLevel && (entries.length > 1 || (showSlate && entries.length === 1));
     var showLive = liveControlVisible();
     var show = showArchive || showLive;
     var i;
@@ -1298,7 +1719,7 @@
       for (i = 0; i < entries.length; i++) {
         var entry = entries[i];
         var button = document.createElement("button");
-        var on = !viewingLive && entry.file === currentFile;
+        var on = !viewingLive && !viewingBoard && entry.file === currentFile;
         button.type = "button";
         button.className = on ? "sport is-selected" : "sport";
         button.setAttribute("data-file", entry.file);
@@ -1322,12 +1743,15 @@
   function renderPicker() {
     renderLevel();
     renderSports();
+    renderSlate();
     renderGames();
   }
 
   function useFrames(entry, rows) {
     setPlaying(false);
     viewingLive = false;
+    boardRow = null;
+    showReplayChrome();
     sportName = entry && entry.sport ? entry.sport : sportName;
     currentFile = entry && entry.file ? entry.file : "";
     frames = rows;
@@ -1364,6 +1788,7 @@
   }
 
   playButton.addEventListener("click", function () {
+    if (viewingBoard) return;
     if (timer !== null) {
       setPlaying(false);
       return;
@@ -1375,6 +1800,7 @@
   });
 
   function step(delta) {
+    if (viewingBoard) return;
     setPlaying(false);
     var next = index + delta;
     if (next < 0) next = 0;
@@ -1391,6 +1817,7 @@
   });
 
   scrub.addEventListener("input", function () {
+    if (viewingBoard) return;
     var next = Number(scrub.value);
     if (next !== index) {
       show(next);
@@ -1422,6 +1849,7 @@
 
   document.getElementById("level-college").addEventListener("click", function () {
     levelName = "college";
+    followBlocked = true;
     renderPicker();
   });
 
@@ -1430,24 +1858,37 @@
     if (!sport) return;
     var games = gamesForSport(manifest, sport);
     if (!games.length) return;
+    followBlocked = true;
     writeQuery(games[0].sport, games[0].away, games[0].home, false);
     loadGame(games[0]);
   });
 
   document.getElementById("games").addEventListener("click", function (event) {
     if (attrFrom(event, "data-live")) {
+      followBlocked = true;
       selectLive();
       return;
     }
     var file = attrFrom(event, "data-file");
     if (!file) return;
     var i;
+    followBlocked = true;
     for (i = 0; i < manifest.length; i++) {
       if (manifest[i].file === file && listedGame(manifest[i])) {
         writeQuery(manifest[i].sport, manifest[i].away, manifest[i].home, false);
         loadGame(manifest[i]);
       }
     }
+  });
+
+  document.getElementById("slate").addEventListener("click", function (event) {
+    var id = attrFrom(event, "data-slate-id");
+    if (!id) return;
+    var row = findSlateRow(id);
+    if (!row) return;
+    followBlocked = true;
+    selectSlate(row);
+    postFollow(row);
   });
 
   document.getElementById("theme-dark").addEventListener("click", function () {
@@ -1582,6 +2023,10 @@
   }
 
   function drawCharts(currentIndex) {
+    if (viewingBoard) {
+      clearCharts();
+      return;
+    }
     var layout = layoutBands(frames, sportName);
     var shown = frames.slice(0, currentIndex + 1);
     function xOf(frame) {
@@ -1827,8 +2272,9 @@
     return { kind: "fallback" };
   }
 
-  function writeQuery(sport, away, home, live) {
+  function writeQuery(sport, away, home, live, slateId) {
     preferLive = false;
+    preferId = "";
     var history = root.history;
     if (!history || typeof history.replaceState !== "function") return;
     var loc = root.location || {};
@@ -1837,26 +2283,45 @@
     var query = "?sport=" + encodeURIComponent(String(sport || "").trim().toLowerCase()) +
       "&game=" + encodeURIComponent(gameSlug(away, home));
     if (live) query += "&live=1";
+    if (slateId) query += "&id=" + encodeURIComponent(String(slateId));
     try {
       history.replaceState(null, "", path + query + hash);
     } catch (err) {}
   }
 
-  function installLive(parsed) {
-    liveFrames = parsed.rows;
-    liveSport = parsed.sport;
-    liveAway = parsed.away;
-    liveHome = parsed.home;
-    liveHidden = false;
-    liveMissing = false;
-  }
-
   function bootFromQuery() {
     var params = readQuery();
     var requested = entryFromQuery(params);
+    var requestedId = String(params.id == null ? "" : params.id).trim();
+    var liveAsked = String(params.live == null ? "" : params.live).trim() === "1";
+    var preset = presetSport();
+    // A query string wins, so this boot does not read follow.json for it.
+    queryOwned = !!(
+      requestedId ||
+      liveAsked ||
+      requested.kind === "match" ||
+      requested.kind === "fallback"
+    );
+    collegeBoot = (requested.kind === "match" && levelForSport(requested.entry.sport) === "college") ||
+      (!queryOwned && levelForSport(preset) === "college");
     // live=1 is ignored unless this host is the one that serves the file.
-    preferLive = String(params.live == null ? "" : params.live).trim() === "1" && hostAllowsLive();
-    if (preferLive) {
+    preferLive = liveAsked && hostAllowsLive();
+    if (requestedId && !hostAllowsLive()) {
+      loadGame(defaultEntry());
+      return;
+    }
+    if (requestedId && hostAllowsLive()) {
+      preferId = requestedId;
+      var seededForId = describeLive(root.MSWP_LIVE);
+      if (seededForId && seededForId.gameId === requestedId) {
+        installLive(seededForId);
+        preferId = "";
+        preferLive = false;
+        selectLive(false);
+        return;
+      }
+    }
+    if (preferLive && !preferId) {
       var seeded = describeLive(root.MSWP_LIVE);
       if (seeded) {
         installLive(seeded);
@@ -1872,7 +2337,6 @@
       loadGame(defaultEntry());
       return;
     }
-    var preset = presetSport();
     if (preset) {
       useFrames({ sport: preset, file: "" }, readSportFrames(root, preset));
       return;
@@ -1882,5 +2346,5 @@
 
   renderPicker();
   bootFromQuery();
-  startLivePoll();
+  startHostPolls();
 })(typeof window !== "undefined" ? window : this);

@@ -1,4 +1,4 @@
-"""python -m live_wp replay|ingest-espn|render-widget|write-manifest|follow|live|serve|calibrate"""
+"""python -m live_wp replay|ingest-espn|render-widget|write-manifest|follow|live|slate|serve|calibrate"""
 
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ from live_wp.replay import (
     write_manifest,
 )
 from live_wp.serve import run_serve
+from live_wp.slate import run_slate
 
 _USAGE = """\
 usage: python -m live_wp replay <json>
@@ -30,7 +31,8 @@ usage: python -m live_wp replay <json>
        python -m live_wp render-widget <replay.json> <out.js>
        python -m live_wp write-manifest
        python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15] [--sport nfl|nhl|nba]
-       python -m live_wp live --game ESPN_EVENT_ID [--sport nfl|nhl|nba] [--interval 15] [--out widget/live_replay.js]
+       python -m live_wp live [--game ESPN_EVENT_ID] [--sport nfl|nhl|nba] [--interval 15] [--out widget/live_replay.js]
+       python -m live_wp slate [--date YYYYMMDD] [--interval 15] [--out widget/slate.js]
        python -m live_wp serve [--port 8765]
        python -m live_wp calibrate [replay-or-espn.json ...]
        python -m live_wp build-football-demos
@@ -120,6 +122,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_follow(args[1:])
     if args and args[0] == "live":
         return run_live(args[1:])
+    if args and args[0] == "slate":
+        return run_slate(args[1:])
     if args and args[0] == "serve":
         return run_serve(args[1:])
     if args and args[0] == "calibrate":

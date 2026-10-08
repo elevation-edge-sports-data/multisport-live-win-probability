@@ -57,6 +57,9 @@
           <div class="level">
             <div class="sports" id="sports" role="group" aria-label="Sport"></div>
           </div>
+          <div class="level" id="slate-row" hidden>
+            <div class="sports" id="slate" role="group" aria-label="Slate"></div>
+          </div>
           <div class="level" id="game-row" hidden>
             <div class="sports" id="games" role="group" aria-label="Game"></div>
           </div>
@@ -106,6 +109,13 @@
       </article>
     </section>
 
+    <section class="board" id="board" hidden aria-label="Scoreboard">
+      <p class="board-matchup"><span id="board-away"></span> at <span id="board-home"></span></p>
+      <p class="board-score" id="board-score"></p>
+      <p class="board-status" id="board-status"></p>
+      <p class="board-prior" id="board-prior"></p>
+    </section>
+
     <section class="charts" id="charts">
       <figure class="chart-card">
         <svg id="score-chart" viewBox="0 0 640 200" role="img" aria-label="Score"></svg>
@@ -115,7 +125,7 @@
       </figure>
     </section>
 
-    <section class="transport">
+    <section class="transport" id="transport">
       <div class="transport-row">
         <button type="button" id="play">Play</button>
         <div class="steps" role="group" aria-label="Step">

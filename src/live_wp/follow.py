@@ -212,17 +212,26 @@ def reject_follow_url(url: str, sport: str = "nfl") -> None:
         )
 
 
+def slate_states(payload: Mapping[str, Any], *, sport: str = "nfl") -> list[GameState]:
+    """Map a scoreboard once. Nothing is returned until every event maps.
+
+    Each event is checked again. A college game on a pro board is refused.
+    ``slate_lines`` is these rows passed through ``format_slate_line``.
+    """
+    _require_sport_payload(payload, sport)
+    states: list[GameState] = []
+    for event in _events(payload):
+        _require_sport_payload(event, sport)
+        states.append(_slate_state(event, sport))
+    return states
+
+
 def slate_lines(payload: Mapping[str, Any], *, sport: str = "nfl") -> list[str]:
     """Map a scoreboard once. Nothing is printed until every event maps.
 
     Each event is checked again. A college game on a pro board is refused.
     """
-    _require_sport_payload(payload, sport)
-    lines: list[str] = []
-    for event in _events(payload):
-        _require_sport_payload(event, sport)
-        lines.append(format_slate_line(_slate_state(event, sport)))
-    return lines
+    return [format_slate_line(state) for state in slate_states(payload, sport=sport)]
 
 
 def run_follow(
@@ -323,6 +332,8 @@ def follow_game(
     fetch: Fetch,
     sleep: Sleeper,
     on_change: Callable[[GameState], None] | None = None,
+    stop: Callable[[], bool] | None = None,
+    before_poll: Callable[[], None] | None = None,
 ) -> int:
     """Poll one event until it is final.
 
@@ -330,13 +341,19 @@ def follow_game(
     summary. A line is printed only when the clock, score, period, status,
     or situation changes. ``prior_home`` stays on the first moneyline seen.
     ``sport`` defaults to nfl. ``on_change`` runs after each printed line
-    with that snapshot. The widget does not call this loop.
+    with that snapshot. When ``stop`` returns true, the loop returns 0
+    before the next fetch. ``before_poll``, when set, runs after that
+    check and before the fetch. The widget does not call this loop.
     """
     if interval < 5:
         raise ValueError("interval must be at least 5 seconds")
     frozen: float | None = None
     previous: GameState | None = None
     while True:
+        if stop is not None and stop():
+            return 0
+        if before_poll is not None:
+            before_poll()
         payload = _load_game(game_id, date, fetch, sport)
         state, frozen = _with_frozen_prior(payload, frozen, sport)
         if _changed(previous, state):

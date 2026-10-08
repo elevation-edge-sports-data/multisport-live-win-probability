@@ -502,7 +502,12 @@ def test_jax_at_den_is_the_widget_replay():
         assert frame["home_color"] == "#FB4F14"
         assert frame["away_color"] == "#006778"
         assert frame["wp"] == compute_wp(state, state.prior_home, NFL_CONFIG)
-        assert "down" not in frame
+        for name in ("down", "distance", "yardline", "possession"):
+            value = getattr(state, name)
+            if value is None:
+                assert name not in frame
+            else:
+                assert frame[name] == value
         assert frame["home_logo"].endswith("logos/nfl/DEN.png")
         assert frame["away_logo"].endswith("logos/nfl/JAX.png")
     assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
@@ -548,7 +553,6 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
     assert final.away_score == 14
     assert compute_wp(final, final.prior_home, NCAAF_CONFIG) == 0.0
     assert team_color("GT", "ncaaf") == "#B3A369"
-    # Palette primary is gold. The checked-in replay still carries the older black.
     assert team_color("COLO", "ncaaf") == "#CFB87C"
     assert team_color("CU", "ncaaf") == "#CFB87C"
 
@@ -567,7 +571,7 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
         assert frame["home"] == "GT"
         assert frame["away"] == "COLO"
         assert frame["home_color"] == "#B3A369"
-        assert frame["away_color"] == "#000000"
+        assert frame["away_color"] == "#CFB87C"
         assert frame["wp"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
         assert frame["home_logo"] == "logos/ncaaf/GT.png"
         assert frame["away_logo"] == "logos/ncaaf/COLO.png"

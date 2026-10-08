@@ -252,6 +252,39 @@ button:focus-visible, input:focus-visible {
 
 .stage { margin: 1.25rem 0; }
 
+.stage[hidden],
+.transport[hidden],
+.board[hidden] {
+  display: none;
+}
+
+.board {
+  margin: 1.25rem 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1rem 1rem;
+}
+
+.board-matchup {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 650;
+}
+
+.board-score {
+  margin: 0.35rem 0 0;
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.board-status,
+.board-prior {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
 .panel { display: none; }
 
 .app[data-view="compact"] .panel.compact,
@@ -387,6 +420,10 @@ button:focus-visible, input:focus-visible {
   display: grid;
   gap: 0.85rem;
   margin: 0 0 1rem;
+}
+
+.app[data-view="expanded"] .charts[hidden] {
+  display: none;
 }
 
 .chart-card {

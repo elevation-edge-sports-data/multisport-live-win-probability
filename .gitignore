@@ -7,3 +7,5 @@ build/
 dist/
 raw/
 artifacts/
+widget/follow.json
+widget/follow.json.tmp

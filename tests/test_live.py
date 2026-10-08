@@ -19,10 +19,16 @@ import pytest
 from mswp import compute_wp
 
 from live_wp.__main__ import main
-from live_wp.follow import _with_frozen_prior, scoreboard_url
-from live_wp.live import DEFAULT_OUT, parse_live_args, run_live
+from live_wp.follow import _with_frozen_prior, scoreboard_url, slate_states
+from live_wp.slate import render_slate_script
+from live_wp.live import DEFAULT_FOLLOW, DEFAULT_OUT, parse_live_args, run_live
 from live_wp.replay import config_for_state, format_line, render_widget_script
-from live_wp.serve import bind_widget_server, parse_serve_args, run_serve
+from live_wp.serve import (
+    _request_from_localhost,
+    bind_widget_server,
+    parse_serve_args,
+    run_serve,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 BOARD_PATH = ROOT / "tests" / "fixtures" / "espn_nfl_scoreboard_snippet.json"
@@ -155,6 +161,151 @@ def _http_get(host: str, port: int, path: str) -> tuple[int, bytes]:
         connection.close()
 
 
+def _http_post(
+    host: str,
+    port: int,
+    path: str,
+    body: bytes,
+    *,
+    host_header: str | None = None,
+) -> tuple[int, bytes]:
+    last: Exception | None = None
+    headers = {"Content-Type": "application/json"}
+    if host_header is not None:
+        headers["Host"] = host_header
+    for _ in range(20):
+        try:
+            connection = http.client.HTTPConnection(host, port, timeout=2)
+            try:
+                connection.request("POST", path, body=body, headers=headers)
+                response = connection.getresponse()
+                return response.status, response.read()
+            finally:
+                connection.close()
+        except OSError as exc:
+            last = exc
+            time.sleep(0.05)
+    raise AssertionError(last)
+
+
+def _selection(sport: str, game_id: str) -> str:
+    return json.dumps({"sport": sport, "game_id": game_id}) + "\n"
+
+
+_PRO_LEAGUES = {
+    "nhl": {
+        "id": "90",
+        "uid": "s:70~l:90",
+        "slug": "nhl",
+        "abbreviation": "NHL",
+        "name": "National Hockey League",
+    },
+    "nba": {
+        "id": "46",
+        "uid": "s:40~l:46",
+        "slug": "nba",
+        "abbreviation": "NBA",
+        "name": "National Basketball Association",
+    },
+}
+
+
+def _pro_event(
+    sport: str,
+    event_id: str,
+    *,
+    home: str,
+    away: str,
+    home_score: str,
+    away_score: str,
+    state: str,
+    period: int,
+    clock: str,
+) -> dict:
+    league = "90" if sport == "nhl" else "46"
+    series = "70" if sport == "nhl" else "40"
+    uid = f"s:{series}~l:{league}~e:{event_id}"
+    return {
+        "id": event_id,
+        "uid": uid,
+        "date": "2026-05-13T00:00:00Z",
+        "competitions": [
+            {
+                "id": event_id,
+                "uid": uid,
+                "date": "2026-05-13T00:00:00Z",
+                "competitors": [
+                    {
+                        "homeAway": "home",
+                        "score": home_score,
+                        "team": {
+                            "id": "1",
+                            "uid": f"s:{series}~l:{league}~t:1",
+                            "abbreviation": home,
+                        },
+                    },
+                    {
+                        "homeAway": "away",
+                        "score": away_score,
+                        "team": {
+                            "id": "2",
+                            "uid": f"s:{series}~l:{league}~t:2",
+                            "abbreviation": away,
+                        },
+                    },
+                ],
+                "status": {
+                    "displayClock": clock,
+                    "period": period,
+                    "type": {"state": state, "name": "STATUS"},
+                },
+            }
+        ],
+    }
+
+
+def _pro_board(sport: str, events: list[dict]) -> dict:
+    return {"leagues": [dict(_PRO_LEAGUES[sport])], "events": events}
+
+
+def _nfl_board_of(events: list[dict]) -> dict:
+    board = _board()
+    board["events"] = events
+    return board
+
+
+def _slate_script(boards: dict[str, dict]) -> str:
+    states = []
+    for sport in ("nfl", "nhl", "nba"):
+        states.extend(slate_states(boards[sport], sport=sport))
+    return render_slate_script(states)
+
+
+def _scoreboard_cycle() -> list[str]:
+    return [scoreboard_url(sport=sport) for sport in ("nfl", "nhl", "nba")]
+
+
+def _assert_no_college(urls: list[str]) -> None:
+    joined = " ".join(urls).lower()
+    for token in (
+        "college-football",
+        "college-hockey",
+        "college-basketball",
+        "mens-college",
+        "ncaaf",
+        "ncaah",
+        "ncaab",
+    ):
+        assert token not in joined
+
+
+def _real_slate_bytes() -> bytes | None:
+    path = ROOT / "widget" / "slate.js"
+    if not path.is_file():
+        return None
+    return path.read_bytes()
+
+
 def test_serve_binds_localhost_and_stops() -> None:
     with _Running() as running:
         server = running.server
@@ -255,6 +406,114 @@ def test_serve_exits_when_the_port_is_taken(
     assert str(port) in captured.err
 
 
+def test_serve_post_follow_writes_follow_json_and_keeps_a_bad_body(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    root = tmp_path / "widget"
+    root.mkdir()
+    index = root / "index.html"
+    index.write_text(
+        "<!DOCTYPE html><title>Multisport live win probability</title>\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    follow = root / "follow.json"
+    follow.write_text(_selection("nba", "11"), encoding="utf-8", newline="\n")
+    original = follow.read_bytes()
+    kept_index = index.read_bytes()
+    server = bind_widget_server(0, directory=root)
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    host, port = server.server_address[:2]
+    try:
+        status, _body = _http_post(host, port, "/follow", b"not-json")
+        assert status == 400
+        assert follow.read_bytes() == original
+        status, _body = _http_post(
+            host, port, "/follow", b'{"sport":"ncaaf","game_id":"55"}'
+        )
+        assert status == 400
+        assert follow.read_bytes() == original
+        status, _body = _http_post(
+            host, port, "/follow", b'{"sport":"nfl","game_id":"55","extra":1}'
+        )
+        assert status == 400
+        assert follow.read_bytes() == original
+        status, body = _http_post(
+            host, port, "/follow", b'{"sport":"nfl","game_id":"55"}'
+        )
+        assert status == 204
+        assert body == b""
+        text = follow.read_text(encoding="utf-8")
+        assert "\r" not in text
+        assert json.loads(text) == {"sport": "nfl", "game_id": "55"}
+        assert text.index('"sport"') < text.index('"game_id"')
+        assert not follow.with_name(follow.name + ".tmp").exists()
+        good = follow.read_bytes()
+        status, _body = _http_post(host, port, "/follow", b'{"sport":"nfl"}')
+        assert status == 400
+        assert follow.read_bytes() == good
+        status, _body = _http_post(
+            host,
+            port,
+            "/follow",
+            b'{"sport":"nhl","game_id":"77"}',
+            host_header="example.com",
+        )
+        assert status == 403
+        assert follow.read_bytes() == good
+        status, page = _http_get(host, port, "/index.html")
+        assert status == 200
+        assert page == kept_index
+        status, _body = _http_post(
+            host, port, "/index.html", b'{"sport":"nba","game_id":"99"}'
+        )
+        assert status == 404
+        assert follow.read_bytes() == good
+        assert index.read_bytes() == kept_index
+        status, _body = _http_post(
+            host,
+            port,
+            "/follow",
+            b'{"sport":"nhl","game_id":"77"}',
+            host_header="localhost",
+        )
+        assert status == 204
+        assert json.loads(follow.read_text(encoding="utf-8")) == {
+            "sport": "nhl",
+            "game_id": "77",
+        }
+        kept = follow.read_bytes()
+
+        def fail_replace(self: Path, target: Path) -> None:
+            raise OSError("replace failed")
+
+        monkeypatch.setattr(Path, "replace", fail_replace)
+        status, failed = _http_post(
+            host, port, "/follow", b'{"sport":"nba","game_id":"88"}'
+        )
+        assert status == 500
+        assert b"Internal Server Error" in failed
+        assert follow.read_bytes() == kept
+        assert not follow.with_name(follow.name + ".tmp").exists()
+        names = sorted(path.name for path in root.iterdir())
+        assert names == ["follow.json", "index.html"]
+    finally:
+        server.shutdown()
+        thread.join(5)
+        server.server_close()
+    assert not thread.is_alive()
+
+
+def test_follow_route_accepts_only_a_loopback_host() -> None:
+    assert _request_from_localhost("127.0.0.1", "127.0.0.1:8765")
+    assert _request_from_localhost("127.0.0.1", "localhost:8765")
+    assert _request_from_localhost("::1", "[::1]:8765")
+    assert not _request_from_localhost("127.0.0.1", "example.com")
+    assert not _request_from_localhost("10.0.0.8", "127.0.0.1:8765")
+    assert not _request_from_localhost("127.0.0.1", "")
+
+
 def test_serve_defaults_to_8765_and_rejects_a_bad_port(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
@@ -280,7 +539,9 @@ def test_page_points_at_the_local_replay_and_does_not_fetch() -> None:
     assert "espn" not in lowered
     assert "http://" not in lowered and "https://" not in lowered
     script = (ROOT / "widget" / "widget.js").read_text(encoding="utf-8")
-    assert script.count("fetch(") == 1
+    assert script.count("fetch(") == 3
+    assert 'fetch("/follow"' in script
+    assert 'fetch("follow.json"' in script
     assert "live_replay.js?" in script
     assert "127.0.0.1" in script
     assert "localhost" in script
@@ -310,6 +571,18 @@ def test_live_rejects_interval_4_and_sport_ncaaf(
     assert captured.out == ""
     assert "ncaaf" in captured.err.lower()
     assert "college football" in captured.err.lower()
+    assert not out.exists()
+
+    assert main(["live", "--interval", "4", "--out", str(out)]) == 2
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    assert "at least 5" in captured.err
+    assert not out.exists()
+
+    assert main(["live", "--sport", "ncaaf", "--out", str(out)]) == 2
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    assert "ncaaf" in captured.err.lower()
     assert not out.exists()
 
     for sport, label in (
@@ -417,3 +690,279 @@ def test_live_default_out_is_the_widget_replay() -> None:
     assert options.out.parent.name == "widget"
     assert options.interval == 15.0
     assert options.sport == "nfl"
+    assert options.game == "55"
+    watched = parse_live_args([])
+    assert watched.game is None
+    assert watched.out == DEFAULT_OUT
+    assert watched.interval == 15.0
+    assert DEFAULT_FOLLOW.name == "follow.json"
+    assert DEFAULT_FOLLOW.parent == DEFAULT_OUT.parent
+
+
+def _with_id(event: dict, game_id: str) -> dict:
+    cloned = deepcopy(event)
+    cloned["id"] = game_id
+    cloned["uid"] = "s:20~l:28~e:" + game_id
+    competition = cloned["competitions"][0]
+    competition["id"] = game_id
+    competition["uid"] = cloned["uid"]
+    return cloned
+
+
+def test_game_flag_ignores_follow_json(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    _block_network(monkeypatch)
+    follow = tmp_path / "follow.json"
+    follow.write_text(_selection("nba", "77"), encoding="utf-8", newline="\n")
+    original = follow.read_bytes()
+    out = tmp_path / "live_replay.js"
+    slate = tmp_path / "slate.js"
+    marker = "previous slate\n"
+    slate.write_text(marker, encoding="utf-8", newline="\n")
+    real_before = _real_slate_bytes()
+    urls: list[str] = []
+
+    def fetch(url: str) -> dict:
+        urls.append(url)
+        return _pack(_live_event())
+
+    def sleep(_seconds: float) -> None:
+        raise KeyboardInterrupt
+
+    code = run_live(
+        ["--game", "55", "--out", str(out)],
+        fetch=fetch,
+        sleep=sleep,
+        follow_path=follow,
+        slate_path=slate,
+    )
+    assert code == 0
+    assert urls == [scoreboard_url()]
+    assert scoreboard_url(sport="nhl") not in urls
+    assert scoreboard_url(sport="nba") not in urls
+    _assert_no_college(urls)
+    assert all("summary" not in url for url in urls)
+    assert follow.read_bytes() == original
+    assert slate.read_text(encoding="utf-8") == marker
+    assert _real_slate_bytes() == real_before
+    text = out.read_text(encoding="utf-8")
+    assert '"game_id": "55"' in text
+    assert '"game_id": "77"' not in text
+    assert "nba" not in text
+
+
+def test_live_without_game_writes_the_slate_then_switches(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    _block_network(monkeypatch)
+    follow = tmp_path / "follow.json"
+    out = tmp_path / "live_replay.js"
+    slate = tmp_path / "slate.js"
+    marker = "previous slate\n"
+    slate.write_text(marker, encoding="utf-8", newline="\n")
+    real_before = _real_slate_bytes()
+    first = _live_event()
+    second = _clock(
+        _score(_with_id(first, "77"), 21, 14),
+        "1:00",
+        period=4,
+        state="in",
+    )
+    boards = {
+        "nfl": _nfl_board_of([first, second]),
+        "nhl": _pro_board(
+            "nhl",
+            [
+                _pro_event(
+                    "nhl",
+                    "80",
+                    home="COL",
+                    away="MIN",
+                    home_score="2",
+                    away_score="1",
+                    state="post",
+                    period=3,
+                    clock="0:00",
+                )
+            ],
+        ),
+        "nba": _pro_board(
+            "nba",
+            [
+                _pro_event(
+                    "nba",
+                    "88",
+                    home="LAL",
+                    away="DEN",
+                    home_score="10",
+                    away_score="8",
+                    state="in",
+                    period=2,
+                    clock="5:00",
+                )
+            ],
+        ),
+    }
+    initial = _slate_script(boards)
+    urls: list[str] = []
+    nfl_slates: list[str] = []
+    scripts: dict[str, str] = {}
+
+    def fetch(url: str) -> dict:
+        assert "summary" not in url
+        assert "college" not in url.lower()
+        if url == scoreboard_url(sport="nfl"):
+            nfl_slates.append(slate.read_text(encoding="utf-8"))
+        urls.append(url)
+        for sport in ("nfl", "nhl", "nba"):
+            root = scoreboard_url(sport=sport)
+            if url == root or url.startswith(root + "?"):
+                return deepcopy(boards[sport])
+        raise AssertionError(url)
+
+    def sleep(seconds: float) -> None:
+        assert seconds == 15.0
+        step = len(urls)
+        if step == 3:
+            assert not follow.exists()
+            assert not out.exists()
+            scripts["waiting"] = slate.read_text(encoding="utf-8")
+            follow.write_text(_selection("nfl", "55"), encoding="utf-8", newline="\n")
+            return
+        if step == 7:
+            scripts["first"] = out.read_text(encoding="utf-8")
+            _score(boards["nhl"]["events"][0], 2, 9)
+            follow.write_text(_selection("nfl", "77"), encoding="utf-8", newline="\n")
+            return
+        scripts["second"] = out.read_text(encoding="utf-8")
+        scripts["slate"] = slate.read_text(encoding="utf-8")
+        raise KeyboardInterrupt
+
+    code = run_live(
+        ["--out", str(out)],
+        fetch=fetch,
+        sleep=sleep,
+        follow_path=follow,
+        slate_path=slate,
+    )
+    captured = capsys.readouterr()
+    updated = _slate_script(boards)
+    state_55, _frozen = _with_frozen_prior(first, None, "nfl")
+    state_77, _frozen = _with_frozen_prior(second, None, "nfl")
+    cycle = _scoreboard_cycle()
+    assert code == 0
+    assert captured.err == ""
+    assert urls == cycle + cycle + [scoreboard_url()] + cycle + [scoreboard_url()]
+    _assert_no_college(urls)
+    assert all("summary" not in url for url in urls)
+    assert scripts["waiting"] == initial
+    assert initial != marker
+    assert "previous slate" not in initial
+    assert "\r" not in initial
+    assert nfl_slates == [marker, initial, initial, initial, updated]
+    assert updated != initial
+    assert '"away_score": 9' in updated
+    assert '"away_score": 9' not in initial
+    assert scripts["first"] == render_widget_script([state_55], live=True)
+    assert scripts["second"] == render_widget_script([state_77], live=True)
+    assert scripts["slate"] == updated
+    assert out.read_text(encoding="utf-8") == scripts["second"]
+    assert slate.read_text(encoding="utf-8") == updated
+    assert '"game_id": "55"' not in scripts["second"]
+    assert '"game_id": "77"' not in scripts["first"]
+    assert "window.MSWP_SLATE" not in scripts["second"]
+    assert not out.with_name(out.name + ".tmp").exists()
+    assert not slate.with_name(slate.name + ".tmp").exists()
+    assert _real_slate_bytes() == real_before
+    lines = [
+        format_line(
+            state, compute_wp(state, state.prior_home, config_for_state(state))
+        )
+        for state in (state_55, state_77)
+    ]
+    assert captured.out.splitlines() == lines
+
+
+def test_final_follow_keeps_rewriting_the_slate(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    _block_network(monkeypatch)
+    follow = tmp_path / "follow.json"
+    follow.write_text(_selection("nfl", "55"), encoding="utf-8", newline="\n")
+    out = tmp_path / "live_replay.js"
+    slate = tmp_path / "slate.js"
+    final = _clock(_score(_live_event(), 14, 10), "0:00", period=4, state="post")
+    boards = {
+        "nfl": _nfl_board_of([final]),
+        "nhl": _pro_board("nhl", []),
+        "nba": _pro_board("nba", []),
+    }
+    urls: list[str] = []
+    sleeps: list[float] = []
+
+    def fetch(url: str) -> dict:
+        assert "summary" not in url
+        assert "college" not in url.lower()
+        urls.append(url)
+        for sport in ("nfl", "nhl", "nba"):
+            root = scoreboard_url(sport=sport)
+            if url == root or url.startswith(root + "?"):
+                return deepcopy(boards[sport])
+        raise AssertionError(url)
+
+    def sleep(seconds: float) -> None:
+        sleeps.append(seconds)
+        raise KeyboardInterrupt
+
+    code = run_live(
+        ["--out", str(out)],
+        fetch=fetch,
+        sleep=sleep,
+        follow_path=follow,
+        slate_path=slate,
+    )
+    assert code == 0
+    assert sleeps == [15.0]
+    cycle = _scoreboard_cycle()
+    assert urls == cycle + [scoreboard_url()] + cycle
+    _assert_no_college(urls)
+    text = slate.read_text(encoding="utf-8")
+    assert text == _slate_script(boards)
+    assert "\r" not in text
+    assert '"game_id": "55"' in text
+    replay = out.read_text(encoding="utf-8")
+    assert '"game_id": "55"' in replay
+    assert "window.MSWP_LIVE" in replay
+    assert not slate.with_name(slate.name + ".tmp").exists()
+
+
+def test_follow_file_college_does_not_fetch(
+    monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    _block_network(monkeypatch)
+    follow = tmp_path / "follow.json"
+    follow.write_text(_selection("ncaaf", "55"), encoding="utf-8", newline="\n")
+    out = tmp_path / "live_replay.js"
+    slate = tmp_path / "slate.js"
+
+    def fetch(_url: str) -> dict:
+        raise AssertionError("college file was fetched")
+
+    def sleep(_seconds: float) -> None:
+        raise AssertionError("college file waited")
+
+    code = run_live(
+        ["--out", str(out)],
+        fetch=fetch,
+        sleep=sleep,
+        follow_path=follow,
+        slate_path=slate,
+    )
+    captured = capsys.readouterr()
+    assert code == 1
+    assert captured.out == ""
+    assert "ncaaf" in captured.err.lower()
+    assert "college football" in captured.err.lower()
+    assert not out.exists()
+    assert not slate.exists()
