@@ -320,13 +320,13 @@ def test_serve_binds_localhost_and_stops() -> None:
         assert b"Multisport live win probability" in body
         assert b"live_replay.js" not in body
         assert b"espn" not in body.lower()
-        live_status, live_body = _get(host, port, "/live_replay.js")
+        live_status, live_body = _get(host, port, "/widget/live_replay.js")
         assert live_status == 200
         assert b"window." not in live_body
-        bust_status, bust_body = _get(host, port, "/live_replay.js?t=1")
+        bust_status, bust_body = _get(host, port, "/widget/live_replay.js?t=1")
         assert bust_status == 200
         assert bust_body == live_body
-        css_status, css = _get(host, port, "/widget.css")
+        css_status, css = _get(host, port, "/widget/widget.css")
         assert css_status == 200
         assert b"text-align: right" in css
         missing, missing_body = _get(
@@ -334,9 +334,18 @@ def test_serve_binds_localhost_and_stops() -> None:
         )
         assert missing == 404
         assert b"events" not in missing_body
+        colors_status, colors_body = _get(host, port, "/assets/colors/nfl.json")
+        assert colors_status == 200
+        assert b'"id": "DEN"' in colors_body
+        logo_status, logo_body = _get(host, port, "/assets/logos/nfl/DEN.png")
+        assert logo_status == 200
+        assert logo_body.startswith(b"\x89PNG\r\n\x1a\n")
         _escape_status, escape_body = _get(host, port, "/../pyproject.toml")
         assert b"setuptools" not in escape_body
         assert b"[project]" not in escape_body
+        assets_escape, assets_escape_body = _get(host, port, "/assets/../pyproject.toml")
+        assert assets_escape != 200 or b"setuptools" not in assets_escape_body
+        assert b"[project]" not in assets_escape_body
     assert running.thread is not None
     assert not running.thread.is_alive()
     assert running.code == 0
@@ -409,15 +418,16 @@ def test_serve_exits_when_the_port_is_taken(
 def test_serve_post_follow_writes_follow_json_and_keeps_a_bad_body(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
-    root = tmp_path / "widget"
-    root.mkdir()
+    root = tmp_path
+    widget = root / "widget"
+    widget.mkdir()
     index = root / "index.html"
     index.write_text(
         "<!DOCTYPE html><title>Multisport live win probability</title>\n",
         encoding="utf-8",
         newline="\n",
     )
-    follow = root / "follow.json"
+    follow = widget / "follow.json"
     follow.write_text(_selection("nba", "11"), encoding="utf-8", newline="\n")
     original = follow.read_bytes()
     kept_index = index.read_bytes()
@@ -496,8 +506,9 @@ def test_serve_post_follow_writes_follow_json_and_keeps_a_bad_body(
         assert b"Internal Server Error" in failed
         assert follow.read_bytes() == kept
         assert not follow.with_name(follow.name + ".tmp").exists()
-        names = sorted(path.name for path in root.iterdir())
-        assert names == ["follow.json", "index.html"]
+        names = sorted(path.name for path in widget.iterdir())
+        assert names == ["follow.json"]
+        assert index.is_file()
     finally:
         server.shutdown()
         thread.join(5)
@@ -531,18 +542,25 @@ def test_serve_defaults_to_8765_and_rejects_a_bad_port(
 
 
 def test_page_points_at_the_local_replay_and_does_not_fetch() -> None:
-    html = (ROOT / "widget" / "index.html").read_text(encoding="utf-8")
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
     lowered = html.lower()
     assert 'src="live_replay.js"' not in html
     assert "live_replay.js" not in lowered
     assert "fetch(" not in lowered
     assert "espn" not in lowered
     assert "http://" not in lowered and "https://" not in lowered
+    assert 'src="widget/manifest.js"' in html
+    assert 'src="widget/colors.js"' in html
+    assert 'src="widget/widget.js"' in html
+    redirect = (ROOT / "widget" / "index.html").read_text(encoding="utf-8").lower()
+    assert 'url=../' in redirect
+    assert "fetch(" not in redirect
+    assert "espn" not in redirect
     script = (ROOT / "widget" / "widget.js").read_text(encoding="utf-8")
-    assert script.count("fetch(") == 3
+    assert script.count("fetch(") == 4
     assert 'fetch("/follow"' in script
-    assert 'fetch("follow.json"' in script
-    assert "live_replay.js?" in script
+    assert 'fetch("widget/follow.json"' in script
+    assert "widget/live_replay.js?" in script
     assert "127.0.0.1" in script
     assert "localhost" in script
     assert "MSWP_LIVE" in script

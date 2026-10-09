@@ -508,10 +508,10 @@ def test_jax_at_den_is_the_widget_replay():
                 assert name not in frame
             else:
                 assert frame[name] == value
-        assert frame["home_logo"].endswith("logos/nfl/DEN.png")
-        assert frame["away_logo"].endswith("logos/nfl/JAX.png")
-    assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
-    assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
+        assert frame["home_logo"] == "assets/logos/nfl/DEN.png"
+        assert frame["away_logo"] == "assets/logos/nfl/JAX.png"
+    assert (ROOT / frames[0]["home_logo"]).is_file()
+    assert (ROOT / frames[0]["away_logo"]).is_file()
 
 
 def test_colo_at_gt_is_the_ncaaf_widget_replay():
@@ -554,7 +554,6 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
     assert compute_wp(final, final.prior_home, NCAAF_CONFIG) == 0.0
     assert team_color("GT", "ncaaf") == "#B3A369"
     assert team_color("COLO", "ncaaf") == "#CFB87C"
-    assert team_color("CU", "ncaaf") == "#CFB87C"
 
     script_path = ROOT / "widget" / "ncaaf_cu_gt.js"
     script = script_path.read_text(encoding="utf-8")
@@ -573,11 +572,11 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
         assert frame["home_color"] == "#B3A369"
         assert frame["away_color"] == "#CFB87C"
         assert frame["wp"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
-        assert frame["home_logo"] == "logos/ncaaf/GT.png"
-        assert frame["away_logo"] == "logos/ncaaf/COLO.png"
+        assert frame["home_logo"] == "assets/logos/ncaaf/GT.png"
+        assert frame["away_logo"] == "assets/logos/ncaaf/COLO.png"
         assert frame["period"] <= 4
-    assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
-    assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
+    assert (ROOT / frames[0]["home_logo"]).is_file()
+    assert (ROOT / frames[0]["away_logo"]).is_file()
     assert frames[-1]["status"] == "final"
     assert frames[-1]["home_score"] == 13
     assert frames[-1]["away_score"] == 14
@@ -814,11 +813,11 @@ def test_min_at_col_is_the_nhl_widget_replay():
         assert frame["away_color"] == "#154734"
         assert frame["wp"] == compute_wp(state, state.prior_home, NHL_CONFIG)
         assert frame["clock"] == format_clock(state)
-        assert frame["home_logo"] == "logos/nhl/COL.png"
-        assert frame["away_logo"] == "logos/nhl/MIN.png"
+        assert frame["home_logo"] == "assets/logos/nhl/COL.png"
+        assert frame["away_logo"] == "assets/logos/nhl/MIN.png"
         assert "strength" not in frame
-    assert (ROOT / "widget" / frames[0]["home_logo"]).is_file()
-    assert (ROOT / "widget" / frames[0]["away_logo"]).is_file()
+    assert (ROOT / frames[0]["home_logo"]).is_file()
+    assert (ROOT / frames[0]["away_logo"]).is_file()
     assert frames[-1]["status"] == "final"
     assert frames[-1]["home_score"] == 4
     assert frames[-1]["away_score"] == 3
@@ -956,25 +955,34 @@ def test_ingest_refuses_a_league_outside_the_five(tmp_path: Path) -> None:
 
 
 def test_demo_palette_is_sport_specific_and_colorado_gold():
-    colo = club_colors("CU", "ncaaf")
+    colo = club_colors("COLO", "ncaaf")
     assert colo is not None
+    assert colo["sport"] == "ncaaf"
+    assert colo["id"] == "COLO"
     assert colo["primary"] == "#CFB87C"
-    assert colo["secondary"] == "#A2A4A3"
-    assert colo["white"] == "#FFFFFF"
-    assert colo["owns_black"] is True
-    assert colo["black"] == "#000000"
+    assert club_colors("COLO", "ncaab")["id"] == "COLO"
     assert club_colors("COLO", "ncaab")["primary"] == "#CFB87C"
-    assert club_colors("DEN", "nfl")["primary"] == "#FB4F14"
+    assert club_colors("COLO", "ncaab") is not colo
+    den = club_colors("DEN", "nfl")
+    assert den is not None
+    assert den["id"] == "DEN"
+    assert den["primary"] == "#FB4F14"
+    assert den["secondary"] == "#002244"
+    assert den["white"] == "#FFFFFF"
+    assert den["black"] is None
     assert club_colors("DEN", "nba")["primary"] == "#0E2240"
-    assert club_colors("DEN", "ncaah")["primary"] == "#8B2332"
+    assert club_colors("DEN", "ncaah")["id"] == "DEN"
+    assert club_colors("DEN", "ncaah")["primary"] == "#98002E"
     assert club_colors("COL", "nhl")["primary"] == "#6F263D"
     assert team_color("COLO", "ncaaf") == "#CFB87C"
     assert team_color("JAX") == "#006778"
     assert team_color("MIN", "nfl") != team_color("MIN", "nhl")
-    demo = json.loads((ROOT / "data" / "colors" / "demo.json").read_text(encoding="utf-8"))
-    script = (ROOT / "widget" / "colors.js").read_text(encoding="utf-8")
-    baked = json.loads(script[script.index("[") : script.rindex("]") + 1])
-    assert baked == demo
-    assert "espn" not in script.lower()
-    assert "fetch(" not in script
-    assert "https://" not in script and "http://" not in script
+    assert team_color("DEN", "nfl") != team_color("DEN", "nba")
+    assert team_color("DEN", "nba") != team_color("DEN", "ncaah")
+    page = (ROOT / "index.html").read_text(encoding="utf-8")
+    script = (ROOT / "widget" / "widget.js").read_text(encoding="utf-8")
+    assert 'src="widget/colors.js"' in page
+    assert "colors.js" not in script
+    assert 'return "assets/colors/"' in script
+    assert "../assets/" not in script
+    assert "demo.json" not in (ROOT / "src" / "live_wp" / "colors.py").read_text(encoding="utf-8")

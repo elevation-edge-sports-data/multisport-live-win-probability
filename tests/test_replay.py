@@ -11,12 +11,14 @@ from pathlib import Path
 from mswp import NCAAF_CONFIG, NFL_CONFIG as nfl_config
 from mswp import GameState, compute_wp
 
+from live_wp.colors import team_color
 from live_wp.replay import (
     elapsed_game_seconds,
     format_clock,
     format_line,
     load_replay,
     render_widget_script,
+    team_logo,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -187,8 +189,11 @@ def test_ncaaf_sample_reaches_two_overtimes_and_matches_compute_wp():
     fresh_frames = json.loads(fresh[fresh.index("[") : fresh.rindex("]") + 1])
     assert len(fresh_frames) == len(states)
     for frame in fresh_frames:
-        assert "home_logo" not in frame
-        assert "away_logo" not in frame
+        assert frame["home_logo"] == "assets/logos/ncaaf/TEX.png"
+        assert frame["away_logo"] == "assets/logos/ncaaf/OU.png"
+        assert frame["home_color"] == team_color("TEX", "ncaaf")
+        assert frame["away_color"] == team_color("OU", "ncaaf")
+        assert "widget/logos" not in frame["home_logo"]
 
 
 def _nfl_state(**overrides: object) -> GameState:
@@ -255,6 +260,19 @@ def test_render_widget_script_copies_situation_fields_only_when_set():
     assert frames[4]["timeouts"] == {"NYG": 2, "DEN": 3}
     for name in _OPTIONAL - {"timeouts"}:
         assert name not in frames[4]
+
+
+def test_team_logo_reads_assets_not_the_widget_tree():
+    assert team_logo("DEN", sport="nfl") == "assets/logos/nfl/DEN.png"
+    assert team_logo("jax", sport="nfl") == "assets/logos/nfl/JAX.png"
+    assert team_logo("COLO", sport="ncaaf") == "assets/logos/ncaaf/COLO.png"
+    assert team_logo("DEN", sport="nba") == "assets/logos/nba/DEN.png"
+    assert team_logo("DEN", sport="ncaah") == "assets/logos/ncaah/DEN.png"
+    assert team_logo("DEN", sport="nfl") != team_logo("DEN", sport="nba")
+    assert team_logo("Harbor", sport="nfl") is None
+    assert team_logo("Red Oak", sport="nfl") is None
+    assert (ROOT / "assets" / "logos" / "nfl" / "DEN.png").is_file()
+    assert "widget/logos" not in (ROOT / "src" / "live_wp" / "replay.py").read_text(encoding="utf-8")
 
 
 def test_harbor_final_is_one():

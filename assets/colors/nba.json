@@ -1,0 +1,452 @@
+[
+  {
+    "sport": "nba",
+    "id": "ATL",
+    "aliases": [
+      "Atlanta Hawks",
+      "Atlanta",
+      "Hawks"
+    ],
+    "primary": "#E03A3E",
+    "secondary": "#C1D32F",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "BKN",
+    "aliases": [
+      "Brooklyn Nets",
+      "Brooklyn",
+      "Nets"
+    ],
+    "primary": "#000000",
+    "secondary": "#FFFFFF",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "BOS",
+    "aliases": [
+      "Boston Celtics",
+      "Boston",
+      "Celtics"
+    ],
+    "primary": "#007A33",
+    "secondary": "#BA9653",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "CHA",
+    "aliases": [
+      "Charlotte Hornets",
+      "Charlotte",
+      "Hornets"
+    ],
+    "primary": "#1D1160",
+    "secondary": "#00788C",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "CHI",
+    "aliases": [
+      "Chicago Bulls",
+      "Chicago",
+      "Bulls"
+    ],
+    "primary": "#CE1141",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "CLE",
+    "aliases": [
+      "Cleveland Cavaliers",
+      "Cleveland",
+      "Cavaliers"
+    ],
+    "primary": "#860038",
+    "secondary": "#041E42",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "DAL",
+    "aliases": [
+      "Dallas Mavericks",
+      "Dallas",
+      "Mavericks"
+    ],
+    "primary": "#00538C",
+    "secondary": "#002B5E",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "DEN",
+    "aliases": [
+      "Denver Nuggets",
+      "Denver",
+      "Nuggets"
+    ],
+    "primary": "#0E2240",
+    "secondary": "#FEC524",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "DET",
+    "aliases": [
+      "Detroit Pistons",
+      "Detroit",
+      "Pistons"
+    ],
+    "primary": "#C8102E",
+    "secondary": "#1D42BA",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "GSW",
+    "aliases": [
+      "Golden State Warriors",
+      "Golden State",
+      "Warriors"
+    ],
+    "primary": "#1D428A",
+    "secondary": "#FFC72C",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "HOU",
+    "aliases": [
+      "Houston Rockets",
+      "Houston",
+      "Rockets"
+    ],
+    "primary": "#CE1141",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "IND",
+    "aliases": [
+      "Indiana Pacers",
+      "Indiana",
+      "Pacers"
+    ],
+    "primary": "#002D62",
+    "secondary": "#FDBB30",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "LAC",
+    "aliases": [
+      "Los Angeles Clippers",
+      "Los Angeles",
+      "Clippers"
+    ],
+    "primary": "#C8102E",
+    "secondary": "#1D428A",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "LAL",
+    "aliases": [
+      "Los Angeles Lakers",
+      "Los Angeles",
+      "Lakers"
+    ],
+    "primary": "#552583",
+    "secondary": "#FDB927",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "MEM",
+    "aliases": [
+      "Memphis Grizzlies",
+      "Memphis",
+      "Grizzlies"
+    ],
+    "primary": "#5D76A9",
+    "secondary": "#12173F",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "MIA",
+    "aliases": [
+      "Miami Heat",
+      "Miami",
+      "Heat"
+    ],
+    "primary": "#98002E",
+    "secondary": "#F9A01B",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "MIL",
+    "aliases": [
+      "Milwaukee Bucks",
+      "Milwaukee",
+      "Bucks"
+    ],
+    "primary": "#00471B",
+    "secondary": "#EEE1C6",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "MIN",
+    "aliases": [
+      "Minnesota Timberwolves",
+      "Minnesota",
+      "Timberwolves"
+    ],
+    "primary": "#0C2340",
+    "secondary": "#236192",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "NOP",
+    "aliases": [
+      "New Orleans Pelicans",
+      "New Orleans",
+      "Pelicans"
+    ],
+    "primary": "#0C2340",
+    "secondary": "#C8102E",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "NYK",
+    "aliases": [
+      "New York Knicks",
+      "New York",
+      "Knicks"
+    ],
+    "primary": "#006BB6",
+    "secondary": "#F58426",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "OKC",
+    "aliases": [
+      "Oklahoma City Thunder",
+      "Oklahoma City",
+      "Thunder"
+    ],
+    "primary": "#007AC1",
+    "secondary": "#EF3B24",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "ORL",
+    "aliases": [
+      "Orlando Magic",
+      "Orlando",
+      "Magic"
+    ],
+    "primary": "#0077C0",
+    "secondary": "#C4CED4",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "PHI",
+    "aliases": [
+      "Philadelphia 76ers",
+      "Philadelphia",
+      "76ers"
+    ],
+    "primary": "#006BB6",
+    "secondary": "#ED174C",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "PHX",
+    "aliases": [
+      "Phoenix Suns",
+      "Phoenix",
+      "Suns"
+    ],
+    "primary": "#1D1160",
+    "secondary": "#E56020",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "POR",
+    "aliases": [
+      "Portland Trail Blazers",
+      "Portland",
+      "Trail Blazers"
+    ],
+    "primary": "#E03A3E",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "SAC",
+    "aliases": [
+      "Sacramento Kings",
+      "Sacramento",
+      "Kings"
+    ],
+    "primary": "#5A2D81",
+    "secondary": "#63727A",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "SAS",
+    "aliases": [
+      "San Antonio Spurs",
+      "San Antonio",
+      "Spurs"
+    ],
+    "primary": "#C4CED4",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "TOR",
+    "aliases": [
+      "Toronto Raptors",
+      "Toronto",
+      "Raptors"
+    ],
+    "primary": "#CE1141",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "UTA",
+    "aliases": [
+      "Utah Jazz",
+      "Utah",
+      "Jazz"
+    ],
+    "primary": "#002B5C",
+    "secondary": "#00471B",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nba",
+    "id": "WAS",
+    "aliases": [
+      "Washington Wizards",
+      "Washington",
+      "Wizards"
+    ],
+    "primary": "#002B5C",
+    "secondary": "#E31837",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nba-brand",
+    "as_of": "2026-10"
+  }
+]

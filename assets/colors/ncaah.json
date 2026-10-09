@@ -1,0 +1,1026 @@
+[
+  {
+    "sport": "ncaah",
+    "id": "2005",
+    "abbreviation": "AF",
+    "aliases": [
+      "Air Force Falcons",
+      "Air Force",
+      "air-force-falcons"
+    ],
+    "primary": "#003594",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/AF.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2022",
+    "abbreviation": "AIC",
+    "aliases": [
+      "American International Yellow Jackets",
+      "American International",
+      "american-international-yellow-jackets"
+    ],
+    "primary": "#000000",
+    "secondary": "#FFB60F",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/AIC.png",
+    "color_source": "American International: black and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "298",
+    "abbreviation": "AKFB",
+    "aliases": [
+      "Alaska Nanooks",
+      "Alaska",
+      "alaska-nanooks"
+    ],
+    "primary": "#236192",
+    "secondary": "#FFCD00",
+    "conference": "Independent",
+    "division": "D1",
+    "logo": "logos/ncaah/AKFB.png",
+    "color_source": "Alaska Nanooks: blue and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "349",
+    "abbreviation": "ARMY",
+    "aliases": [
+      "Army Black Knights",
+      "Army",
+      "army-black-knights"
+    ],
+    "primary": "#000000",
+    "secondary": "#D3BC8D",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/ARMY.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "9",
+    "abbreviation": "ASU",
+    "aliases": [
+      "Arizona State Sun Devils",
+      "Arizona State",
+      "arizona-state-sun-devils"
+    ],
+    "primary": "#FFC627",
+    "secondary": "#8C1D40",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/ASU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2043",
+    "abbreviation": "AUSD",
+    "aliases": [
+      "Augustana (SD) Vikings",
+      "Augustana (SD)",
+      "augustana-sd-vikings"
+    ],
+    "primary": "#0E1B3B",
+    "secondary": "#FCD006",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/AUSD.png",
+    "color_source": "Augustana (SD): PMS 289 navy, PMS 109 gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "103",
+    "abbreviation": "BC",
+    "aliases": [
+      "Boston College Eagles",
+      "Boston College",
+      "boston-college-eagles"
+    ],
+    "primary": "#8C2232",
+    "secondary": "#DBCCA6",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/BC.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2060",
+    "abbreviation": "BENT",
+    "aliases": [
+      "Bentley Falcons",
+      "Bentley",
+      "bentley-falcons"
+    ],
+    "primary": "#253B7D",
+    "secondary": "#100F0D",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/BENT.png",
+    "color_source": "Bentley: blue and black"
+  },
+  {
+    "sport": "ncaah",
+    "id": "189",
+    "abbreviation": "BGSU",
+    "aliases": [
+      "Bowling Green Falcons",
+      "Bowling Green",
+      "bowling-green-falcons"
+    ],
+    "primary": "#FD5000",
+    "secondary": "#4F2C1D",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/BGSU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "225",
+    "abbreviation": "BRWN",
+    "aliases": [
+      "Brown Bears",
+      "Brown",
+      "brown-bears"
+    ],
+    "primary": "#411E09",
+    "secondary": "#949300",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/BRWN.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "132",
+    "abbreviation": "BST",
+    "aliases": [
+      "Bemidji State Beavers",
+      "Bemidji State",
+      "bemidji-state-beavers"
+    ],
+    "primary": "#004D44",
+    "secondary": "#D4B67C",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/BST.png",
+    "color_source": "Bemidji State: green and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "104",
+    "abbreviation": "BU",
+    "aliases": [
+      "Boston University Terriers",
+      "Boston University",
+      "boston-university-terriers"
+    ],
+    "primary": "#CC0000",
+    "secondary": "#FFFFFF",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/BU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2099",
+    "abbreviation": "CAN",
+    "aliases": [
+      "Canisius Golden Griffins",
+      "Canisius",
+      "canisius-golden-griffins"
+    ],
+    "primary": "#004A81",
+    "secondary": "#DDA50F",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/CAN.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2137",
+    "abbreviation": "CLAR",
+    "aliases": [
+      "Clarkson Golden Knights",
+      "Clarkson",
+      "clarkson-golden-knights"
+    ],
+    "primary": "#004E42",
+    "secondary": "#FFCD00",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/CLAR.png",
+    "color_source": "Clarkson brand PDF: PMS 3305 green, PMS 116 gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2144",
+    "abbreviation": "COLC",
+    "aliases": [
+      "Colorado College Tigers",
+      "Colorado College",
+      "colorado-college-tigers"
+    ],
+    "primary": "#000000",
+    "secondary": "#F2AF36",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/COLC.png",
+    "color_source": "Colorado College: black and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2142",
+    "abbreviation": "COLG",
+    "aliases": [
+      "Colgate Raiders",
+      "Colgate",
+      "colgate-raiders"
+    ],
+    "primary": "#821019",
+    "secondary": "#FFFFFF",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/COLG.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "41",
+    "abbreviation": "CONN",
+    "aliases": [
+      "UConn Huskies",
+      "UConn",
+      "uconn-huskies"
+    ],
+    "primary": "#0C2340",
+    "secondary": "#A2AAAD",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/CONN.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "172",
+    "abbreviation": "COR",
+    "aliases": [
+      "Cornell Big Red",
+      "Cornell",
+      "cornell-big-red"
+    ],
+    "primary": "#B31B1B",
+    "secondary": "#FFFFFF",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/COR.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "159",
+    "abbreviation": "DART",
+    "aliases": [
+      "Dartmouth Big Green",
+      "Dartmouth",
+      "dartmouth-big-green"
+    ],
+    "primary": "#005730",
+    "secondary": "#000000",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/DART.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2172",
+    "abbreviation": "DEN",
+    "aliases": [
+      "Denver Pioneers",
+      "Denver",
+      "denver-pioneers"
+    ],
+    "primary": "#98002E",
+    "secondary": "#A8996E",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/DEN.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2222",
+    "abbreviation": "FRST",
+    "aliases": [
+      "Ferris State Bulldogs",
+      "Ferris State",
+      "ferris-state-bulldogs"
+    ],
+    "primary": "#BA0C2F",
+    "secondary": "#FCC917",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/FRST.png",
+    "color_source": "Ferris State: crimson and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "108",
+    "abbreviation": "HARV",
+    "aliases": [
+      "Harvard Crimson",
+      "Harvard",
+      "harvard-crimson"
+    ],
+    "primary": "#990000",
+    "secondary": "#DBDBDB",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/HARV.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "107",
+    "abbreviation": "HC",
+    "aliases": [
+      "Holy Cross Crusaders",
+      "Holy Cross",
+      "holy-cross-crusaders"
+    ],
+    "primary": "#582C83",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/HC.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2815",
+    "abbreviation": "LIN",
+    "aliases": [
+      "Lindenwood Lions",
+      "Lindenwood",
+      "lindenwood-lions"
+    ],
+    "primary": "#B5A36A",
+    "secondary": "#000000",
+    "conference": "Independent",
+    "division": "D1",
+    "logo": "logos/ncaah/LIN.png",
+    "color_source": "Lindenwood brand: PMS 4515 gold, black"
+  },
+  {
+    "sport": "ncaah",
+    "id": "110133",
+    "abbreviation": "LIU",
+    "aliases": [
+      "Long Island University Sharks",
+      "Long Island University",
+      "long-island-university-sharks"
+    ],
+    "primary": "#69B3E7",
+    "secondary": "#FFC72C",
+    "conference": "Independent",
+    "division": "D1",
+    "logo": "logos/ncaah/LIU.png",
+    "color_source": "LIU Sharks brand: PMS 292 blue, PMS 123 gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "285",
+    "abbreviation": "LSS",
+    "aliases": [
+      "Lake Superior State Lakers",
+      "Lake Superior State",
+      "lake-superior-state-lakers"
+    ],
+    "primary": "#003F87",
+    "secondary": "#FFC61E",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/LSS.png",
+    "color_source": "Lake Superior State: PMS 7687 blue, PMS 123 gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "193",
+    "abbreviation": "M-OH",
+    "aliases": [
+      "Miami (OH) RedHawks",
+      "Miami (OH)",
+      "miami-oh-redhawks"
+    ],
+    "primary": "#C41230",
+    "secondary": "#FFFFFF",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/M-OH.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "113",
+    "abbreviation": "MASS",
+    "aliases": [
+      "Massachusetts Minutemen",
+      "Massachusetts",
+      "massachusetts-minutemen"
+    ],
+    "primary": "#881C1C",
+    "secondary": "#FFFFFF",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/MASS.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "311",
+    "abbreviation": "ME",
+    "aliases": [
+      "Maine Black Bears",
+      "Maine",
+      "maine-black-bears"
+    ],
+    "primary": "#127DBE",
+    "secondary": "#FFFFFF",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/ME.png",
+    "color_source": "Maine blue kept; white secondary"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2385",
+    "abbreviation": "MERC",
+    "aliases": [
+      "Mercyhurst Lakers",
+      "Mercyhurst",
+      "mercyhurst-lakers"
+    ],
+    "primary": "#07594D",
+    "secondary": "#182752",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/MERC.png",
+    "color_source": "Mercyhurst: forest green and navy"
+  },
+  {
+    "sport": "ncaah",
+    "id": "130",
+    "abbreviation": "MICH",
+    "aliases": [
+      "Michigan Wolverines",
+      "Michigan",
+      "michigan-wolverines"
+    ],
+    "primary": "#00274C",
+    "secondary": "#FFCB05",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/MICH.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "135",
+    "abbreviation": "MINN",
+    "aliases": [
+      "Minnesota Golden Gophers",
+      "Minnesota",
+      "minnesota-golden-gophers"
+    ],
+    "primary": "#5E0A2F",
+    "secondary": "#FAB41C",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/MINN.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2364",
+    "abbreviation": "MNST",
+    "aliases": [
+      "Minnesota State Mavericks",
+      "Minnesota State",
+      "minnesota-state-mavericks"
+    ],
+    "primary": "#49306E",
+    "secondary": "#FEBD11",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/MNST.png",
+    "color_source": "Minnesota State Mankato brand hub: purple and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2771",
+    "abbreviation": "MRMK",
+    "aliases": [
+      "Merrimack Warriors",
+      "Merrimack",
+      "merrimack-warriors"
+    ],
+    "primary": "#2F4F93",
+    "secondary": "#E8C535",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/MRMK.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "127",
+    "abbreviation": "MSU",
+    "aliases": [
+      "Michigan State Spartans",
+      "Michigan State",
+      "michigan-state-spartans"
+    ],
+    "primary": "#173F35",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/MSU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2392",
+    "abbreviation": "MTU",
+    "aliases": [
+      "Michigan Tech Huskies",
+      "Michigan Tech",
+      "michigan-tech-huskies"
+    ],
+    "primary": "#FFCD00",
+    "secondary": "#000000",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/MTU.png",
+    "color_source": "Michigan Tech: gold and black"
+  },
+  {
+    "sport": "ncaah",
+    "id": "87",
+    "abbreviation": "ND",
+    "aliases": [
+      "Notre Dame Fighting Irish",
+      "Notre Dame",
+      "notre-dame-fighting-irish"
+    ],
+    "primary": "#062340",
+    "secondary": "#C99700",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/ND.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "111",
+    "abbreviation": "NE",
+    "aliases": [
+      "Northeastern Huskies",
+      "Northeastern",
+      "northeastern-huskies"
+    ],
+    "primary": "#CC0001",
+    "secondary": "#C2C3C0",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/NE.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "315",
+    "abbreviation": "NIA",
+    "aliases": [
+      "Niagara Purple Eagles",
+      "Niagara",
+      "niagara-purple-eagles"
+    ],
+    "primary": "#69207E",
+    "secondary": "#F0F0F0",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/NIA.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "128",
+    "abbreviation": "NMI",
+    "aliases": [
+      "Northern Michigan Wildcats",
+      "Northern Michigan",
+      "northern-michigan-wildcats"
+    ],
+    "primary": "#095339",
+    "secondary": "#FFC425",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/NMI.png",
+    "color_source": "Northern Michigan: PMS 343 green, PMS 123 gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2437",
+    "abbreviation": "OMA",
+    "aliases": [
+      "Omaha Mavericks",
+      "Omaha",
+      "omaha-mavericks"
+    ],
+    "primary": "#E3193E",
+    "secondary": "#474648",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/OMA.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "194",
+    "abbreviation": "OSU",
+    "aliases": [
+      "Ohio State Buckeyes",
+      "Ohio State",
+      "ohio-state-buckeyes"
+    ],
+    "primary": "#BA0C2F",
+    "secondary": "#A8ADB4",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/OSU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "163",
+    "abbreviation": "PRIN",
+    "aliases": [
+      "Princeton Tigers",
+      "Princeton",
+      "princeton-tigers"
+    ],
+    "primary": "#000000",
+    "secondary": "#FF6000",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/PRIN.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2507",
+    "abbreviation": "PROV",
+    "aliases": [
+      "Providence Friars",
+      "Providence",
+      "providence-friars"
+    ],
+    "primary": "#000000",
+    "secondary": "#A3A19E",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/PROV.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "213",
+    "abbreviation": "PSU",
+    "aliases": [
+      "Penn State Nittany Lions",
+      "Penn State",
+      "penn-state-nittany-lions"
+    ],
+    "primary": "#061440",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/PSU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2514",
+    "abbreviation": "QUIN",
+    "aliases": [
+      "Quinnipiac Bobcats",
+      "Quinnipiac",
+      "quinnipiac-bobcats"
+    ],
+    "primary": "#041B43",
+    "secondary": "#C5B783",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/QUIN.png",
+    "color_source": "Quinnipiac navy kept; gold secondary"
+  },
+  {
+    "sport": "ncaah",
+    "id": "178",
+    "abbreviation": "RIT",
+    "aliases": [
+      "RIT Tigers",
+      "RIT",
+      "rit-tigers"
+    ],
+    "primary": "#F76900",
+    "secondary": "#000000",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/RIT.png",
+    "color_source": "RIT brand orange and black"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2523",
+    "abbreviation": "RMU",
+    "aliases": [
+      "Robert Morris Colonials",
+      "Robert Morris",
+      "robert-morris-colonials"
+    ],
+    "primary": "#00214D",
+    "secondary": "#A21D2B",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/RMU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2528",
+    "abbreviation": "RPI",
+    "aliases": [
+      "Rensselaer Engineers",
+      "Rensselaer",
+      "rensselaer-engineers"
+    ],
+    "primary": "#D6001C",
+    "secondary": "#FFFFFF",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/RPI.png",
+    "color_source": "RPI cherry and white"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2594",
+    "abbreviation": "SCSU",
+    "aliases": [
+      "St. Cloud State Huskies",
+      "St. Cloud State",
+      "st-cloud-state-huskies"
+    ],
+    "primary": "#A10209",
+    "secondary": "#000000",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/SCSU.png",
+    "color_source": "St. Cloud State cardinal and black"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2529",
+    "abbreviation": "SHU",
+    "aliases": [
+      "Sacred Heart Pioneers",
+      "Sacred Heart",
+      "sacred-heart-pioneers"
+    ],
+    "primary": "#A40012",
+    "secondary": "#C29472",
+    "conference": "Atlantic Hockey America",
+    "division": "D1",
+    "logo": "logos/ncaah/SHU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2900",
+    "abbreviation": "STMN",
+    "aliases": [
+      "St. Thomas Tommies",
+      "St. Thomas",
+      "st-thomas-tommies"
+    ],
+    "primary": "#512D6D",
+    "secondary": "#97999B",
+    "conference": "CCHA",
+    "division": "D1",
+    "logo": "logos/ncaah/STMN.png",
+    "color_source": "St. Thomas purple and gray"
+  },
+  {
+    "sport": "ncaah",
+    "id": "284",
+    "abbreviation": "STO",
+    "aliases": [
+      "Stonehill Skyhawks",
+      "Stonehill",
+      "stonehill-skyhawks"
+    ],
+    "primary": "#4F2684",
+    "secondary": "#FFFFFF",
+    "conference": "Independent",
+    "division": "D1",
+    "logo": "logos/ncaah/STO.png",
+    "color_source": "Stonehill: PMS 268 purple, white"
+  },
+  {
+    "sport": "ncaah",
+    "id": "1",
+    "abbreviation": "UAA",
+    "aliases": [
+      "Alaska Anchorage Seawolves",
+      "Alaska Anchorage",
+      "alaska-anchorage-seawolves"
+    ],
+    "primary": "#00583D",
+    "secondary": "#FFC425",
+    "conference": "Independent",
+    "division": "D1",
+    "logo": "logos/ncaah/UAA.png",
+    "color_source": "Alaska Anchorage: PMS 343 green, PMS 123 gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "134",
+    "abbreviation": "UMD",
+    "aliases": [
+      "Minnesota Duluth Bulldogs",
+      "Minnesota Duluth",
+      "minnesota-duluth-bulldogs"
+    ],
+    "primary": "#8E0A26",
+    "secondary": "#FAB937",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/UMD.png",
+    "color_source": "Minnesota Duluth: maroon and gold"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2349",
+    "abbreviation": "UML",
+    "aliases": [
+      "UMass Lowell River Hawks",
+      "UMass Lowell",
+      "umass-lowell-river-hawks"
+    ],
+    "primary": "#00529C",
+    "secondary": "#CF1F2F",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/UML.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "155",
+    "abbreviation": "UND",
+    "aliases": [
+      "North Dakota Fighting Hawks",
+      "North Dakota",
+      "north-dakota-fighting-hawks"
+    ],
+    "primary": "#00A26B",
+    "secondary": "#C2C3C0",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/UND.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "160",
+    "abbreviation": "UNH",
+    "aliases": [
+      "New Hampshire Wildcats",
+      "New Hampshire",
+      "new-hampshire-wildcats"
+    ],
+    "primary": "#004990",
+    "secondary": "#C3C4C6",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/UNH.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2785",
+    "abbreviation": "UNNY",
+    "aliases": [
+      "Union Garnet Chargers",
+      "Union",
+      "union-garnet-chargers"
+    ],
+    "primary": "#862633",
+    "secondary": "#FFFFFF",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/UNNY.png",
+    "color_source": "Union College: PMS 202 garnet, white"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2779",
+    "abbreviation": "USL",
+    "aliases": [
+      "St. Lawrence Saints",
+      "St. Lawrence",
+      "st-lawrence-saints"
+    ],
+    "primary": "#AF1E2D",
+    "secondary": "#4B2B23",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/USL.png",
+    "color_source": "St. Lawrence: scarlet and brown"
+  },
+  {
+    "sport": "ncaah",
+    "id": "261",
+    "abbreviation": "UVM",
+    "aliases": [
+      "Vermont Catamounts",
+      "Vermont",
+      "vermont-catamounts"
+    ],
+    "primary": "#154734",
+    "secondary": "#FFC72C",
+    "conference": "Hockey East",
+    "division": "D1",
+    "logo": "logos/ncaah/UVM.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "275",
+    "abbreviation": "WIS",
+    "aliases": [
+      "Wisconsin Badgers",
+      "Wisconsin",
+      "wisconsin-badgers"
+    ],
+    "primary": "#A00000",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten",
+    "division": "D1",
+    "logo": "logos/ncaah/WIS.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "2711",
+    "abbreviation": "WMU",
+    "aliases": [
+      "Western Michigan Broncos",
+      "Western Michigan",
+      "western-michigan-broncos"
+    ],
+    "primary": "#532E1F",
+    "secondary": "#F1C500",
+    "conference": "NCHC",
+    "division": "D1",
+    "logo": "logos/ncaah/WMU.png",
+    "color_source": "copied from ncaab ESPN color"
+  },
+  {
+    "sport": "ncaah",
+    "id": "43",
+    "abbreviation": "YALE",
+    "aliases": [
+      "Yale Bulldogs",
+      "Yale",
+      "yale-bulldogs"
+    ],
+    "primary": "#004A81",
+    "secondary": "#286DC0",
+    "conference": "ECAC",
+    "division": "D1",
+    "logo": "logos/ncaah/YALE.png",
+    "color_source": "copied from ncaab ESPN color"
+  }
+]

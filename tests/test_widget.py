@@ -40,16 +40,16 @@ class _Buttons(HTMLParser):
 
 
 def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
-    html = (WIDGET / "index.html").read_text(encoding="utf-8")
+    html = (ROOT / "index.html").read_text(encoding="utf-8")
     css = (WIDGET / "widget.css").read_text(encoding="utf-8")
     script = (WIDGET / "widget.js").read_text(encoding="utf-8")
     page = html.lower()
     assert "espn" not in page
     assert "espn.com" not in page
     assert "http://" not in page and "https://" not in page
-    assert script.count("fetch(") == 3
+    assert script.count("fetch(") == 4
     assert 'fetch("/follow"' in script
-    assert 'fetch("follow.json"' in script
+    assert 'fetch("widget/follow.json"' in script
     assert 'method: "POST"' in script
     assert 'method: "GET"' in script
     assert "live_replay.js?" in script
@@ -68,12 +68,17 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert html.count("<img") == 4
     assert "applyLogo" in script
     assert "img.hidden = true" in script
+    assert 'return "assets/logos/"' in script
+    assert 'return "assets/colors/"' in script
     assert "frame.home_logo" in script and "frame.away_logo" in script
-    assert 'src="manifest.js"' in html
+    assert "colors.js" not in script
+    assert "widget/logos" not in script
+    assert "logos/nfl/" not in script
+    assert 'src="widget/manifest.js"' in html
+    assert 'src="widget/colors.js"' in html
     assert 'src="live_replay.js"' not in html
     assert "live_replay.js" not in html
-    assert html.index('src="manifest.js"') < html.index('src="colors.js"')
-    assert html.index('src="colors.js"') < html.index('src="widget.js"')
+    assert html.index('src="widget/manifest.js"') < html.index('src="widget/colors.js"') < html.index('src="widget/widget.js"')
     for name in (
         "nfl_nyg_den.js",
         "nhl_edm_col.js",
@@ -144,7 +149,7 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert script.count("V4") == 1
     assert 'var BADGE_TEXT = "V4"' in script
     assert "badge.textContent = BADGE_TEXT" in script
-    assert 'src="colors.js"' in html
+    assert 'src="widget/colors.js"' in html
     assert 'data-theme="charcoal"' in html
     assert 'id="theme-dark"' in html and 'id="theme-light"' in html
     assert ">Dark<" in html and ">Light<" in html
@@ -218,9 +223,9 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
         assert "espn" not in text, path.name
         assert "espn.com" not in text, path.name
         if path.name == "widget.js":
-            assert text.count("fetch(") == 3, path.name
+            assert text.count("fetch(") == 4, path.name
             assert 'fetch("/follow"' in text, path.name
-            assert 'fetch("follow.json"' in text, path.name
+            assert 'fetch("widget/follow.json"' in text, path.name
             assert "live_replay.js" in text, path.name
         else:
             assert "fetch(" not in text, path.name
@@ -542,8 +547,9 @@ const fs = require("fs");
 const vm = require("vm");
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(fs.readFileSync("widget/colors.js", "utf8"), sandbox);
 vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+sandbox.mswpColors.ingest("nfl", JSON.parse(fs.readFileSync("assets/colors/nfl.json", "utf8")));
+sandbox.mswpColors.ingest("ncaaf", JSON.parse(fs.readFileSync("assets/colors/ncaaf.json", "utf8")));
 const app = sandbox.mswpAppearance;
 function club(sport, id) {
   return app.findClub(sport, id);
@@ -575,6 +581,8 @@ console.log(JSON.stringify({
   coloNames: coloNames,
   ttuNames: ttuNames,
   denNames: denNames,
+  denHex: app.buildSwatches(den).map((swatch) => swatch.hex),
+  nygHex: app.buildSwatches(nyg).map((swatch) => swatch.hex),
   away: defaults.away,
   home: defaults.home,
   whiteAway: bothWhite.away,
@@ -605,11 +613,15 @@ console.log(JSON.stringify({
         errors="strict",
     )
     report = json.loads(completed.stdout)
-    assert report["coloNames"] == ["Gold #CFB87C", "Silver #A2A4A3", "White #FFFFFF", "Black #000000"]
-    assert report["ttuNames"] == ["Red", "Black", "White"]
+    assert report["coloNames"] == ["Gold #CFB87C", "Black #000000"]
+    assert report["ttuNames"] == ["Red", "Black"]
     assert "Black" not in report["denNames"]
+    assert report["nygHex"] == ["#0B2265", "#A71930", "#FFFFFF"]
+    assert report["denHex"] == ["#FB4F14", "#002244", "#FFFFFF"]
+    assert report["nflAway"] == "#A71930"
+    assert report["nflHome"] == "#FB4F14"
     assert report["away"] == "#CFB87C"
-    assert report["home"] == "#CC0000"
+    assert report["home"] == "#DA291C"
     assert report["whiteHome"] == "#FFFFFF"
     assert report["whiteAway"] != "#FFFFFF"
     assert report["lightHome"] == "#FFFFFF"
@@ -880,8 +892,9 @@ const realAppend = body.appendChild.bind(body);
 body.appendChild = (node) => {
   const result = realAppend(node);
   if (node && node.tagName === "SCRIPT" && node.src) {
-    const file = path.join(process.cwd(), "widget", node.src);
-    vm.runInContext(fs.readFileSync(file, "utf8"), sandbox);
+    const srcName = String(node.src);
+    const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+    vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
     if (typeof node.onload === "function") node.onload();
   }
   return result;
@@ -1066,7 +1079,9 @@ function bootWidget(preloadNames, extraEntries) {
   localBody.appendChild = (node) => {
     const result = localAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
-      vm.runInContext(fs.readFileSync(path.join(process.cwd(), "widget", node.src), "utf8"), localSandbox);
+      const srcName = String(node.src);
+      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), localSandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
@@ -1100,6 +1115,7 @@ function harborLabels() {
 }
 function harborHidden(id) {
   const img = harborDoc.getElementById(id);
+  if (typeof img.onerror === "function" && img.getAttribute("src")) img.onerror();
   return img.hidden === true && img.getAttribute("src") == null;
 }
 const harborGames = harborDoc.getElementById("games").children
@@ -1484,7 +1500,15 @@ async function boot(hostname, protocol, first) {
         url: address,
         cache: options && options.cache ? options.cache : ""
       });
-      if (address.indexOf("follow.json") === 0) {
+      if (address.indexOf("assets/colors/") === 0) {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve([]),
+          text: () => Promise.resolve("[]")
+        });
+      }
+      if (address.indexOf("follow.json") >= 0) {
         return Promise.resolve({
           ok: false,
           status: 404,
@@ -1506,8 +1530,9 @@ async function boot(hostname, protocol, first) {
   body.appendChild = (node) => {
     const result = realAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
-      const file = path.join(process.cwd(), "widget", node.src);
-      vm.runInContext(fs.readFileSync(file, "utf8"), sandbox);
+      const srcName = String(node.src);
+      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
@@ -1638,10 +1663,10 @@ async function pollNext(page, item) {
     afterMissing: afterMissing,
     afterMissingScrub: afterMissingScrub,
     afterMissingPlay: afterMissingPlay,
-    fileFetches: filePage.fetches.length,
+    fileFetches: filePage.fetches.map((item) => item.url),
     fileLive: snapshot(filePage).liveCount,
     fileScore: snapshot(filePage).score,
-    otherFetches: otherPage.fetches.length,
+    otherFetches: otherPage.fetches.map((item) => item.url),
     otherLive: snapshot(otherPage).liveCount,
     localLive: snapshot(localPage).liveCount,
     localLabel: snapshot(localPage).liveLabel,
@@ -1677,16 +1702,17 @@ async function pollNext(page, item) {
     saw_slate = False
     for item in report["fetches"]:
         assert (
-            item["url"].startswith("live_replay.js?t=")
-            or item["url"].startswith("slate.js?t=")
-            or item["url"] == "follow.json"
+            item["url"].startswith("widget/live_replay.js?t=")
+            or item["url"].startswith("widget/slate.js?t=")
+            or item["url"] == "widget/follow.json"
+            or item["url"].startswith("assets/colors/")
         )
         assert "espn" not in item["url"]
         assert "http://" not in item["url"] and "https://" not in item["url"]
         assert item["cache"] == "no-store"
-        if item["url"].startswith("live_replay.js?t="):
+        if item["url"].startswith("widget/live_replay.js?t="):
             saw_live = True
-        if item["url"].startswith("slate.js?t="):
+        if item["url"].startswith("widget/slate.js?t="):
             saw_slate = True
     assert saw_live and saw_slate
     assert "live_replay.js" not in report["manifestFiles"]
@@ -1752,17 +1778,17 @@ async function pollNext(page, item) {
     assert report["afterMissingScrub"]["liveCount"] == 0
     assert report["afterMissingPlay"]["score"] == live_b
     assert report["afterMissingPlay"]["clock"] == "Q2 5:00 STALE"
-    assert report["fileFetches"] == 0
+    assert report["fileFetches"] == ["assets/colors/nfl.json"]
     assert report["fileLive"] == 0
     assert report["fileScore"] == archive_score
-    assert report["otherFetches"] == 0
+    assert report["otherFetches"] == ["assets/colors/nfl.json"]
     assert report["otherLive"] == 0
     assert report["localLive"] == 1
     assert report["localLabel"] == "NYG at DEN"
     assert report["localArchiveSame"] is True
     assert report["localFetches"]
-    assert "follow.json" in report["localFetches"]
-    assert any(url.startswith("live_replay.js?t=") for url in report["localFetches"])
+    assert "widget/follow.json" in report["localFetches"]
+    assert any(url.startswith("widget/live_replay.js?t=") for url in report["localFetches"])
 
 
 def test_situation_line_is_the_current_frame_only(tmp_path):
@@ -2279,7 +2305,16 @@ function boot(options) {
       replaceState: (_state, _title, url) => { calls.push(String(url)); }
     },
     fetch: (url) => {
-      fetches.push(String(url));
+      const address = String(url);
+      fetches.push(address);
+      if (address.indexOf("assets/colors/") === 0) {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve([]),
+          text: () => Promise.resolve("[]")
+        });
+      }
       if (options.hold) return new Promise(() => {});
       const item = feed.items.shift() || http(404, "");
       return Promise.resolve({
@@ -2296,8 +2331,9 @@ function boot(options) {
   body.appendChild = (node) => {
     const result = realAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
-      const file = path.join(process.cwd(), "widget", node.src);
-      vm.runInContext(fs.readFileSync(file, "utf8"), sandbox);
+      const srcName = String(node.src);
+      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
@@ -2517,18 +2553,20 @@ const missingBefore = snap(missing);
     assert report["preset"]["calls"] == []
     assert_open(report["otherHost"], nyg, "nfl", "pro")
     assert report["otherHost"]["liveCount"] == 0
-    assert report["otherHost"]["fetches"] == []
+    assert report["otherHost"]["fetches"] == ["assets/colors/nfl.json"]
     assert report["otherHost"]["score"] != live
     assert_open(report["fileHost"], jax, "nfl", "pro")
     assert report["fileHost"]["liveCount"] == 0
-    assert report["fileHost"]["fetches"] == []
+    assert report["fileHost"]["fetches"] == ["assets/colors/nfl.json"]
     assert all("follow.json" not in url for url in report["nyg"]["fetches"])
     assert all("follow.json" not in url for url in report["mich"]["fetches"])
     assert all("follow.json" not in url for url in report["otherHost"]["fetches"])
     assert_open(report["arrivedBefore"], jax, "nfl", "pro")
     assert report["arrivedBefore"]["liveCount"] == 0
     assert report["arrivedBefore"]["fetches"]
-    assert report["arrivedBefore"]["fetches"][0].startswith("live_replay.js?")
+    assert report["arrivedBefore"]["fetches"][0] == "assets/colors/nfl.json"
+    live_urls = [url for url in report["arrivedBefore"]["fetches"] if "live_replay.js" in url]
+    assert live_urls[0].startswith("widget/live_replay.js?")
     assert "espn" not in report["arrivedBefore"]["fetches"][0]
     assert "http://" not in report["arrivedBefore"]["fetches"][0]
     assert "https://" not in report["arrivedBefore"]["fetches"][0]
@@ -2760,10 +2798,18 @@ function boot(options) {
         method: init && init.method ? String(init.method).toUpperCase() : "GET",
         body: init && init.body != null ? String(init.body) : ""
       });
+      if (address.indexOf("assets/colors/") === 0) {
+        return Promise.resolve({
+          ok: true,
+          status: 200,
+          json: () => Promise.resolve([]),
+          text: () => Promise.resolve("[]")
+        });
+      }
       let item = null;
-      if (address.indexOf("slate.js") === 0) item = slateItems.shift();
-      else if (address.indexOf("live_replay.js") === 0) item = liveItems.shift();
-      else if (address.indexOf("follow.json") === 0) item = followItems.shift();
+      if (address.indexOf("slate.js") >= 0) item = slateItems.shift();
+      else if (address.indexOf("live_replay.js") >= 0) item = liveItems.shift();
+      else if (address.indexOf("follow.json") >= 0) item = followItems.shift();
       else item = http(599, address);
       if (!item) item = http(404, "");
       return Promise.resolve({
@@ -2780,8 +2826,9 @@ function boot(options) {
   body.appendChild = (node) => {
     const result = realAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
-      const file = path.join(process.cwd(), "widget", node.src);
-      vm.runInContext(fs.readFileSync(file, "utf8"), sandbox);
+      const srcName = String(node.src);
+      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
@@ -3121,9 +3168,10 @@ async function runPoll(page) {
     assert report["pollMs"] == [15000]
     for item in opened["fetches"]:
         assert (
-            item["url"].startswith("slate.js?t=")
-            or item["url"].startswith("live_replay.js?t=")
-            or item["url"] == "follow.json"
+            item["url"].startswith("widget/slate.js?t=")
+            or item["url"].startswith("widget/live_replay.js?t=")
+            or item["url"] == "widget/follow.json"
+            or item["url"].startswith("assets/colors/")
         )
         assert "espn" not in item["url"]
         assert "http://" not in item["url"] and "https://" not in item["url"]
@@ -3195,7 +3243,7 @@ async function runPoll(page) {
     assert report["missing"]["archive"] == report["shown"]["archive"]
     kept = next(item for item in report["missing"]["archive"] if item["file"] == "nfl_nyg_den.js")
     assert kept["label"] == "NYG at DEN"
-    assert report["pages"]["fetches"] == []
+    assert [item["url"] for item in report["pages"]["fetches"]] == ["assets/colors/nfl.json"]
     assert "NYG" in report["pages"]["score"]
     assert "LAL" not in report["pages"]["score"]
     assert "NYG" in report["unknown"]["score"]
@@ -3240,9 +3288,10 @@ async function runPoll(page) {
     assert posts(report["collegePosts"]) == []
     for item in report["collegePosts"]["fetches"]:
         assert (
-            item["url"].startswith("slate.js?t=")
-            or item["url"].startswith("live_replay.js?t=")
-            or item["url"] == "follow.json"
+            item["url"].startswith("widget/slate.js?t=")
+            or item["url"].startswith("widget/live_replay.js?t=")
+            or item["url"] == "widget/follow.json"
+            or item["url"].startswith("assets/colors/")
         )
         assert item["url"] != "/follow"
         assert "espn" not in item["url"]
@@ -3289,17 +3338,18 @@ async function runPoll(page) {
         assert "http://" not in item["url"] and "https://" not in item["url"]
         assert (
             item["url"] == "/follow"
-            or item["url"] == "follow.json"
-            or item["url"].startswith("slate.js?t=")
-            or item["url"].startswith("live_replay.js?t=")
+            or item["url"] == "widget/follow.json"
+            or item["url"].startswith("widget/slate.js?t=")
+            or item["url"].startswith("widget/live_replay.js?t=")
+            or item["url"].startswith("assets/colors/")
         )
 
     def gets(row):
-        return [item for item in row["fetches"] if item["url"] == "follow.json"]
+        return [item for item in row["fetches"] if item["url"] == "widget/follow.json"]
 
     follow_card = report["followCard"]
     assert gets(follow_card) == [{
-        "url": "follow.json",
+        "url": "widget/follow.json",
         "cache": "no-store",
         "method": "GET",
         "body": "",
@@ -3364,7 +3414,7 @@ async function runPoll(page) {
     assert gets(query_beats) == []
     assert "KC" not in query_beats["score"]
     pages_bare = report["pagesBare"]
-    assert pages_bare["fetches"] == []
+    assert [item["url"] for item in pages_bare["fetches"]] == ["assets/colors/nfl.json"]
     assert gets(pages_bare) == []
     assert "NYG" in pages_bare["score"]
     assert "KC" not in pages_bare["score"]
@@ -3378,7 +3428,7 @@ async function runPoll(page) {
     assert missing_follow["sportPressed"] == ["nfl"]
     assert missing_follow["calls"] == []
     assert gets(missing_follow) == [{
-        "url": "follow.json",
+        "url": "widget/follow.json",
         "cache": "no-store",
         "method": "GET",
         "body": "",
@@ -3409,7 +3459,7 @@ async function runPoll(page) {
     assert college_query["boardHidden"] is True
     assert college_query["slatePressed"] == []
     assert gets(college_query) == []
-    assert all(item["url"] != "follow.json" for item in college_query["fetches"])
+    assert all("follow.json" not in item["url"] for item in college_query["fetches"])
     assert report["followBadge"] == "V4"
     assert report["badge"] == "V4"
     assert all("follow.json" not in item["url"] for item in report["pages"]["fetches"])

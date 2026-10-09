@@ -18,8 +18,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 20:00",
@@ -38,8 +38,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 13:35",
@@ -58,8 +58,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 13:17",
@@ -78,8 +78,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 13:02",
@@ -98,8 +98,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 11:17",
@@ -118,8 +118,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 10:31",
@@ -138,8 +138,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 3:46",
@@ -158,8 +158,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 3:42",
@@ -178,8 +178,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 2:44",
@@ -198,8 +198,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P1 2:43",
@@ -218,8 +218,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P2 20:00",
@@ -238,8 +238,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P2 19:41",
@@ -258,8 +258,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P2 17:58",
@@ -278,8 +278,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P2 17:41",
@@ -298,8 +298,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P2 17:38",
@@ -318,8 +318,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P2 17:30",
@@ -338,8 +338,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 20:00",
@@ -358,8 +358,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 19:36",
@@ -378,8 +378,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 18:04",
@@ -398,8 +398,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 17:36",
@@ -418,8 +418,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 15:38",
@@ -438,8 +438,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 14:56",
@@ -458,8 +458,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 14:03",
@@ -478,8 +478,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 12:56",
@@ -498,8 +498,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 9:46",
@@ -518,8 +518,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 9:46",
@@ -538,8 +538,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 9:21",
@@ -558,8 +558,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 8:58",
@@ -578,8 +578,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 8:58",
@@ -598,8 +598,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 7:19",
@@ -618,8 +618,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 5:46",
@@ -638,8 +638,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 4:34",
@@ -658,8 +658,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 2:54",
@@ -678,8 +678,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "P3 2:46",
@@ -698,8 +698,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 20:00",
@@ -718,8 +718,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 2:28",
@@ -738,8 +738,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 2:26",
@@ -758,8 +758,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 1:36",
@@ -778,8 +778,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 1:31",
@@ -798,8 +798,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 0:47",
@@ -818,8 +818,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v4",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "OT 0:26",
@@ -838,8 +838,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "2OT 20:00",
@@ -858,8 +858,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "2OT 19:40",
@@ -878,8 +878,8 @@ window.NCAAH_REPLAY = [
     "strength": "4v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "2OT 19:31",
@@ -898,8 +898,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "2OT 7:47",
@@ -918,8 +918,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "2OT 7:25",
@@ -938,8 +938,8 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   },
   {
     "clock": "FINAL",
@@ -958,7 +958,7 @@ window.NCAAH_REPLAY = [
     "strength": "5v5",
     "home_color": "#8B2332",
     "away_color": "#FFCB05",
-    "home_logo": "logos/ncaah/DEN.png",
-    "away_logo": "logos/ncaah/MICH.png"
+    "home_logo": "assets/logos/ncaah/DEN.png",
+    "away_logo": "assets/logos/ncaah/MICH.png"
   }
 ];

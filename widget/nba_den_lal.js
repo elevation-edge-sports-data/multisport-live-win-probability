@@ -18,8 +18,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 11:40",
@@ -38,8 +38,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 11:28",
@@ -58,8 +58,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 11:16",
@@ -78,8 +78,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 10:13",
@@ -98,8 +98,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 10:02",
@@ -118,8 +118,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 9:45",
@@ -138,8 +138,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 9:26",
@@ -158,8 +158,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 9:26",
@@ -178,8 +178,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 9:26",
@@ -198,8 +198,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 9:10",
@@ -218,8 +218,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 9:03",
@@ -238,8 +238,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 8:55",
@@ -258,8 +258,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 8:36",
@@ -278,8 +278,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 8:33",
@@ -298,8 +298,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 8:33",
@@ -318,8 +318,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 8:14",
@@ -338,8 +338,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 7:56",
@@ -358,8 +358,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 7:46",
@@ -378,8 +378,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 7:25",
@@ -398,8 +398,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 7:16",
@@ -418,8 +418,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 7:16",
@@ -438,8 +438,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 7:16",
@@ -458,8 +458,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 6:46",
@@ -478,8 +478,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 6:46",
@@ -498,8 +498,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 6:24",
@@ -518,8 +518,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 6:14",
@@ -538,8 +538,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 6:01",
@@ -558,8 +558,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 5:42",
@@ -578,8 +578,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 5:42",
@@ -598,8 +598,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 5:36",
@@ -618,8 +618,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 5:25",
@@ -638,8 +638,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 5:09",
@@ -658,8 +658,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 4:38",
@@ -678,8 +678,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 4:27",
@@ -698,8 +698,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 4:11",
@@ -718,8 +718,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 3:55",
@@ -738,8 +738,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 3:43",
@@ -758,8 +758,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 3:08",
@@ -778,8 +778,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 3:08",
@@ -798,8 +798,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 3:08",
@@ -818,8 +818,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 3:08",
@@ -838,8 +838,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 2:49",
@@ -858,8 +858,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 2:49",
@@ -878,8 +878,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 2:49",
@@ -898,8 +898,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 2:22",
@@ -918,8 +918,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 2:08",
@@ -938,8 +938,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 1:03",
@@ -958,8 +958,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:53",
@@ -978,8 +978,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:42",
@@ -998,8 +998,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:26",
@@ -1018,8 +1018,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:08",
@@ -1038,8 +1038,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:01",
@@ -1058,8 +1058,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:01",
@@ -1078,8 +1078,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q1 0:01",
@@ -1098,8 +1098,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 12:00",
@@ -1118,8 +1118,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 12:00",
@@ -1138,8 +1138,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 11:32",
@@ -1158,8 +1158,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 11:17",
@@ -1178,8 +1178,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 10:53",
@@ -1198,8 +1198,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 10:28",
@@ -1218,8 +1218,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 10:16",
@@ -1238,8 +1238,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 10:16",
@@ -1258,8 +1258,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 10:16",
@@ -1278,8 +1278,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 9:53",
@@ -1298,8 +1298,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 9:50",
@@ -1318,8 +1318,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 9:24",
@@ -1338,8 +1338,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 9:17",
@@ -1358,8 +1358,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 9:16",
@@ -1378,8 +1378,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 9:16",
@@ -1398,8 +1398,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 8:59",
@@ -1418,8 +1418,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 8:43",
@@ -1438,8 +1438,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 8:20",
@@ -1458,8 +1458,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 8:20",
@@ -1478,8 +1478,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 8:02",
@@ -1498,8 +1498,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 7:50",
@@ -1518,8 +1518,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 7:09",
@@ -1538,8 +1538,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 7:05",
@@ -1558,8 +1558,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 6:43",
@@ -1578,8 +1578,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 6:32",
@@ -1598,8 +1598,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 6:19",
@@ -1618,8 +1618,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 6:19",
@@ -1638,8 +1638,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 6:19",
@@ -1658,8 +1658,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 6:00",
@@ -1678,8 +1678,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:41",
@@ -1698,8 +1698,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:29",
@@ -1718,8 +1718,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:29",
@@ -1738,8 +1738,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:18",
@@ -1758,8 +1758,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:18",
@@ -1778,8 +1778,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:18",
@@ -1798,8 +1798,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 5:01",
@@ -1818,8 +1818,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 4:40",
@@ -1838,8 +1838,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 4:24",
@@ -1858,8 +1858,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 4:08",
@@ -1878,8 +1878,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 3:54",
@@ -1898,8 +1898,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 3:41",
@@ -1918,8 +1918,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 3:41",
@@ -1938,8 +1938,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 3:41",
@@ -1958,8 +1958,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 3:16",
@@ -1978,8 +1978,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 3:12",
@@ -1998,8 +1998,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 2:51",
@@ -2018,8 +2018,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 2:40",
@@ -2038,8 +2038,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 2:24",
@@ -2058,8 +2058,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 1:59",
@@ -2078,8 +2078,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 1:26",
@@ -2098,8 +2098,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 1:26",
@@ -2118,8 +2118,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 1:26",
@@ -2138,8 +2138,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 1:26",
@@ -2158,8 +2158,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:57",
@@ -2178,8 +2178,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:57",
@@ -2198,8 +2198,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:57",
@@ -2218,8 +2218,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:36",
@@ -2238,8 +2238,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:36",
@@ -2258,8 +2258,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:32",
@@ -2278,8 +2278,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:32",
@@ -2298,8 +2298,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:32",
@@ -2318,8 +2318,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:32",
@@ -2338,8 +2338,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:04",
@@ -2358,8 +2358,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:04",
@@ -2378,8 +2378,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q2 0:04",
@@ -2398,8 +2398,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 12:00",
@@ -2418,8 +2418,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 11:43",
@@ -2438,8 +2438,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 10:55",
@@ -2458,8 +2458,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 10:50",
@@ -2478,8 +2478,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 10:34",
@@ -2498,8 +2498,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 10:34",
@@ -2518,8 +2518,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 10:27",
@@ -2538,8 +2538,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 9:50",
@@ -2558,8 +2558,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 9:43",
@@ -2578,8 +2578,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 9:14",
@@ -2598,8 +2598,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 9:14",
@@ -2618,8 +2618,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 9:14",
@@ -2638,8 +2638,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 8:25",
@@ -2658,8 +2658,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 8:25",
@@ -2678,8 +2678,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 8:25",
@@ -2698,8 +2698,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 8:25",
@@ -2718,8 +2718,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 8:06",
@@ -2738,8 +2738,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 7:37",
@@ -2758,8 +2758,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 7:37",
@@ -2778,8 +2778,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 7:37",
@@ -2798,8 +2798,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 7:37",
@@ -2818,8 +2818,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 7:21",
@@ -2838,8 +2838,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:59",
@@ -2858,8 +2858,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:59",
@@ -2878,8 +2878,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:59",
@@ -2898,8 +2898,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:59",
@@ -2918,8 +2918,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:39",
@@ -2938,8 +2938,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:38",
@@ -2958,8 +2958,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:27",
@@ -2978,8 +2978,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 6:04",
@@ -2998,8 +2998,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 5:24",
@@ -3018,8 +3018,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 5:07",
@@ -3038,8 +3038,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 4:43",
@@ -3058,8 +3058,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 4:39",
@@ -3078,8 +3078,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 4:39",
@@ -3098,8 +3098,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 4:39",
@@ -3118,8 +3118,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 4:17",
@@ -3138,8 +3138,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 4:16",
@@ -3158,8 +3158,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 3:39",
@@ -3178,8 +3178,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 3:34",
@@ -3198,8 +3198,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 2:57",
@@ -3218,8 +3218,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 2:47",
@@ -3238,8 +3238,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 2:28",
@@ -3258,8 +3258,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 1:56",
@@ -3278,8 +3278,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 1:40",
@@ -3298,8 +3298,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 1:18",
@@ -3318,8 +3318,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 1:00",
@@ -3338,8 +3338,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 0:55",
@@ -3358,8 +3358,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 0:29",
@@ -3378,8 +3378,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 0:29",
@@ -3398,8 +3398,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 0:29",
@@ -3418,8 +3418,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 0:26",
@@ -3438,8 +3438,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q3 0:10",
@@ -3458,8 +3458,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 12:00",
@@ -3478,8 +3478,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 12:00",
@@ -3498,8 +3498,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 11:45",
@@ -3518,8 +3518,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 11:45",
@@ -3538,8 +3538,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 10:38",
@@ -3558,8 +3558,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 10:38",
@@ -3578,8 +3578,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 10:38",
@@ -3598,8 +3598,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 10:11",
@@ -3618,8 +3618,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 10:05",
@@ -3638,8 +3638,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 10:05",
@@ -3658,8 +3658,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 9:48",
@@ -3678,8 +3678,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 9:19",
@@ -3698,8 +3698,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 9:19",
@@ -3718,8 +3718,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 9:19",
@@ -3738,8 +3738,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 9:19",
@@ -3758,8 +3758,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 8:56",
@@ -3778,8 +3778,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 8:56",
@@ -3798,8 +3798,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 8:49",
@@ -3818,8 +3818,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 8:28",
@@ -3838,8 +3838,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 8:17",
@@ -3858,8 +3858,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 7:19",
@@ -3878,8 +3878,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3898,8 +3898,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 5:52",
@@ -3918,8 +3918,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 5:29",
@@ -3938,8 +3938,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 5:03",
@@ -3958,8 +3958,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 5:02",
@@ -3978,8 +3978,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 5:02",
@@ -3998,8 +3998,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 4:42",
@@ -4018,8 +4018,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 4:42",
@@ -4038,8 +4038,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 4:42",
@@ -4058,8 +4058,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 4:42",
@@ -4078,8 +4078,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 3:47",
@@ -4098,8 +4098,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 3:34",
@@ -4118,8 +4118,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 3:34",
@@ -4138,8 +4138,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 3:32",
@@ -4158,8 +4158,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 3:20",
@@ -4178,8 +4178,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 2:50",
@@ -4198,8 +4198,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 2:29",
@@ -4218,8 +4218,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 2:01",
@@ -4238,8 +4238,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 2:01",
@@ -4258,8 +4258,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 2:01",
@@ -4277,8 +4277,8 @@ window.NBA_REPLAY = [
     "elapsed_seconds": 2759,
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:58",
@@ -4297,8 +4297,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:52",
@@ -4317,8 +4317,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:52",
@@ -4337,8 +4337,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:52",
@@ -4357,8 +4357,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:36",
@@ -4377,8 +4377,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:22",
@@ -4397,8 +4397,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:13",
@@ -4417,8 +4417,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:13",
@@ -4437,8 +4437,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 1:13",
@@ -4457,8 +4457,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:51",
@@ -4477,8 +4477,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:31",
@@ -4497,8 +4497,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:26",
@@ -4517,8 +4517,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:22",
@@ -4537,8 +4537,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:06",
@@ -4557,8 +4557,8 @@ window.NBA_REPLAY = [
     "possession": "away",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:04",
@@ -4577,8 +4577,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:01",
@@ -4597,8 +4597,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:00",
@@ -4617,8 +4617,8 @@ window.NBA_REPLAY = [
     "possession": "home",
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "Q4 0:00",
@@ -4636,8 +4636,8 @@ window.NBA_REPLAY = [
     "elapsed_seconds": 2880,
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   },
   {
     "clock": "FINAL",
@@ -4655,7 +4655,7 @@ window.NBA_REPLAY = [
     "elapsed_seconds": 2880,
     "home_color": "#552583",
     "away_color": "#0E2240",
-    "home_logo": "logos/nba/LAL.png",
-    "away_logo": "logos/nba/DEN.png"
+    "home_logo": "assets/logos/nba/LAL.png",
+    "away_logo": "assets/logos/nba/DEN.png"
   }
 ];

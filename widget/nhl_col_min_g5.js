@@ -17,8 +17,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 0,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 20:00",
@@ -36,8 +36,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 0,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 19:26",
@@ -55,8 +55,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 34,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 18:53",
@@ -74,8 +74,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 67,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 17:56",
@@ -93,8 +93,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 124,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 17:00",
@@ -112,8 +112,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 180,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 15:53",
@@ -131,8 +131,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 247,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 14:52",
@@ -150,8 +150,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 308,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 13:45",
@@ -169,8 +169,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 375,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 12:47",
@@ -188,8 +188,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 433,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 11:58",
@@ -207,8 +207,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 482,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 10:58",
@@ -226,8 +226,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 542,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 9:42",
@@ -245,8 +245,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 618,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 8:57",
@@ -264,8 +264,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 663,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 7:36",
@@ -283,8 +283,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 744,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 6:46",
@@ -302,8 +302,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 794,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 5:50",
@@ -321,8 +321,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 850,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 4:50",
@@ -340,8 +340,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 910,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 4:04",
@@ -359,8 +359,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 956,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 3:49",
@@ -378,8 +378,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 971,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 2:57",
@@ -397,8 +397,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1023,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 1:57",
@@ -416,8 +416,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1083,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 0:27",
@@ -435,8 +435,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1173,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P1 0:00",
@@ -454,8 +454,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1200,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 20:00",
@@ -473,8 +473,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1200,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 18:57",
@@ -492,8 +492,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1263,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 17:40",
@@ -511,8 +511,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1340,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 17:00",
@@ -530,8 +530,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1380,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 15:59",
@@ -549,8 +549,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1441,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 14:53",
@@ -568,8 +568,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1507,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 13:56",
@@ -587,8 +587,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1564,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 12:13",
@@ -606,8 +606,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1667,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 11:58",
@@ -625,8 +625,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1682,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 10:45",
@@ -644,8 +644,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1755,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 9:50",
@@ -663,8 +663,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1810,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 9:00",
@@ -682,8 +682,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1860,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 7:56",
@@ -701,8 +701,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1924,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 6:59",
@@ -720,8 +720,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 1981,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 5:56",
@@ -739,8 +739,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2044,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 4:49",
@@ -758,8 +758,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2111,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 3:51",
@@ -777,8 +777,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2169,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 2:47",
@@ -796,8 +796,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2233,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 1:40",
@@ -815,8 +815,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2300,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P2 0:00",
@@ -834,8 +834,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2400,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 20:00",
@@ -853,8 +853,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2400,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 18:58",
@@ -872,8 +872,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2462,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 17:57",
@@ -891,8 +891,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2523,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 16:44",
@@ -910,8 +910,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2596,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 15:56",
@@ -929,8 +929,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2644,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 14:49",
@@ -948,8 +948,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2711,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 13:50",
@@ -967,8 +967,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2770,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 13:00",
@@ -986,8 +986,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2820,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 11:31",
@@ -1005,8 +1005,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2909,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 10:48",
@@ -1024,8 +1024,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 2952,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 9:38",
@@ -1043,8 +1043,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3022,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 8:43",
@@ -1062,8 +1062,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3077,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 7:48",
@@ -1081,8 +1081,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3132,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 7:00",
@@ -1100,8 +1100,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3180,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 5:53",
@@ -1119,8 +1119,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3247,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 4:58",
@@ -1138,8 +1138,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3302,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 3:48",
@@ -1157,8 +1157,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3372,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 3:33",
@@ -1176,8 +1176,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3387,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 2:51",
@@ -1195,8 +1195,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3429,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 1:59",
@@ -1214,8 +1214,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3481,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 1:23",
@@ -1233,8 +1233,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3517,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 0:50",
@@ -1252,8 +1252,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3550,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "P3 0:00",
@@ -1271,8 +1271,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3600,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "OT 20:00",
@@ -1290,8 +1290,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3600,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "OT 18:55",
@@ -1309,8 +1309,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3665,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "OT 17:50",
@@ -1328,8 +1328,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3730,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "OT 16:59",
@@ -1347,8 +1347,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3781,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "OT 16:08",
@@ -1366,8 +1366,8 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3832,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   },
   {
     "clock": "FINAL",
@@ -1385,7 +1385,7 @@ window.NHL_REPLAY = [
     "elapsed_seconds": 3832,
     "home_color": "#6F263D",
     "away_color": "#154734",
-    "home_logo": "logos/nhl/COL.png",
-    "away_logo": "logos/nhl/MIN.png"
+    "home_logo": "assets/logos/nhl/COL.png",
+    "away_logo": "assets/logos/nhl/MIN.png"
   }
 ];

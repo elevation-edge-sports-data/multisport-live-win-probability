@@ -28,10 +28,12 @@ from mswp.config import SportConfig
 
 from live_wp.colors import team_color
 
-# PNGs already stored next to the widget. Paths below are relative to index.html.
-_WIDGET_DIR = Path(__file__).resolve().parents[2] / "widget"
-_LOGO_ROOT = _WIDGET_DIR / "logos"
-_LOGO_SPORTS = {"nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"}
+# Marks live under assets/logos. The path is relative to the repo root page.
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_WIDGET_DIR = _REPO_ROOT / "widget"
+_LOGO_ROOT = _REPO_ROOT / "assets" / "logos"
+_LOGO_SPORTS = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
+_LOGO_NAMES: dict[str, dict[str, str]] | None = None
 _BINDING_RE = re.compile(r"window\.(NFL|NHL|NBA|NCAAF|NCAAH|NCAAB)_REPLAY\s*=")
 _SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
 # The page opens the first NFL entry. Keep the six presentation demos first in each sport.
@@ -239,21 +241,44 @@ def format_line(state: GameState, wp: float) -> str:
     return f"{format_clock(state)} | {score} | {wp:.3f}"
 
 
-def team_logo(name: str, *, sport: str = "nfl") -> str | None:
-    """Relative logo path when ``widget/logos/{sport}/{ABBR}.png`` exists.
+def _logo_names() -> dict[str, dict[str, str]]:
+    """Filename stems keyed by sport and uppercase stem.
 
-    Unknown names, including Harbor and Red Oak, return None so the page
-    can omit the image. NFL, NHL, and college football each use their own
-    folder. A missing file hides the image.
+    The directory entry keeps its own spelling. A case-insensitive volume
+    would otherwise treat ``jax.png`` as the file ``JAX.png``.
+    """
+    global _LOGO_NAMES
+    if _LOGO_NAMES is None:
+        index: dict[str, dict[str, str]] = {}
+        for sport in _LOGO_SPORTS:
+            folder = _LOGO_ROOT / sport
+            names: dict[str, str] = {}
+            if folder.is_dir():
+                for entry in folder.iterdir():
+                    if entry.suffix.lower() != ".png":
+                        continue
+                    names[entry.stem.upper()] = entry.stem
+            index[sport] = names
+        _LOGO_NAMES = index
+    return _LOGO_NAMES
+
+
+def team_logo(name: str, *, sport: str = "nfl") -> str | None:
+    """Logo URL relative to the repo root page when the PNG exists.
+
+    The file is ``assets/logos/{sport}/{stem}.png``. Unknown names,
+    including Harbor and Red Oak, return None so the page can omit the
+    image. Each sport has its own folder. A missing file hides the image.
     """
     if sport not in _LOGO_SPORTS or not isinstance(name, str):
         return None
-    abbr = name.strip().upper()
-    if not abbr.isalnum():
+    abbr = name.strip()
+    if not abbr or "/" in abbr or "\\" in abbr or ".." in abbr:
         return None
-    if not (_LOGO_ROOT / sport / f"{abbr}.png").is_file():
+    stem = _logo_names().get(sport, {}).get(abbr.upper())
+    if stem is None:
         return None
-    return f"logos/{sport}/{abbr}.png"
+    return f"assets/logos/{sport}/{stem}.png"
 
 
 _SITUATION_FIELDS = (

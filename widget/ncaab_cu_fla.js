@@ -18,8 +18,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 19:42",
@@ -38,8 +38,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 19:23",
@@ -58,8 +58,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 19:23",
@@ -78,8 +78,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 19:16",
@@ -98,8 +98,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 19:04",
@@ -118,8 +118,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 18:36",
@@ -138,8 +138,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 18:27",
@@ -158,8 +158,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:48",
@@ -178,8 +178,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:48",
@@ -198,8 +198,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:40",
@@ -218,8 +218,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:20",
@@ -238,8 +238,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:20",
@@ -258,8 +258,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:20",
@@ -278,8 +278,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 17:12",
@@ -298,8 +298,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 16:52",
@@ -318,8 +318,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 16:34",
@@ -338,8 +338,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 16:09",
@@ -358,8 +358,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 15:44",
@@ -378,8 +378,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 15:33",
@@ -398,8 +398,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 14:32",
@@ -418,8 +418,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 14:25",
@@ -438,8 +438,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 13:50",
@@ -458,8 +458,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 13:50",
@@ -478,8 +478,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 13:48",
@@ -498,8 +498,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 13:12",
@@ -518,8 +518,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 13:02",
@@ -538,8 +538,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 12:44",
@@ -558,8 +558,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 12:44",
@@ -578,8 +578,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 12:39",
@@ -598,8 +598,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 11:57",
@@ -618,8 +618,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 11:57",
@@ -638,8 +638,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 11:45",
@@ -658,8 +658,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 11:14",
@@ -678,8 +678,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 11:14",
@@ -698,8 +698,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 11:08",
@@ -718,8 +718,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 10:04",
@@ -738,8 +738,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 10:04",
@@ -758,8 +758,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 9:42",
@@ -778,8 +778,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 9:28",
@@ -798,8 +798,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 9:28",
@@ -818,8 +818,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:59",
@@ -838,8 +838,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:59",
@@ -858,8 +858,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:59",
@@ -878,8 +878,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:31",
@@ -898,8 +898,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:31",
@@ -918,8 +918,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:31",
@@ -938,8 +938,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:02",
@@ -958,8 +958,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 8:02",
@@ -978,8 +978,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 7:54",
@@ -998,8 +998,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 7:31",
@@ -1018,8 +1018,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 7:21",
@@ -1038,8 +1038,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 7:00",
@@ -1058,8 +1058,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 7:00",
@@ -1077,8 +1077,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 780,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 6:49",
@@ -1097,8 +1097,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 6:22",
@@ -1117,8 +1117,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 6:22",
@@ -1137,8 +1137,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 6:00",
@@ -1157,8 +1157,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 5:32",
@@ -1177,8 +1177,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 5:32",
@@ -1197,8 +1197,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 5:32",
@@ -1217,8 +1217,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 4:16",
@@ -1237,8 +1237,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 4:16",
@@ -1257,8 +1257,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 4:16",
@@ -1277,8 +1277,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 4:01",
@@ -1297,8 +1297,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 3:46",
@@ -1317,8 +1317,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 3:46",
@@ -1337,8 +1337,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 3:36",
@@ -1357,8 +1357,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:58",
@@ -1377,8 +1377,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:58",
@@ -1397,8 +1397,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:50",
@@ -1417,8 +1417,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:30",
@@ -1437,8 +1437,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:30",
@@ -1457,8 +1457,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:30",
@@ -1476,8 +1476,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 1050,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:30",
@@ -1496,8 +1496,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:16",
@@ -1516,8 +1516,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:16",
@@ -1536,8 +1536,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 2:16",
@@ -1556,8 +1556,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:53",
@@ -1576,8 +1576,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:40",
@@ -1596,8 +1596,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:06",
@@ -1616,8 +1616,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:06",
@@ -1636,8 +1636,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:06",
@@ -1656,8 +1656,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:02",
@@ -1676,8 +1676,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 1:02",
@@ -1695,8 +1695,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 1138,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 0:43",
@@ -1715,8 +1715,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 0:28",
@@ -1735,8 +1735,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H1 0:05",
@@ -1755,8 +1755,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 20:00",
@@ -1775,8 +1775,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 19:47",
@@ -1795,8 +1795,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 19:12",
@@ -1815,8 +1815,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 19:12",
@@ -1835,8 +1835,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 19:12",
@@ -1855,8 +1855,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 18:59",
@@ -1875,8 +1875,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 18:34",
@@ -1895,8 +1895,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 18:17",
@@ -1915,8 +1915,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 18:17",
@@ -1935,8 +1935,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 18:17",
@@ -1955,8 +1955,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 17:47",
@@ -1975,8 +1975,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 17:47",
@@ -1995,8 +1995,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 17:36",
@@ -2015,8 +2015,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 17:27",
@@ -2035,8 +2035,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 16:57",
@@ -2055,8 +2055,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 16:57",
@@ -2075,8 +2075,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 16:43",
@@ -2095,8 +2095,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 15:50",
@@ -2115,8 +2115,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 15:50",
@@ -2134,8 +2134,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 1450,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 15:50",
@@ -2154,8 +2154,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 15:50",
@@ -2174,8 +2174,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 15:34",
@@ -2194,8 +2194,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 15:19",
@@ -2214,8 +2214,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 14:16",
@@ -2234,8 +2234,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 14:16",
@@ -2254,8 +2254,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 14:08",
@@ -2274,8 +2274,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 14:04",
@@ -2294,8 +2294,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:55",
@@ -2314,8 +2314,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:40",
@@ -2334,8 +2334,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:40",
@@ -2354,8 +2354,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:40",
@@ -2374,8 +2374,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:19",
@@ -2394,8 +2394,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:19",
@@ -2414,8 +2414,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 13:06",
@@ -2434,8 +2434,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 12:39",
@@ -2454,8 +2454,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 12:39",
@@ -2474,8 +2474,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 12:28",
@@ -2494,8 +2494,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 12:25",
@@ -2514,8 +2514,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 12:25",
@@ -2533,8 +2533,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 1655,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 12:05",
@@ -2553,8 +2553,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 11:51",
@@ -2573,8 +2573,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 11:35",
@@ -2593,8 +2593,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 11:35",
@@ -2613,8 +2613,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 11:35",
@@ -2632,8 +2632,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 1705,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 11:35",
@@ -2652,8 +2652,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:58",
@@ -2672,8 +2672,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:58",
@@ -2692,8 +2692,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:37",
@@ -2712,8 +2712,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:10",
@@ -2732,8 +2732,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:10",
@@ -2752,8 +2752,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:10",
@@ -2772,8 +2772,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 10:00",
@@ -2792,8 +2792,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 9:41",
@@ -2812,8 +2812,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 9:41",
@@ -2832,8 +2832,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 9:32",
@@ -2852,8 +2852,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 9:32",
@@ -2872,8 +2872,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 9:13",
@@ -2892,8 +2892,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 8:47",
@@ -2912,8 +2912,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 8:43",
@@ -2932,8 +2932,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 8:24",
@@ -2952,8 +2952,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 8:13",
@@ -2972,8 +2972,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:44",
@@ -2992,8 +2992,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:44",
@@ -3012,8 +3012,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:44",
@@ -3032,8 +3032,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:43",
@@ -3052,8 +3052,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:43",
@@ -3072,8 +3072,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:43",
@@ -3091,8 +3091,8 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 1937,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:39",
@@ -3111,8 +3111,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:39",
@@ -3131,8 +3131,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:39",
@@ -3151,8 +3151,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:24",
@@ -3171,8 +3171,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:24",
@@ -3191,8 +3191,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:24",
@@ -3211,8 +3211,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:09",
@@ -3231,8 +3231,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:09",
@@ -3251,8 +3251,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 7:09",
@@ -3271,8 +3271,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 6:50",
@@ -3291,8 +3291,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 6:50",
@@ -3311,8 +3311,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 6:50",
@@ -3331,8 +3331,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 6:26",
@@ -3351,8 +3351,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 6:26",
@@ -3371,8 +3371,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 6:06",
@@ -3391,8 +3391,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 5:23",
@@ -3411,8 +3411,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 5:23",
@@ -3431,8 +3431,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 5:23",
@@ -3451,8 +3451,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 5:16",
@@ -3471,8 +3471,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:49",
@@ -3491,8 +3491,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:49",
@@ -3511,8 +3511,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:36",
@@ -3531,8 +3531,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:36",
@@ -3551,8 +3551,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:30",
@@ -3571,8 +3571,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:17",
@@ -3591,8 +3591,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:17",
@@ -3611,8 +3611,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 4:17",
@@ -3631,8 +3631,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 3:46",
@@ -3651,8 +3651,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 3:46",
@@ -3671,8 +3671,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 3:46",
@@ -3691,8 +3691,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 3:15",
@@ -3711,8 +3711,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 3:15",
@@ -3731,8 +3731,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:44",
@@ -3751,8 +3751,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:38",
@@ -3771,8 +3771,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:19",
@@ -3791,8 +3791,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:19",
@@ -3811,8 +3811,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:19",
@@ -3831,8 +3831,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:11",
@@ -3851,8 +3851,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:11",
@@ -3871,8 +3871,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:11",
@@ -3891,8 +3891,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 2:06",
@@ -3911,8 +3911,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:32",
@@ -3931,8 +3931,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:26",
@@ -3951,8 +3951,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:26",
@@ -3971,8 +3971,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:26",
@@ -3991,8 +3991,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:18",
@@ -4011,8 +4011,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:18",
@@ -4031,8 +4031,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 1:18",
@@ -4051,8 +4051,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:51",
@@ -4071,8 +4071,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:41",
@@ -4091,8 +4091,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:38",
@@ -4111,8 +4111,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:37",
@@ -4131,8 +4131,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:35",
@@ -4151,8 +4151,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:35",
@@ -4171,8 +4171,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:22",
@@ -4191,8 +4191,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:22",
@@ -4211,8 +4211,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:22",
@@ -4231,8 +4231,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:14",
@@ -4251,8 +4251,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:14",
@@ -4271,8 +4271,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:14",
@@ -4291,8 +4291,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:11",
@@ -4311,8 +4311,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:06",
@@ -4331,8 +4331,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:02",
@@ -4351,8 +4351,8 @@ window.NCAAB_REPLAY = [
     "possession": "away",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "H2 0:01",
@@ -4371,8 +4371,8 @@ window.NCAAB_REPLAY = [
     "possession": "home",
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   },
   {
     "clock": "FINAL",
@@ -4390,7 +4390,7 @@ window.NCAAB_REPLAY = [
     "elapsed_seconds": 2400,
     "home_color": "#0021A5",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaab/FLA.png",
-    "away_logo": "logos/ncaab/COLO.png"
+    "home_logo": "assets/logos/ncaab/FLA.png",
+    "away_logo": "assets/logos/ncaab/COLO.png"
   }
 ];

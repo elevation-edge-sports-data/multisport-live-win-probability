@@ -1,0 +1,5478 @@
+[
+  {
+    "sport": "ncaab",
+    "id": "2010",
+    "abbreviation": "AAMU",
+    "aliases": [
+      "Alabama A&M Bulldogs",
+      "Alabama A&M",
+      "alabama-am-bulldogs"
+    ],
+    "primary": "#790000",
+    "secondary": "#FFFFFF",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/AAMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2000",
+    "abbreviation": "ACU",
+    "aliases": [
+      "Abilene Christian Wildcats",
+      "Abilene Christian",
+      "abilene-christian-wildcats"
+    ],
+    "primary": "#592D82",
+    "secondary": "#B1B3B3",
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ACU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2005",
+    "abbreviation": "AF",
+    "aliases": [
+      "Air Force Falcons",
+      "Air Force",
+      "air-force-falcons"
+    ],
+    "primary": "#003594",
+    "secondary": "#FFFFFF",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/AF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2006",
+    "abbreviation": "AKR",
+    "aliases": [
+      "Akron Zips",
+      "Akron",
+      "akron-zips"
+    ],
+    "primary": "#041E42",
+    "secondary": "#C5B783",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/AKR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "333",
+    "abbreviation": "ALA",
+    "aliases": [
+      "Alabama Crimson Tide",
+      "Alabama",
+      "alabama-crimson-tide"
+    ],
+    "primary": "#9E1B32",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ALA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2016",
+    "abbreviation": "ALCN",
+    "aliases": [
+      "Alcorn State Braves",
+      "Alcorn State",
+      "alcorn-state-braves"
+    ],
+    "primary": "#4B0058",
+    "secondary": "#46166A",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ALCN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2011",
+    "abbreviation": "ALST",
+    "aliases": [
+      "Alabama State Hornets",
+      "Alabama State",
+      "alabama-state-hornets"
+    ],
+    "primary": "#E9A900",
+    "secondary": "#0A0A0A",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ALST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "357",
+    "abbreviation": "AMCC",
+    "aliases": [
+      "Texas A&M-Corpus Christi Islanders",
+      "Texas A&M-Corpus Christi",
+      "texas-am-corpus-christi-islanders"
+    ],
+    "primary": "#0067C5",
+    "secondary": "#007F3E",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/AMCC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "44",
+    "abbreviation": "AMER",
+    "aliases": [
+      "American University Eagles",
+      "American University",
+      "american-university-eagles"
+    ],
+    "primary": "#C41130",
+    "secondary": "#C8102E",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/AMER.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2026",
+    "abbreviation": "APP",
+    "aliases": [
+      "App State Mountaineers",
+      "App State",
+      "app-state-mountaineers"
+    ],
+    "primary": "#000000",
+    "secondary": "#FFCD00",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/APP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2046",
+    "abbreviation": "APSU",
+    "aliases": [
+      "Austin Peay Governors",
+      "Austin Peay",
+      "austin-peay-governors"
+    ],
+    "primary": "#8E0B0B",
+    "secondary": null,
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/APSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "12",
+    "abbreviation": "ARIZ",
+    "aliases": [
+      "Arizona Wildcats",
+      "Arizona",
+      "arizona-wildcats"
+    ],
+    "primary": "#CC0033",
+    "secondary": "#003366",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ARIZ.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "8",
+    "abbreviation": "ARK",
+    "aliases": [
+      "Arkansas Razorbacks",
+      "Arkansas",
+      "arkansas-razorbacks"
+    ],
+    "primary": "#A32136",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ARK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "349",
+    "abbreviation": "ARMY",
+    "aliases": [
+      "Army Black Knights",
+      "Army",
+      "army-black-knights"
+    ],
+    "primary": "#000000",
+    "secondary": "#D3BC8D",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/ARMY.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2032",
+    "abbreviation": "ARST",
+    "aliases": [
+      "Arkansas State Red Wolves",
+      "Arkansas State",
+      "arkansas-state-red-wolves"
+    ],
+    "primary": "#CC092F",
+    "secondary": "#000000",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ARST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "9",
+    "abbreviation": "ASU",
+    "aliases": [
+      "Arizona State Sun Devils",
+      "Arizona State",
+      "arizona-state-sun-devils"
+    ],
+    "primary": "#FFC627",
+    "secondary": "#8C1D40",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ASU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2",
+    "abbreviation": "AUB",
+    "aliases": [
+      "Auburn Tigers",
+      "Auburn",
+      "auburn-tigers"
+    ],
+    "primary": "#002B5C",
+    "secondary": "#F26522",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/AUB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2050",
+    "abbreviation": "BALL",
+    "aliases": [
+      "Ball State Cardinals",
+      "Ball State",
+      "ball-state-cardinals"
+    ],
+    "primary": "#BA0C2F",
+    "secondary": "#FFFFFF",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BALL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "239",
+    "abbreviation": "BAY",
+    "aliases": [
+      "Baylor Bears",
+      "Baylor",
+      "baylor-bears"
+    ],
+    "primary": "#154734",
+    "secondary": "#FFB81C",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BAY.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "103",
+    "abbreviation": "BC",
+    "aliases": [
+      "Boston College Eagles",
+      "Boston College",
+      "boston-college-eagles"
+    ],
+    "primary": "#8C2232",
+    "secondary": "#DBCCA6",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2065",
+    "abbreviation": "BCU",
+    "aliases": [
+      "Bethune-Cookman Wildcats",
+      "Bethune-Cookman",
+      "bethune-cookman-wildcats"
+    ],
+    "primary": "#7B1831",
+    "secondary": "#E9AA12",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2057",
+    "abbreviation": "BEL",
+    "aliases": [
+      "Belmont Bruins",
+      "Belmont",
+      "belmont-bruins"
+    ],
+    "primary": "#182142",
+    "secondary": "#C9262D",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BEL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "91",
+    "abbreviation": "BELL",
+    "aliases": [
+      "Bellarmine Knights",
+      "Bellarmine",
+      "bellarmine-knights"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BELL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "189",
+    "abbreviation": "BGSU",
+    "aliases": [
+      "Bowling Green Falcons",
+      "Bowling Green",
+      "bowling-green-falcons"
+    ],
+    "primary": "#FD5000",
+    "secondary": "#4F2C1D",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BGSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2066",
+    "abbreviation": "BING",
+    "aliases": [
+      "Binghamton Bearcats",
+      "Binghamton",
+      "binghamton-bearcats"
+    ],
+    "primary": "#00614A",
+    "secondary": "#F0F0F0",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BING.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "68",
+    "abbreviation": "BOIS",
+    "aliases": [
+      "Boise State Broncos",
+      "Boise State",
+      "boise-state-broncos"
+    ],
+    "primary": "#0033A0",
+    "secondary": "#D64309",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BOIS.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "71",
+    "abbreviation": "BRAD",
+    "aliases": [
+      "Bradley Braves",
+      "Bradley",
+      "bradley-braves"
+    ],
+    "primary": "#B70002",
+    "secondary": "#C0C0C0",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BRAD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "225",
+    "abbreviation": "BRWN",
+    "aliases": [
+      "Brown Bears",
+      "Brown",
+      "brown-bears"
+    ],
+    "primary": "#411E09",
+    "secondary": "#949300",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/BRWN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2803",
+    "abbreviation": "BRY",
+    "aliases": [
+      "Bryant Bulldogs",
+      "Bryant",
+      "bryant-bulldogs"
+    ],
+    "primary": "#000000",
+    "secondary": "#9F8343",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BRY.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2086",
+    "abbreviation": "BTLR",
+    "aliases": [
+      "Butler Bulldogs",
+      "Butler",
+      "butler-bulldogs"
+    ],
+    "primary": "#0D1361",
+    "secondary": "#00A3E0",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BTLR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "104",
+    "abbreviation": "BU",
+    "aliases": [
+      "Boston University Terriers",
+      "Boston University",
+      "boston-university-terriers"
+    ],
+    "primary": "#CC0000",
+    "secondary": "#FFFFFF",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/BU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2083",
+    "abbreviation": "BUCK",
+    "aliases": [
+      "Bucknell Bison",
+      "Bucknell",
+      "bucknell-bison"
+    ],
+    "primary": "#000060",
+    "secondary": "#00316E",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/BUCK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2084",
+    "abbreviation": "BUF",
+    "aliases": [
+      "Buffalo Bulls",
+      "Buffalo",
+      "buffalo-bulls"
+    ],
+    "primary": "#005BBB",
+    "secondary": "#FFFFFF",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BUF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "252",
+    "abbreviation": "BYU",
+    "aliases": [
+      "BYU Cougars",
+      "BYU",
+      "byu-cougars"
+    ],
+    "primary": "#0047BA",
+    "secondary": "#002E5D",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/BYU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "25",
+    "abbreviation": "CAL",
+    "aliases": [
+      "California Golden Bears",
+      "California",
+      "california-golden-bears"
+    ],
+    "primary": "#041E42",
+    "secondary": "#FFC72C",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CAL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2097",
+    "abbreviation": "CAM",
+    "aliases": [
+      "Campbell Fighting Camels",
+      "Campbell",
+      "campbell-fighting-camels"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/CAM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2099",
+    "abbreviation": "CAN",
+    "aliases": [
+      "Canisius Golden Griffins",
+      "Canisius",
+      "canisius-golden-griffins"
+    ],
+    "primary": "#004A81",
+    "secondary": "#DDA50F",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CAN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2110",
+    "abbreviation": "CARK",
+    "aliases": [
+      "Central Arkansas Bears",
+      "Central Arkansas",
+      "central-arkansas-bears"
+    ],
+    "primary": "#A7A9AC",
+    "secondary": "#8E959A",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CARK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2856",
+    "abbreviation": "CBU",
+    "aliases": [
+      "California Baptist Lancers",
+      "California Baptist",
+      "california-baptist-lancers"
+    ],
+    "primary": "#000080",
+    "secondary": null,
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CBU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2115",
+    "abbreviation": "CCSU",
+    "aliases": [
+      "Central Connecticut Blue Devils",
+      "Central Connecticut",
+      "central-connecticut-blue-devils"
+    ],
+    "primary": "#1B49A2",
+    "secondary": "#D1D5D8",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CCSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "324",
+    "abbreviation": "CCU",
+    "aliases": [
+      "Coastal Carolina Chanticleers",
+      "Coastal Carolina",
+      "coastal-carolina-chanticleers"
+    ],
+    "primary": "#006F71",
+    "secondary": "#A27752",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2127",
+    "abbreviation": "CHSO",
+    "aliases": [
+      "Charleston Southern Buccaneers",
+      "Charleston Southern",
+      "charleston-southern-buccaneers"
+    ],
+    "primary": "#2E3192",
+    "secondary": "#DED090",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CHSO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2130",
+    "abbreviation": "CHST",
+    "aliases": [
+      "Chicago State Cougars",
+      "Chicago State",
+      "chicago-state-cougars"
+    ],
+    "primary": "#006700",
+    "secondary": null,
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CHST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2132",
+    "abbreviation": "CIN",
+    "aliases": [
+      "Cincinnati Bearcats",
+      "Cincinnati",
+      "cincinnati-bearcats"
+    ],
+    "primary": "#000000",
+    "secondary": "#E00122",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CIN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2643",
+    "abbreviation": "CIT",
+    "aliases": [
+      "The Citadel Bulldogs",
+      "The Citadel",
+      "the-citadel-bulldogs"
+    ],
+    "primary": "#7BADD3",
+    "secondary": "#002856",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CIT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "325",
+    "abbreviation": "CLE",
+    "aliases": [
+      "Cleveland State Vikings",
+      "Cleveland State",
+      "cleveland-state-vikings"
+    ],
+    "primary": "#006633",
+    "secondary": "#231F20",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/CLE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "228",
+    "abbreviation": "CLEM",
+    "aliases": [
+      "Clemson Tigers",
+      "Clemson",
+      "clemson-tigers"
+    ],
+    "primary": "#F56600",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CLEM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2429",
+    "abbreviation": "CLT",
+    "aliases": [
+      "Charlotte 49ers",
+      "Charlotte",
+      "charlotte-49ers"
+    ],
+    "primary": "#005035",
+    "secondary": "#A49665",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CLT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2117",
+    "abbreviation": "CMU",
+    "aliases": [
+      "Central Michigan Chippewas",
+      "Central Michigan",
+      "central-michigan-chippewas"
+    ],
+    "primary": "#4C0027",
+    "secondary": "#FBAB18",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "232",
+    "abbreviation": "COFC",
+    "aliases": [
+      "Charleston Cougars",
+      "Charleston",
+      "charleston-cougars"
+    ],
+    "primary": "#7A2531",
+    "secondary": "#9E8959",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/COFC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2142",
+    "abbreviation": "COLG",
+    "aliases": [
+      "Colgate Raiders",
+      "Colgate",
+      "colgate-raiders"
+    ],
+    "primary": "#821019",
+    "secondary": "#FFFFFF",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/COLG.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "38",
+    "abbreviation": "COLO",
+    "aliases": [
+      "Colorado Buffaloes",
+      "Colorado",
+      "colorado-buffaloes"
+    ],
+    "primary": "#CFB87C",
+    "secondary": "#000000",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/COLO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "171",
+    "abbreviation": "COLU",
+    "aliases": [
+      "Columbia Lions",
+      "Columbia",
+      "columbia-lions"
+    ],
+    "primary": "#7BA4DB",
+    "secondary": "#183863",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/COLU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "41",
+    "abbreviation": "CONN",
+    "aliases": [
+      "UConn Huskies",
+      "UConn",
+      "uconn-huskies"
+    ],
+    "primary": "#0C2340",
+    "secondary": "#A2AAAD",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CONN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2154",
+    "abbreviation": "COPP",
+    "aliases": [
+      "Coppin State Eagles",
+      "Coppin State",
+      "coppin-state-eagles"
+    ],
+    "primary": "#2E3192",
+    "secondary": "#FFD204",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/COPP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "172",
+    "abbreviation": "COR",
+    "aliases": [
+      "Cornell Big Red",
+      "Cornell",
+      "cornell-big-red"
+    ],
+    "primary": "#B31B1B",
+    "secondary": "#FFFFFF",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/COR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "13",
+    "abbreviation": "CP",
+    "aliases": [
+      "Cal Poly Mustangs",
+      "Cal Poly",
+      "cal-poly-mustangs"
+    ],
+    "primary": "#1E4D2B",
+    "secondary": "#EED897",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "156",
+    "abbreviation": "CREI",
+    "aliases": [
+      "Creighton Bluejays",
+      "Creighton",
+      "creighton-bluejays"
+    ],
+    "primary": "#005CA9",
+    "secondary": "#6CADDE",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CREI.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "36",
+    "abbreviation": "CSU",
+    "aliases": [
+      "Colorado State Rams",
+      "Colorado State",
+      "colorado-state-rams"
+    ],
+    "primary": "#004C23",
+    "secondary": "#C8C372",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2934",
+    "abbreviation": "CSUB",
+    "aliases": [
+      "Cal State Bakersfield Roadrunners",
+      "Cal State Bakersfield",
+      "cal-state-bakersfield-roadrunners"
+    ],
+    "primary": "#003BAB",
+    "secondary": null,
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CSUB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2239",
+    "abbreviation": "CSUF",
+    "aliases": [
+      "Cal State Fullerton Titans",
+      "Cal State Fullerton",
+      "cal-state-fullerton-titans"
+    ],
+    "primary": "#003767",
+    "secondary": "#FF8300",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CSUF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2463",
+    "abbreviation": "CSUN",
+    "aliases": [
+      "Cal State Northridge Matadors",
+      "Cal State Northridge",
+      "cal-state-northridge-matadors"
+    ],
+    "primary": "#B50000",
+    "secondary": null,
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/CSUN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "159",
+    "abbreviation": "DART",
+    "aliases": [
+      "Dartmouth Big Green",
+      "Dartmouth",
+      "dartmouth-big-green"
+    ],
+    "primary": "#005730",
+    "secondary": "#000000",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/DART.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2166",
+    "abbreviation": "DAV",
+    "aliases": [
+      "Davidson Wildcats",
+      "Davidson",
+      "davidson-wildcats"
+    ],
+    "primary": "#000000",
+    "secondary": "#E51837",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DAV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2168",
+    "abbreviation": "DAY",
+    "aliases": [
+      "Dayton Flyers",
+      "Dayton",
+      "dayton-flyers"
+    ],
+    "primary": "#004B8D",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DAY.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "48",
+    "abbreviation": "DEL",
+    "aliases": [
+      "Delaware Blue Hens",
+      "Delaware",
+      "delaware-blue-hens"
+    ],
+    "primary": "#00539F",
+    "secondary": "#FFD200",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/DEL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2172",
+    "abbreviation": "DEN",
+    "aliases": [
+      "Denver Pioneers",
+      "Denver",
+      "denver-pioneers"
+    ],
+    "primary": "#98002E",
+    "secondary": "#A8996E",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/DEN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "305",
+    "abbreviation": "DEP",
+    "aliases": [
+      "DePaul Blue Demons",
+      "DePaul",
+      "depaul-blue-demons"
+    ],
+    "primary": "#2D649C",
+    "secondary": "#CE1125",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DEP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2174",
+    "abbreviation": "DETM",
+    "aliases": [
+      "Detroit Mercy Titans",
+      "Detroit Mercy",
+      "detroit-mercy-titans"
+    ],
+    "primary": "#165B9E",
+    "secondary": "#D31733",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/DETM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2182",
+    "abbreviation": "DREX",
+    "aliases": [
+      "Drexel Dragons",
+      "Drexel",
+      "drexel-dragons"
+    ],
+    "primary": "#020260",
+    "secondary": "#FFD65A",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/DREX.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2181",
+    "abbreviation": "DRKE",
+    "aliases": [
+      "Drake Bulldogs",
+      "Drake",
+      "drake-bulldogs"
+    ],
+    "primary": "#005596",
+    "secondary": "#BEC0C2",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DRKE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2169",
+    "abbreviation": "DSU",
+    "aliases": [
+      "Delaware State Hornets",
+      "Delaware State",
+      "delaware-state-hornets"
+    ],
+    "primary": "#009CDB",
+    "secondary": "#D51C28",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "150",
+    "abbreviation": "DUKE",
+    "aliases": [
+      "Duke Blue Devils",
+      "Duke",
+      "duke-blue-devils"
+    ],
+    "primary": "#00539B",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DUKE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2184",
+    "abbreviation": "DUQ",
+    "aliases": [
+      "Duquesne Dukes",
+      "Duquesne",
+      "duquesne-dukes"
+    ],
+    "primary": "#002D62",
+    "secondary": "#B90B2E",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/DUQ.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "151",
+    "abbreviation": "ECU",
+    "aliases": [
+      "East Carolina Pirates",
+      "East Carolina",
+      "east-carolina-pirates"
+    ],
+    "primary": "#582C83",
+    "secondary": "#FFC72C",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ECU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2197",
+    "abbreviation": "EIU",
+    "aliases": [
+      "Eastern Illinois Panthers",
+      "Eastern Illinois",
+      "eastern-illinois-panthers"
+    ],
+    "primary": "#000000",
+    "secondary": "#BEBAB9",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/EIU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2198",
+    "abbreviation": "EKU",
+    "aliases": [
+      "Eastern Kentucky Colonels",
+      "Eastern Kentucky",
+      "eastern-kentucky-colonels"
+    ],
+    "primary": "#660819",
+    "secondary": "#F0F0F0",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/EKU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2210",
+    "abbreviation": "ELON",
+    "aliases": [
+      "Elon Phoenix",
+      "Elon",
+      "elon-phoenix"
+    ],
+    "primary": "#020303",
+    "secondary": "#B59A57",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/ELON.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2199",
+    "abbreviation": "EMU",
+    "aliases": [
+      "Eastern Michigan Eagles",
+      "Eastern Michigan",
+      "eastern-michigan-eagles"
+    ],
+    "primary": "#006938",
+    "secondary": "#FFFFFF",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/EMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2837",
+    "abbreviation": "ETAM",
+    "aliases": [
+      "East Texas A&M Lions",
+      "East Texas A&M",
+      "east-texas-am-lions"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ETAM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2193",
+    "abbreviation": "ETSU",
+    "aliases": [
+      "East Tennessee State Buccaneers",
+      "East Tennessee State",
+      "east-tennessee-state-buccaneers"
+    ],
+    "primary": "#002D61",
+    "secondary": "#FFC423",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ETSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "339",
+    "abbreviation": "EVAN",
+    "aliases": [
+      "Evansville Purple Aces",
+      "Evansville",
+      "evansville-purple-aces"
+    ],
+    "primary": "#663399",
+    "secondary": "#EF6F00",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/EVAN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "331",
+    "abbreviation": "EWU",
+    "aliases": [
+      "Eastern Washington Eagles",
+      "Eastern Washington",
+      "eastern-washington-eagles"
+    ],
+    "primary": "#A10022",
+    "secondary": "#ABB4BC",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/EWU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2217",
+    "abbreviation": "FAIR",
+    "aliases": [
+      "Fairfield Stags",
+      "Fairfield",
+      "fairfield-stags"
+    ],
+    "primary": "#000000",
+    "secondary": "#EBEBEB",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FAIR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "50",
+    "abbreviation": "FAMU",
+    "aliases": [
+      "Florida A&M Rattlers",
+      "Florida A&M",
+      "florida-am-rattlers"
+    ],
+    "primary": "#F89728",
+    "secondary": "#00843D",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FAMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2226",
+    "abbreviation": "FAU",
+    "aliases": [
+      "Florida Atlantic Owls",
+      "Florida Atlantic",
+      "florida-atlantic-owls"
+    ],
+    "primary": "#003366",
+    "secondary": "#CC0000",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FAU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "161",
+    "abbreviation": "FDU",
+    "aliases": [
+      "Fairleigh Dickinson Knights",
+      "Fairleigh Dickinson",
+      "fairleigh-dickinson-knights"
+    ],
+    "primary": "#72293C",
+    "secondary": "#28334A",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FDU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "526",
+    "abbreviation": "FGCU",
+    "aliases": [
+      "Florida Gulf Coast Eagles",
+      "Florida Gulf Coast",
+      "florida-gulf-coast-eagles"
+    ],
+    "primary": "#00885A",
+    "secondary": "#076C3B",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FGCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2229",
+    "abbreviation": "FIU",
+    "aliases": [
+      "Florida International Panthers",
+      "Florida International",
+      "florida-international-panthers"
+    ],
+    "primary": "#091F3F",
+    "secondary": "#C3993F",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/FIU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "57",
+    "abbreviation": "FLA",
+    "aliases": [
+      "Florida Gators",
+      "Florida",
+      "florida-gators"
+    ],
+    "primary": "#0021A5",
+    "secondary": "#FA4616",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FLA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2230",
+    "abbreviation": "FOR",
+    "aliases": [
+      "Fordham Rams",
+      "Fordham",
+      "fordham-rams"
+    ],
+    "primary": "#830032",
+    "secondary": "#909090",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FOR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "278",
+    "abbreviation": "FRES",
+    "aliases": [
+      "Fresno State Bulldogs",
+      "Fresno State",
+      "fresno-state-bulldogs"
+    ],
+    "primary": "#B1102B",
+    "secondary": "#13284C",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FRES.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "52",
+    "abbreviation": "FSU",
+    "aliases": [
+      "Florida State Seminoles",
+      "Florida State",
+      "florida-state-seminoles"
+    ],
+    "primary": "#782F40",
+    "secondary": "#CEB888",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "231",
+    "abbreviation": "FUR",
+    "aliases": [
+      "Furman Paladins",
+      "Furman",
+      "furman-paladins"
+    ],
+    "primary": "#582C83",
+    "secondary": "#FFFFFF",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/FUR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "290",
+    "abbreviation": "GASO",
+    "aliases": [
+      "Georgia Southern Eagles",
+      "Georgia Southern",
+      "georgia-southern-eagles"
+    ],
+    "primary": "#041E42",
+    "secondary": "#A3AAAE",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GASO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2247",
+    "abbreviation": "GAST",
+    "aliases": [
+      "Georgia State Panthers",
+      "Georgia State",
+      "georgia-state-panthers"
+    ],
+    "primary": "#0039A6",
+    "secondary": "#FFFFFF",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GAST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2739",
+    "abbreviation": "GB",
+    "aliases": [
+      "Green Bay Phoenix",
+      "Green Bay",
+      "green-bay-phoenix"
+    ],
+    "primary": "#006633",
+    "secondary": "#FFFFFF",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/GB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2253",
+    "abbreviation": "GCU",
+    "aliases": [
+      "Grand Canyon Lopes",
+      "Grand Canyon",
+      "grand-canyon-lopes"
+    ],
+    "primary": "#522398",
+    "secondary": "#FFFFFF",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2244",
+    "abbreviation": "GMU",
+    "aliases": [
+      "George Mason Patriots",
+      "George Mason",
+      "george-mason-patriots"
+    ],
+    "primary": "#016600",
+    "secondary": "#ECB010",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2250",
+    "abbreviation": "GONZ",
+    "aliases": [
+      "Gonzaga Bulldogs",
+      "Gonzaga",
+      "gonzaga-bulldogs"
+    ],
+    "primary": "#041E42",
+    "secondary": "#C8102E",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GONZ.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2755",
+    "abbreviation": "GRAM",
+    "aliases": [
+      "Grambling Tigers",
+      "Grambling",
+      "grambling-tigers"
+    ],
+    "primary": "#EE8601",
+    "secondary": "#FFD10A",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GRAM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "59",
+    "abbreviation": "GT",
+    "aliases": [
+      "Georgia Tech Yellow Jackets",
+      "Georgia Tech",
+      "georgia-tech-yellow-jackets"
+    ],
+    "primary": "#B3A369",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "46",
+    "abbreviation": "GTWN",
+    "aliases": [
+      "Georgetown Hoyas",
+      "Georgetown",
+      "georgetown-hoyas"
+    ],
+    "primary": "#110E42",
+    "secondary": "#001C58",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GTWN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "45",
+    "abbreviation": "GW",
+    "aliases": [
+      "George Washington Revolutionaries",
+      "George Washington",
+      "george-washington-revolutionaries"
+    ],
+    "primary": "#002843",
+    "secondary": "#E8D2A1",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2241",
+    "abbreviation": "GWEB",
+    "aliases": [
+      "Gardner-Webb Runnin' Bulldogs",
+      "Gardner-Webb",
+      "gardner-webb-runnin-bulldogs"
+    ],
+    "primary": "#C12535",
+    "secondary": "#909090",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/GWEB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2550",
+    "abbreviation": "HALL",
+    "aliases": [
+      "Seton Hall Pirates",
+      "Seton Hall",
+      "seton-hall-pirates"
+    ],
+    "primary": "#0857B1",
+    "secondary": "#8A8D8F",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/HALL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2261",
+    "abbreviation": "HAMP",
+    "aliases": [
+      "Hampton Pirates",
+      "Hampton",
+      "hampton-pirates"
+    ],
+    "primary": "#0067AC",
+    "secondary": null,
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/HAMP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "108",
+    "abbreviation": "HARV",
+    "aliases": [
+      "Harvard Crimson",
+      "Harvard",
+      "harvard-crimson"
+    ],
+    "primary": "#990000",
+    "secondary": "#DBDBDB",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/HARV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "62",
+    "abbreviation": "HAW",
+    "aliases": [
+      "Hawai'i Rainbow Warriors",
+      "Hawai'i",
+      "hawaii-rainbow-warriors"
+    ],
+    "primary": "#005737",
+    "secondary": "#000000",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/HAW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "107",
+    "abbreviation": "HC",
+    "aliases": [
+      "Holy Cross Crusaders",
+      "Holy Cross",
+      "holy-cross-crusaders"
+    ],
+    "primary": "#582C83",
+    "secondary": "#FFFFFF",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/HC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2277",
+    "abbreviation": "HCU",
+    "aliases": [
+      "Houston Christian Huskies",
+      "Houston Christian",
+      "houston-christian-huskies"
+    ],
+    "primary": "#00539C",
+    "secondary": null,
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/HCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2275",
+    "abbreviation": "HOF",
+    "aliases": [
+      "Hofstra Pride",
+      "Hofstra",
+      "hofstra-pride"
+    ],
+    "primary": "#003594",
+    "secondary": "#FFC72C",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/HOF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "248",
+    "abbreviation": "HOU",
+    "aliases": [
+      "Houston Cougars",
+      "Houston",
+      "houston-cougars"
+    ],
+    "primary": "#C8102E",
+    "secondary": "#FFFFFF",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/HOU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "47",
+    "abbreviation": "HOW",
+    "aliases": [
+      "Howard Bison",
+      "Howard",
+      "howard-bison"
+    ],
+    "primary": "#003A63",
+    "secondary": "#E51937",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/HOW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2272",
+    "abbreviation": "HPU",
+    "aliases": [
+      "High Point Panthers",
+      "High Point",
+      "high-point-panthers"
+    ],
+    "primary": "#330072",
+    "secondary": "#FFFFFF",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/HPU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "70",
+    "abbreviation": "IDHO",
+    "aliases": [
+      "Idaho Vandals",
+      "Idaho",
+      "idaho-vandals"
+    ],
+    "primary": "#000000",
+    "secondary": "#8C6E4A",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/IDHO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "304",
+    "abbreviation": "IDST",
+    "aliases": [
+      "Idaho State Bengals",
+      "Idaho State",
+      "idaho-state-bengals"
+    ],
+    "primary": "#EF8C00",
+    "secondary": "#E9A126",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/IDST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "356",
+    "abbreviation": "ILL",
+    "aliases": [
+      "Illinois Fighting Illini",
+      "Illinois",
+      "illinois-fighting-illini"
+    ],
+    "primary": "#FF5F05",
+    "secondary": "#13294B",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ILL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2287",
+    "abbreviation": "ILST",
+    "aliases": [
+      "Illinois State Redbirds",
+      "Illinois State",
+      "illinois-state-redbirds"
+    ],
+    "primary": "#CE1126",
+    "secondary": "#FFE716",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ILST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "282",
+    "abbreviation": "INST",
+    "aliases": [
+      "Indiana State Sycamores",
+      "Indiana State",
+      "indiana-state-sycamores"
+    ],
+    "primary": "#00669A",
+    "secondary": "#F0F0F0",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/INST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "314",
+    "abbreviation": "IONA",
+    "aliases": [
+      "Iona Gaels",
+      "Iona",
+      "iona-gaels"
+    ],
+    "primary": "#6F2C3E",
+    "secondary": "#F0AB00",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/IONA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2294",
+    "abbreviation": "IOWA",
+    "aliases": [
+      "Iowa Hawkeyes",
+      "Iowa",
+      "iowa-hawkeyes"
+    ],
+    "primary": "#231F20",
+    "secondary": "#FCD116",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/IOWA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "66",
+    "abbreviation": "ISU",
+    "aliases": [
+      "Iowa State Cyclones",
+      "Iowa State",
+      "iowa-state-cyclones"
+    ],
+    "primary": "#AE192D",
+    "secondary": "#FFC72A",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ISU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "84",
+    "abbreviation": "IU",
+    "aliases": [
+      "Indiana Hoosiers",
+      "Indiana",
+      "indiana-hoosiers"
+    ],
+    "primary": "#970310",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/IU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "85",
+    "abbreviation": "IUIN",
+    "aliases": [
+      "IU Indianapolis Jaguars",
+      "IU Indianapolis",
+      "iu-indianapolis-jaguars"
+    ],
+    "primary": "#A81F30",
+    "secondary": "#D59F0F",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/IUIN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "294",
+    "abbreviation": "JAX",
+    "aliases": [
+      "Jacksonville Dolphins",
+      "Jacksonville",
+      "jacksonville-dolphins"
+    ],
+    "primary": "#00523E",
+    "secondary": null,
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/JAX.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2296",
+    "abbreviation": "JKST",
+    "aliases": [
+      "Jackson State Tigers",
+      "Jackson State",
+      "jackson-state-tigers"
+    ],
+    "primary": "#123297",
+    "secondary": "#B5B7BA",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/JKST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "256",
+    "abbreviation": "JMU",
+    "aliases": [
+      "James Madison Dukes",
+      "James Madison",
+      "james-madison-dukes"
+    ],
+    "primary": "#450084",
+    "secondary": "#CBB677",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/JMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2603",
+    "abbreviation": "JOES",
+    "aliases": [
+      "Saint Joseph's Hawks",
+      "Saint Joseph's",
+      "saint-josephs-hawks"
+    ],
+    "primary": "#9E1B32",
+    "secondary": "#6C6F70",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/JOES.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "55",
+    "abbreviation": "JXST",
+    "aliases": [
+      "Jacksonville State Gamecocks",
+      "Jacksonville State",
+      "jacksonville-state-gamecocks"
+    ],
+    "primary": "#CC0000",
+    "secondary": "#000000",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/JXST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "140",
+    "abbreviation": "KC",
+    "aliases": [
+      "Kansas City Roos",
+      "Kansas City",
+      "kansas-city-roos"
+    ],
+    "primary": "#004B87",
+    "secondary": "#FFC72C",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/KC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "338",
+    "abbreviation": "KENN",
+    "aliases": [
+      "Kennesaw State Owls",
+      "Kennesaw State",
+      "kennesaw-state-owls"
+    ],
+    "primary": "#FDBB30",
+    "secondary": "#0B1315",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/KENN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2309",
+    "abbreviation": "KENT",
+    "aliases": [
+      "Kent State Golden Flashes",
+      "Kent State",
+      "kent-state-golden-flashes"
+    ],
+    "primary": "#002664",
+    "secondary": "#EAAB00",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/KENT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2306",
+    "abbreviation": "KSU",
+    "aliases": [
+      "Kansas State Wildcats",
+      "Kansas State",
+      "kansas-state-wildcats"
+    ],
+    "primary": "#330A57",
+    "secondary": "#E2E3E4",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/KSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2305",
+    "abbreviation": "KU",
+    "aliases": [
+      "Kansas Jayhawks",
+      "Kansas",
+      "kansas-jayhawks"
+    ],
+    "primary": "#0051BA",
+    "secondary": "#E8000D",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/KU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2352",
+    "abbreviation": "L-MD",
+    "aliases": [
+      "Loyola Maryland Greyhounds",
+      "Loyola Maryland",
+      "loyola-maryland-greyhounds"
+    ],
+    "primary": "#76A7A0",
+    "secondary": "#C9CBCA",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/L-MD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "322",
+    "abbreviation": "LAF",
+    "aliases": [
+      "Lafayette Leopards",
+      "Lafayette",
+      "lafayette-leopards"
+    ],
+    "primary": "#790000",
+    "secondary": "#A59474",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/LAF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2320",
+    "abbreviation": "LAM",
+    "aliases": [
+      "Lamar Cardinals",
+      "Lamar",
+      "lamar-cardinals"
+    ],
+    "primary": "#000000",
+    "secondary": "#EBEBEB",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LAM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2325",
+    "abbreviation": "LAS",
+    "aliases": [
+      "La Salle Explorers",
+      "La Salle",
+      "la-salle-explorers"
+    ],
+    "primary": "#003356",
+    "secondary": "#FFCE00",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LAS.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "299",
+    "abbreviation": "LBSU",
+    "aliases": [
+      "Long Beach State Beach",
+      "Long Beach State",
+      "long-beach-state-beach"
+    ],
+    "primary": "#000000",
+    "secondary": "#F1F2F3",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LBSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2329",
+    "abbreviation": "LEH",
+    "aliases": [
+      "Lehigh Mountain Hawks",
+      "Lehigh",
+      "lehigh-mountain-hawks"
+    ],
+    "primary": "#6C2B2A",
+    "secondary": "#B69E70",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/LEH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2330",
+    "abbreviation": "LEM",
+    "aliases": [
+      "Le Moyne Dolphins",
+      "Le Moyne",
+      "le-moyne-dolphins"
+    ],
+    "primary": "#00452A",
+    "secondary": "#FFF30D",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LEM.png",
+    "color_source": "Le Moyne brand: PMS 3435 green, PMS 102 gold"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2335",
+    "abbreviation": "LIB",
+    "aliases": [
+      "Liberty Flames",
+      "Liberty",
+      "liberty-flames"
+    ],
+    "primary": "#0A254E",
+    "secondary": "#B72025",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/LIB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2815",
+    "abbreviation": "LIN",
+    "aliases": [
+      "Lindenwood Lions",
+      "Lindenwood"
+    ],
+    "primary": "#B5A36A",
+    "secondary": "#000000",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LIN.png",
+    "color_source": "Lindenwood brand: PMS 4515 gold, black"
+  },
+  {
+    "sport": "ncaab",
+    "id": "288",
+    "abbreviation": "LIP",
+    "aliases": [
+      "Lipscomb Bisons",
+      "Lipscomb",
+      "lipscomb-bisons"
+    ],
+    "primary": "#20366C",
+    "secondary": "#F6B734",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LIP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "112358",
+    "abbreviation": "LIU",
+    "aliases": [
+      "Long Island University Sharks",
+      "Long Island University",
+      "long-island-university-sharks"
+    ],
+    "primary": "#50C9F7",
+    "secondary": "#FFBF00",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LIU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2351",
+    "abbreviation": "LMU",
+    "aliases": [
+      "Loyola Marymount Lions",
+      "Loyola Marymount",
+      "loyola-marymount-lions"
+    ],
+    "primary": "#880029",
+    "secondary": "#00345B",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2344",
+    "abbreviation": "LONG",
+    "aliases": [
+      "Longwood Lancers",
+      "Longwood",
+      "longwood-lancers"
+    ],
+    "primary": "#003273",
+    "secondary": "#9EA2A3",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LONG.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "97",
+    "abbreviation": "LOU",
+    "aliases": [
+      "Louisville Cardinals",
+      "Louisville",
+      "louisville-cardinals"
+    ],
+    "primary": "#C9001F",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LOU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2031",
+    "abbreviation": "LR",
+    "aliases": [
+      "Little Rock Trojans",
+      "Little Rock",
+      "little-rock-trojans"
+    ],
+    "primary": "#AD0000",
+    "secondary": "#898D8F",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "99",
+    "abbreviation": "LSU",
+    "aliases": [
+      "LSU Tigers",
+      "LSU",
+      "lsu-tigers"
+    ],
+    "primary": "#461D76",
+    "secondary": "#FDD023",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2348",
+    "abbreviation": "LT",
+    "aliases": [
+      "Louisiana Tech Bulldogs",
+      "Louisiana Tech",
+      "louisiana-tech-bulldogs"
+    ],
+    "primary": "#003087",
+    "secondary": "#CB333B",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/LT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2350",
+    "abbreviation": "LUC",
+    "aliases": [
+      "Loyola Chicago Ramblers",
+      "Loyola Chicago",
+      "loyola-chicago-ramblers"
+    ],
+    "primary": "#9D1244",
+    "secondary": null,
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/LUC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "193",
+    "abbreviation": "M-OH",
+    "aliases": [
+      "Miami (OH) RedHawks",
+      "Miami (OH)",
+      "miami-oh-redhawks"
+    ],
+    "primary": "#C41230",
+    "secondary": "#FFFFFF",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/M-OH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2363",
+    "abbreviation": "MAN",
+    "aliases": [
+      "Manhattan Jaspers",
+      "Manhattan",
+      "manhattan-jaspers"
+    ],
+    "primary": "#4F8537",
+    "secondary": "#B5B7BA",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MAN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "269",
+    "abbreviation": "MARQ",
+    "aliases": [
+      "Marquette Golden Eagles",
+      "Marquette",
+      "marquette-golden-eagles"
+    ],
+    "primary": "#003366",
+    "secondary": "#FFCC00",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MARQ.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "113",
+    "abbreviation": "MASS",
+    "aliases": [
+      "Massachusetts Minutemen",
+      "Massachusetts",
+      "massachusetts-minutemen"
+    ],
+    "primary": "#881C1C",
+    "secondary": "#FFFFFF",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MASS.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2377",
+    "abbreviation": "MCN",
+    "aliases": [
+      "McNeese Cowboys",
+      "McNeese",
+      "mcneese-cowboys"
+    ],
+    "primary": "#00529C",
+    "secondary": "#FFD204",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MCN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "120",
+    "abbreviation": "MD",
+    "aliases": [
+      "Maryland Terrapins",
+      "Maryland",
+      "maryland-terrapins"
+    ],
+    "primary": "#CE1126",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "311",
+    "abbreviation": "ME",
+    "aliases": [
+      "Maine Black Bears",
+      "Maine",
+      "maine-black-bears"
+    ],
+    "primary": "#127DBE",
+    "secondary": null,
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ME.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "235",
+    "abbreviation": "MEM",
+    "aliases": [
+      "Memphis Tigers",
+      "Memphis",
+      "memphis-tigers"
+    ],
+    "primary": "#004991",
+    "secondary": "#8E908F",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MEM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2382",
+    "abbreviation": "MER",
+    "aliases": [
+      "Mercer Bears",
+      "Mercer",
+      "mercer-bears"
+    ],
+    "primary": "#FF7F29",
+    "secondary": "#080808",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MER.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2385",
+    "abbreviation": "MERC",
+    "aliases": [
+      "Mercyhurst Lakers",
+      "Mercyhurst",
+      "mercyhurst-lakers"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MERC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2390",
+    "abbreviation": "MIA",
+    "aliases": [
+      "Miami Hurricanes",
+      "Miami",
+      "miami-hurricanes"
+    ],
+    "primary": "#F47423",
+    "secondary": "#035131",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MIA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "130",
+    "abbreviation": "MICH",
+    "aliases": [
+      "Michigan Wolverines",
+      "Michigan",
+      "michigan-wolverines"
+    ],
+    "primary": "#00274C",
+    "secondary": "#FFCB05",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MICH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "270",
+    "abbreviation": "MILW",
+    "aliases": [
+      "Milwaukee Panthers",
+      "Milwaukee",
+      "milwaukee-panthers"
+    ],
+    "primary": "#000000",
+    "secondary": "#FFC20E",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/MILW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "135",
+    "abbreviation": "MINN",
+    "aliases": [
+      "Minnesota Golden Gophers",
+      "Minnesota",
+      "minnesota-golden-gophers"
+    ],
+    "primary": "#5E0A2F",
+    "secondary": "#FAB41C",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MINN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "145",
+    "abbreviation": "MISS",
+    "aliases": [
+      "Ole Miss Rebels",
+      "Ole Miss",
+      "ole-miss-rebels"
+    ],
+    "primary": "#13294B",
+    "secondary": "#CF142B",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MISS.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "142",
+    "abbreviation": "MIZ",
+    "aliases": [
+      "Missouri Tigers",
+      "Missouri",
+      "missouri-tigers"
+    ],
+    "primary": "#F1B82D",
+    "secondary": "#000000",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MIZ.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2405",
+    "abbreviation": "MONM",
+    "aliases": [
+      "Monmouth Hawks",
+      "Monmouth",
+      "monmouth-hawks"
+    ],
+    "primary": "#051844",
+    "secondary": null,
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/MONM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "149",
+    "abbreviation": "MONT",
+    "aliases": [
+      "Montana Grizzlies",
+      "Montana",
+      "montana-grizzlies"
+    ],
+    "primary": "#751D4A",
+    "secondary": "#666666",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MONT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2413",
+    "abbreviation": "MORE",
+    "aliases": [
+      "Morehead State Eagles",
+      "Morehead State",
+      "morehead-state-eagles"
+    ],
+    "primary": "#094FA3",
+    "secondary": "#FED91A",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MORE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2415",
+    "abbreviation": "MORG",
+    "aliases": [
+      "Morgan State Bears",
+      "Morgan State",
+      "morgan-state-bears"
+    ],
+    "primary": "#014786",
+    "secondary": "#F47937",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MORG.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2623",
+    "abbreviation": "MOST",
+    "aliases": [
+      "Missouri State Bears",
+      "Missouri State",
+      "missouri-state-bears"
+    ],
+    "primary": "#5E0009",
+    "secondary": "#FFFFFF",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/MOST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2771",
+    "abbreviation": "MRMK",
+    "aliases": [
+      "Merrimack Warriors",
+      "Merrimack",
+      "merrimack-warriors"
+    ],
+    "primary": "#2F4F93",
+    "secondary": "#E8C535",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MRMK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "276",
+    "abbreviation": "MRSH",
+    "aliases": [
+      "Marshall Thundering Herd",
+      "Marshall",
+      "marshall-thundering-herd"
+    ],
+    "primary": "#00B140",
+    "secondary": "#000000",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MRSH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2368",
+    "abbreviation": "MRST",
+    "aliases": [
+      "Marist Red Foxes",
+      "Marist",
+      "marist-red-foxes"
+    ],
+    "primary": "#E53730",
+    "secondary": "#F0F0F0",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MRST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "116",
+    "abbreviation": "MSM",
+    "aliases": [
+      "Mount St. Mary's Mountaineers",
+      "Mount St. Mary's",
+      "mount-st-marys-mountaineers"
+    ],
+    "primary": "#005596",
+    "secondary": "#EBEBEB",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MSM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "344",
+    "abbreviation": "MSST",
+    "aliases": [
+      "Mississippi State Bulldogs",
+      "Mississippi State",
+      "mississippi-state-bulldogs"
+    ],
+    "primary": "#5D1725",
+    "secondary": "#C1C6C8",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MSST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "127",
+    "abbreviation": "MSU",
+    "aliases": [
+      "Michigan State Spartans",
+      "Michigan State",
+      "michigan-state-spartans"
+    ],
+    "primary": "#173F35",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "147",
+    "abbreviation": "MTST",
+    "aliases": [
+      "Montana State Bobcats",
+      "Montana State",
+      "montana-state-bobcats"
+    ],
+    "primary": "#00205C",
+    "secondary": "#BC955C",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MTST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2393",
+    "abbreviation": "MTSU",
+    "aliases": [
+      "Middle Tennessee Blue Raiders",
+      "Middle Tennessee",
+      "middle-tennessee-blue-raiders"
+    ],
+    "primary": "#036EB7",
+    "secondary": "#FFFFFF",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/MTSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "93",
+    "abbreviation": "MUR",
+    "aliases": [
+      "Murray State Racers",
+      "Murray State",
+      "murray-state-racers"
+    ],
+    "primary": "#002148",
+    "secondary": "#000E00",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MUR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2400",
+    "abbreviation": "MVSU",
+    "aliases": [
+      "Mississippi Valley State Delta Devils",
+      "Mississippi Valley State",
+      "mississippi-valley-state-delta-devils"
+    ],
+    "primary": "#005328",
+    "secondary": "#CF2D34",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/MVSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2464",
+    "abbreviation": "NAU",
+    "aliases": [
+      "Northern Arizona Lumberjacks",
+      "Northern Arizona",
+      "northern-arizona-lumberjacks"
+    ],
+    "primary": "#003976",
+    "secondary": "#1B3069",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NAU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2426",
+    "abbreviation": "NAVY",
+    "aliases": [
+      "Navy Midshipmen",
+      "Navy",
+      "navy-midshipmen"
+    ],
+    "primary": "#00225B",
+    "secondary": "#B5A67C",
+    "conference": "Patriot League",
+    "division": "D1",
+    "logo": "logos/ncaab/NAVY.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2448",
+    "abbreviation": "NCAT",
+    "aliases": [
+      "North Carolina A&T Aggies",
+      "North Carolina A&T",
+      "north-carolina-at-aggies"
+    ],
+    "primary": "#0505AA",
+    "secondary": "#004684",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/NCAT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2428",
+    "abbreviation": "NCCU",
+    "aliases": [
+      "North Carolina Central Eagles",
+      "North Carolina Central",
+      "north-carolina-central-eagles"
+    ],
+    "primary": "#880023",
+    "secondary": "#C2C3C0",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NCCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "152",
+    "abbreviation": "NCSU",
+    "aliases": [
+      "NC State Wolfpack",
+      "NC State",
+      "nc-state-wolfpack"
+    ],
+    "primary": "#CC0000",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NCSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "87",
+    "abbreviation": "ND",
+    "aliases": [
+      "Notre Dame Fighting Irish",
+      "Notre Dame",
+      "notre-dame-fighting-irish"
+    ],
+    "primary": "#062340",
+    "secondary": "#C99700",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ND.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2449",
+    "abbreviation": "NDSU",
+    "aliases": [
+      "North Dakota State Bison",
+      "North Dakota State",
+      "north-dakota-state-bison"
+    ],
+    "primary": "#01402A",
+    "secondary": "#FFFFFF",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/NDSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "111",
+    "abbreviation": "NE",
+    "aliases": [
+      "Northeastern Huskies",
+      "Northeastern",
+      "northeastern-huskies"
+    ],
+    "primary": "#CC0001",
+    "secondary": "#C2C3C0",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/NE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "158",
+    "abbreviation": "NEB",
+    "aliases": [
+      "Nebraska Cornhuskers",
+      "Nebraska",
+      "nebraska-cornhuskers"
+    ],
+    "primary": "#E31937",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NEB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2440",
+    "abbreviation": "NEV",
+    "aliases": [
+      "Nevada Wolf Pack",
+      "Nevada",
+      "nevada-wolf-pack"
+    ],
+    "primary": "#041E42",
+    "secondary": "#8A8D8F",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NEV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2441",
+    "abbreviation": "NHVN",
+    "aliases": [
+      "New Haven Chargers",
+      "New Haven",
+      "new-haven-chargers"
+    ],
+    "primary": "#041E42",
+    "secondary": "#FFC425",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NHVN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "315",
+    "abbreviation": "NIA",
+    "aliases": [
+      "Niagara Purple Eagles",
+      "Niagara",
+      "niagara-purple-eagles"
+    ],
+    "primary": "#69207E",
+    "secondary": "#F0F0F0",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NIA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2447",
+    "abbreviation": "NICH",
+    "aliases": [
+      "Nicholls Colonels",
+      "Nicholls",
+      "nicholls-colonels"
+    ],
+    "primary": "#C41230",
+    "secondary": "#F0F0F0",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NICH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2459",
+    "abbreviation": "NIU",
+    "aliases": [
+      "Northern Illinois Huskies",
+      "Northern Illinois",
+      "northern-illinois-huskies"
+    ],
+    "primary": "#C8102E",
+    "secondary": "#000000",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NIU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2885",
+    "abbreviation": "NJIT",
+    "aliases": [
+      "NJIT Highlanders",
+      "NJIT",
+      "njit-highlanders"
+    ],
+    "primary": "#EE3024",
+    "secondary": "#DF3E2E",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NJIT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "94",
+    "abbreviation": "NKU",
+    "aliases": [
+      "Northern Kentucky Norse",
+      "Northern Kentucky",
+      "northern-kentucky-norse"
+    ],
+    "primary": "#FFC82E",
+    "secondary": "#000000",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/NKU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "166",
+    "abbreviation": "NMSU",
+    "aliases": [
+      "New Mexico State Aggies",
+      "New Mexico State",
+      "new-mexico-state-aggies"
+    ],
+    "primary": "#7E141B",
+    "secondary": "#231F20",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/NMSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2443",
+    "abbreviation": "NOLA",
+    "aliases": [
+      "LSU New Orleans Privateers",
+      "LSU New Orleans",
+      "lsu-new-orleans-privateers"
+    ],
+    "primary": "#461D7C",
+    "secondary": "#FDD023",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NOLA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2450",
+    "abbreviation": "NORF",
+    "aliases": [
+      "Norfolk State Spartans",
+      "Norfolk State",
+      "norfolk-state-spartans"
+    ],
+    "primary": "#0C8968",
+    "secondary": "#FDB813",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NORF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "77",
+    "abbreviation": "NU",
+    "aliases": [
+      "Northwestern Wildcats",
+      "Northwestern",
+      "northwestern-wildcats"
+    ],
+    "primary": "#492F92",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2466",
+    "abbreviation": "NWST",
+    "aliases": [
+      "Northwestern State Demons",
+      "Northwestern State",
+      "northwestern-state-demons"
+    ],
+    "primary": "#492F91",
+    "secondary": "#ED6118",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/NWST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2473",
+    "abbreviation": "OAK",
+    "aliases": [
+      "Oakland Golden Grizzlies",
+      "Oakland",
+      "oakland-golden-grizzlies"
+    ],
+    "primary": "#04091C",
+    "secondary": "#BC955C",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/OAK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "295",
+    "abbreviation": "ODU",
+    "aliases": [
+      "Old Dominion Monarchs",
+      "Old Dominion",
+      "old-dominion-monarchs"
+    ],
+    "primary": "#003768",
+    "secondary": "#A1D2F1",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ODU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "195",
+    "abbreviation": "OHIO",
+    "aliases": [
+      "Ohio Bobcats",
+      "Ohio",
+      "ohio-bobcats"
+    ],
+    "primary": "#154734",
+    "secondary": "#FFFFFF",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/OHIO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "197",
+    "abbreviation": "OKST",
+    "aliases": [
+      "Oklahoma State Cowboys",
+      "Oklahoma State",
+      "oklahoma-state-cowboys"
+    ],
+    "primary": "#FE5C00",
+    "secondary": "#000000",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/OKST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2437",
+    "abbreviation": "OMA",
+    "aliases": [
+      "Omaha Mavericks",
+      "Omaha",
+      "omaha-mavericks"
+    ],
+    "primary": "#E3193E",
+    "secondary": "#474648",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/OMA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2483",
+    "abbreviation": "ORE",
+    "aliases": [
+      "Oregon Ducks",
+      "Oregon",
+      "oregon-ducks"
+    ],
+    "primary": "#00934B",
+    "secondary": "#FFF41B",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ORE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "204",
+    "abbreviation": "ORST",
+    "aliases": [
+      "Oregon State Beavers",
+      "Oregon State",
+      "oregon-state-beavers"
+    ],
+    "primary": "#DC4405",
+    "secondary": "#000000",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ORST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "198",
+    "abbreviation": "ORU",
+    "aliases": [
+      "Oral Roberts Golden Eagles",
+      "Oral Roberts",
+      "oral-roberts-golden-eagles"
+    ],
+    "primary": "#002462",
+    "secondary": "#DAC792",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/ORU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "194",
+    "abbreviation": "OSU",
+    "aliases": [
+      "Ohio State Buckeyes",
+      "Ohio State",
+      "ohio-state-buckeyes"
+    ],
+    "primary": "#BA0C2F",
+    "secondary": "#A8ADB4",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/OSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "201",
+    "abbreviation": "OU",
+    "aliases": [
+      "Oklahoma Sooners",
+      "Oklahoma",
+      "oklahoma-sooners"
+    ],
+    "primary": "#990000",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/OU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "279",
+    "abbreviation": "PAC",
+    "aliases": [
+      "Pacific Tigers",
+      "Pacific",
+      "pacific-tigers"
+    ],
+    "primary": "#F47820",
+    "secondary": "#C2C3C0",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PAC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "219",
+    "abbreviation": "PENN",
+    "aliases": [
+      "Pennsylvania Quakers",
+      "Pennsylvania",
+      "pennsylvania-quakers"
+    ],
+    "primary": "#082A74",
+    "secondary": "#A6163D",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/PENN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2492",
+    "abbreviation": "PEPP",
+    "aliases": [
+      "Pepperdine Waves",
+      "Pepperdine",
+      "pepperdine-waves"
+    ],
+    "primary": "#003A72",
+    "secondary": "#DC762F",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PEPP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2870",
+    "abbreviation": "PFW",
+    "aliases": [
+      "Purdue Fort Wayne Mastodons",
+      "Purdue Fort Wayne",
+      "purdue-fort-wayne-mastodons"
+    ],
+    "primary": "#CFB991",
+    "secondary": "#000000",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/PFW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "221",
+    "abbreviation": "PITT",
+    "aliases": [
+      "Pittsburgh Panthers",
+      "Pittsburgh",
+      "pittsburgh-panthers"
+    ],
+    "primary": "#003594",
+    "secondary": "#FFB81C",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PITT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2501",
+    "abbreviation": "PORT",
+    "aliases": [
+      "Portland Pilots",
+      "Portland",
+      "portland-pilots"
+    ],
+    "primary": "#330072",
+    "secondary": "#A8B3BA",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PORT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2506",
+    "abbreviation": "PRES",
+    "aliases": [
+      "Presbyterian Blue Hose",
+      "Presbyterian",
+      "presbyterian-blue-hose"
+    ],
+    "primary": "#194896",
+    "secondary": "#990134",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PRES.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "163",
+    "abbreviation": "PRIN",
+    "aliases": [
+      "Princeton Tigers",
+      "Princeton",
+      "princeton-tigers"
+    ],
+    "primary": "#000000",
+    "secondary": "#FF6000",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/PRIN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2507",
+    "abbreviation": "PROV",
+    "aliases": [
+      "Providence Friars",
+      "Providence",
+      "providence-friars"
+    ],
+    "primary": "#000000",
+    "secondary": "#A3A19E",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PROV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2502",
+    "abbreviation": "PRST",
+    "aliases": [
+      "Portland State Vikings",
+      "Portland State",
+      "portland-state-vikings"
+    ],
+    "primary": "#00311E",
+    "secondary": "#EBEBEB",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PRST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "213",
+    "abbreviation": "PSU",
+    "aliases": [
+      "Penn State Nittany Lions",
+      "Penn State",
+      "penn-state-nittany-lions"
+    ],
+    "primary": "#061440",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2509",
+    "abbreviation": "PUR",
+    "aliases": [
+      "Purdue Boilermakers",
+      "Purdue",
+      "purdue-boilermakers"
+    ],
+    "primary": "#CEB888",
+    "secondary": "#000000",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PUR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2504",
+    "abbreviation": "PV",
+    "aliases": [
+      "Prairie View A&M Panthers",
+      "Prairie View A&M",
+      "prairie-view-am-panthers"
+    ],
+    "primary": "#582C83",
+    "secondary": "#EAAA00",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/PV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2511",
+    "abbreviation": "QUC",
+    "aliases": [
+      "Queens University Royals",
+      "Queens University"
+    ],
+    "primary": "#192C66",
+    "secondary": "#857040",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/QUC.png",
+    "color_source": "Queens Royals: PMS 281 navy, PMS 7756 gold"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2514",
+    "abbreviation": "QUIN",
+    "aliases": [
+      "Quinnipiac Bobcats",
+      "Quinnipiac",
+      "quinnipiac-bobcats"
+    ],
+    "primary": "#041B43",
+    "secondary": null,
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/QUIN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2515",
+    "abbreviation": "RAD",
+    "aliases": [
+      "Radford Highlanders",
+      "Radford",
+      "radford-highlanders"
+    ],
+    "primary": "#BC1515",
+    "secondary": "#C2C3C0",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/RAD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "292",
+    "abbreviation": "RGV",
+    "aliases": [
+      "UT Rio Grande Valley Vaqueros",
+      "UT Rio Grande Valley",
+      "ut-rio-grande-valley-vaqueros"
+    ],
+    "primary": "#DC6000",
+    "secondary": "#E1732D",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/RGV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "242",
+    "abbreviation": "RICE",
+    "aliases": [
+      "Rice Owls",
+      "Rice",
+      "rice-owls"
+    ],
+    "primary": "#00205B",
+    "secondary": "#C1C6C8",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/RICE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "257",
+    "abbreviation": "RICH",
+    "aliases": [
+      "Richmond Spiders",
+      "Richmond",
+      "richmond-spiders"
+    ],
+    "primary": "#9E0712",
+    "secondary": "#B90B2E",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/RICH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2520",
+    "abbreviation": "RID",
+    "aliases": [
+      "Rider Broncs",
+      "Rider",
+      "rider-broncs"
+    ],
+    "primary": "#A80532",
+    "secondary": "#EBEBEB",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/RID.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2523",
+    "abbreviation": "RMU",
+    "aliases": [
+      "Robert Morris Colonials",
+      "Robert Morris",
+      "robert-morris-colonials"
+    ],
+    "primary": "#00214D",
+    "secondary": "#A21D2B",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/RMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "164",
+    "abbreviation": "RUTG",
+    "aliases": [
+      "Rutgers Scarlet Knights",
+      "Rutgers",
+      "rutgers-scarlet-knights"
+    ],
+    "primary": "#CE0E2D",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/RUTG.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "16",
+    "abbreviation": "SAC",
+    "aliases": [
+      "Sacramento State Hornets",
+      "Sacramento State",
+      "sacramento-state-hornets"
+    ],
+    "primary": "#00573C",
+    "secondary": "#CDB97D",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SAC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2535",
+    "abbreviation": "SAM",
+    "aliases": [
+      "Samford Bulldogs",
+      "Samford",
+      "samford-bulldogs"
+    ],
+    "primary": "#005485",
+    "secondary": "#BC0023",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SAM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "179",
+    "abbreviation": "SBU",
+    "aliases": [
+      "St. Bonaventure Bonnies",
+      "St. Bonaventure",
+      "st-bonaventure-bonnies"
+    ],
+    "primary": "#70261D",
+    "secondary": null,
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SBU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2579",
+    "abbreviation": "SC",
+    "aliases": [
+      "South Carolina Gamecocks",
+      "South Carolina",
+      "south-carolina-gamecocks"
+    ],
+    "primary": "#73000A",
+    "secondary": "#000000",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2569",
+    "abbreviation": "SCST",
+    "aliases": [
+      "South Carolina State Bulldogs",
+      "South Carolina State",
+      "south-carolina-state-bulldogs"
+    ],
+    "primary": "#7D1315",
+    "secondary": "#104897",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SCST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2541",
+    "abbreviation": "SCU",
+    "aliases": [
+      "Santa Clara Broncos",
+      "Santa Clara",
+      "santa-clara-broncos"
+    ],
+    "primary": "#690B0B",
+    "secondary": "#101010",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "233",
+    "abbreviation": "SDAK",
+    "aliases": [
+      "South Dakota Coyotes",
+      "South Dakota",
+      "south-dakota-coyotes"
+    ],
+    "primary": "#CD1241",
+    "secondary": "#F0F0F0",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/SDAK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2571",
+    "abbreviation": "SDST",
+    "aliases": [
+      "South Dakota State Jackrabbits",
+      "South Dakota State",
+      "south-dakota-state-jackrabbits"
+    ],
+    "primary": "#0033A0",
+    "secondary": "#FFD100",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/SDST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "21",
+    "abbreviation": "SDSU",
+    "aliases": [
+      "San Diego State Aztecs",
+      "San Diego State",
+      "san-diego-state-aztecs"
+    ],
+    "primary": "#A6192E",
+    "secondary": "#000000",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SDSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2547",
+    "abbreviation": "SEA",
+    "aliases": [
+      "Seattle U Redhawks",
+      "Seattle U",
+      "seattle-u-redhawks"
+    ],
+    "primary": "#BF2E1A",
+    "secondary": "#C2C3C0",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SEA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2545",
+    "abbreviation": "SELA",
+    "aliases": [
+      "SE Louisiana Lions",
+      "SE Louisiana",
+      "se-louisiana-lions"
+    ],
+    "primary": "#215732",
+    "secondary": "#FFC72C",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SELA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2546",
+    "abbreviation": "SEMO",
+    "aliases": [
+      "Southeast Missouri State Redhawks",
+      "Southeast Missouri State",
+      "southeast-missouri-state-redhawks"
+    ],
+    "primary": "#C8102E",
+    "secondary": "#000000",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SEMO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2539",
+    "abbreviation": "SF",
+    "aliases": [
+      "San Francisco Dons",
+      "San Francisco",
+      "san-francisco-dons"
+    ],
+    "primary": "#005A36",
+    "secondary": "#FFFFFF",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2617",
+    "abbreviation": "SFA",
+    "aliases": [
+      "Stephen F. Austin Lumberjacks",
+      "Stephen F. Austin",
+      "stephen-f-austin-lumberjacks"
+    ],
+    "primary": "#393996",
+    "secondary": "#BEC0C2",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SFA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2598",
+    "abbreviation": "SFPA",
+    "aliases": [
+      "Saint Francis Red Wolves",
+      "Saint Francis"
+    ],
+    "primary": "#BD1F25",
+    "secondary": "#FFFFFF",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SFPA.png",
+    "color_source": "Saint Francis red and white; nickname is now Red Wolves"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2534",
+    "abbreviation": "SHSU",
+    "aliases": [
+      "Sam Houston Bearkats",
+      "Sam Houston",
+      "sam-houston-bearkats"
+    ],
+    "primary": "#F56423",
+    "secondary": "#FFFFFF",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/SHSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2529",
+    "abbreviation": "SHU",
+    "aliases": [
+      "Sacred Heart Pioneers",
+      "Sacred Heart",
+      "sacred-heart-pioneers"
+    ],
+    "primary": "#A40012",
+    "secondary": "#C29472",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SHU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2561",
+    "abbreviation": "SIE",
+    "aliases": [
+      "Siena Saints",
+      "Siena",
+      "siena-saints"
+    ],
+    "primary": "#037961",
+    "secondary": "#EEA60F",
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SIE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "79",
+    "abbreviation": "SIU",
+    "aliases": [
+      "Southern Illinois Salukis",
+      "Southern Illinois",
+      "southern-illinois-salukis"
+    ],
+    "primary": "#85283D",
+    "secondary": "#C2C3C0",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SIU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2565",
+    "abbreviation": "SIUE",
+    "aliases": [
+      "SIU Edwardsville Cougars",
+      "SIU Edwardsville",
+      "siu-edwardsville-cougars"
+    ],
+    "primary": "#EB1C23",
+    "secondary": "#080808",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SIUE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "23",
+    "abbreviation": "SJSU",
+    "aliases": [
+      "San Jos\u00e9 State Spartans",
+      "San Jos\u00e9 State",
+      "san-jose-state-spartans"
+    ],
+    "primary": "#0038A8",
+    "secondary": "#FFB81A",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SJSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2599",
+    "abbreviation": "SJU",
+    "aliases": [
+      "St. John's Red Storm",
+      "St. John's",
+      "st-johns-red-storm"
+    ],
+    "primary": "#D10000",
+    "secondary": "#101010",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SJU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "139",
+    "abbreviation": "SLU",
+    "aliases": [
+      "Saint Louis Billikens",
+      "Saint Louis",
+      "saint-louis-billikens"
+    ],
+    "primary": "#00539C",
+    "secondary": "#EBEBEB",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SLU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2608",
+    "abbreviation": "SMC",
+    "aliases": [
+      "Saint Mary's Gaels",
+      "Saint Mary's",
+      "saint-marys-gaels"
+    ],
+    "primary": "#D80024",
+    "secondary": "#003057",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SMC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2567",
+    "abbreviation": "SMU",
+    "aliases": [
+      "SMU Mustangs",
+      "SMU",
+      "smu-mustangs"
+    ],
+    "primary": "#A80000",
+    "secondary": "#0033A1",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2582",
+    "abbreviation": "SOU",
+    "aliases": [
+      "Southern Jaguars",
+      "Southern",
+      "southern-jaguars"
+    ],
+    "primary": "#004B97",
+    "secondary": "#FFC82D",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SOU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2612",
+    "abbreviation": "SPU",
+    "aliases": [
+      "Saint Peter's Peacocks",
+      "Saint Peter's",
+      "saint-peters-peacocks"
+    ],
+    "primary": "#004CC2",
+    "secondary": null,
+    "conference": "Metro Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SPU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "24",
+    "abbreviation": "STAN",
+    "aliases": [
+      "Stanford Cardinal",
+      "Stanford",
+      "stanford-cardinal"
+    ],
+    "primary": "#8C1515",
+    "secondary": "#FFFFFF",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/STAN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2619",
+    "abbreviation": "STBK",
+    "aliases": [
+      "Stony Brook Seawolves",
+      "Stony Brook",
+      "stony-brook-seawolves"
+    ],
+    "primary": "#990000",
+    "secondary": null,
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/STBK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "56",
+    "abbreviation": "STET",
+    "aliases": [
+      "Stetson Hatters",
+      "Stetson",
+      "stetson-hatters"
+    ],
+    "primary": "#0A5640",
+    "secondary": "#56854E",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/STET.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2900",
+    "abbreviation": "STMN",
+    "aliases": [
+      "St. Thomas Tommies",
+      "St. Thomas",
+      "st-thomas-tommies"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/STMN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "284",
+    "abbreviation": "STO",
+    "aliases": [
+      "Stonehill Skyhawks",
+      "Stonehill",
+      "stonehill-skyhawks"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/STO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "253",
+    "abbreviation": "SUU",
+    "aliases": [
+      "Southern Utah Thunderbirds",
+      "Southern Utah",
+      "southern-utah-thunderbirds"
+    ],
+    "primary": "#C72026",
+    "secondary": "#000000",
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SUU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "183",
+    "abbreviation": "SYR",
+    "aliases": [
+      "Syracuse Orange",
+      "Syracuse",
+      "syracuse-orange"
+    ],
+    "primary": "#000E54",
+    "secondary": "#FF431B",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/SYR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "245",
+    "abbreviation": "TA&M",
+    "aliases": [
+      "Texas A&M Aggies",
+      "Texas A&M",
+      "texas-am-aggies"
+    ],
+    "primary": "#500000",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TA&M.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2627",
+    "abbreviation": "TAR",
+    "aliases": [
+      "Tarleton State Texans",
+      "Tarleton State",
+      "tarleton-state-texans"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TAR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2628",
+    "abbreviation": "TCU",
+    "aliases": [
+      "TCU Horned Frogs",
+      "TCU",
+      "tcu-horned-frogs"
+    ],
+    "primary": "#4D1979",
+    "secondary": "#FFFFFF",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "218",
+    "abbreviation": "TEM",
+    "aliases": [
+      "Temple Owls",
+      "Temple",
+      "temple-owls"
+    ],
+    "primary": "#A41E35",
+    "secondary": "#FFFFFF",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TEM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2633",
+    "abbreviation": "TENN",
+    "aliases": [
+      "Tennessee Volunteers",
+      "Tennessee",
+      "tennessee-volunteers"
+    ],
+    "primary": "#FF8200",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TENN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "251",
+    "abbreviation": "TEX",
+    "aliases": [
+      "Texas Longhorns",
+      "Texas",
+      "texas-longhorns"
+    ],
+    "primary": "#AF5C37",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TEX.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "202",
+    "abbreviation": "TLSA",
+    "aliases": [
+      "Tulsa Golden Hurricane",
+      "Tulsa",
+      "tulsa-golden-hurricane"
+    ],
+    "primary": "#003595",
+    "secondary": "#D0B787",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TLSA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2634",
+    "abbreviation": "TNST",
+    "aliases": [
+      "Tennessee State Tigers",
+      "Tennessee State",
+      "tennessee-state-tigers"
+    ],
+    "primary": "#171796",
+    "secondary": "#F0F0F0",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TNST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2635",
+    "abbreviation": "TNTC",
+    "aliases": [
+      "Tennessee Tech Golden Eagles",
+      "Tennessee Tech",
+      "tennessee-tech-golden-eagles"
+    ],
+    "primary": "#5A4099",
+    "secondary": "#FFDE00",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TNTC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2649",
+    "abbreviation": "TOL",
+    "aliases": [
+      "Toledo Rockets",
+      "Toledo",
+      "toledo-rockets"
+    ],
+    "primary": "#0B2240",
+    "secondary": "#FFCD00",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TOL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "119",
+    "abbreviation": "TOW",
+    "aliases": [
+      "Towson Tigers",
+      "Towson",
+      "towson-tigers"
+    ],
+    "primary": "#FFC229",
+    "secondary": null,
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/TOW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2653",
+    "abbreviation": "TROY",
+    "aliases": [
+      "Troy Trojans",
+      "Troy",
+      "troy-trojans"
+    ],
+    "primary": "#862633",
+    "secondary": "#B1B1B1",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TROY.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2641",
+    "abbreviation": "TTU",
+    "aliases": [
+      "Texas Tech Red Raiders",
+      "Texas Tech",
+      "texas-tech-red-raiders"
+    ],
+    "primary": "#DA291C",
+    "secondary": "#000000",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TTU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2655",
+    "abbreviation": "TULN",
+    "aliases": [
+      "Tulane Green Wave",
+      "Tulane",
+      "tulane-green-wave"
+    ],
+    "primary": "#006747",
+    "secondary": "#418FDE",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TULN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2640",
+    "abbreviation": "TXSO",
+    "aliases": [
+      "Texas Southern Tigers",
+      "Texas Southern",
+      "texas-southern-tigers"
+    ],
+    "primary": "#860038",
+    "secondary": "#FFFFFF",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TXSO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "326",
+    "abbreviation": "TXST",
+    "aliases": [
+      "Texas State Bobcats",
+      "Texas State",
+      "texas-state-bobcats"
+    ],
+    "primary": "#501214",
+    "secondary": "#6A5638",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/TXST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "5",
+    "abbreviation": "UAB",
+    "aliases": [
+      "UAB Blazers",
+      "UAB",
+      "uab-blazers"
+    ],
+    "primary": "#1A5632",
+    "secondary": "#FDB913",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UAB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "399",
+    "abbreviation": "UALB",
+    "aliases": [
+      "UAlbany Great Danes",
+      "UAlbany",
+      "ualbany-great-danes"
+    ],
+    "primary": "#3D2777",
+    "secondary": "#FFFFFF",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UALB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2029",
+    "abbreviation": "UAPB",
+    "aliases": [
+      "Arkansas-Pine Bluff Golden Lions",
+      "Arkansas-Pine Bluff",
+      "arkansas-pine-bluff-golden-lions"
+    ],
+    "primary": "#E0AA0F",
+    "secondary": "#EAAA00",
+    "conference": "Southwestern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UAPB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "302",
+    "abbreviation": "UCD",
+    "aliases": [
+      "UC Davis Aggies",
+      "UC Davis",
+      "uc-davis-aggies"
+    ],
+    "primary": "#002855",
+    "secondary": "#C3C4C6",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2116",
+    "abbreviation": "UCF",
+    "aliases": [
+      "UCF Knights",
+      "UCF",
+      "ucf-knights"
+    ],
+    "primary": "#000000",
+    "secondary": "#B4A169",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "300",
+    "abbreviation": "UCI",
+    "aliases": [
+      "UC Irvine Anteaters",
+      "UC Irvine",
+      "uc-irvine-anteaters"
+    ],
+    "primary": "#002B5C",
+    "secondary": "#FEC52E",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCI.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "26",
+    "abbreviation": "UCLA",
+    "aliases": [
+      "UCLA Bruins",
+      "UCLA",
+      "ucla-bruins"
+    ],
+    "primary": "#2774AE",
+    "secondary": "#F2A900",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCLA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "27",
+    "abbreviation": "UCR",
+    "aliases": [
+      "UC Riverside Highlanders",
+      "UC Riverside",
+      "uc-riverside-highlanders"
+    ],
+    "primary": "#14234F",
+    "secondary": null,
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCR.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2540",
+    "abbreviation": "UCSB",
+    "aliases": [
+      "UC Santa Barbara Gauchos",
+      "UC Santa Barbara",
+      "uc-santa-barbara-gauchos"
+    ],
+    "primary": "#1E1840",
+    "secondary": "#FEBC11",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCSB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "28",
+    "abbreviation": "UCSD",
+    "aliases": [
+      "UC San Diego Tritons",
+      "UC San Diego",
+      "uc-san-diego-tritons"
+    ],
+    "primary": "#000000",
+    "secondary": "#FFCD00",
+    "conference": "Big West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UCSD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "61",
+    "abbreviation": "UGA",
+    "aliases": [
+      "Georgia Bulldogs",
+      "Georgia",
+      "georgia-bulldogs"
+    ],
+    "primary": "#BA0C2F",
+    "secondary": "#2C2A29",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UGA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "82",
+    "abbreviation": "UIC",
+    "aliases": [
+      "UIC Flames",
+      "UIC",
+      "uic-flames"
+    ],
+    "primary": "#001E62",
+    "secondary": "#D50032",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UIC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2916",
+    "abbreviation": "UIW",
+    "aliases": [
+      "Incarnate Word Cardinals",
+      "Incarnate Word",
+      "incarnate-word-cardinals"
+    ],
+    "primary": "#000000",
+    "secondary": "#080808",
+    "conference": "Southland Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UIW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "96",
+    "abbreviation": "UK",
+    "aliases": [
+      "Kentucky Wildcats",
+      "Kentucky",
+      "kentucky-wildcats"
+    ],
+    "primary": "#0033A0",
+    "secondary": "#FFFFFF",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UK.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "309",
+    "abbreviation": "UL",
+    "aliases": [
+      "Louisiana Ragin' Cajuns",
+      "Louisiana",
+      "louisiana-ragin-cajuns"
+    ],
+    "primary": "#CE181E",
+    "secondary": "#000000",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2433",
+    "abbreviation": "ULM",
+    "aliases": [
+      "UL Monroe Warhawks",
+      "UL Monroe",
+      "ul-monroe-warhawks"
+    ],
+    "primary": "#840029",
+    "secondary": "#FDB913",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/ULM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2378",
+    "abbreviation": "UMBC",
+    "aliases": [
+      "UMBC Retrievers",
+      "UMBC",
+      "umbc-retrievers"
+    ],
+    "primary": "#000000",
+    "secondary": "#AD860A",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UMBC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2379",
+    "abbreviation": "UMES",
+    "aliases": [
+      "Maryland Eastern Shore Hawks",
+      "Maryland Eastern Shore",
+      "maryland-eastern-shore-hawks"
+    ],
+    "primary": "#5C2301",
+    "secondary": "#B5B7BA",
+    "conference": "Mid-Eastern Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UMES.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2349",
+    "abbreviation": "UML",
+    "aliases": [
+      "UMass Lowell River Hawks",
+      "UMass Lowell",
+      "umass-lowell-river-hawks"
+    ],
+    "primary": "#00529C",
+    "secondary": "#CF1F2F",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UML.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2453",
+    "abbreviation": "UNA",
+    "aliases": [
+      "North Alabama Lions",
+      "North Alabama",
+      "north-alabama-lions"
+    ],
+    "primary": "#663399",
+    "secondary": null,
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "153",
+    "abbreviation": "UNC",
+    "aliases": [
+      "North Carolina Tar Heels",
+      "North Carolina",
+      "north-carolina-tar-heels"
+    ],
+    "primary": "#7BAFD4",
+    "secondary": "#13294B",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2427",
+    "abbreviation": "UNCA",
+    "aliases": [
+      "UNC Asheville Bulldogs",
+      "UNC Asheville",
+      "unc-asheville-bulldogs"
+    ],
+    "primary": "#003DA5",
+    "secondary": "#FFFFFF",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNCA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2430",
+    "abbreviation": "UNCG",
+    "aliases": [
+      "UNC Greensboro Spartans",
+      "UNC Greensboro",
+      "unc-greensboro-spartans"
+    ],
+    "primary": "#003559",
+    "secondary": "#FFD90A",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNCG.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2458",
+    "abbreviation": "UNCO",
+    "aliases": [
+      "Northern Colorado Bears",
+      "Northern Colorado",
+      "northern-colorado-bears"
+    ],
+    "primary": "#13558D",
+    "secondary": "#FFC533",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNCO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "350",
+    "abbreviation": "UNCW",
+    "aliases": [
+      "UNC Wilmington Seahawks",
+      "UNC Wilmington",
+      "unc-wilmington-seahawks"
+    ],
+    "primary": "#00665E",
+    "secondary": "#FFDA00",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/UNCW.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "155",
+    "abbreviation": "UND",
+    "aliases": [
+      "North Dakota Fighting Hawks",
+      "North Dakota",
+      "north-dakota-fighting-hawks"
+    ],
+    "primary": "#00A26B",
+    "secondary": "#C2C3C0",
+    "conference": "Summit League",
+    "division": "D1",
+    "logo": "logos/ncaab/UND.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2454",
+    "abbreviation": "UNF",
+    "aliases": [
+      "North Florida Ospreys",
+      "North Florida",
+      "north-florida-ospreys"
+    ],
+    "primary": "#004B8D",
+    "secondary": "#BABCBE",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "160",
+    "abbreviation": "UNH",
+    "aliases": [
+      "New Hampshire Wildcats",
+      "New Hampshire",
+      "new-hampshire-wildcats"
+    ],
+    "primary": "#004990",
+    "secondary": "#C3C4C6",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2460",
+    "abbreviation": "UNI",
+    "aliases": [
+      "Northern Iowa Panthers",
+      "Northern Iowa",
+      "northern-iowa-panthers"
+    ],
+    "primary": "#473282",
+    "secondary": "#FFFFFF",
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNI.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2439",
+    "abbreviation": "UNLV",
+    "aliases": [
+      "UNLV Rebels",
+      "UNLV",
+      "unlv-rebels"
+    ],
+    "primary": "#CF0A2C",
+    "secondary": "#CAC8C8",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNLV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "167",
+    "abbreviation": "UNM",
+    "aliases": [
+      "New Mexico Lobos",
+      "New Mexico",
+      "new-mexico-lobos"
+    ],
+    "primary": "#BA0C2F",
+    "secondary": "#A7A8AA",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "249",
+    "abbreviation": "UNT",
+    "aliases": [
+      "North Texas Mean Green",
+      "North Texas",
+      "north-texas-mean-green"
+    ],
+    "primary": "#068F33",
+    "secondary": "#FFFFFF",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UNT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2908",
+    "abbreviation": "UPST",
+    "aliases": [
+      "South Carolina Upstate Spartans",
+      "South Carolina Upstate",
+      "south-carolina-upstate-spartans"
+    ],
+    "primary": "#008545",
+    "secondary": "#000000",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UPST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "227",
+    "abbreviation": "URI",
+    "aliases": [
+      "Rhode Island Rams",
+      "Rhode Island",
+      "rhode-island-rams"
+    ],
+    "primary": "#091F3F",
+    "secondary": "#5AB3E8",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/URI.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "6",
+    "abbreviation": "USA",
+    "aliases": [
+      "South Alabama Jaguars",
+      "South Alabama",
+      "south-alabama-jaguars"
+    ],
+    "primary": "#00205B",
+    "secondary": "#BF0D3E",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "30",
+    "abbreviation": "USC",
+    "aliases": [
+      "USC Trojans",
+      "USC",
+      "usc-trojans"
+    ],
+    "primary": "#9D2235",
+    "secondary": "#FFC72C",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "301",
+    "abbreviation": "USD",
+    "aliases": [
+      "San Diego Toreros",
+      "San Diego",
+      "san-diego-toreros"
+    ],
+    "primary": "#2F99D4",
+    "secondary": "#2F99D4",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USD.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "58",
+    "abbreviation": "USF",
+    "aliases": [
+      "South Florida Bulls",
+      "South Florida",
+      "south-florida-bulls"
+    ],
+    "primary": "#006747",
+    "secondary": "#CFC493",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "88",
+    "abbreviation": "USI",
+    "aliases": [
+      "Southern Indiana Screaming Eagles",
+      "Southern Indiana"
+    ],
+    "primary": "#CF102D",
+    "secondary": "#002856",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USI.png",
+    "color_source": "Southern Indiana brand: PMS 186 red, PMS 295 navy"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2572",
+    "abbreviation": "USM",
+    "aliases": [
+      "Southern Miss Golden Eagles",
+      "Southern Miss",
+      "southern-miss-golden-eagles"
+    ],
+    "primary": "#FFC72C",
+    "secondary": "#231F20",
+    "conference": "Sun Belt Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "328",
+    "abbreviation": "USU",
+    "aliases": [
+      "Utah State Aggies",
+      "Utah State",
+      "utah-state-aggies"
+    ],
+    "primary": "#0F2439",
+    "secondary": "#FFFFFF",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/USU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "250",
+    "abbreviation": "UTA",
+    "aliases": [
+      "UT Arlington Mavericks",
+      "UT Arlington",
+      "ut-arlington-mavericks"
+    ],
+    "primary": "#004B7C",
+    "secondary": "#F58024",
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UTA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "254",
+    "abbreviation": "UTAH",
+    "aliases": [
+      "Utah Utes",
+      "Utah",
+      "utah-utes"
+    ],
+    "primary": "#BE0000",
+    "secondary": "#FFFFFF",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UTAH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "236",
+    "abbreviation": "UTC",
+    "aliases": [
+      "Chattanooga Mocs",
+      "Chattanooga",
+      "chattanooga-mocs"
+    ],
+    "primary": "#00386B",
+    "secondary": "#DCA71D",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UTC.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2638",
+    "abbreviation": "UTEP",
+    "aliases": [
+      "UTEP Miners",
+      "UTEP",
+      "utep-miners"
+    ],
+    "primary": "#FF8200",
+    "secondary": "#041E42",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/UTEP.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2630",
+    "abbreviation": "UTM",
+    "aliases": [
+      "UT Martin Skyhawks",
+      "UT Martin",
+      "ut-martin-skyhawks"
+    ],
+    "primary": "#FF6700",
+    "secondary": "#102A5C",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UTM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2636",
+    "abbreviation": "UTSA",
+    "aliases": [
+      "UTSA Roadrunners",
+      "UTSA",
+      "utsa-roadrunners"
+    ],
+    "primary": "#0C2340",
+    "secondary": "#F15A22",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UTSA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "3101",
+    "abbreviation": "UTU",
+    "aliases": [
+      "Utah Tech Trailblazers",
+      "Utah Tech",
+      "utah-tech-trailblazers"
+    ],
+    "primary": "#000000",
+    "secondary": null,
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UTU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "258",
+    "abbreviation": "UVA",
+    "aliases": [
+      "Virginia Cavaliers",
+      "Virginia",
+      "virginia-cavaliers"
+    ],
+    "primary": "#232D4B",
+    "secondary": "#F84C1E",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UVA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "261",
+    "abbreviation": "UVM",
+    "aliases": [
+      "Vermont Catamounts",
+      "Vermont",
+      "vermont-catamounts"
+    ],
+    "primary": "#154734",
+    "secondary": "#FFC72C",
+    "conference": "America East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UVM.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "3084",
+    "abbreviation": "UVU",
+    "aliases": [
+      "Utah Valley Wolverines",
+      "Utah Valley",
+      "utah-valley-wolverines"
+    ],
+    "primary": "#004812",
+    "secondary": "#E1C736",
+    "conference": "United Athletic Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/UVU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2674",
+    "abbreviation": "VAL",
+    "aliases": [
+      "Valparaiso Beacons",
+      "Valparaiso",
+      "valparaiso-beacons"
+    ],
+    "primary": "#794500",
+    "secondary": null,
+    "conference": "Missouri Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/VAL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "238",
+    "abbreviation": "VAN",
+    "aliases": [
+      "Vanderbilt Commodores",
+      "Vanderbilt",
+      "vanderbilt-commodores"
+    ],
+    "primary": "#000000",
+    "secondary": "#CFAE70",
+    "conference": "Southeastern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/VAN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2670",
+    "abbreviation": "VCU",
+    "aliases": [
+      "VCU Rams",
+      "VCU",
+      "vcu-rams"
+    ],
+    "primary": "#FFAF00",
+    "secondary": "#000000",
+    "conference": "Atlantic 10 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/VCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "222",
+    "abbreviation": "VILL",
+    "aliases": [
+      "Villanova Wildcats",
+      "Villanova",
+      "villanova-wildcats"
+    ],
+    "primary": "#00205B",
+    "secondary": "#13B5EA",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/VILL.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2678",
+    "abbreviation": "VMI",
+    "aliases": [
+      "VMI Keydets",
+      "VMI",
+      "vmi-keydets"
+    ],
+    "primary": "#AE122A",
+    "secondary": "#000000",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/VMI.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "259",
+    "abbreviation": "VT",
+    "aliases": [
+      "Virginia Tech Hokies",
+      "Virginia Tech",
+      "virginia-tech-hokies"
+    ],
+    "primary": "#6A2C3E",
+    "secondary": "#CF4520",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/VT.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2729",
+    "abbreviation": "W&M",
+    "aliases": [
+      "William & Mary Tribe",
+      "William & Mary",
+      "william-mary-tribe"
+    ],
+    "primary": "#115740",
+    "secondary": "#F0B323",
+    "conference": "Coastal Athletic Association",
+    "division": "D1",
+    "logo": "logos/ncaab/W&M.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2681",
+    "abbreviation": "WAG",
+    "aliases": [
+      "Wagner Seahawks",
+      "Wagner",
+      "wagner-seahawks"
+    ],
+    "primary": "#00483A",
+    "secondary": "#FFFFFF",
+    "conference": "Northeast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WAG.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "154",
+    "abbreviation": "WAKE",
+    "aliases": [
+      "Wake Forest Demon Deacons",
+      "Wake Forest",
+      "wake-forest-demon-deacons"
+    ],
+    "primary": "#CEB888",
+    "secondary": "#2C2A29",
+    "conference": "Atlantic Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WAKE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "264",
+    "abbreviation": "WASH",
+    "aliases": [
+      "Washington Huskies",
+      "Washington",
+      "washington-huskies"
+    ],
+    "primary": "#33006F",
+    "secondary": "#E8D3A2",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WASH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2717",
+    "abbreviation": "WCU",
+    "aliases": [
+      "Western Carolina Catamounts",
+      "Western Carolina",
+      "western-carolina-catamounts"
+    ],
+    "primary": "#492F91",
+    "secondary": "#BF9E70",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WCU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2692",
+    "abbreviation": "WEB",
+    "aliases": [
+      "Weber State Wildcats",
+      "Weber State",
+      "weber-state-wildcats"
+    ],
+    "primary": "#18005A",
+    "secondary": "#EBEBEB",
+    "conference": "Big Sky Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WEB.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2698",
+    "abbreviation": "WGA",
+    "aliases": [
+      "West Georgia Wolves",
+      "West Georgia",
+      "west-georgia-wolves"
+    ],
+    "primary": "#0033A1",
+    "secondary": "#DB1A21",
+    "conference": "Atlantic Sun Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WGA.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2724",
+    "abbreviation": "WICH",
+    "aliases": [
+      "Wichita State Shockers",
+      "Wichita State",
+      "wichita-state-shockers"
+    ],
+    "primary": "#FFCD00",
+    "secondary": "#27251F",
+    "conference": "American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WICH.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2737",
+    "abbreviation": "WIN",
+    "aliases": [
+      "Winthrop Eagles",
+      "Winthrop",
+      "winthrop-eagles"
+    ],
+    "primary": "#9E0B0E",
+    "secondary": "#FDB41E",
+    "conference": "Big South Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WIN.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "275",
+    "abbreviation": "WIS",
+    "aliases": [
+      "Wisconsin Badgers",
+      "Wisconsin",
+      "wisconsin-badgers"
+    ],
+    "primary": "#A00000",
+    "secondary": "#FFFFFF",
+    "conference": "Big Ten Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WIS.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2710",
+    "abbreviation": "WIU",
+    "aliases": [
+      "Western Illinois Leathernecks",
+      "Western Illinois",
+      "western-illinois-leathernecks"
+    ],
+    "primary": "#4E1E8A",
+    "secondary": "#FFC90A",
+    "conference": "Ohio Valley Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WIU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "98",
+    "abbreviation": "WKU",
+    "aliases": [
+      "Western Kentucky Hilltoppers",
+      "Western Kentucky",
+      "western-kentucky-hilltoppers"
+    ],
+    "primary": "#E13A3E",
+    "secondary": "#FFFFFF",
+    "conference": "Conference USA",
+    "division": "D1",
+    "logo": "logos/ncaab/WKU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2711",
+    "abbreviation": "WMU",
+    "aliases": [
+      "Western Michigan Broncos",
+      "Western Michigan",
+      "western-michigan-broncos"
+    ],
+    "primary": "#532E1F",
+    "secondary": "#F1C500",
+    "conference": "Mid-American Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WMU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2747",
+    "abbreviation": "WOF",
+    "aliases": [
+      "Wofford Terriers",
+      "Wofford",
+      "wofford-terriers"
+    ],
+    "primary": "#533B22",
+    "secondary": "#F0F0F0",
+    "conference": "Southern Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WOF.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2750",
+    "abbreviation": "WRST",
+    "aliases": [
+      "Wright State Raiders",
+      "Wright State",
+      "wright-state-raiders"
+    ],
+    "primary": "#CBA052",
+    "secondary": "#CBA052",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/WRST.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "265",
+    "abbreviation": "WSU",
+    "aliases": [
+      "Washington State Cougars",
+      "Washington State",
+      "washington-state-cougars"
+    ],
+    "primary": "#A60F2D",
+    "secondary": "#4D4D4D",
+    "conference": "West Coast Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WSU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "277",
+    "abbreviation": "WVU",
+    "aliases": [
+      "West Virginia Mountaineers",
+      "West Virginia",
+      "west-virginia-mountaineers"
+    ],
+    "primary": "#EAAA00",
+    "secondary": "#002855",
+    "conference": "Big 12 Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WVU.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2751",
+    "abbreviation": "WYO",
+    "aliases": [
+      "Wyoming Cowboys",
+      "Wyoming",
+      "wyoming-cowboys"
+    ],
+    "primary": "#492F24",
+    "secondary": "#FFC425",
+    "conference": "Mountain West Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/WYO.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2752",
+    "abbreviation": "XAV",
+    "aliases": [
+      "Xavier Musketeers",
+      "Xavier",
+      "xavier-musketeers"
+    ],
+    "primary": "#21304E",
+    "secondary": "#A5A7A8",
+    "conference": "Big East Conference",
+    "division": "D1",
+    "logo": "logos/ncaab/XAV.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "43",
+    "abbreviation": "YALE",
+    "aliases": [
+      "Yale Bulldogs",
+      "Yale",
+      "yale-bulldogs"
+    ],
+    "primary": "#004A81",
+    "secondary": "#286DC0",
+    "conference": "Ivy League",
+    "division": "D1",
+    "logo": "logos/ncaab/YALE.png"
+  },
+  {
+    "sport": "ncaab",
+    "id": "2754",
+    "abbreviation": "YSU",
+    "aliases": [
+      "Youngstown State Penguins",
+      "Youngstown State",
+      "youngstown-state-penguins"
+    ],
+    "primary": "#E51935",
+    "secondary": "#690717",
+    "conference": "Horizon League",
+    "division": "D1",
+    "logo": "logos/ncaab/YSU.png"
+  }
+]

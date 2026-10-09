@@ -1,0 +1,482 @@
+[
+  {
+    "sport": "nhl",
+    "id": "ANA",
+    "aliases": [
+      "Anaheim Ducks",
+      "Anaheim",
+      "Ducks"
+    ],
+    "primary": "#F47A38",
+    "secondary": "#B9975B",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "BOS",
+    "aliases": [
+      "Boston Bruins",
+      "Boston",
+      "Bruins"
+    ],
+    "primary": "#FFB81C",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "BUF",
+    "aliases": [
+      "Buffalo Sabres",
+      "Buffalo",
+      "Sabres"
+    ],
+    "primary": "#002654",
+    "secondary": "#FCB514",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "CAR",
+    "aliases": [
+      "Carolina Hurricanes",
+      "Carolina",
+      "Hurricanes"
+    ],
+    "primary": "#CC0000",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "CBJ",
+    "aliases": [
+      "Columbus Blue Jackets",
+      "Columbus",
+      "Blue Jackets"
+    ],
+    "primary": "#002654",
+    "secondary": "#CE1126",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "CGY",
+    "aliases": [
+      "Calgary Flames",
+      "Calgary",
+      "Flames"
+    ],
+    "primary": "#C8102E",
+    "secondary": "#F1BE48",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "CHI",
+    "aliases": [
+      "Chicago Blackhawks",
+      "Chicago",
+      "Blackhawks"
+    ],
+    "primary": "#CF0A2C",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "COL",
+    "aliases": [
+      "Colorado Avalanche",
+      "Colorado",
+      "Avalanche"
+    ],
+    "primary": "#6F263D",
+    "secondary": "#236192",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "DAL",
+    "aliases": [
+      "Dallas Stars",
+      "Dallas",
+      "Stars"
+    ],
+    "primary": "#006847",
+    "secondary": "#8F8F8C",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "DET",
+    "aliases": [
+      "Detroit Red Wings",
+      "Detroit",
+      "Red Wings"
+    ],
+    "primary": "#CE1126",
+    "secondary": "#FFFFFF",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "EDM",
+    "aliases": [
+      "Edmonton Oilers",
+      "Edmonton",
+      "Oilers"
+    ],
+    "primary": "#041E42",
+    "secondary": "#FF4C00",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "FLA",
+    "aliases": [
+      "Florida Panthers",
+      "Florida",
+      "Panthers"
+    ],
+    "primary": "#041E42",
+    "secondary": "#C8102E",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "LAK",
+    "aliases": [
+      "Los Angeles Kings",
+      "Los Angeles",
+      "Kings"
+    ],
+    "primary": "#111111",
+    "secondary": "#A2AAAD",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "MIN",
+    "aliases": [
+      "Minnesota Wild",
+      "Minnesota",
+      "Wild"
+    ],
+    "primary": "#154734",
+    "secondary": "#A6192E",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "MTL",
+    "aliases": [
+      "Montreal Canadiens",
+      "Montreal",
+      "Canadiens"
+    ],
+    "primary": "#AF1E2D",
+    "secondary": "#192168",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "NJD",
+    "aliases": [
+      "New Jersey Devils",
+      "New Jersey",
+      "Devils"
+    ],
+    "primary": "#CE1126",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "NSH",
+    "aliases": [
+      "Nashville Predators",
+      "Nashville",
+      "Predators"
+    ],
+    "primary": "#FFB81C",
+    "secondary": "#041E42",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "NYI",
+    "aliases": [
+      "New York Islanders",
+      "New York",
+      "Islanders"
+    ],
+    "primary": "#00539B",
+    "secondary": "#F47D30",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "NYR",
+    "aliases": [
+      "New York Rangers",
+      "New York",
+      "Rangers"
+    ],
+    "primary": "#0038A8",
+    "secondary": "#CE1126",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "OTT",
+    "aliases": [
+      "Ottawa Senators",
+      "Ottawa",
+      "Senators"
+    ],
+    "primary": "#C52032",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "PHI",
+    "aliases": [
+      "Philadelphia Flyers",
+      "Philadelphia",
+      "Flyers"
+    ],
+    "primary": "#F74902",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "PIT",
+    "aliases": [
+      "Pittsburgh Penguins",
+      "Pittsburgh",
+      "Penguins"
+    ],
+    "primary": "#000000",
+    "secondary": "#CFC493",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "SEA",
+    "aliases": [
+      "Seattle Kraken",
+      "Seattle",
+      "Kraken"
+    ],
+    "primary": "#001628",
+    "secondary": "#99D9D9",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "SJS",
+    "aliases": [
+      "San Jose Sharks",
+      "San Jose",
+      "Sharks"
+    ],
+    "primary": "#006D75",
+    "secondary": "#EA7200",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "STL",
+    "aliases": [
+      "St. Louis Blues",
+      "St. Louis",
+      "Blues"
+    ],
+    "primary": "#002F87",
+    "secondary": "#FCB514",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "TBL",
+    "aliases": [
+      "Tampa Bay Lightning",
+      "Tampa Bay",
+      "Lightning"
+    ],
+    "primary": "#002868",
+    "secondary": "#FFFFFF",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "TOR",
+    "aliases": [
+      "Toronto Maple Leafs",
+      "Toronto",
+      "Maple Leafs"
+    ],
+    "primary": "#00205B",
+    "secondary": "#FFFFFF",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "UTA",
+    "aliases": [
+      "Utah Mammoth",
+      "Utah",
+      "Mammoth"
+    ],
+    "primary": "#6CACE4",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "VAN",
+    "aliases": [
+      "Vancouver Canucks",
+      "Vancouver",
+      "Canucks"
+    ],
+    "primary": "#00205B",
+    "secondary": "#00843D",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "VGK",
+    "aliases": [
+      "Vegas Golden Knights",
+      "Vegas",
+      "Golden Knights"
+    ],
+    "primary": "#B4975A",
+    "secondary": "#333F48",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "WPG",
+    "aliases": [
+      "Winnipeg Jets",
+      "Winnipeg",
+      "Jets"
+    ],
+    "primary": "#041E42",
+    "secondary": "#004C97",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nhl",
+    "id": "WSH",
+    "aliases": [
+      "Washington Capitals",
+      "Washington",
+      "Capitals"
+    ],
+    "primary": "#041E42",
+    "secondary": "#C8102E",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nhl-brand",
+    "as_of": "2026-10"
+  }
+]

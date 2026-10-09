@@ -1,12 +1,13 @@
-"""Serve the static widget on 127.0.0.1.
+"""Serve the repository root on 127.0.0.1.
 
-The process reads files from the widget directory. It does not estimate
-win probability and it does not forward a request anywhere else. The page
-loads a replay script that render-widget already wrote.
+The document root is the repo, so ``/index.html`` loads
+``assets/colors`` and ``assets/logos`` and the scripts under ``widget/``.
+It does not estimate win probability and it does not forward a request
+anywhere else. The page loads a replay script that render-widget already
+wrote.
 
 The one extra route is POST /follow from this machine. A good body is
-written to follow.json in the widget directory. Every other path is
-still a static file.
+written to ``widget/follow.json``. Every other path is still a static file.
 """
 
 from __future__ import annotations
@@ -21,7 +22,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Callable
 
-WIDGET_DIR = Path(__file__).resolve().parents[2] / "widget"
+_REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PORT = 8765
 _HOST = "127.0.0.1"
 _FOLLOW_NAME = "follow.json"
@@ -34,10 +35,15 @@ class UsageError(Exception):
 
 
 class _Handler(SimpleHTTPRequestHandler):
-    """Files under the widget directory. No access log and no proxy."""
+    """Files under the repository root. A .. segment does not leave that root."""
 
     def log_message(self, format: str, *args: object) -> None:
         return
+
+    def translate_path(self, path: str) -> str:
+        """Map the URL onto the document root. ``..`` does not escape it."""
+        clean = _unquote_path(path.split("?", 1)[0].split("#", 1)[0])
+        return _rooted_file(Path(self.directory), clean)
 
     def send_response_only(self, code: int, message: str | None = None) -> None:
         self._started = True
@@ -66,7 +72,7 @@ class _Handler(SimpleHTTPRequestHandler):
             self.send_error(HTTPStatus.BAD_REQUEST)
             return
         try:
-            _write_follow_file(Path(self.directory) / _FOLLOW_NAME, sport, game_id)
+            _write_follow_file(Path(self.directory) / "widget" / _FOLLOW_NAME, sport, game_id)
         except OSError:
             self.send_error(HTTPStatus.INTERNAL_SERVER_ERROR)
             return
@@ -104,12 +110,12 @@ class _Server(ThreadingHTTPServer):
 def bind_widget_server(
     port: int = DEFAULT_PORT, *, directory: Path | None = None
 ) -> _Server:
-    """Bind 127.0.0.1 and the widget directory. The caller serves and stops."""
+    """Bind 127.0.0.1 and the repository root. The caller serves and stops."""
     if isinstance(port, bool) or not isinstance(port, int) or not 0 <= port <= 65535:
         raise ValueError("port must be an integer from 0 to 65535")
-    root = WIDGET_DIR if directory is None else directory
+    root = _REPO_ROOT if directory is None else directory
     if not root.is_dir():
-        raise FileNotFoundError(f"widget directory not found: {root}")
+        raise FileNotFoundError(f"document root not found: {root}")
     handler = partial(_Handler, directory=str(root))
     return _Server((_HOST, port), handler)
 
@@ -152,7 +158,7 @@ def run_serve(
         print(exc, file=sys.stderr)
         return 1
     host, bound = server.server_address[:2]
-    print(f"Serving widget on {host} port {bound}", flush=True)
+    print(f"Serving on {host} port {bound}", flush=True)
     announced = False
     original = server.service_actions
 
@@ -199,6 +205,39 @@ def _parse_port(text: str) -> int:
 def _request_path(target: str) -> str:
     """Path only. A query string is not part of the route."""
     return target.split("?", 1)[0].split("#", 1)[0]
+
+
+def _unquote_path(text: str) -> str:
+    """Decode %HH bytes in a request path. Abbreviations are ASCII."""
+    decoded: list[str] = []
+    index = 0
+    while index < len(text):
+        if text[index] == "%" and index + 2 < len(text):
+            pair = text[index + 1 : index + 3]
+            try:
+                decoded.append(chr(int(pair, 16)))
+            except ValueError:
+                decoded.append(text[index])
+                index += 1
+                continue
+            index += 3
+            continue
+        decoded.append(text[index])
+        index += 1
+    return "".join(decoded)
+
+
+def _rooted_file(root: Path, clean: str) -> str:
+    """Filesystem path for a URL under ``root``, or a missing path when it escapes."""
+    relative = clean.lstrip("/")
+    parts = [part for part in relative.split("/") if part not in ("", ".")]
+    base = root.resolve()
+    if any(part == ".." for part in parts):
+        return str(base / "__missing__")
+    candidate = base.joinpath(*parts).resolve() if parts else base
+    if candidate != base and base not in candidate.parents:
+        return str(base / "__missing__")
+    return str(candidate)
 
 
 def _request_from_localhost(peer: str, host_header: str) -> bool:

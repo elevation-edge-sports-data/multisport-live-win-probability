@@ -1,0 +1,482 @@
+[
+  {
+    "sport": "nfl",
+    "id": "ARI",
+    "aliases": [
+      "Arizona Cardinals",
+      "Arizona",
+      "Cardinals"
+    ],
+    "primary": "#97233F",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "ATL",
+    "aliases": [
+      "Atlanta Falcons",
+      "Atlanta",
+      "Falcons"
+    ],
+    "primary": "#A71930",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "BAL",
+    "aliases": [
+      "Baltimore Ravens",
+      "Baltimore",
+      "Ravens"
+    ],
+    "primary": "#241773",
+    "secondary": "#9A7611",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "BUF",
+    "aliases": [
+      "Buffalo Bills",
+      "Buffalo",
+      "Bills"
+    ],
+    "primary": "#00338D",
+    "secondary": "#C60C30",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "CAR",
+    "aliases": [
+      "Carolina Panthers",
+      "Carolina",
+      "Panthers"
+    ],
+    "primary": "#0085CA",
+    "secondary": "#101820",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "CHI",
+    "aliases": [
+      "Chicago Bears",
+      "Chicago",
+      "Bears"
+    ],
+    "primary": "#0B162A",
+    "secondary": "#C83803",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "CIN",
+    "aliases": [
+      "Cincinnati Bengals",
+      "Cincinnati",
+      "Bengals"
+    ],
+    "primary": "#FB4F14",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "CLE",
+    "aliases": [
+      "Cleveland Browns",
+      "Cleveland",
+      "Browns"
+    ],
+    "primary": "#311D00",
+    "secondary": "#FF3C00",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "DAL",
+    "aliases": [
+      "Dallas Cowboys",
+      "Dallas",
+      "Cowboys"
+    ],
+    "primary": "#041E42",
+    "secondary": "#869397",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "DEN",
+    "aliases": [
+      "Denver Broncos",
+      "Denver",
+      "Broncos"
+    ],
+    "primary": "#FB4F14",
+    "secondary": "#002244",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "DET",
+    "aliases": [
+      "Detroit Lions",
+      "Detroit",
+      "Lions"
+    ],
+    "primary": "#0076B6",
+    "secondary": "#B0B7BC",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "GB",
+    "aliases": [
+      "Green Bay Packers",
+      "Green Bay",
+      "Packers"
+    ],
+    "primary": "#203731",
+    "secondary": "#FFB612",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "HOU",
+    "aliases": [
+      "Houston Texans",
+      "Houston",
+      "Texans"
+    ],
+    "primary": "#03202F",
+    "secondary": "#A71930",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "IND",
+    "aliases": [
+      "Indianapolis Colts",
+      "Indianapolis",
+      "Colts"
+    ],
+    "primary": "#002C5F",
+    "secondary": "#A2AAAD",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "JAX",
+    "aliases": [
+      "Jacksonville Jaguars",
+      "Jacksonville",
+      "Jaguars"
+    ],
+    "primary": "#006778",
+    "secondary": "#D7A22A",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "KC",
+    "aliases": [
+      "Kansas City Chiefs",
+      "Kansas City",
+      "Chiefs"
+    ],
+    "primary": "#E31837",
+    "secondary": "#FFB81C",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "LAC",
+    "aliases": [
+      "Los Angeles Chargers",
+      "Los Angeles",
+      "Chargers"
+    ],
+    "primary": "#0080C6",
+    "secondary": "#FFC20E",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "LAR",
+    "aliases": [
+      "Los Angeles Rams",
+      "Los Angeles",
+      "Rams"
+    ],
+    "primary": "#003594",
+    "secondary": "#FFA300",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "LV",
+    "aliases": [
+      "Las Vegas Raiders",
+      "Las Vegas",
+      "Raiders"
+    ],
+    "primary": "#000000",
+    "secondary": "#A5ACAF",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "MIA",
+    "aliases": [
+      "Miami Dolphins",
+      "Miami",
+      "Dolphins"
+    ],
+    "primary": "#008E97",
+    "secondary": "#FC4C02",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "MIN",
+    "aliases": [
+      "Minnesota Vikings",
+      "Minnesota",
+      "Vikings"
+    ],
+    "primary": "#4F2683",
+    "secondary": "#FFC62F",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "NE",
+    "aliases": [
+      "New England Patriots",
+      "New England",
+      "Patriots"
+    ],
+    "primary": "#002244",
+    "secondary": "#C60C30",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "NO",
+    "aliases": [
+      "New Orleans Saints",
+      "New Orleans",
+      "Saints"
+    ],
+    "primary": "#D3BC8D",
+    "secondary": "#101820",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "NYG",
+    "aliases": [
+      "New York Giants",
+      "New York",
+      "Giants"
+    ],
+    "primary": "#0B2265",
+    "secondary": "#A71930",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "NYJ",
+    "aliases": [
+      "New York Jets",
+      "New York",
+      "Jets"
+    ],
+    "primary": "#125740",
+    "secondary": "#000000",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "PHI",
+    "aliases": [
+      "Philadelphia Eagles",
+      "Philadelphia",
+      "Eagles"
+    ],
+    "primary": "#004C54",
+    "secondary": "#A5ACAF",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "PIT",
+    "aliases": [
+      "Pittsburgh Steelers",
+      "Pittsburgh",
+      "Steelers"
+    ],
+    "primary": "#FFB612",
+    "secondary": "#101820",
+    "white": "#FFFFFF",
+    "black": "#000000",
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "SEA",
+    "aliases": [
+      "Seattle Seahawks",
+      "Seattle",
+      "Seahawks"
+    ],
+    "primary": "#002244",
+    "secondary": "#69BE28",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "SF",
+    "aliases": [
+      "San Francisco 49ers",
+      "San Francisco",
+      "49ers"
+    ],
+    "primary": "#AA0000",
+    "secondary": "#B3995D",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "TB",
+    "aliases": [
+      "Tampa Bay Buccaneers",
+      "Tampa Bay",
+      "Buccaneers"
+    ],
+    "primary": "#D50A0A",
+    "secondary": "#34302B",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "TEN",
+    "aliases": [
+      "Tennessee Titans",
+      "Tennessee",
+      "Titans"
+    ],
+    "primary": "#0C2340",
+    "secondary": "#4B92DB",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  },
+  {
+    "sport": "nfl",
+    "id": "WAS",
+    "aliases": [
+      "Washington Commanders",
+      "Washington",
+      "Commanders"
+    ],
+    "primary": "#5A1414",
+    "secondary": "#FFB612",
+    "white": "#FFFFFF",
+    "black": null,
+    "source": "nfl-brand",
+    "as_of": "2026-10"
+  }
+]

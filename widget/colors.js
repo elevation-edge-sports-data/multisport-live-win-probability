@@ -9,7 +9,6 @@
     "primary": "#0B2265",
     "secondary": "#A71930",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "nfl-brand",
     "as_of": "2026-09"
@@ -21,7 +20,6 @@
     "primary": "#FB4F14",
     "secondary": "#002244",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "nfl-brand",
     "as_of": "2026-09"
@@ -33,7 +31,6 @@
     "primary": "#FF4C00",
     "secondary": "#041E42",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "nhl-brand",
     "as_of": "2026-09"
@@ -45,7 +42,6 @@
     "primary": "#6F263D",
     "secondary": "#236192",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "nhl-brand",
     "as_of": "2026-09"
@@ -57,7 +53,6 @@
     "primary": "#0E2240",
     "secondary": "#FEC524",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "nba-brand",
     "as_of": "2026-09"
@@ -69,7 +64,6 @@
     "primary": "#552583",
     "secondary": "#FDB927",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "nba-brand",
     "as_of": "2026-09"
@@ -83,7 +77,6 @@
     "primary": "#CFB87C",
     "secondary": "#A2A4A3",
     "white": "#FFFFFF",
-    "owns_black": true,
     "black": "#000000",
     "source": "ncaa-brand",
     "as_of": "2026-09"
@@ -95,7 +88,6 @@
     "primary": "#CC0000",
     "secondary": "#000000",
     "white": "#FFFFFF",
-    "owns_black": true,
     "black": "#000000",
     "source": "ncaa-brand",
     "as_of": "2026-09"
@@ -107,7 +99,6 @@
     "primary": "#FFCB05",
     "secondary": "#00274C",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "ncaa-brand",
     "as_of": "2026-09"
@@ -119,7 +110,6 @@
     "primary": "#8B2332",
     "secondary": "#C24E1C",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "ncaa-brand",
     "as_of": "2026-09"
@@ -133,7 +123,6 @@
     "primary": "#CFB87C",
     "secondary": "#A2A4A3",
     "white": "#FFFFFF",
-    "owns_black": true,
     "black": "#000000",
     "source": "ncaa-brand",
     "as_of": "2026-09"
@@ -145,7 +134,6 @@
     "primary": "#0021A5",
     "secondary": "#FA4616",
     "white": "#FFFFFF",
-    "owns_black": false,
     "black": null,
     "source": "ncaa-brand",
     "as_of": "2026-09"

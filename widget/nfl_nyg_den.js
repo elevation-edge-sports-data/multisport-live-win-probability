@@ -17,8 +17,8 @@ window.NFL_REPLAY = [
     "elapsed_seconds": 0,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 15:00",
@@ -40,8 +40,8 @@ window.NFL_REPLAY = [
     "yardline": 35,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 14:32",
@@ -63,8 +63,8 @@ window.NFL_REPLAY = [
     "yardline": 39,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 13:59",
@@ -86,8 +86,8 @@ window.NFL_REPLAY = [
     "yardline": 42,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 13:33",
@@ -109,8 +109,8 @@ window.NFL_REPLAY = [
     "yardline": 57,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:59",
@@ -132,8 +132,8 @@ window.NFL_REPLAY = [
     "yardline": 59,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:55",
@@ -155,8 +155,8 @@ window.NFL_REPLAY = [
     "yardline": 59,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:53",
@@ -178,8 +178,8 @@ window.NFL_REPLAY = [
     "yardline": 59,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:45",
@@ -201,8 +201,8 @@ window.NFL_REPLAY = [
     "yardline": 20,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:42",
@@ -224,8 +224,8 @@ window.NFL_REPLAY = [
     "yardline": 20,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:38",
@@ -247,8 +247,8 @@ window.NFL_REPLAY = [
     "yardline": 20,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:30",
@@ -270,8 +270,8 @@ window.NFL_REPLAY = [
     "yardline": 80,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 12:23",
@@ -293,8 +293,8 @@ window.NFL_REPLAY = [
     "yardline": 32,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 11:55",
@@ -316,8 +316,8 @@ window.NFL_REPLAY = [
     "yardline": 40,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 11:19",
@@ -339,8 +339,8 @@ window.NFL_REPLAY = [
     "yardline": 40,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 11:16",
@@ -362,8 +362,8 @@ window.NFL_REPLAY = [
     "yardline": 40,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 11:08",
@@ -385,8 +385,8 @@ window.NFL_REPLAY = [
     "yardline": 15,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 11:05",
@@ -408,8 +408,8 @@ window.NFL_REPLAY = [
     "yardline": 15,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 10:30",
@@ -431,8 +431,8 @@ window.NFL_REPLAY = [
     "yardline": 28,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 9:55",
@@ -454,8 +454,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 9:18",
@@ -477,8 +477,8 @@ window.NFL_REPLAY = [
     "yardline": 27,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 8:33",
@@ -500,8 +500,8 @@ window.NFL_REPLAY = [
     "yardline": 64,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 8:25",
@@ -523,8 +523,8 @@ window.NFL_REPLAY = [
     "yardline": 23,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 8:21",
@@ -546,8 +546,8 @@ window.NFL_REPLAY = [
     "yardline": 23,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 7:38",
@@ -569,8 +569,8 @@ window.NFL_REPLAY = [
     "yardline": 46,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 7:35",
@@ -592,8 +592,8 @@ window.NFL_REPLAY = [
     "yardline": 51,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 7:29",
@@ -615,8 +615,8 @@ window.NFL_REPLAY = [
     "yardline": 51,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 6:54",
@@ -638,8 +638,8 @@ window.NFL_REPLAY = [
     "yardline": 56,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 6:53",
@@ -661,8 +661,8 @@ window.NFL_REPLAY = [
     "yardline": 6,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 6:13",
@@ -684,8 +684,8 @@ window.NFL_REPLAY = [
     "yardline": 6,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 5:33",
@@ -707,8 +707,8 @@ window.NFL_REPLAY = [
     "yardline": 19,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 4:49",
@@ -730,8 +730,8 @@ window.NFL_REPLAY = [
     "yardline": 23,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 4:08",
@@ -753,8 +753,8 @@ window.NFL_REPLAY = [
     "yardline": 27,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 3:31",
@@ -776,8 +776,8 @@ window.NFL_REPLAY = [
     "yardline": 32,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 2:49",
@@ -799,8 +799,8 @@ window.NFL_REPLAY = [
     "yardline": 24,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 2:12",
@@ -822,8 +822,8 @@ window.NFL_REPLAY = [
     "yardline": 24,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 2:05",
@@ -845,8 +845,8 @@ window.NFL_REPLAY = [
     "yardline": 76,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 1:53",
@@ -868,8 +868,8 @@ window.NFL_REPLAY = [
     "yardline": 27,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 1:19",
@@ -891,8 +891,8 @@ window.NFL_REPLAY = [
     "yardline": 28,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 1:15",
@@ -914,8 +914,8 @@ window.NFL_REPLAY = [
     "yardline": 28,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 1:11",
@@ -937,8 +937,8 @@ window.NFL_REPLAY = [
     "yardline": 28,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 1:00",
@@ -960,8 +960,8 @@ window.NFL_REPLAY = [
     "yardline": 32,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 0:22",
@@ -983,8 +983,8 @@ window.NFL_REPLAY = [
     "yardline": 37,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q1 0:00",
@@ -1006,8 +1006,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 15:00",
@@ -1025,8 +1025,8 @@ window.NFL_REPLAY = [
     "elapsed_seconds": 900,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 15:00",
@@ -1048,8 +1048,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 14:57",
@@ -1071,8 +1071,8 @@ window.NFL_REPLAY = [
     "yardline": 64,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 14:45",
@@ -1094,8 +1094,8 @@ window.NFL_REPLAY = [
     "yardline": 18,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 14:10",
@@ -1117,8 +1117,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 13:24",
@@ -1140,8 +1140,8 @@ window.NFL_REPLAY = [
     "yardline": 49,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 12:54",
@@ -1163,8 +1163,8 @@ window.NFL_REPLAY = [
     "yardline": 78,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 12:16",
@@ -1186,8 +1186,8 @@ window.NFL_REPLAY = [
     "yardline": 82,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 12:11",
@@ -1209,8 +1209,8 @@ window.NFL_REPLAY = [
     "yardline": 82,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 11:42",
@@ -1232,8 +1232,8 @@ window.NFL_REPLAY = [
     "yardline": 87,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 10:59",
@@ -1255,8 +1255,8 @@ window.NFL_REPLAY = [
     "yardline": 87,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 10:40",
@@ -1278,8 +1278,8 @@ window.NFL_REPLAY = [
     "yardline": 88,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 9:56",
@@ -1301,8 +1301,8 @@ window.NFL_REPLAY = [
     "yardline": 85,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 9:12",
@@ -1324,8 +1324,8 @@ window.NFL_REPLAY = [
     "yardline": 92,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 8:46",
@@ -1347,8 +1347,8 @@ window.NFL_REPLAY = [
     "yardline": 87,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 8:46",
@@ -1370,8 +1370,8 @@ window.NFL_REPLAY = [
     "yardline": 35,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 8:10",
@@ -1393,8 +1393,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 7:41",
@@ -1416,8 +1416,8 @@ window.NFL_REPLAY = [
     "yardline": 51,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 7:13",
@@ -1439,8 +1439,8 @@ window.NFL_REPLAY = [
     "yardline": 57,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 6:44",
@@ -1462,8 +1462,8 @@ window.NFL_REPLAY = [
     "yardline": 58,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 6:40",
@@ -1485,8 +1485,8 @@ window.NFL_REPLAY = [
     "yardline": 58,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 5:58",
@@ -1508,8 +1508,8 @@ window.NFL_REPLAY = [
     "yardline": 61,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 5:52",
@@ -1531,8 +1531,8 @@ window.NFL_REPLAY = [
     "yardline": 61,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 5:13",
@@ -1554,8 +1554,8 @@ window.NFL_REPLAY = [
     "yardline": 63,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 4:28",
@@ -1577,8 +1577,8 @@ window.NFL_REPLAY = [
     "yardline": 95,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 3:49",
@@ -1600,8 +1600,8 @@ window.NFL_REPLAY = [
     "yardline": 98,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 3:44",
@@ -1623,8 +1623,8 @@ window.NFL_REPLAY = [
     "yardline": 98,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 3:39",
@@ -1646,8 +1646,8 @@ window.NFL_REPLAY = [
     "yardline": 98,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 3:35",
@@ -1669,8 +1669,8 @@ window.NFL_REPLAY = [
     "yardline": 2,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 3:00",
@@ -1692,8 +1692,8 @@ window.NFL_REPLAY = [
     "yardline": 2,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 2:16",
@@ -1715,8 +1715,8 @@ window.NFL_REPLAY = [
     "yardline": 4,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 2:00",
@@ -1738,8 +1738,8 @@ window.NFL_REPLAY = [
     "yardline": 2,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:56",
@@ -1761,8 +1761,8 @@ window.NFL_REPLAY = [
     "yardline": 17,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:28",
@@ -1784,8 +1784,8 @@ window.NFL_REPLAY = [
     "yardline": 26,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:22",
@@ -1807,8 +1807,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:20",
@@ -1830,8 +1830,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:14",
@@ -1853,8 +1853,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:11",
@@ -1876,8 +1876,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 1:04",
@@ -1899,8 +1899,8 @@ window.NFL_REPLAY = [
     "yardline": 24,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 0:43",
@@ -1922,8 +1922,8 @@ window.NFL_REPLAY = [
     "yardline": 25,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q2 0:31",
@@ -1945,8 +1945,8 @@ window.NFL_REPLAY = [
     "yardline": 20,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 15:00",
@@ -1964,8 +1964,8 @@ window.NFL_REPLAY = [
     "elapsed_seconds": 1800,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 14:56",
@@ -1987,8 +1987,8 @@ window.NFL_REPLAY = [
     "yardline": 27,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 14:20",
@@ -2010,8 +2010,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 13:44",
@@ -2033,8 +2033,8 @@ window.NFL_REPLAY = [
     "yardline": 37,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 13:38",
@@ -2056,8 +2056,8 @@ window.NFL_REPLAY = [
     "yardline": 37,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 12:57",
@@ -2079,8 +2079,8 @@ window.NFL_REPLAY = [
     "yardline": 42,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 12:50",
@@ -2102,8 +2102,8 @@ window.NFL_REPLAY = [
     "yardline": 58,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 12:43",
@@ -2125,8 +2125,8 @@ window.NFL_REPLAY = [
     "yardline": 15,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 12:07",
@@ -2148,8 +2148,8 @@ window.NFL_REPLAY = [
     "yardline": 12,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 12:04",
@@ -2171,8 +2171,8 @@ window.NFL_REPLAY = [
     "yardline": 15,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 11:34",
@@ -2194,8 +2194,8 @@ window.NFL_REPLAY = [
     "yardline": 17,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 10:58",
@@ -2217,8 +2217,8 @@ window.NFL_REPLAY = [
     "yardline": 21,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 10:20",
@@ -2240,8 +2240,8 @@ window.NFL_REPLAY = [
     "yardline": 40,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 9:43",
@@ -2263,8 +2263,8 @@ window.NFL_REPLAY = [
     "yardline": 43,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 9:39",
@@ -2286,8 +2286,8 @@ window.NFL_REPLAY = [
     "yardline": 43,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 9:17",
@@ -2309,8 +2309,8 @@ window.NFL_REPLAY = [
     "yardline": 38,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 8:45",
@@ -2332,8 +2332,8 @@ window.NFL_REPLAY = [
     "yardline": 66,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 8:00",
@@ -2355,8 +2355,8 @@ window.NFL_REPLAY = [
     "yardline": 66,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 7:13",
@@ -2378,8 +2378,8 @@ window.NFL_REPLAY = [
     "yardline": 58,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 7:08",
@@ -2401,8 +2401,8 @@ window.NFL_REPLAY = [
     "yardline": 58,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 7:02",
@@ -2424,8 +2424,8 @@ window.NFL_REPLAY = [
     "yardline": 12,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 6:22",
@@ -2447,8 +2447,8 @@ window.NFL_REPLAY = [
     "yardline": 11,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 6:19",
@@ -2470,8 +2470,8 @@ window.NFL_REPLAY = [
     "yardline": 11,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 6:15",
@@ -2493,8 +2493,8 @@ window.NFL_REPLAY = [
     "yardline": 89,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 6:04",
@@ -2516,8 +2516,8 @@ window.NFL_REPLAY = [
     "yardline": 41,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 5:34",
@@ -2539,8 +2539,8 @@ window.NFL_REPLAY = [
     "yardline": 50,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 5:00",
@@ -2562,8 +2562,8 @@ window.NFL_REPLAY = [
     "yardline": 54,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 4:24",
@@ -2585,8 +2585,8 @@ window.NFL_REPLAY = [
     "yardline": 54,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 3:45",
@@ -2608,8 +2608,8 @@ window.NFL_REPLAY = [
     "yardline": 62,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 3:13",
@@ -2631,8 +2631,8 @@ window.NFL_REPLAY = [
     "yardline": 65,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 2:41",
@@ -2654,8 +2654,8 @@ window.NFL_REPLAY = [
     "yardline": 69,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 2:36",
@@ -2677,8 +2677,8 @@ window.NFL_REPLAY = [
     "yardline": 22,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 1:53",
@@ -2700,8 +2700,8 @@ window.NFL_REPLAY = [
     "yardline": 31,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 1:25",
@@ -2723,8 +2723,8 @@ window.NFL_REPLAY = [
     "yardline": 36,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 0:47",
@@ -2746,8 +2746,8 @@ window.NFL_REPLAY = [
     "yardline": 52,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 0:07",
@@ -2769,8 +2769,8 @@ window.NFL_REPLAY = [
     "yardline": 84,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q3 0:00",
@@ -2792,8 +2792,8 @@ window.NFL_REPLAY = [
     "yardline": 86,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 15:00",
@@ -2811,8 +2811,8 @@ window.NFL_REPLAY = [
     "elapsed_seconds": 2700,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 15:00",
@@ -2834,8 +2834,8 @@ window.NFL_REPLAY = [
     "yardline": 86,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 14:17",
@@ -2857,8 +2857,8 @@ window.NFL_REPLAY = [
     "yardline": 98,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 14:08",
@@ -2880,8 +2880,8 @@ window.NFL_REPLAY = [
     "yardline": 98,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 14:02",
@@ -2903,8 +2903,8 @@ window.NFL_REPLAY = [
     "yardline": 33,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 13:19",
@@ -2926,8 +2926,8 @@ window.NFL_REPLAY = [
     "yardline": 34,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 12:36",
@@ -2949,8 +2949,8 @@ window.NFL_REPLAY = [
     "yardline": 48,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 11:48",
@@ -2972,8 +2972,8 @@ window.NFL_REPLAY = [
     "yardline": 66,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 11:08",
@@ -2995,8 +2995,8 @@ window.NFL_REPLAY = [
     "yardline": 67,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 10:22",
@@ -3018,8 +3018,8 @@ window.NFL_REPLAY = [
     "yardline": 64,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 10:14",
@@ -3041,8 +3041,8 @@ window.NFL_REPLAY = [
     "yardline": 59,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 10:09",
@@ -3064,8 +3064,8 @@ window.NFL_REPLAY = [
     "yardline": 26,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 9:37",
@@ -3087,8 +3087,8 @@ window.NFL_REPLAY = [
     "yardline": 33,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 9:05",
@@ -3110,8 +3110,8 @@ window.NFL_REPLAY = [
     "yardline": 37,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 8:40",
@@ -3133,8 +3133,8 @@ window.NFL_REPLAY = [
     "yardline": 42,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 8:36",
@@ -3156,8 +3156,8 @@ window.NFL_REPLAY = [
     "yardline": 42,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 8:09",
@@ -3179,8 +3179,8 @@ window.NFL_REPLAY = [
     "yardline": 49,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 7:47",
@@ -3202,8 +3202,8 @@ window.NFL_REPLAY = [
     "yardline": 39,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 7:15",
@@ -3225,8 +3225,8 @@ window.NFL_REPLAY = [
     "yardline": 47,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 7:12",
@@ -3248,8 +3248,8 @@ window.NFL_REPLAY = [
     "yardline": 47,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 6:38",
@@ -3271,8 +3271,8 @@ window.NFL_REPLAY = [
     "yardline": 56,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 6:35",
@@ -3294,8 +3294,8 @@ window.NFL_REPLAY = [
     "yardline": 60,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 5:52",
@@ -3317,8 +3317,8 @@ window.NFL_REPLAY = [
     "yardline": 81,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 5:47",
@@ -3340,8 +3340,8 @@ window.NFL_REPLAY = [
     "yardline": 81,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 5:21",
@@ -3363,8 +3363,8 @@ window.NFL_REPLAY = [
     "yardline": 93,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 5:13",
@@ -3386,8 +3386,8 @@ window.NFL_REPLAY = [
     "yardline": 93,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 5:07",
@@ -3409,8 +3409,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 5:02",
@@ -3432,8 +3432,8 @@ window.NFL_REPLAY = [
     "yardline": 32,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 4:56",
@@ -3455,8 +3455,8 @@ window.NFL_REPLAY = [
     "yardline": 35,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 4:47",
@@ -3478,8 +3478,8 @@ window.NFL_REPLAY = [
     "yardline": 81,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 4:42",
@@ -3501,8 +3501,8 @@ window.NFL_REPLAY = [
     "yardline": 81,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 4:15",
@@ -3524,8 +3524,8 @@ window.NFL_REPLAY = [
     "yardline": 86,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 4:15",
@@ -3547,8 +3547,8 @@ window.NFL_REPLAY = [
     "yardline": 91,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 3:51",
@@ -3570,8 +3570,8 @@ window.NFL_REPLAY = [
     "yardline": 98,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 3:45",
@@ -3593,8 +3593,8 @@ window.NFL_REPLAY = [
     "yardline": 28,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 3:01",
@@ -3616,8 +3616,8 @@ window.NFL_REPLAY = [
     "yardline": 28,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:56",
@@ -3639,8 +3639,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:51",
@@ -3662,8 +3662,8 @@ window.NFL_REPLAY = [
     "yardline": 30,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:42",
@@ -3685,8 +3685,8 @@ window.NFL_REPLAY = [
     "yardline": 32,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:17",
@@ -3708,8 +3708,8 @@ window.NFL_REPLAY = [
     "yardline": 31,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:14",
@@ -3731,8 +3731,8 @@ window.NFL_REPLAY = [
     "yardline": 31,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:06",
@@ -3754,8 +3754,8 @@ window.NFL_REPLAY = [
     "yardline": 62,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 2:04",
@@ -3777,8 +3777,8 @@ window.NFL_REPLAY = [
     "yardline": 62,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:51",
@@ -3800,8 +3800,8 @@ window.NFL_REPLAY = [
     "yardline": 82,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:51",
@@ -3823,8 +3823,8 @@ window.NFL_REPLAY = [
     "yardline": 35,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:21",
@@ -3846,8 +3846,8 @@ window.NFL_REPLAY = [
     "yardline": 31,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:14",
@@ -3869,8 +3869,8 @@ window.NFL_REPLAY = [
     "yardline": 31,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:14",
@@ -3892,8 +3892,8 @@ window.NFL_REPLAY = [
     "yardline": 26,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:08",
@@ -3915,8 +3915,8 @@ window.NFL_REPLAY = [
     "yardline": 26,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 1:01",
@@ -3938,8 +3938,8 @@ window.NFL_REPLAY = [
     "yardline": 60,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:55",
@@ -3961,8 +3961,8 @@ window.NFL_REPLAY = [
     "yardline": 60,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:49",
@@ -3984,8 +3984,8 @@ window.NFL_REPLAY = [
     "yardline": 60,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:37",
@@ -4007,8 +4007,8 @@ window.NFL_REPLAY = [
     "yardline": 99,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:33",
@@ -4030,8 +4030,8 @@ window.NFL_REPLAY = [
     "yardline": 23,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:18",
@@ -4053,8 +4053,8 @@ window.NFL_REPLAY = [
     "yardline": 52,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:18",
@@ -4076,8 +4076,8 @@ window.NFL_REPLAY = [
     "yardline": 57,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:03",
@@ -4099,8 +4099,8 @@ window.NFL_REPLAY = [
     "yardline": 79,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "Q4 0:00",
@@ -4122,8 +4122,8 @@ window.NFL_REPLAY = [
     "yardline": 79,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   },
   {
     "clock": "FINAL",
@@ -4141,7 +4141,7 @@ window.NFL_REPLAY = [
     "elapsed_seconds": 3600,
     "home_color": "#FB4F14",
     "away_color": "#0B2265",
-    "home_logo": "logos/nfl/DEN.png",
-    "away_logo": "logos/nfl/NYG.png"
+    "home_logo": "assets/logos/nfl/DEN.png",
+    "away_logo": "assets/logos/nfl/NYG.png"
   }
 ];

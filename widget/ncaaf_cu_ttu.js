@@ -17,8 +17,8 @@ window.NCAAF_REPLAY = [
     "elapsed_seconds": 0,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 14:54",
@@ -40,8 +40,8 @@ window.NCAAF_REPLAY = [
     "yardline": 46,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 14:28",
@@ -63,8 +63,8 @@ window.NCAAF_REPLAY = [
     "yardline": 81,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 14:04",
@@ -86,8 +86,8 @@ window.NCAAF_REPLAY = [
     "yardline": 83,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 13:50",
@@ -109,8 +109,8 @@ window.NCAAF_REPLAY = [
     "yardline": 83,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 13:46",
@@ -132,8 +132,8 @@ window.NCAAF_REPLAY = [
     "yardline": 14,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 13:43",
@@ -155,8 +155,8 @@ window.NCAAF_REPLAY = [
     "yardline": 9,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 13:04",
@@ -178,8 +178,8 @@ window.NCAAF_REPLAY = [
     "yardline": 5,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 12:40",
@@ -201,8 +201,8 @@ window.NCAAF_REPLAY = [
     "yardline": 17,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 12:26",
@@ -224,8 +224,8 @@ window.NCAAF_REPLAY = [
     "yardline": 27,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 12:00",
@@ -247,8 +247,8 @@ window.NCAAF_REPLAY = [
     "yardline": 25,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 11:22",
@@ -270,8 +270,8 @@ window.NCAAF_REPLAY = [
     "yardline": 22,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 11:18",
@@ -293,8 +293,8 @@ window.NCAAF_REPLAY = [
     "yardline": 22,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 11:07",
@@ -316,8 +316,8 @@ window.NCAAF_REPLAY = [
     "yardline": 22,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 10:33",
@@ -339,8 +339,8 @@ window.NCAAF_REPLAY = [
     "yardline": 20,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 10:04",
@@ -362,8 +362,8 @@ window.NCAAF_REPLAY = [
     "yardline": 37,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 9:29",
@@ -385,8 +385,8 @@ window.NCAAF_REPLAY = [
     "yardline": 39,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 8:57",
@@ -408,8 +408,8 @@ window.NCAAF_REPLAY = [
     "yardline": 44,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 8:33",
@@ -431,8 +431,8 @@ window.NCAAF_REPLAY = [
     "yardline": 61,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 8:31",
@@ -454,8 +454,8 @@ window.NCAAF_REPLAY = [
     "yardline": 61,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 7:46",
@@ -477,8 +477,8 @@ window.NCAAF_REPLAY = [
     "yardline": 62,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 7:04",
@@ -500,8 +500,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 7:00",
@@ -523,8 +523,8 @@ window.NCAAF_REPLAY = [
     "yardline": 17,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 6:34",
@@ -546,8 +546,8 @@ window.NCAAF_REPLAY = [
     "yardline": 22,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 6:11",
@@ -569,8 +569,8 @@ window.NCAAF_REPLAY = [
     "yardline": 26,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 6:05",
@@ -592,8 +592,8 @@ window.NCAAF_REPLAY = [
     "yardline": 26,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 6:01",
@@ -615,8 +615,8 @@ window.NCAAF_REPLAY = [
     "yardline": 47,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 5:34",
@@ -638,8 +638,8 @@ window.NCAAF_REPLAY = [
     "yardline": 57,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 5:09",
@@ -661,8 +661,8 @@ window.NCAAF_REPLAY = [
     "yardline": 56,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 4:25",
@@ -684,8 +684,8 @@ window.NCAAF_REPLAY = [
     "yardline": 58,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 4:03",
@@ -707,8 +707,8 @@ window.NCAAF_REPLAY = [
     "yardline": 85,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 3:21",
@@ -730,8 +730,8 @@ window.NCAAF_REPLAY = [
     "yardline": 87,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 2:37",
@@ -753,8 +753,8 @@ window.NCAAF_REPLAY = [
     "yardline": 79,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 2:28",
@@ -776,8 +776,8 @@ window.NCAAF_REPLAY = [
     "yardline": 79,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 2:28",
@@ -799,8 +799,8 @@ window.NCAAF_REPLAY = [
     "yardline": 25,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 2:21",
@@ -822,8 +822,8 @@ window.NCAAF_REPLAY = [
     "yardline": 25,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 1:39",
@@ -845,8 +845,8 @@ window.NCAAF_REPLAY = [
     "yardline": 29,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 1:30",
@@ -868,8 +868,8 @@ window.NCAAF_REPLAY = [
     "yardline": 29,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 1:19",
@@ -891,8 +891,8 @@ window.NCAAF_REPLAY = [
     "yardline": 21,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q1 0:44",
@@ -914,8 +914,8 @@ window.NCAAF_REPLAY = [
     "yardline": 23,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 15:00",
@@ -933,8 +933,8 @@ window.NCAAF_REPLAY = [
     "elapsed_seconds": 900,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 15:00",
@@ -956,8 +956,8 @@ window.NCAAF_REPLAY = [
     "yardline": 24,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 14:54",
@@ -979,8 +979,8 @@ window.NCAAF_REPLAY = [
     "yardline": 24,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 14:49",
@@ -1002,8 +1002,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 14:44",
@@ -1025,8 +1025,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 14:13",
@@ -1048,8 +1048,8 @@ window.NCAAF_REPLAY = [
     "yardline": 44,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 13:39",
@@ -1071,8 +1071,8 @@ window.NCAAF_REPLAY = [
     "yardline": 46,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 13:03",
@@ -1094,8 +1094,8 @@ window.NCAAF_REPLAY = [
     "yardline": 36,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 12:21",
@@ -1117,8 +1117,8 @@ window.NCAAF_REPLAY = [
     "yardline": 46,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 12:13",
@@ -1140,8 +1140,8 @@ window.NCAAF_REPLAY = [
     "yardline": 19,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 11:34",
@@ -1163,8 +1163,8 @@ window.NCAAF_REPLAY = [
     "yardline": 28,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 10:50",
@@ -1186,8 +1186,8 @@ window.NCAAF_REPLAY = [
     "yardline": 19,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 10:35",
@@ -1209,8 +1209,8 @@ window.NCAAF_REPLAY = [
     "yardline": 14,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 10:06",
@@ -1232,8 +1232,8 @@ window.NCAAF_REPLAY = [
     "yardline": 15,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 10:01",
@@ -1255,8 +1255,8 @@ window.NCAAF_REPLAY = [
     "yardline": 42,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 9:41",
@@ -1278,8 +1278,8 @@ window.NCAAF_REPLAY = [
     "yardline": 44,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 9:12",
@@ -1301,8 +1301,8 @@ window.NCAAF_REPLAY = [
     "yardline": 63,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 8:50",
@@ -1324,8 +1324,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 8:11",
@@ -1347,8 +1347,8 @@ window.NCAAF_REPLAY = [
     "yardline": 73,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 7:33",
@@ -1370,8 +1370,8 @@ window.NCAAF_REPLAY = [
     "yardline": 77,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 7:33",
@@ -1393,8 +1393,8 @@ window.NCAAF_REPLAY = [
     "yardline": 25,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 7:13",
@@ -1416,8 +1416,8 @@ window.NCAAF_REPLAY = [
     "yardline": 28,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 6:43",
@@ -1439,8 +1439,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 6:09",
@@ -1462,8 +1462,8 @@ window.NCAAF_REPLAY = [
     "yardline": 35,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 5:28",
@@ -1485,8 +1485,8 @@ window.NCAAF_REPLAY = [
     "yardline": 37,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 5:21",
@@ -1508,8 +1508,8 @@ window.NCAAF_REPLAY = [
     "yardline": 32,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 5:01",
@@ -1531,8 +1531,8 @@ window.NCAAF_REPLAY = [
     "yardline": 34,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 4:56",
@@ -1554,8 +1554,8 @@ window.NCAAF_REPLAY = [
     "yardline": 39,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 4:49",
@@ -1577,8 +1577,8 @@ window.NCAAF_REPLAY = [
     "yardline": 39,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 4:43",
@@ -1600,8 +1600,8 @@ window.NCAAF_REPLAY = [
     "yardline": 18,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 4:17",
@@ -1623,8 +1623,8 @@ window.NCAAF_REPLAY = [
     "yardline": 35,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 3:45",
@@ -1646,8 +1646,8 @@ window.NCAAF_REPLAY = [
     "yardline": 57,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 3:13",
@@ -1669,8 +1669,8 @@ window.NCAAF_REPLAY = [
     "yardline": 60,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 2:27",
@@ -1692,8 +1692,8 @@ window.NCAAF_REPLAY = [
     "yardline": 64,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 2:00",
@@ -1715,8 +1715,8 @@ window.NCAAF_REPLAY = [
     "yardline": 66,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 2:00",
@@ -1738,8 +1738,8 @@ window.NCAAF_REPLAY = [
     "yardline": 61,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 1:32",
@@ -1761,8 +1761,8 @@ window.NCAAF_REPLAY = [
     "yardline": 70,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 1:23",
@@ -1784,8 +1784,8 @@ window.NCAAF_REPLAY = [
     "yardline": 77,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 1:15",
@@ -1807,8 +1807,8 @@ window.NCAAF_REPLAY = [
     "yardline": 86,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:43",
@@ -1830,8 +1830,8 @@ window.NCAAF_REPLAY = [
     "yardline": 92,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:34",
@@ -1853,8 +1853,8 @@ window.NCAAF_REPLAY = [
     "yardline": 92,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:30",
@@ -1876,8 +1876,8 @@ window.NCAAF_REPLAY = [
     "yardline": 92,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:19",
@@ -1899,8 +1899,8 @@ window.NCAAF_REPLAY = [
     "yardline": 58,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:16",
@@ -1922,8 +1922,8 @@ window.NCAAF_REPLAY = [
     "yardline": 62,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:15",
@@ -1945,8 +1945,8 @@ window.NCAAF_REPLAY = [
     "yardline": 62,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:07",
@@ -1968,8 +1968,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q2 0:04",
@@ -1991,8 +1991,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 15:00",
@@ -2010,8 +2010,8 @@ window.NCAAF_REPLAY = [
     "elapsed_seconds": 1800,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 15:00",
@@ -2033,8 +2033,8 @@ window.NCAAF_REPLAY = [
     "yardline": 25,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 14:19",
@@ -2056,8 +2056,8 @@ window.NCAAF_REPLAY = [
     "yardline": 23,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 13:59",
@@ -2079,8 +2079,8 @@ window.NCAAF_REPLAY = [
     "yardline": 39,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 13:26",
@@ -2102,8 +2102,8 @@ window.NCAAF_REPLAY = [
     "yardline": 42,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 13:11",
@@ -2125,8 +2125,8 @@ window.NCAAF_REPLAY = [
     "yardline": 52,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 12:45",
@@ -2148,8 +2148,8 @@ window.NCAAF_REPLAY = [
     "yardline": 64,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 12:09",
@@ -2171,8 +2171,8 @@ window.NCAAF_REPLAY = [
     "yardline": 68,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 12:06",
@@ -2194,8 +2194,8 @@ window.NCAAF_REPLAY = [
     "yardline": 68,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 11:58",
@@ -2217,8 +2217,8 @@ window.NCAAF_REPLAY = [
     "yardline": 83,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 11:56",
@@ -2240,8 +2240,8 @@ window.NCAAF_REPLAY = [
     "yardline": 83,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 11:05",
@@ -2263,8 +2263,8 @@ window.NCAAF_REPLAY = [
     "yardline": 93,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 11:00",
@@ -2286,8 +2286,8 @@ window.NCAAF_REPLAY = [
     "yardline": 93,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 10:55",
@@ -2309,8 +2309,8 @@ window.NCAAF_REPLAY = [
     "yardline": 34,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 10:34",
@@ -2332,8 +2332,8 @@ window.NCAAF_REPLAY = [
     "yardline": 38,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 10:16",
@@ -2355,8 +2355,8 @@ window.NCAAF_REPLAY = [
     "yardline": 58,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 10:13",
@@ -2378,8 +2378,8 @@ window.NCAAF_REPLAY = [
     "yardline": 58,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 9:51",
@@ -2401,8 +2401,8 @@ window.NCAAF_REPLAY = [
     "yardline": 67,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 9:38",
@@ -2424,8 +2424,8 @@ window.NCAAF_REPLAY = [
     "yardline": 78,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 9:28",
@@ -2447,8 +2447,8 @@ window.NCAAF_REPLAY = [
     "yardline": 89,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 8:50",
@@ -2470,8 +2470,8 @@ window.NCAAF_REPLAY = [
     "yardline": 93,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 7:55",
@@ -2493,8 +2493,8 @@ window.NCAAF_REPLAY = [
     "yardline": 98,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 7:52",
@@ -2516,8 +2516,8 @@ window.NCAAF_REPLAY = [
     "yardline": 98,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 7:47",
@@ -2539,8 +2539,8 @@ window.NCAAF_REPLAY = [
     "yardline": 27,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 7:44",
@@ -2562,8 +2562,8 @@ window.NCAAF_REPLAY = [
     "yardline": 22,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 7:12",
@@ -2585,8 +2585,8 @@ window.NCAAF_REPLAY = [
     "yardline": 21,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 6:32",
@@ -2608,8 +2608,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 6:02",
@@ -2631,8 +2631,8 @@ window.NCAAF_REPLAY = [
     "yardline": 38,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 5:30",
@@ -2654,8 +2654,8 @@ window.NCAAF_REPLAY = [
     "yardline": 63,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 5:28",
@@ -2677,8 +2677,8 @@ window.NCAAF_REPLAY = [
     "yardline": 73,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 4:59",
@@ -2700,8 +2700,8 @@ window.NCAAF_REPLAY = [
     "yardline": 78,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 4:25",
@@ -2723,8 +2723,8 @@ window.NCAAF_REPLAY = [
     "yardline": 95,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 4:20",
@@ -2746,8 +2746,8 @@ window.NCAAF_REPLAY = [
     "yardline": 26,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 3:47",
@@ -2769,8 +2769,8 @@ window.NCAAF_REPLAY = [
     "yardline": 32,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 3:28",
@@ -2792,8 +2792,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 3:16",
@@ -2815,8 +2815,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 3:08",
@@ -2838,8 +2838,8 @@ window.NCAAF_REPLAY = [
     "yardline": 69,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 2:08",
@@ -2861,8 +2861,8 @@ window.NCAAF_REPLAY = [
     "yardline": 63,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 1:43",
@@ -2884,8 +2884,8 @@ window.NCAAF_REPLAY = [
     "yardline": 85,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 1:25",
@@ -2907,8 +2907,8 @@ window.NCAAF_REPLAY = [
     "yardline": 86,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 1:18",
@@ -2930,8 +2930,8 @@ window.NCAAF_REPLAY = [
     "yardline": 76,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 1:12",
@@ -2953,8 +2953,8 @@ window.NCAAF_REPLAY = [
     "yardline": 40,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 0:43",
@@ -2976,8 +2976,8 @@ window.NCAAF_REPLAY = [
     "yardline": 45,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q3 0:11",
@@ -2999,8 +2999,8 @@ window.NCAAF_REPLAY = [
     "yardline": 50,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 15:00",
@@ -3018,8 +3018,8 @@ window.NCAAF_REPLAY = [
     "elapsed_seconds": 2700,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 15:00",
@@ -3041,8 +3041,8 @@ window.NCAAF_REPLAY = [
     "yardline": 53,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 14:36",
@@ -3064,8 +3064,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 14:11",
@@ -3087,8 +3087,8 @@ window.NCAAF_REPLAY = [
     "yardline": 57,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 13:44",
@@ -3110,8 +3110,8 @@ window.NCAAF_REPLAY = [
     "yardline": 62,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 13:12",
@@ -3133,8 +3133,8 @@ window.NCAAF_REPLAY = [
     "yardline": 66,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 13:12",
@@ -3156,8 +3156,8 @@ window.NCAAF_REPLAY = [
     "yardline": 45,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 12:29",
@@ -3179,8 +3179,8 @@ window.NCAAF_REPLAY = [
     "yardline": 45,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 12:23",
@@ -3202,8 +3202,8 @@ window.NCAAF_REPLAY = [
     "yardline": 45,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 12:17",
@@ -3225,8 +3225,8 @@ window.NCAAF_REPLAY = [
     "yardline": 45,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 12:17",
@@ -3248,8 +3248,8 @@ window.NCAAF_REPLAY = [
     "yardline": 40,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 12:07",
@@ -3271,8 +3271,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 12:02",
@@ -3294,8 +3294,8 @@ window.NCAAF_REPLAY = [
     "yardline": 31,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 11:40",
@@ -3317,8 +3317,8 @@ window.NCAAF_REPLAY = [
     "yardline": 49,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 11:35",
@@ -3340,8 +3340,8 @@ window.NCAAF_REPLAY = [
     "yardline": 61,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 11:10",
@@ -3363,8 +3363,8 @@ window.NCAAF_REPLAY = [
     "yardline": 77,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 10:41",
@@ -3386,8 +3386,8 @@ window.NCAAF_REPLAY = [
     "yardline": 81,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 10:32",
@@ -3409,8 +3409,8 @@ window.NCAAF_REPLAY = [
     "yardline": 81,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 9:46",
@@ -3432,8 +3432,8 @@ window.NCAAF_REPLAY = [
     "yardline": 85,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 9:18",
@@ -3455,8 +3455,8 @@ window.NCAAF_REPLAY = [
     "yardline": 5,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 9:05",
@@ -3478,8 +3478,8 @@ window.NCAAF_REPLAY = [
     "yardline": 8,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 8:52",
@@ -3501,8 +3501,8 @@ window.NCAAF_REPLAY = [
     "yardline": 11,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 8:39",
@@ -3524,8 +3524,8 @@ window.NCAAF_REPLAY = [
     "yardline": 28,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3547,8 +3547,8 @@ window.NCAAF_REPLAY = [
     "yardline": 69,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3570,8 +3570,8 @@ window.NCAAF_REPLAY = [
     "yardline": 69,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3593,8 +3593,8 @@ window.NCAAF_REPLAY = [
     "yardline": 70,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3616,8 +3616,8 @@ window.NCAAF_REPLAY = [
     "yardline": 62,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3639,8 +3639,8 @@ window.NCAAF_REPLAY = [
     "yardline": 57,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 7:05",
@@ -3662,8 +3662,8 @@ window.NCAAF_REPLAY = [
     "yardline": 16,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 6:49",
@@ -3685,8 +3685,8 @@ window.NCAAF_REPLAY = [
     "yardline": 41,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 6:32",
@@ -3708,8 +3708,8 @@ window.NCAAF_REPLAY = [
     "yardline": 44,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 6:29",
@@ -3731,8 +3731,8 @@ window.NCAAF_REPLAY = [
     "yardline": 44,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 6:11",
@@ -3754,8 +3754,8 @@ window.NCAAF_REPLAY = [
     "yardline": 57,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 5:46",
@@ -3777,8 +3777,8 @@ window.NCAAF_REPLAY = [
     "yardline": 83,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 5:45",
@@ -3800,8 +3800,8 @@ window.NCAAF_REPLAY = [
     "yardline": 83,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 5:44",
@@ -3823,8 +3823,8 @@ window.NCAAF_REPLAY = [
     "yardline": 68,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 5:23",
@@ -3846,8 +3846,8 @@ window.NCAAF_REPLAY = [
     "yardline": 85,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 5:21",
@@ -3869,8 +3869,8 @@ window.NCAAF_REPLAY = [
     "yardline": 93,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 4:58",
@@ -3892,8 +3892,8 @@ window.NCAAF_REPLAY = [
     "yardline": 94,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 4:52",
@@ -3915,8 +3915,8 @@ window.NCAAF_REPLAY = [
     "yardline": 94,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 4:09",
@@ -3938,8 +3938,8 @@ window.NCAAF_REPLAY = [
     "yardline": 99,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 4:04",
@@ -3961,8 +3961,8 @@ window.NCAAF_REPLAY = [
     "yardline": 4,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 4:03",
@@ -3984,8 +3984,8 @@ window.NCAAF_REPLAY = [
     "yardline": 4,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 3:51",
@@ -4007,8 +4007,8 @@ window.NCAAF_REPLAY = [
     "yardline": 11,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 3:51",
@@ -4030,8 +4030,8 @@ window.NCAAF_REPLAY = [
     "yardline": 10,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 3:50",
@@ -4053,8 +4053,8 @@ window.NCAAF_REPLAY = [
     "yardline": 10,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 3:44",
@@ -4076,8 +4076,8 @@ window.NCAAF_REPLAY = [
     "yardline": 57,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 3:24",
@@ -4099,8 +4099,8 @@ window.NCAAF_REPLAY = [
     "yardline": 63,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 3:05",
@@ -4122,8 +4122,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:58",
@@ -4145,8 +4145,8 @@ window.NCAAF_REPLAY = [
     "yardline": 78,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:40",
@@ -4168,8 +4168,8 @@ window.NCAAF_REPLAY = [
     "yardline": 70,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:33",
@@ -4191,8 +4191,8 @@ window.NCAAF_REPLAY = [
     "yardline": 65,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:12",
@@ -4214,8 +4214,8 @@ window.NCAAF_REPLAY = [
     "yardline": 79,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:12",
@@ -4237,8 +4237,8 @@ window.NCAAF_REPLAY = [
     "yardline": 55,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:12",
@@ -4260,8 +4260,8 @@ window.NCAAF_REPLAY = [
     "yardline": 50,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:07",
@@ -4283,8 +4283,8 @@ window.NCAAF_REPLAY = [
     "yardline": 53,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:05",
@@ -4306,8 +4306,8 @@ window.NCAAF_REPLAY = [
     "yardline": 53,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 2:00",
@@ -4329,8 +4329,8 @@ window.NCAAF_REPLAY = [
     "yardline": 51,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 1:09",
@@ -4352,8 +4352,8 @@ window.NCAAF_REPLAY = [
     "yardline": 51,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 1:07",
@@ -4375,8 +4375,8 @@ window.NCAAF_REPLAY = [
     "yardline": 56,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 1:03",
@@ -4398,8 +4398,8 @@ window.NCAAF_REPLAY = [
     "yardline": 6,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 0:51",
@@ -4421,8 +4421,8 @@ window.NCAAF_REPLAY = [
     "yardline": 6,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 0:41",
@@ -4444,8 +4444,8 @@ window.NCAAF_REPLAY = [
     "yardline": 50,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 0:25",
@@ -4467,8 +4467,8 @@ window.NCAAF_REPLAY = [
     "yardline": 53,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 0:13",
@@ -4490,8 +4490,8 @@ window.NCAAF_REPLAY = [
     "yardline": 61,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 0:04",
@@ -4513,8 +4513,8 @@ window.NCAAF_REPLAY = [
     "yardline": 75,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "Q4 0:00",
@@ -4536,8 +4536,8 @@ window.NCAAF_REPLAY = [
     "yardline": 82,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   },
   {
     "clock": "FINAL",
@@ -4555,7 +4555,7 @@ window.NCAAF_REPLAY = [
     "elapsed_seconds": 3600,
     "home_color": "#CC0000",
     "away_color": "#CFB87C",
-    "home_logo": "logos/ncaaf/TTU.png",
-    "away_logo": "logos/ncaaf/COLO.png"
+    "home_logo": "assets/logos/ncaaf/TTU.png",
+    "away_logo": "assets/logos/ncaaf/COLO.png"
   }
 ];

@@ -1,11 +1,14 @@
 // Displays one rendered replay chosen from window.MSWP_MANIFEST.
 // Each replay was produced by the Python pack for that sport. This file
 // does not estimate win probability. On 127.0.0.1 or localhost it reads
-// live_replay.js and slate.js. A pro slate click on that host POSTs
+// widget/live_replay.js and widget/slate.js. A pro slate click on that host POSTs
 // /follow. On that host, when the query does not already choose a game,
-// it also GETs follow.json once (the static widget/follow.json file).
-// If that pro sport and game_id are on the slate, the page opens that row.
-// GitHub Pages does not request follow.json. College does not read it.
+// it also GETs widget/follow.json once. If that pro sport and game_id are
+// on the slate, the page opens that row. GitHub Pages is / and does not
+// request follow.json. College does not read it. Club colors for the
+// selected sport are assets/colors/{sport}.json, one file per league,
+// keyed by sport and id. id is the logo filename stem. Logos on a frame
+// are assets/logos/{sport}/{abbr}.png and applyLogo uses that string as-is.
 // The page query selects a manifest game (sport and game=away-home).
 // live=1 selects Live on this host when that file has frames.
 // id= selects a slate event on this host. A query string wins over the file.
@@ -400,6 +403,61 @@
     return "Red";
   }
 
+  var COLOR_SPORTS = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
+
+  function clubStem(row) {
+    if (!row || typeof row !== "object") return "";
+    if (typeof row.abbreviation === "string" && row.abbreviation.trim()) {
+      return row.abbreviation.trim();
+    }
+    if (row.id != null && String(row.id).trim()) return String(row.id).trim();
+    return "";
+  }
+
+  function normalizeClub(row, sport) {
+    var stem = clubStem(row);
+    var aliases = row && Array.isArray(row.aliases) ? row.aliases : [];
+    var source = row && (row.source || row.color_source) ? (row.source || row.color_source) : null;
+    return {
+      sport: String(sport || (row && row.sport) || "").toLowerCase(),
+      id: stem,
+      aliases: aliases,
+      primary: row && row.primary ? row.primary : null,
+      secondary: row && row.secondary ? row.secondary : null,
+      white: row && row.white ? row.white : null,
+      black: row && row.black ? row.black : null,
+      source: source,
+      as_of: row && row.as_of ? row.as_of : null
+    };
+  }
+
+  function sportHasColors(sport) {
+    var rows = root.MSWP_COLORS || [];
+    var key = String(sport || "").toLowerCase();
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      if (String(rows[i].sport).toLowerCase() === key) return true;
+    }
+    return false;
+  }
+
+  function ingestColors(sport, rows) {
+    var key = String(sport || "").toLowerCase();
+    var next = [];
+    var existing = root.MSWP_COLORS || [];
+    var i;
+    if (!Array.isArray(rows)) return;
+    for (i = 0; i < existing.length; i++) {
+      if (String(existing[i].sport).toLowerCase() !== key) next.push(existing[i]);
+    }
+    for (i = 0; i < rows.length; i++) {
+      var club = normalizeClub(rows[i], key);
+      if (!club.id) continue;
+      next.push(club);
+    }
+    root.MSWP_COLORS = next;
+  }
+
   function findClub(sport, name) {
     var rows = root.MSWP_COLORS || [];
     var key = String(name || "").trim().toUpperCase();
@@ -416,6 +474,12 @@
     }
     return null;
   }
+
+  root.mswpColors = {
+    ingest: ingestColors,
+    normalizeClub: normalizeClub,
+    sportHasColors: sportHasColors
+  };
 
   function buildSwatches(club) {
     var list = [];
@@ -436,10 +500,8 @@
     if (secondary && !hasNear(secondary)) push(secondary);
     var white = normalizeHex(club.white);
     if (white && !hasNear(white)) push(white);
-    if (club.owns_black) {
-      var black = normalizeHex(club.black);
-      if (black && !hasNear(black)) push(black);
-    }
+    var black = normalizeHex(club.black);
+    if (black && !hasNear(black)) push(black);
     return list;
   }
 
@@ -448,9 +510,12 @@
     var swatches = buildSwatches(club);
     var i;
     for (i = 0; i < swatches.length; i++) present[swatches[i].hex] = true;
-    var prefs = theme === "offwhite"
-      ? [club && club.primary, club && club.secondary, club && club.owns_black ? club.black : null, club && club.white]
-      : [club && club.primary, club && club.secondary, club && club.white];
+    var prefs = [club && club.primary, club && club.secondary];
+    if (theme === "offwhite") {
+      var black = normalizeHex(club && club.black);
+      if (black) prefs.push(black);
+    }
+    prefs.push(club && club.white);
     var order = [];
     for (i = 0; i < prefs.length; i++) {
       var hex = normalizeHex(prefs[i]);
@@ -690,6 +755,7 @@
   var homeSwatch = null;
   var loadToken = 0;
   var frameCache = {};
+  var colorLoads = {};
   var liveFrames = null;
   var liveSport = "";
   var liveAway = "";
@@ -801,7 +867,6 @@
       primary: painted || (side === "home" ? "#1f8f86" : "#c94b32"),
       secondary: null,
       white: "#FFFFFF",
-      owns_black: false,
       black: null
     };
   }
@@ -879,7 +944,45 @@
     applyTeamColors();
   }
 
+  function colorFile(sport) {
+    return "assets/colors/" + sport + ".json";
+  }
+
+  function logoUrl(sport, abbr) {
+    var sportKey = String(sport || "").trim().toLowerCase();
+    var name = String(abbr == null ? "" : abbr).trim();
+    if (COLOR_SPORTS.indexOf(sportKey) < 0 || !name) return "";
+    if (name.indexOf("/") >= 0 || name.indexOf("\\") >= 0 || name.indexOf("..") >= 0) return "";
+    return "assets/logos/" + sportKey + "/" + encodeURIComponent(name) + ".png";
+  }
+
+  function ensureColors(sport) {
+    var key = String(sport || "").toLowerCase();
+    if (COLOR_SPORTS.indexOf(key) < 0) return;
+    if (colorLoads[key]) return;
+    if (typeof root.fetch !== "function") return;
+    colorLoads[key] = true;
+    var pending;
+    try {
+      pending = root.fetch(colorFile(key), { cache: "no-store" });
+    } catch (err) {
+      colorLoads[key] = false;
+      return;
+    }
+    Promise.resolve(pending).then(function (response) {
+      if (!response || !response.ok || typeof response.json !== "function") return null;
+      return response.json();
+    }).then(function (rows) {
+      if (!rows) return;
+      ingestColors(key, rows);
+      if (sportName === key && frames.length && !viewingBoard) loadMatchupAppearance();
+    }).catch(function () {
+      colorLoads[key] = false;
+    });
+  }
+
   function loadMatchupAppearance() {
+    ensureColors(sportName);
     if (!frames.length) {
       renderAppearance();
       return;
@@ -969,15 +1072,23 @@
 
   function applyLogo(id, path) {
     var img = document.getElementById(id);
+    if (typeof path !== "string") path = "";
     if (!path) {
       img.hidden = true;
       img.removeAttribute("src");
       return;
     }
-    if (img.getAttribute("src") !== path) {
-      img.setAttribute("src", path);
-    }
-    img.hidden = false;
+    if (img.getAttribute("src") === path) return;
+    img.hidden = true;
+    img.onerror = function () {
+      if (img.getAttribute("src") !== path) return;
+      img.hidden = true;
+      img.removeAttribute("src");
+    };
+    img.onload = function () {
+      if (img.getAttribute("src") === path) img.hidden = false;
+    };
+    img.setAttribute("src", path);
   }
 
   function paintTicker(frame) {
@@ -1416,7 +1527,7 @@
   }
 
   function requestScript(fileName, serial) {
-    var stem = fileName === "slate.js" ? "slate.js?" : "live_replay.js?";
+    var stem = fileName === "slate.js" ? "widget/slate.js?" : "widget/live_replay.js?";
     return root.fetch(stem + "t=" + Date.now() + "-" + serial, { cache: "no-store" });
   }
 
@@ -1535,7 +1646,7 @@
     if (!hostAllowsLive() || typeof root.fetch !== "function") return;
     if (queryOwned || collegeBoot || levelName === "college") return;
     try {
-      pending = root.fetch("follow.json", { method: "GET", cache: "no-store" });
+      pending = root.fetch("widget/follow.json", { method: "GET", cache: "no-store" });
     } catch (err) {
       followSettled = true;
       return;
@@ -1763,6 +1874,12 @@
     show(openingIndex(frames));
   }
 
+  function replaySrc(file) {
+    var name = String(file || "");
+    if (!name || name.indexOf("/") >= 0 || name.indexOf("\\") >= 0) return name;
+    return "widget/" + name;
+  }
+
   function loadGame(entry) {
     if (!entry || !entry.file) return;
     if (entry.file === currentFile && frames.length) {
@@ -1776,7 +1893,7 @@
     }
     var token = ++loadToken;
     var script = document.createElement("script");
-    script.src = entry.file;
+    script.src = replaySrc(entry.file);
     script.onload = function () {
       if (token !== loadToken) return;
       var rows = readSportFrames(root, entry.sport);
