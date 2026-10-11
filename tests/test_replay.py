@@ -24,8 +24,8 @@ from live_wp.replay import (
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "examples" / "nfl_sample.json"
 NCAAF_FIXTURE = ROOT / "examples" / "ncaaf_sample.json"
-WIDGET_SCRIPT = ROOT / "widget" / "nfl_replay.js"
-NCAAF_WIDGET = ROOT / "widget" / "ncaaf_replay.js"
+WIDGET_SCRIPT = ROOT / "replays" / "nfl" / "sample.js"
+NCAAF_WIDGET = ROOT / "replays" / "ncaaf" / "sample.js"
 
 _OPTIONAL = {
     "possession",
@@ -99,7 +99,7 @@ def test_widget_replay_matches_compute_wp():
     assert len(frames) == len(states)
     for frame, state in zip(frames, states):
         wp = compute_wp(state, state.prior_home, nfl_config)
-        assert frame["wp"] == wp
+        assert frame["win_prob"] == wp
         assert frame["clock"] == format_clock(state)
         assert frame["home_score"] == state.home_score
         assert frame["away_score"] == state.away_score
@@ -110,7 +110,7 @@ def test_widget_replay_matches_compute_wp():
         assert "away_logo" not in frame
     assert frames[0]["elapsed_seconds"] == 0
     assert frames[-1]["elapsed_seconds"] == 3600
-    assert frames[-1]["wp"] == 1.0
+    assert frames[-1]["win_prob"] == 1.0
 
 
 def test_ncaaf_sample_reaches_two_overtimes_and_matches_compute_wp():
@@ -178,13 +178,13 @@ def test_ncaaf_sample_reaches_two_overtimes_and_matches_compute_wp():
     frames = json.loads(text[text.index("[") : text.rindex("]") + 1])
     assert len(frames) == len(states)
     for frame, state in zip(frames, states, strict=True):
-        assert frame["wp"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
+        assert frame["win_prob"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
         assert frame["clock"] == format_clock(state)
         assert "home_logo" not in frame
         assert "away_logo" not in frame
         assert "home_color" not in frame
         assert "away_color" not in frame
-    assert frames[-1]["wp"] == 1.0
+    assert frames[-1]["win_prob"] == 1.0
     fresh = render_widget_script(states)
     fresh_frames = json.loads(fresh[fresh.index("[") : fresh.rindex("]") + 1])
     assert len(fresh_frames) == len(states)
@@ -247,8 +247,8 @@ def test_render_widget_script_copies_situation_fields_only_when_set():
     assert list(frames[0]["timeouts"]) == ["NYG", "DEN"]
     assert frames[0]["strength"] == "5v4"
     assert frames[0]["extra_attacker"] is True
-    assert frames[0]["wp"] == compute_wp(rich, rich.prior_home, nfl_config)
-    assert frames[1]["wp"] == compute_wp(bare, bare.prior_home, nfl_config)
+    assert frames[0]["win_prob"] == compute_wp(rich, rich.prior_home, nfl_config)
+    assert frames[1]["win_prob"] == compute_wp(bare, bare.prior_home, nfl_config)
     for name in _OPTIONAL:
         assert name not in frames[1]
     assert frames[2]["down"] == 2

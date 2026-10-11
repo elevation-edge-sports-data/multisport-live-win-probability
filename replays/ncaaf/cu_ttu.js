@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NCAAF_REPLAY = [
   {
     "clock": "Q1 15:00",
-    "wp": 0.4000000000000001,
+    "win_prob": 0.4000000000000001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 0,
@@ -22,7 +22,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 14:54",
-    "wp": 0.4380713255703342,
+    "win_prob": 0.4380713255703342,
     "home": "TTU",
     "away": "COLO",
     "home_score": 0,
@@ -45,7 +45,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 14:28",
-    "wp": 0.5110091047954057,
+    "win_prob": 0.5110091047954057,
     "home": "TTU",
     "away": "COLO",
     "home_score": 0,
@@ -68,7 +68,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 14:04",
-    "wp": 0.5147749643723257,
+    "win_prob": 0.5147749643723257,
     "home": "TTU",
     "away": "COLO",
     "home_score": 0,
@@ -91,7 +91,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 13:50",
-    "wp": 0.6604370473790043,
+    "win_prob": 0.6604370473790043,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -114,7 +114,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 13:46",
-    "wp": 0.5858397393413834,
+    "win_prob": 0.5858397393413834,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -137,7 +137,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 13:43",
-    "wp": 0.6008146131840896,
+    "win_prob": 0.6008146131840896,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -160,7 +160,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 13:04",
-    "wp": 0.6120862029718876,
+    "win_prob": 0.6120862029718876,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -183,7 +183,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 12:40",
-    "wp": 0.5963143912599318,
+    "win_prob": 0.5963143912599318,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -206,7 +206,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 12:26",
-    "wp": 0.5691729238363558,
+    "win_prob": 0.5691729238363558,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -229,7 +229,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 12:00",
-    "wp": 0.5845372898596541,
+    "win_prob": 0.5845372898596541,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -252,7 +252,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 11:22",
-    "wp": 0.6068920597646975,
+    "win_prob": 0.6068920597646975,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -275,7 +275,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 11:18",
-    "wp": 0.6194129704475642,
+    "win_prob": 0.6194129704475642,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -298,7 +298,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 11:07",
-    "wp": 0.584302417380454,
+    "win_prob": 0.584302417380454,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -321,7 +321,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 10:33",
-    "wp": 0.5711485226490289,
+    "win_prob": 0.5711485226490289,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -344,7 +344,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 10:04",
-    "wp": 0.6100597197339477,
+    "win_prob": 0.6100597197339477,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -367,7 +367,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 9:29",
-    "wp": 0.6134427434804635,
+    "win_prob": 0.6134427434804635,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -390,7 +390,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 8:57",
-    "wp": 0.6112646445973341,
+    "win_prob": 0.6112646445973341,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -413,7 +413,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 8:33",
-    "wp": 0.6573405257269866,
+    "win_prob": 0.6573405257269866,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -436,7 +436,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 8:31",
-    "wp": 0.646434121451839,
+    "win_prob": 0.646434121451839,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -459,7 +459,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 7:46",
-    "wp": 0.6346298982119603,
+    "win_prob": 0.6346298982119603,
     "home": "TTU",
     "away": "COLO",
     "home_score": 7,
@@ -482,7 +482,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 7:04",
-    "wp": 0.721827214708533,
+    "win_prob": 0.721827214708533,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -505,7 +505,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 7:00",
-    "wp": 0.6737535247609365,
+    "win_prob": 0.6737535247609365,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -528,7 +528,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 6:34",
-    "wp": 0.66890673134019,
+    "win_prob": 0.66890673134019,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -551,7 +551,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 6:11",
-    "wp": 0.6541842765721141,
+    "win_prob": 0.6541842765721141,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -574,7 +574,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 6:05",
-    "wp": 0.659476486218561,
+    "win_prob": 0.659476486218561,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -597,7 +597,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 6:01",
-    "wp": 0.710121056225699,
+    "win_prob": 0.710121056225699,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -620,7 +620,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 5:34",
-    "wp": 0.7296052606531714,
+    "win_prob": 0.7296052606531714,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -643,7 +643,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 5:09",
-    "wp": 0.7188594235825104,
+    "win_prob": 0.7188594235825104,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -666,7 +666,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 4:25",
-    "wp": 0.7102769005063703,
+    "win_prob": 0.7102769005063703,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -689,7 +689,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 4:03",
-    "wp": 0.7863984316339825,
+    "win_prob": 0.7863984316339825,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -712,7 +712,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 3:21",
-    "wp": 0.7914493973472401,
+    "win_prob": 0.7914493973472401,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -735,7 +735,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 2:37",
-    "wp": 0.757844959213265,
+    "win_prob": 0.757844959213265,
     "home": "TTU",
     "away": "COLO",
     "home_score": 10,
@@ -758,7 +758,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 2:28",
-    "wp": 0.8097227285543841,
+    "win_prob": 0.8097227285543841,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -781,7 +781,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 2:28",
-    "wp": 0.7483237379858508,
+    "win_prob": 0.7483237379858508,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -804,7 +804,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 2:21",
-    "wp": 0.7587422314426503,
+    "win_prob": 0.7587422314426503,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -827,7 +827,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 1:39",
-    "wp": 0.7571139778350535,
+    "win_prob": 0.7571139778350535,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -850,7 +850,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 1:30",
-    "wp": 0.7642961529464211,
+    "win_prob": 0.7642961529464211,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -873,7 +873,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 1:19",
-    "wp": 0.759256580602471,
+    "win_prob": 0.759256580602471,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -896,7 +896,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 0:44",
-    "wp": 0.7631265414068674,
+    "win_prob": 0.7631265414068674,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -919,7 +919,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 15:00",
-    "wp": 0.7638645812019191,
+    "win_prob": 0.7638645812019191,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -938,7 +938,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 15:00",
-    "wp": 0.7573262360365476,
+    "win_prob": 0.7573262360365476,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -961,7 +961,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 14:54",
-    "wp": 0.7508977614607732,
+    "win_prob": 0.7508977614607732,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -984,7 +984,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 14:49",
-    "wp": 0.7501961976004347,
+    "win_prob": 0.7501961976004347,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1007,7 +1007,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 14:44",
-    "wp": 0.76074961498321,
+    "win_prob": 0.76074961498321,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1030,7 +1030,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 14:13",
-    "wp": 0.7339082910108915,
+    "win_prob": 0.7339082910108915,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1053,7 +1053,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 13:39",
-    "wp": 0.7344129280638954,
+    "win_prob": 0.7344129280638954,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1076,7 +1076,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 13:03",
-    "wp": 0.7752363660025732,
+    "win_prob": 0.7752363660025732,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1099,7 +1099,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 12:21",
-    "wp": 0.7756533623674298,
+    "win_prob": 0.7756533623674298,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1122,7 +1122,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 12:13",
-    "wp": 0.7730164438855438,
+    "win_prob": 0.7730164438855438,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1145,7 +1145,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 11:34",
-    "wp": 0.7965495025436987,
+    "win_prob": 0.7965495025436987,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1168,7 +1168,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 10:50",
-    "wp": 0.7533718687028036,
+    "win_prob": 0.7533718687028036,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1191,7 +1191,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 10:35",
-    "wp": 0.7470597793430014,
+    "win_prob": 0.7470597793430014,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1214,7 +1214,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 10:06",
-    "wp": 0.7383330454957908,
+    "win_prob": 0.7383330454957908,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1237,7 +1237,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 10:01",
-    "wp": 0.7541876759181454,
+    "win_prob": 0.7541876759181454,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1260,7 +1260,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 9:41",
-    "wp": 0.7538868956457645,
+    "win_prob": 0.7538868956457645,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1283,7 +1283,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 9:12",
-    "wp": 0.7173836646242008,
+    "win_prob": 0.7173836646242008,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1306,7 +1306,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 8:50",
-    "wp": 0.7157582152220097,
+    "win_prob": 0.7157582152220097,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1329,7 +1329,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 8:11",
-    "wp": 0.6987886542763266,
+    "win_prob": 0.6987886542763266,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1352,7 +1352,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 7:33",
-    "wp": 0.4810604652671344,
+    "win_prob": 0.4810604652671344,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1375,7 +1375,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 7:33",
-    "wp": 0.6159597353633792,
+    "win_prob": 0.6159597353633792,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1398,7 +1398,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 7:13",
-    "wp": 0.621186818047515,
+    "win_prob": 0.621186818047515,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1421,7 +1421,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 6:43",
-    "wp": 0.6149002214864808,
+    "win_prob": 0.6149002214864808,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1444,7 +1444,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 6:09",
-    "wp": 0.6396247418189674,
+    "win_prob": 0.6396247418189674,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1467,7 +1467,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 5:28",
-    "wp": 0.6445044677362249,
+    "win_prob": 0.6445044677362249,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1490,7 +1490,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 5:21",
-    "wp": 0.6233464371684568,
+    "win_prob": 0.6233464371684568,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1513,7 +1513,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 5:01",
-    "wp": 0.6081329891860433,
+    "win_prob": 0.6081329891860433,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1536,7 +1536,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 4:56",
-    "wp": 0.6366298133306618,
+    "win_prob": 0.6366298133306618,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1559,7 +1559,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 4:49",
-    "wp": 0.6278190192307324,
+    "win_prob": 0.6278190192307324,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1582,7 +1582,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 4:43",
-    "wp": 0.6229952031350174,
+    "win_prob": 0.6229952031350174,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1605,7 +1605,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 4:17",
-    "wp": 0.59161221555199,
+    "win_prob": 0.59161221555199,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1628,7 +1628,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 3:45",
-    "wp": 0.5437912173735484,
+    "win_prob": 0.5437912173735484,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1651,7 +1651,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 3:13",
-    "wp": 0.5384366242009864,
+    "win_prob": 0.5384366242009864,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1674,7 +1674,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 2:27",
-    "wp": 0.5442460203461537,
+    "win_prob": 0.5442460203461537,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1697,7 +1697,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 2:00",
-    "wp": 0.5176346817642589,
+    "win_prob": 0.5176346817642589,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1720,7 +1720,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 2:00",
-    "wp": 0.5644251956712834,
+    "win_prob": 0.5644251956712834,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1743,7 +1743,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 1:32",
-    "wp": 0.5122198270315573,
+    "win_prob": 0.5122198270315573,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1766,7 +1766,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 1:23",
-    "wp": 0.47813529952806105,
+    "win_prob": 0.47813529952806105,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1789,7 +1789,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 1:15",
-    "wp": 0.4655990449875962,
+    "win_prob": 0.4655990449875962,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1812,7 +1812,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:43",
-    "wp": 0.43322558755620344,
+    "win_prob": 0.43322558755620344,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1835,7 +1835,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:34",
-    "wp": 0.4489604028232047,
+    "win_prob": 0.4489604028232047,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1858,7 +1858,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:30",
-    "wp": 0.37414781498496497,
+    "win_prob": 0.37414781498496497,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1881,7 +1881,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:19",
-    "wp": 0.6187684155697849,
+    "win_prob": 0.6187684155697849,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1904,7 +1904,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:16",
-    "wp": 0.6287579278912163,
+    "win_prob": 0.6287579278912163,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1927,7 +1927,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:15",
-    "wp": 0.6288295956030996,
+    "win_prob": 0.6288295956030996,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1950,7 +1950,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:07",
-    "wp": 0.6229597229927523,
+    "win_prob": 0.6229597229927523,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1973,7 +1973,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 0:04",
-    "wp": 0.6130720552097286,
+    "win_prob": 0.6130720552097286,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -1996,7 +1996,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 15:00",
-    "wp": 0.5342753720832812,
+    "win_prob": 0.5342753720832812,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2015,7 +2015,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 15:00",
-    "wp": 0.5248025388212011,
+    "win_prob": 0.5248025388212011,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2038,7 +2038,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 14:19",
-    "wp": 0.5470626694855878,
+    "win_prob": 0.5470626694855878,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2061,7 +2061,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 13:59",
-    "wp": 0.496964209626292,
+    "win_prob": 0.496964209626292,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2084,7 +2084,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 13:26",
-    "wp": 0.493439422160911,
+    "win_prob": 0.493439422160911,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2107,7 +2107,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 13:11",
-    "wp": 0.4681836008761927,
+    "win_prob": 0.4681836008761927,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2130,7 +2130,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 12:45",
-    "wp": 0.4316029420882166,
+    "win_prob": 0.4316029420882166,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2153,7 +2153,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 12:09",
-    "wp": 0.4216666119712027,
+    "win_prob": 0.4216666119712027,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2176,7 +2176,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 12:06",
-    "wp": 0.4381540802683505,
+    "win_prob": 0.4381540802683505,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2199,7 +2199,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 11:58",
-    "wp": 0.37385044573638165,
+    "win_prob": 0.37385044573638165,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2222,7 +2222,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 11:56",
-    "wp": 0.38986029058838195,
+    "win_prob": 0.38986029058838195,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2245,7 +2245,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 11:05",
-    "wp": 0.34359636111194375,
+    "win_prob": 0.34359636111194375,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2268,7 +2268,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 11:00",
-    "wp": 0.13245514799712588,
+    "win_prob": 0.13245514799712588,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2291,7 +2291,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 10:55",
-    "wp": 0.31957944830675944,
+    "win_prob": 0.31957944830675944,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2314,7 +2314,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 10:34",
-    "wp": 0.3259410777386954,
+    "win_prob": 0.3259410777386954,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2337,7 +2337,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 10:16",
-    "wp": 0.361823249253981,
+    "win_prob": 0.361823249253981,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2360,7 +2360,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 10:13",
-    "wp": 0.37819272339151366,
+    "win_prob": 0.37819272339151366,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2383,7 +2383,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 9:51",
-    "wp": 0.420272515173441,
+    "win_prob": 0.420272515173441,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2406,7 +2406,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 9:38",
-    "wp": 0.4432151206546746,
+    "win_prob": 0.4432151206546746,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2429,7 +2429,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 9:28",
-    "wp": 0.48009113971778367,
+    "win_prob": 0.48009113971778367,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2452,7 +2452,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 8:50",
-    "wp": 0.5128771328847459,
+    "win_prob": 0.5128771328847459,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2475,7 +2475,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 7:55",
-    "wp": 0.5489383172989204,
+    "win_prob": 0.5489383172989204,
     "home": "TTU",
     "away": "COLO",
     "home_score": 13,
@@ -2498,7 +2498,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 7:52",
-    "wp": 0.7767523523605853,
+    "win_prob": 0.7767523523605853,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2521,7 +2521,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 7:47",
-    "wp": 0.5431677884898819,
+    "win_prob": 0.5431677884898819,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2544,7 +2544,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 7:44",
-    "wp": 0.5676614903245865,
+    "win_prob": 0.5676614903245865,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2567,7 +2567,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 7:12",
-    "wp": 0.5784242561228168,
+    "win_prob": 0.5784242561228168,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2590,7 +2590,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 6:32",
-    "wp": 0.5584121431483995,
+    "win_prob": 0.5584121431483995,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2613,7 +2613,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 6:02",
-    "wp": 0.5216225464879642,
+    "win_prob": 0.5216225464879642,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2636,7 +2636,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 5:30",
-    "wp": 0.4447558462974026,
+    "win_prob": 0.4447558462974026,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2659,7 +2659,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 5:28",
-    "wp": 0.40884436686629466,
+    "win_prob": 0.40884436686629466,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2682,7 +2682,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 4:59",
-    "wp": 0.3932908455681354,
+    "win_prob": 0.3932908455681354,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2705,7 +2705,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 4:25",
-    "wp": 0.10382410939413428,
+    "win_prob": 0.10382410939413428,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2728,7 +2728,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 4:20",
-    "wp": 0.29190602629447027,
+    "win_prob": 0.29190602629447027,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2751,7 +2751,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 3:47",
-    "wp": 0.30286154104034746,
+    "win_prob": 0.30286154104034746,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2774,7 +2774,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 3:28",
-    "wp": 0.2823825225020874,
+    "win_prob": 0.2823825225020874,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2797,7 +2797,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 3:16",
-    "wp": 0.2704762939878983,
+    "win_prob": 0.2704762939878983,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2820,7 +2820,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 3:08",
-    "wp": 0.16260186197209564,
+    "win_prob": 0.16260186197209564,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2843,7 +2843,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 2:08",
-    "wp": 0.1863464905267625,
+    "win_prob": 0.1863464905267625,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2866,7 +2866,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 1:43",
-    "wp": 0.11985427142319938,
+    "win_prob": 0.11985427142319938,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2889,7 +2889,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 1:25",
-    "wp": 0.11736644687593983,
+    "win_prob": 0.11736644687593983,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2912,7 +2912,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 1:18",
-    "wp": 0.030041018476218984,
+    "win_prob": 0.030041018476218984,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2935,7 +2935,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 1:12",
-    "wp": 0.09478155379368886,
+    "win_prob": 0.09478155379368886,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2958,7 +2958,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 0:43",
-    "wp": 0.09737970220499781,
+    "win_prob": 0.09737970220499781,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -2981,7 +2981,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 0:11",
-    "wp": 0.10195661793157851,
+    "win_prob": 0.10195661793157851,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3004,7 +3004,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 15:00",
-    "wp": 0.06659071882925666,
+    "win_prob": 0.06659071882925666,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3023,7 +3023,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 15:00",
-    "wp": 0.10550725011203516,
+    "win_prob": 0.10550725011203516,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3046,7 +3046,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 14:36",
-    "wp": 0.12971927145481832,
+    "win_prob": 0.12971927145481832,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3069,7 +3069,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 14:11",
-    "wp": 0.09912742578359302,
+    "win_prob": 0.09912742578359302,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3092,7 +3092,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 13:44",
-    "wp": 0.09136392112099445,
+    "win_prob": 0.09136392112099445,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3115,7 +3115,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 13:12",
-    "wp": 0.0845360121575392,
+    "win_prob": 0.0845360121575392,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3138,7 +3138,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 13:12",
-    "wp": 0.03724067595945918,
+    "win_prob": 0.03724067595945918,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3161,7 +3161,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:29",
-    "wp": 0.03871169261689272,
+    "win_prob": 0.03871169261689272,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3184,7 +3184,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:23",
-    "wp": 0.046226391967781055,
+    "win_prob": 0.046226391967781055,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3207,7 +3207,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:17",
-    "wp": 0.052676925680094966,
+    "win_prob": 0.052676925680094966,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3230,7 +3230,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:17",
-    "wp": 0.05738065890667954,
+    "win_prob": 0.05738065890667954,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3253,7 +3253,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:07",
-    "wp": 0.05995272403859231,
+    "win_prob": 0.05995272403859231,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3276,7 +3276,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:02",
-    "wp": 0.05234145303878318,
+    "win_prob": 0.05234145303878318,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3299,7 +3299,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 11:40",
-    "wp": 0.07716958704257171,
+    "win_prob": 0.07716958704257171,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3322,7 +3322,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 11:35",
-    "wp": 0.01940588769574514,
+    "win_prob": 0.01940588769574514,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3345,7 +3345,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 11:10",
-    "wp": 0.010753046025952062,
+    "win_prob": 0.010753046025952062,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3368,7 +3368,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 10:41",
-    "wp": 0.008448306133408967,
+    "win_prob": 0.008448306133408967,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3391,7 +3391,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 10:32",
-    "wp": 0.00971276227332224,
+    "win_prob": 0.00971276227332224,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3414,7 +3414,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 9:46",
-    "wp": 0.0011916411702892482,
+    "win_prob": 0.0011916411702892482,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3437,7 +3437,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 9:18",
-    "wp": 0.0066829595674812725,
+    "win_prob": 0.0066829595674812725,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3460,7 +3460,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 9:05",
-    "wp": 0.006580641720921709,
+    "win_prob": 0.006580641720921709,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3483,7 +3483,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 8:52",
-    "wp": 0.005379881935089703,
+    "win_prob": 0.005379881935089703,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3506,7 +3506,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 8:39",
-    "wp": 0.010006304654364195,
+    "win_prob": 0.010006304654364195,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3529,7 +3529,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.0005623177630393328,
+    "win_prob": 0.0005623177630393328,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3552,7 +3552,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.0007479457180467053,
+    "win_prob": 0.0007479457180467053,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3575,7 +3575,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.0010601789682525564,
+    "win_prob": 0.0010601789682525564,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3598,7 +3598,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.002137309522638464,
+    "win_prob": 0.002137309522638464,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3621,7 +3621,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.002724702564496584,
+    "win_prob": 0.002724702564496584,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3644,7 +3644,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.00362755814698712,
+    "win_prob": 0.00362755814698712,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3667,7 +3667,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 6:49",
-    "wp": 0.007147593354241366,
+    "win_prob": 0.007147593354241366,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3690,7 +3690,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 6:32",
-    "wp": 0.00525468623696429,
+    "win_prob": 0.00525468623696429,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3713,7 +3713,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 6:29",
-    "wp": 0.006527817315363005,
+    "win_prob": 0.006527817315363005,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3736,7 +3736,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 6:11",
-    "wp": 0.009648645351367335,
+    "win_prob": 0.009648645351367335,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3759,7 +3759,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 5:46",
-    "wp": 0.02454357920090755,
+    "win_prob": 0.02454357920090755,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3782,7 +3782,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 5:45",
-    "wp": 0.019636816865907014,
+    "win_prob": 0.019636816865907014,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3805,7 +3805,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 5:44",
-    "wp": 0.0127729986686414,
+    "win_prob": 0.0127729986686414,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3828,7 +3828,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 5:23",
-    "wp": 0.013039302023253874,
+    "win_prob": 0.013039302023253874,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3851,7 +3851,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 5:21",
-    "wp": 0.03979429043221555,
+    "win_prob": 0.03979429043221555,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3874,7 +3874,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 4:58",
-    "wp": 0.03545220432195334,
+    "win_prob": 0.03545220432195334,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3897,7 +3897,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 4:52",
-    "wp": 0.027314116280886203,
+    "win_prob": 0.027314116280886203,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3920,7 +3920,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 4:09",
-    "wp": 0.026670193278445775,
+    "win_prob": 0.026670193278445775,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3943,7 +3943,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 4:04",
-    "wp": 0.0010528475784552516,
+    "win_prob": 0.0010528475784552516,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3966,7 +3966,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 4:03",
-    "wp": 0.0007133161466550964,
+    "win_prob": 0.0007133161466550964,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -3989,7 +3989,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 3:51",
-    "wp": 0.0005769474540606168,
+    "win_prob": 0.0005769474540606168,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4012,7 +4012,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 3:51",
-    "wp": 0.00078637829916689,
+    "win_prob": 0.00078637829916689,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4035,7 +4035,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 3:50",
-    "wp": 0.0007687829981577465,
+    "win_prob": 0.0007687829981577465,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4058,7 +4058,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 3:44",
-    "wp": 0.0014906384643407211,
+    "win_prob": 0.0014906384643407211,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4081,7 +4081,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 3:24",
-    "wp": 0.001422447972717733,
+    "win_prob": 0.001422447972717733,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4104,7 +4104,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 3:05",
-    "wp": 0.0014886931638237177,
+    "win_prob": 0.0014886931638237177,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4127,7 +4127,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:58",
-    "wp": 0.0024704372024505483,
+    "win_prob": 0.0024704372024505483,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4150,7 +4150,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:40",
-    "wp": 0.0004913196709441237,
+    "win_prob": 0.0004913196709441237,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4173,7 +4173,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:33",
-    "wp": 0.00023479041145019197,
+    "win_prob": 0.00023479041145019197,
     "home": "TTU",
     "away": "COLO",
     "home_score": 20,
@@ -4196,7 +4196,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:12",
-    "wp": 0.09792283018477133,
+    "win_prob": 0.09792283018477133,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4219,7 +4219,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:12",
-    "wp": 0.0011041843529320805,
+    "win_prob": 0.0011041843529320805,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4242,7 +4242,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:12",
-    "wp": 0.0023797568232127864,
+    "win_prob": 0.0023797568232127864,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4265,7 +4265,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:07",
-    "wp": 0.0017974178633314297,
+    "win_prob": 0.0017974178633314297,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4288,7 +4288,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:05",
-    "wp": 0.0016724100457340962,
+    "win_prob": 0.0016724100457340962,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4311,7 +4311,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:00",
-    "wp": 0.0033488585730318543,
+    "win_prob": 0.0033488585730318543,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4334,7 +4334,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 1:09",
-    "wp": 0.00044338228632556653,
+    "win_prob": 0.00044338228632556653,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4357,7 +4357,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 1:07",
-    "wp": 0.00017934441166339576,
+    "win_prob": 0.00017934441166339576,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4380,7 +4380,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 1:03",
-    "wp": 0.0001,
+    "win_prob": 0.0001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4403,7 +4403,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:51",
-    "wp": 0.0001,
+    "win_prob": 0.0001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4426,7 +4426,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:41",
-    "wp": 0.0001,
+    "win_prob": 0.0001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4449,7 +4449,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:25",
-    "wp": 0.0001,
+    "win_prob": 0.0001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4472,7 +4472,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:13",
-    "wp": 0.0001,
+    "win_prob": 0.0001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4495,7 +4495,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:04",
-    "wp": 0.0001,
+    "win_prob": 0.0001,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4518,7 +4518,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:00",
-    "wp": 0.0,
+    "win_prob": 0.0,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,
@@ -4541,7 +4541,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 0.0,
+    "win_prob": 0.0,
     "home": "TTU",
     "away": "COLO",
     "home_score": 27,

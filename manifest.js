@@ -6,69 +6,79 @@ window.MSWP_MANIFEST = [
     "away": "NYG",
     "home": "DEN",
     "label": "NYG at DEN",
-    "file": "nfl_nyg_den.js"
+    "file": "nyg_den.js",
+    "season": "2025"
   },
   {
     "sport": "nfl",
     "away": "JAX",
     "home": "DEN",
     "label": "JAX at DEN",
-    "file": "nfl_jax_den.js"
+    "file": "jax_den.js",
+    "season": "2026"
   },
   {
     "sport": "nhl",
     "away": "EDM",
     "home": "COL",
     "label": "EDM at COL",
-    "file": "nhl_edm_col.js"
+    "file": "edm_col.js",
+    "season": "2022"
   },
   {
     "sport": "nhl",
     "away": "MIN",
     "home": "COL",
     "label": "MIN at COL",
-    "file": "nhl_col_min_g5.js"
+    "file": "col_min_g5.js",
+    "season": "2026"
   },
   {
     "sport": "nba",
     "away": "DEN",
     "home": "LAL",
     "label": "DEN at LAL",
-    "file": "nba_den_lal.js"
+    "file": "den_lal.js",
+    "season": "2024"
   },
   {
     "sport": "ncaaf",
     "away": "COLO",
     "home": "TTU",
     "label": "COLO at TTU",
-    "file": "ncaaf_cu_ttu.js"
+    "file": "cu_ttu.js",
+    "season": "2024"
   },
   {
     "sport": "ncaaf",
     "away": "COLO",
     "home": "GT",
     "label": "COLO at GT",
-    "file": "ncaaf_cu_gt.js"
+    "file": "cu_gt.js",
+    "season": "2026"
   },
   {
     "sport": "ncaaf",
     "away": "OU",
     "home": "TEX",
     "label": "OU at TEX",
-    "file": "ncaaf_replay.js"
+    "file": "sample.js",
+    "season": "2026"
   },
   {
     "sport": "ncaah",
     "away": "MICH",
     "home": "DEN",
     "label": "MICH at DEN",
-    "file": "ncaah_den_mich.js"
+    "file": "den_mich.js",
+    "season": "2026"
   },
   {
     "sport": "ncaab",
     "away": "COLO",
     "home": "FLA",
     "label": "COLO at FLA",
-    "file": "ncaab_cu_fla.js"
+    "file": "cu_fla.js",
+    "season": "2024"
   }
 ];

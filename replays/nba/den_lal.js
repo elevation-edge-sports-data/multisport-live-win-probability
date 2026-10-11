@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NBA_REPLAY = [
   {
     "clock": "Q1 12:00",
-    "wp": 0.6427306987655728,
+    "win_prob": 0.6427306987655728,
     "home": "LAL",
     "away": "DEN",
     "home_score": 0,
@@ -23,7 +23,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 11:40",
-    "wp": 0.6424441695552775,
+    "win_prob": 0.6424441695552775,
     "home": "LAL",
     "away": "DEN",
     "home_score": 0,
@@ -43,7 +43,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 11:28",
-    "wp": 0.6422720501820323,
+    "win_prob": 0.6422720501820323,
     "home": "LAL",
     "away": "DEN",
     "home_score": 0,
@@ -63,7 +63,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 11:16",
-    "wp": 0.6894659324902367,
+    "win_prob": 0.6894659324902367,
     "home": "LAL",
     "away": "DEN",
     "home_score": 2,
@@ -83,7 +83,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 10:13",
-    "wp": 0.6352690792016898,
+    "win_prob": 0.6352690792016898,
     "home": "LAL",
     "away": "DEN",
     "home_score": 2,
@@ -103,7 +103,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 10:02",
-    "wp": 0.5844893162070981,
+    "win_prob": 0.5844893162070981,
     "home": "LAL",
     "away": "DEN",
     "home_score": 2,
@@ -123,7 +123,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 9:45",
-    "wp": 0.7119770547943217,
+    "win_prob": 0.7119770547943217,
     "home": "LAL",
     "away": "DEN",
     "home_score": 5,
@@ -143,7 +143,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 9:26",
-    "wp": 0.6592143929167968,
+    "win_prob": 0.6592143929167968,
     "home": "LAL",
     "away": "DEN",
     "home_score": 5,
@@ -163,7 +163,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 9:26",
-    "wp": 0.7341971188782692,
+    "win_prob": 0.7341971188782692,
     "home": "LAL",
     "away": "DEN",
     "home_score": 6,
@@ -183,7 +183,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 9:26",
-    "wp": 0.7555274880021025,
+    "win_prob": 0.7555274880021025,
     "home": "LAL",
     "away": "DEN",
     "home_score": 7,
@@ -203,7 +203,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 9:10",
-    "wp": 0.6590417378320249,
+    "win_prob": 0.6590417378320249,
     "home": "LAL",
     "away": "DEN",
     "home_score": 7,
@@ -223,7 +223,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 9:03",
-    "wp": 0.7119467505475341,
+    "win_prob": 0.7119467505475341,
     "home": "LAL",
     "away": "DEN",
     "home_score": 7,
@@ -243,7 +243,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 8:55",
-    "wp": 0.7557484901643818,
+    "win_prob": 0.7557484901643818,
     "home": "LAL",
     "away": "DEN",
     "home_score": 9,
@@ -263,7 +263,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 8:36",
-    "wp": 0.7064176221195575,
+    "win_prob": 0.7064176221195575,
     "home": "LAL",
     "away": "DEN",
     "home_score": 9,
@@ -283,7 +283,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 8:33",
-    "wp": 0.7959900178969344,
+    "win_prob": 0.7959900178969344,
     "home": "LAL",
     "away": "DEN",
     "home_score": 11,
@@ -303,7 +303,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 8:33",
-    "wp": 0.7064132780814052,
+    "win_prob": 0.7064132780814052,
     "home": "LAL",
     "away": "DEN",
     "home_score": 9,
@@ -323,7 +323,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 8:14",
-    "wp": 0.7509596254366895,
+    "win_prob": 0.7509596254366895,
     "home": "LAL",
     "away": "DEN",
     "home_score": 11,
@@ -343,7 +343,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 7:56",
-    "wp": 0.7965128303303841,
+    "win_prob": 0.7965128303303841,
     "home": "LAL",
     "away": "DEN",
     "home_score": 11,
@@ -363,7 +363,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 7:46",
-    "wp": 0.6826334708455765,
+    "win_prob": 0.6826334708455765,
     "home": "LAL",
     "away": "DEN",
     "home_score": 11,
@@ -383,7 +383,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 7:25",
-    "wp": 0.7772302716126933,
+    "win_prob": 0.7772302716126933,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -403,7 +403,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 7:16",
-    "wp": 0.6578196565159934,
+    "win_prob": 0.6578196565159934,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -423,7 +423,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 7:16",
-    "wp": 0.7119211153464104,
+    "win_prob": 0.7119211153464104,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -443,7 +443,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 7:16",
-    "wp": 0.6324863473956832,
+    "win_prob": 0.6324863473956832,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -463,7 +463,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 6:46",
-    "wp": 0.632009694024531,
+    "win_prob": 0.632009694024531,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -483,7 +483,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 6:46",
-    "wp": 0.5793531890581729,
+    "win_prob": 0.5793531890581729,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -503,7 +503,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 6:24",
-    "wp": 0.6378639348574028,
+    "win_prob": 0.6378639348574028,
     "home": "LAL",
     "away": "DEN",
     "home_score": 13,
@@ -523,7 +523,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 6:14",
-    "wp": 0.6879925010485244,
+    "win_prob": 0.6879925010485244,
     "home": "LAL",
     "away": "DEN",
     "home_score": 15,
@@ -543,7 +543,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 6:01",
-    "wp": 0.5781326652999254,
+    "win_prob": 0.5781326652999254,
     "home": "LAL",
     "away": "DEN",
     "home_score": 15,
@@ -563,7 +563,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 5:42",
-    "wp": 0.6372482624712683,
+    "win_prob": 0.6372482624712683,
     "home": "LAL",
     "away": "DEN",
     "home_score": 15,
@@ -583,7 +583,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 5:42",
-    "wp": 0.577612396465196,
+    "win_prob": 0.577612396465196,
     "home": "LAL",
     "away": "DEN",
     "home_score": 15,
@@ -603,7 +603,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 5:36",
-    "wp": 0.7119708089901267,
+    "win_prob": 0.7119708089901267,
     "home": "LAL",
     "away": "DEN",
     "home_score": 18,
@@ -623,7 +623,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 5:25",
-    "wp": 0.6566461275555834,
+    "win_prob": 0.6566461275555834,
     "home": "LAL",
     "away": "DEN",
     "home_score": 18,
@@ -643,7 +643,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 5:09",
-    "wp": 0.7576726498522737,
+    "win_prob": 0.7576726498522737,
     "home": "LAL",
     "away": "DEN",
     "home_score": 20,
@@ -663,7 +663,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 4:38",
-    "wp": 0.7579840080082516,
+    "win_prob": 0.7579840080082516,
     "home": "LAL",
     "away": "DEN",
     "home_score": 20,
@@ -683,7 +683,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 4:27",
-    "wp": 0.8189599981282443,
+    "win_prob": 0.8189599981282443,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -703,7 +703,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 4:11",
-    "wp": 0.7301092515316102,
+    "win_prob": 0.7301092515316102,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -723,7 +723,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 3:55",
-    "wp": 0.7301943175596396,
+    "win_prob": 0.7301943175596396,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -743,7 +743,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 3:43",
-    "wp": 0.6555857792819212,
+    "win_prob": 0.6555857792819212,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -763,7 +763,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 3:08",
-    "wp": 0.712194480975683,
+    "win_prob": 0.712194480975683,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -783,7 +783,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 3:08",
-    "wp": 0.6552266480162966,
+    "win_prob": 0.6552266480162966,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -803,7 +803,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 3:08",
-    "wp": 0.6285031050348078,
+    "win_prob": 0.6285031050348078,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -823,7 +823,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 3:08",
-    "wp": 0.6011452134573958,
+    "win_prob": 0.6011452134573958,
     "home": "LAL",
     "away": "DEN",
     "home_score": 23,
@@ -843,7 +843,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 2:49",
-    "wp": 0.7122376285917158,
+    "win_prob": 0.7122376285917158,
     "home": "LAL",
     "away": "DEN",
     "home_score": 25,
@@ -863,7 +863,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 2:49",
-    "wp": 0.6550328104404637,
+    "win_prob": 0.6550328104404637,
     "home": "LAL",
     "away": "DEN",
     "home_score": 25,
@@ -883,7 +883,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 2:49",
-    "wp": 0.7362424794491866,
+    "win_prob": 0.7362424794491866,
     "home": "LAL",
     "away": "DEN",
     "home_score": 26,
@@ -903,7 +903,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 2:22",
-    "wp": 0.736444365129159,
+    "win_prob": 0.736444365129159,
     "home": "LAL",
     "away": "DEN",
     "home_score": 26,
@@ -923,7 +923,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 2:08",
-    "wp": 0.8024174558726649,
+    "win_prob": 0.8024174558726649,
     "home": "LAL",
     "away": "DEN",
     "home_score": 29,
@@ -943,7 +943,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 1:03",
-    "wp": 0.7550002646909875,
+    "win_prob": 0.7550002646909875,
     "home": "LAL",
     "away": "DEN",
     "home_score": 29,
@@ -963,7 +963,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:53",
-    "wp": 0.7065196890246057,
+    "win_prob": 0.7065196890246057,
     "home": "LAL",
     "away": "DEN",
     "home_score": 29,
@@ -983,7 +983,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:42",
-    "wp": 0.8239769139584492,
+    "win_prob": 0.8239769139584492,
     "home": "LAL",
     "away": "DEN",
     "home_score": 32,
@@ -1003,7 +1003,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:26",
-    "wp": 0.6536028116350606,
+    "win_prob": 0.6536028116350606,
     "home": "LAL",
     "away": "DEN",
     "home_score": 29,
@@ -1023,7 +1023,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:08",
-    "wp": 0.8248234815229082,
+    "win_prob": 0.8248234815229082,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1043,7 +1043,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:01",
-    "wp": 0.8250009249310133,
+    "win_prob": 0.8250009249310133,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1063,7 +1063,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:01",
-    "wp": 0.7557984854132482,
+    "win_prob": 0.7557984854132482,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1083,7 +1083,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q1 0:01",
-    "wp": 0.7317912221881382,
+    "win_prob": 0.7317912221881382,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1103,7 +1103,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 12:00",
-    "wp": 0.7839003298466956,
+    "win_prob": 0.7839003298466956,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1123,7 +1123,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 12:00",
-    "wp": 0.7317996145320789,
+    "win_prob": 0.7317996145320789,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1143,7 +1143,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 11:32",
-    "wp": 0.7320406260575327,
+    "win_prob": 0.7320406260575327,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1163,7 +1163,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 11:17",
-    "wp": 0.6529340698051099,
+    "win_prob": 0.6529340698051099,
     "home": "LAL",
     "away": "DEN",
     "home_score": 34,
@@ -1183,7 +1183,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 10:53",
-    "wp": 0.7624129588475367,
+    "win_prob": 0.7624129588475367,
     "home": "LAL",
     "away": "DEN",
     "home_score": 36,
@@ -1203,7 +1203,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 10:28",
-    "wp": 0.6524691039351243,
+    "win_prob": 0.6524691039351243,
     "home": "LAL",
     "away": "DEN",
     "home_score": 36,
@@ -1223,7 +1223,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 10:16",
-    "wp": 0.7630110142366817,
+    "win_prob": 0.7630110142366817,
     "home": "LAL",
     "away": "DEN",
     "home_score": 38,
@@ -1243,7 +1243,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 10:16",
-    "wp": 0.7070121504509024,
+    "win_prob": 0.7070121504509024,
     "home": "LAL",
     "away": "DEN",
     "home_score": 38,
@@ -1263,7 +1263,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 10:16",
-    "wp": 0.7859697251419374,
+    "win_prob": 0.7859697251419374,
     "home": "LAL",
     "away": "DEN",
     "home_score": 39,
@@ -1283,7 +1283,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 9:53",
-    "wp": 0.7329913721769981,
+    "win_prob": 0.7329913721769981,
     "home": "LAL",
     "away": "DEN",
     "home_score": 39,
@@ -1303,7 +1303,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 9:50",
-    "wp": 0.8285325147943854,
+    "win_prob": 0.8285325147943854,
     "home": "LAL",
     "away": "DEN",
     "home_score": 41,
@@ -1323,7 +1323,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 9:24",
-    "wp": 0.8292839252109052,
+    "win_prob": 0.8292839252109052,
     "home": "LAL",
     "away": "DEN",
     "home_score": 41,
@@ -1343,7 +1343,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 9:17",
-    "wp": 0.865934881845092,
+    "win_prob": 0.865934881845092,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1363,7 +1363,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 9:16",
-    "wp": 0.7818227894234391,
+    "win_prob": 0.7818227894234391,
     "home": "LAL",
     "away": "DEN",
     "home_score": 41,
@@ -1383,7 +1383,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 9:16",
-    "wp": 0.8247533175400135,
+    "win_prob": 0.8247533175400135,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1403,7 +1403,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 8:59",
-    "wp": 0.8665417142311,
+    "win_prob": 0.8665417142311,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1423,7 +1423,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 8:43",
-    "wp": 0.7588235668377656,
+    "win_prob": 0.7588235668377656,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1443,7 +1443,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 8:20",
-    "wp": 0.8106282401635502,
+    "win_prob": 0.8106282401635502,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1463,7 +1463,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 8:20",
-    "wp": 0.7592278016219149,
+    "win_prob": 0.7592278016219149,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1483,7 +1483,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 8:02",
-    "wp": 0.7076851538047007,
+    "win_prob": 0.7076851538047007,
     "home": "LAL",
     "away": "DEN",
     "home_score": 43,
@@ -1503,7 +1503,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 7:50",
-    "wp": 0.8114755455577993,
+    "win_prob": 0.8114755455577993,
     "home": "LAL",
     "away": "DEN",
     "home_score": 45,
@@ -1523,7 +1523,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 7:09",
-    "wp": 0.76055420000432,
+    "win_prob": 0.76055420000432,
     "home": "LAL",
     "away": "DEN",
     "home_score": 45,
@@ -1543,7 +1543,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 7:05",
-    "wp": 0.7080543722043992,
+    "win_prob": 0.7080543722043992,
     "home": "LAL",
     "away": "DEN",
     "home_score": 45,
@@ -1563,7 +1563,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 6:43",
-    "wp": 0.8343554564721953,
+    "win_prob": 0.8343554564721953,
     "home": "LAL",
     "away": "DEN",
     "home_score": 48,
@@ -1583,7 +1583,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 6:32",
-    "wp": 0.7354696535183447,
+    "win_prob": 0.7354696535183447,
     "home": "LAL",
     "away": "DEN",
     "home_score": 48,
@@ -1603,7 +1603,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 6:19",
-    "wp": 0.7356590614916603,
+    "win_prob": 0.7356590614916603,
     "home": "LAL",
     "away": "DEN",
     "home_score": 48,
@@ -1623,7 +1623,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 6:19",
-    "wp": 0.8142075736352888,
+    "win_prob": 0.8142075736352888,
     "home": "LAL",
     "away": "DEN",
     "home_score": 49,
@@ -1643,7 +1643,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 6:19",
-    "wp": 0.8351783134221562,
+    "win_prob": 0.8351783134221562,
     "home": "LAL",
     "away": "DEN",
     "home_score": 50,
@@ -1663,7 +1663,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 6:00",
-    "wp": 0.7865161904990505,
+    "win_prob": 0.7865161904990505,
     "home": "LAL",
     "away": "DEN",
     "home_score": 50,
@@ -1683,7 +1683,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:41",
-    "wp": 0.8900539717434419,
+    "win_prob": 0.8900539717434419,
     "home": "LAL",
     "away": "DEN",
     "home_score": 53,
@@ -1703,7 +1703,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:29",
-    "wp": 0.8905408391685563,
+    "win_prob": 0.8905408391685563,
     "home": "LAL",
     "away": "DEN",
     "home_score": 53,
@@ -1723,7 +1723,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:29",
-    "wp": 0.8320310768481425,
+    "win_prob": 0.8320310768481425,
     "home": "LAL",
     "away": "DEN",
     "home_score": 53,
@@ -1743,7 +1743,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:18",
-    "wp": 0.874741143274028,
+    "win_prob": 0.874741143274028,
     "home": "LAL",
     "away": "DEN",
     "home_score": 53,
@@ -1763,7 +1763,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:18",
-    "wp": 0.905667427797683,
+    "win_prob": 0.905667427797683,
     "home": "LAL",
     "away": "DEN",
     "home_score": 55,
@@ -1783,7 +1783,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:18",
-    "wp": 0.8706015628046935,
+    "win_prob": 0.8706015628046935,
     "home": "LAL",
     "away": "DEN",
     "home_score": 55,
@@ -1803,7 +1803,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 5:01",
-    "wp": 0.8114183498197005,
+    "win_prob": 0.8114183498197005,
     "home": "LAL",
     "away": "DEN",
     "home_score": 55,
@@ -1823,7 +1823,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 4:40",
-    "wp": 0.8925750557648569,
+    "win_prob": 0.8925750557648569,
     "home": "LAL",
     "away": "DEN",
     "home_score": 57,
@@ -1843,7 +1843,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 4:24",
-    "wp": 0.8932557431435507,
+    "win_prob": 0.8932557431435507,
     "home": "LAL",
     "away": "DEN",
     "home_score": 57,
@@ -1863,7 +1863,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 4:08",
-    "wp": 0.9217035610253015,
+    "win_prob": 0.9217035610253015,
     "home": "LAL",
     "away": "DEN",
     "home_score": 59,
@@ -1883,7 +1883,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 3:54",
-    "wp": 0.8557069035323678,
+    "win_prob": 0.8557069035323678,
     "home": "LAL",
     "away": "DEN",
     "home_score": 59,
@@ -1903,7 +1903,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 3:41",
-    "wp": 0.856251657744203,
+    "win_prob": 0.856251657744203,
     "home": "LAL",
     "away": "DEN",
     "home_score": 59,
@@ -1923,7 +1923,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 3:41",
-    "wp": 0.9097741948241094,
+    "win_prob": 0.9097741948241094,
     "home": "LAL",
     "away": "DEN",
     "home_score": 60,
@@ -1943,7 +1943,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 3:41",
-    "wp": 0.9228447249742666,
+    "win_prob": 0.9228447249742666,
     "home": "LAL",
     "away": "DEN",
     "home_score": 61,
@@ -1963,7 +1963,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 3:16",
-    "wp": 0.8924844742160534,
+    "win_prob": 0.8924844742160534,
     "home": "LAL",
     "away": "DEN",
     "home_score": 61,
@@ -1983,7 +1983,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 3:12",
-    "wp": 0.8372594404334649,
+    "win_prob": 0.8372594404334649,
     "home": "LAL",
     "away": "DEN",
     "home_score": 61,
@@ -2003,7 +2003,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 2:51",
-    "wp": 0.9120011771127496,
+    "win_prob": 0.9120011771127496,
     "home": "LAL",
     "away": "DEN",
     "home_score": 63,
@@ -2023,7 +2023,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 2:40",
-    "wp": 0.8385869806996928,
+    "win_prob": 0.8385869806996928,
     "home": "LAL",
     "away": "DEN",
     "home_score": 63,
@@ -2043,7 +2043,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 2:24",
-    "wp": 0.913236342779915,
+    "win_prob": 0.913236342779915,
     "home": "LAL",
     "away": "DEN",
     "home_score": 65,
@@ -2063,7 +2063,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 1:59",
-    "wp": 0.8180774428674181,
+    "win_prob": 0.8180774428674181,
     "home": "LAL",
     "away": "DEN",
     "home_score": 65,
@@ -2083,7 +2083,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 1:26",
-    "wp": 0.8194340659677949,
+    "win_prob": 0.8194340659677949,
     "home": "LAL",
     "away": "DEN",
     "home_score": 65,
@@ -2103,7 +2103,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 1:26",
-    "wp": 0.8669517286983679,
+    "win_prob": 0.8669517286983679,
     "home": "LAL",
     "away": "DEN",
     "home_score": 65,
@@ -2123,7 +2123,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 1:26",
-    "wp": 0.8851021541461725,
+    "win_prob": 0.8851021541461725,
     "home": "LAL",
     "away": "DEN",
     "home_score": 66,
@@ -2143,7 +2143,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 1:26",
-    "wp": 0.9014180390216056,
+    "win_prob": 0.9014180390216056,
     "home": "LAL",
     "away": "DEN",
     "home_score": 67,
@@ -2163,7 +2163,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:57",
-    "wp": 0.8637240446185015,
+    "win_prob": 0.8637240446185015,
     "home": "LAL",
     "away": "DEN",
     "home_score": 67,
@@ -2183,7 +2183,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:57",
-    "wp": 0.9028577454987152,
+    "win_prob": 0.9028577454987152,
     "home": "LAL",
     "away": "DEN",
     "home_score": 67,
@@ -2203,7 +2203,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:57",
-    "wp": 0.91737857891445,
+    "win_prob": 0.91737857891445,
     "home": "LAL",
     "away": "DEN",
     "home_score": 68,
@@ -2223,7 +2223,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:36",
-    "wp": 0.8834231138562757,
+    "win_prob": 0.8834231138562757,
     "home": "LAL",
     "away": "DEN",
     "home_score": 68,
@@ -2243,7 +2243,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:36",
-    "wp": 0.8441626783245606,
+    "win_prob": 0.8441626783245606,
     "home": "LAL",
     "away": "DEN",
     "home_score": 68,
@@ -2263,7 +2263,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:32",
-    "wp": 0.8443547993607186,
+    "win_prob": 0.8443547993607186,
     "home": "LAL",
     "away": "DEN",
     "home_score": 68,
@@ -2283,7 +2283,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:32",
-    "wp": 0.9041254168486814,
+    "win_prob": 0.9041254168486814,
     "home": "LAL",
     "away": "DEN",
     "home_score": 69,
@@ -2303,7 +2303,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:32",
-    "wp": 0.9186163301733397,
+    "win_prob": 0.9186163301733397,
     "home": "LAL",
     "away": "DEN",
     "home_score": 70,
@@ -2323,7 +2323,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:32",
-    "wp": 0.9313904559533348,
+    "win_prob": 0.9313904559533348,
     "home": "LAL",
     "away": "DEN",
     "home_score": 71,
@@ -2343,7 +2343,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:04",
-    "wp": 0.9018359064634318,
+    "win_prob": 0.9018359064634318,
     "home": "LAL",
     "away": "DEN",
     "home_score": 71,
@@ -2363,7 +2363,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:04",
-    "wp": 0.9438357703702251,
+    "win_prob": 0.9438357703702251,
     "home": "LAL",
     "away": "DEN",
     "home_score": 72,
@@ -2383,7 +2383,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q2 0:04",
-    "wp": 0.95343260071687,
+    "win_prob": 0.95343260071687,
     "home": "LAL",
     "away": "DEN",
     "home_score": 73,
@@ -2403,7 +2403,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 12:00",
-    "wp": 0.9536032626868927,
+    "win_prob": 0.9536032626868927,
     "home": "LAL",
     "away": "DEN",
     "home_score": 73,
@@ -2423,7 +2423,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 11:43",
-    "wp": 0.9029489672447895,
+    "win_prob": 0.9029489672447895,
     "home": "LAL",
     "away": "DEN",
     "home_score": 73,
@@ -2443,7 +2443,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 10:55",
-    "wp": 0.9361777061203853,
+    "win_prob": 0.9361777061203853,
     "home": "LAL",
     "away": "DEN",
     "home_score": 73,
@@ -2463,7 +2463,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 10:50",
-    "wp": 0.9566354598430191,
+    "win_prob": 0.9566354598430191,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2483,7 +2483,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 10:34",
-    "wp": 0.9573404504531045,
+    "win_prob": 0.9573404504531045,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2503,7 +2503,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 10:34",
-    "wp": 0.9214984818991113,
+    "win_prob": 0.9214984818991113,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2523,7 +2523,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 10:27",
-    "wp": 0.8904350450237648,
+    "win_prob": 0.8904350450237648,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2543,7 +2543,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 9:50",
-    "wp": 0.9271857524282611,
+    "win_prob": 0.9271857524282611,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2563,7 +2563,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 9:43",
-    "wp": 0.853275201350957,
+    "win_prob": 0.853275201350957,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2583,7 +2583,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 9:14",
-    "wp": 0.8549796695868206,
+    "win_prob": 0.8549796695868206,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2603,7 +2603,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 9:14",
-    "wp": 0.8061194401759152,
+    "win_prob": 0.8061194401759152,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2623,7 +2623,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 9:14",
-    "wp": 0.8602301956134574,
+    "win_prob": 0.8602301956134574,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2643,7 +2643,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 8:25",
-    "wp": 0.8632670048456619,
+    "win_prob": 0.8632670048456619,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2663,7 +2663,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 8:25",
-    "wp": 0.8087053756662532,
+    "win_prob": 0.8087053756662532,
     "home": "LAL",
     "away": "DEN",
     "home_score": 75,
@@ -2683,7 +2683,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 8:25",
-    "wp": 0.8838028450865976,
+    "win_prob": 0.8838028450865976,
     "home": "LAL",
     "away": "DEN",
     "home_score": 76,
@@ -2703,7 +2703,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 8:25",
-    "wp": 0.9020484443416688,
+    "win_prob": 0.9020484443416688,
     "home": "LAL",
     "away": "DEN",
     "home_score": 77,
@@ -2723,7 +2723,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 8:06",
-    "wp": 0.7814559118337012,
+    "win_prob": 0.7814559118337012,
     "home": "LAL",
     "away": "DEN",
     "home_score": 77,
@@ -2743,7 +2743,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 7:37",
-    "wp": 0.7828968240300047,
+    "win_prob": 0.7828968240300047,
     "home": "LAL",
     "away": "DEN",
     "home_score": 77,
@@ -2763,7 +2763,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 7:37",
-    "wp": 0.7189807877596966,
+    "win_prob": 0.7189807877596966,
     "home": "LAL",
     "away": "DEN",
     "home_score": 77,
@@ -2783,7 +2783,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 7:37",
-    "wp": 0.7899586267077587,
+    "win_prob": 0.7899586267077587,
     "home": "LAL",
     "away": "DEN",
     "home_score": 77,
@@ -2803,7 +2803,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 7:37",
-    "wp": 0.6839302399489489,
+    "win_prob": 0.6839302399489489,
     "home": "LAL",
     "away": "DEN",
     "home_score": 77,
@@ -2823,7 +2823,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 7:21",
-    "wp": 0.8188629524591091,
+    "win_prob": 0.8188629524591091,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2843,7 +2843,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:59",
-    "wp": 0.8202276754524058,
+    "win_prob": 0.8202276754524058,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2863,7 +2863,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:59",
-    "wp": 0.720138748661856,
+    "win_prob": 0.720138748661856,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2883,7 +2883,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:59",
-    "wp": 0.6845577662248147,
+    "win_prob": 0.6845577662248147,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2903,7 +2903,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:59",
-    "wp": 0.6471773216970925,
+    "win_prob": 0.6471773216970925,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2923,7 +2923,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:39",
-    "wp": 0.7931587789613458,
+    "win_prob": 0.7931587789613458,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2943,7 +2943,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:38",
-    "wp": 0.7208177675201614,
+    "win_prob": 0.7208177675201614,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2963,7 +2963,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:27",
-    "wp": 0.6472376642040883,
+    "win_prob": 0.6472376642040883,
     "home": "LAL",
     "away": "DEN",
     "home_score": 79,
@@ -2983,7 +2983,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 6:04",
-    "wp": 0.7303982744246872,
+    "win_prob": 0.7303982744246872,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3003,7 +3003,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 5:24",
-    "wp": 0.6474512661494053,
+    "win_prob": 0.6474512661494053,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3023,7 +3023,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 5:07",
-    "wp": 0.5644286547525225,
+    "win_prob": 0.5644286547525225,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3043,7 +3043,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 4:43",
-    "wp": 0.5635569279592271,
+    "win_prob": 0.5635569279592271,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3063,7 +3063,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 4:39",
-    "wp": 0.5737613387800364,
+    "win_prob": 0.5737613387800364,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3083,7 +3083,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 4:39",
-    "wp": 0.4761369684848209,
+    "win_prob": 0.4761369684848209,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3103,7 +3103,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 4:39",
-    "wp": 0.43266706251070247,
+    "win_prob": 0.43266706251070247,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3123,7 +3123,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 4:17",
-    "wp": 0.5291874614623315,
+    "win_prob": 0.5291874614623315,
     "home": "LAL",
     "away": "DEN",
     "home_score": 81,
@@ -3143,7 +3143,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 4:16",
-    "wp": 0.6160542920692268,
+    "win_prob": 0.6160542920692268,
     "home": "LAL",
     "away": "DEN",
     "home_score": 83,
@@ -3163,7 +3163,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 3:39",
-    "wp": 0.5162524022685956,
+    "win_prob": 0.5162524022685956,
     "home": "LAL",
     "away": "DEN",
     "home_score": 83,
@@ -3183,7 +3183,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 3:34",
-    "wp": 0.3818948756763657,
+    "win_prob": 0.3818948756763657,
     "home": "LAL",
     "away": "DEN",
     "home_score": 83,
@@ -3203,7 +3203,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 2:57",
-    "wp": 0.478472677740915,
+    "win_prob": 0.478472677740915,
     "home": "LAL",
     "away": "DEN",
     "home_score": 83,
@@ -3223,7 +3223,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 2:47",
-    "wp": 0.5701638630414998,
+    "win_prob": 0.5701638630414998,
     "home": "LAL",
     "away": "DEN",
     "home_score": 85,
@@ -3243,7 +3243,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 2:28",
-    "wp": 0.37298029620483014,
+    "win_prob": 0.37298029620483014,
     "home": "LAL",
     "away": "DEN",
     "home_score": 85,
@@ -3263,7 +3263,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 1:56",
-    "wp": 0.4731094614356186,
+    "win_prob": 0.4731094614356186,
     "home": "LAL",
     "away": "DEN",
     "home_score": 85,
@@ -3283,7 +3283,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 1:40",
-    "wp": 0.5679200228848984,
+    "win_prob": 0.5679200228848984,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3303,7 +3303,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 1:18",
-    "wp": 0.3176754760545172,
+    "win_prob": 0.3176754760545172,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3323,7 +3323,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 1:00",
-    "wp": 0.3144865513831874,
+    "win_prob": 0.3144865513831874,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3343,7 +3343,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 0:55",
-    "wp": 0.23120300504174363,
+    "win_prob": 0.23120300504174363,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3363,7 +3363,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 0:29",
-    "wp": 0.3195896973732224,
+    "win_prob": 0.3195896973732224,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3383,7 +3383,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 0:29",
-    "wp": 0.18957467590462224,
+    "win_prob": 0.18957467590462224,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3403,7 +3403,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 0:29",
-    "wp": 0.2757277581094484,
+    "win_prob": 0.2757277581094484,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3423,7 +3423,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 0:26",
-    "wp": 0.2751277537531995,
+    "win_prob": 0.2751277537531995,
     "home": "LAL",
     "away": "DEN",
     "home_score": 87,
@@ -3443,7 +3443,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q3 0:10",
-    "wp": 0.3630266309301564,
+    "win_prob": 0.3630266309301564,
     "home": "LAL",
     "away": "DEN",
     "home_score": 89,
@@ -3463,7 +3463,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 12:00",
-    "wp": 0.36135377901074706,
+    "win_prob": 0.36135377901074706,
     "home": "LAL",
     "away": "DEN",
     "home_score": 89,
@@ -3483,7 +3483,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 12:00",
-    "wp": 0.2596621093515915,
+    "win_prob": 0.2596621093515915,
     "home": "LAL",
     "away": "DEN",
     "home_score": 89,
@@ -3503,7 +3503,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 11:45",
-    "wp": 0.46000227885506384,
+    "win_prob": 0.46000227885506384,
     "home": "LAL",
     "away": "DEN",
     "home_score": 91,
@@ -3523,7 +3523,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 11:45",
-    "wp": 0.3471460967891458,
+    "win_prob": 0.3471460967891458,
     "home": "LAL",
     "away": "DEN",
     "home_score": 91,
@@ -3543,7 +3543,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 10:38",
-    "wp": 0.4522135699798979,
+    "win_prob": 0.4522135699798979,
     "home": "LAL",
     "away": "DEN",
     "home_score": 91,
@@ -3563,7 +3563,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 10:38",
-    "wp": 0.33444917538446717,
+    "win_prob": 0.33444917538446717,
     "home": "LAL",
     "away": "DEN",
     "home_score": 91,
@@ -3583,7 +3583,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 10:38",
-    "wp": 0.506879876000929,
+    "win_prob": 0.506879876000929,
     "home": "LAL",
     "away": "DEN",
     "home_score": 92,
@@ -3603,7 +3603,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 10:11",
-    "wp": 0.504648225638291,
+    "win_prob": 0.504648225638291,
     "home": "LAL",
     "away": "DEN",
     "home_score": 92,
@@ -3623,7 +3623,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 10:05",
-    "wp": 0.6150095911425244,
+    "win_prob": 0.6150095911425244,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3643,7 +3643,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 10:05",
-    "wp": 0.49063880433988427,
+    "win_prob": 0.49063880433988427,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3663,7 +3663,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 9:48",
-    "wp": 0.3768711326829767,
+    "win_prob": 0.3768711326829767,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3683,7 +3683,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 9:19",
-    "wp": 0.5000630139901443,
+    "win_prob": 0.5000630139901443,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3703,7 +3703,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 9:19",
-    "wp": 0.31734073464111223,
+    "win_prob": 0.31734073464111223,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3723,7 +3723,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 9:19",
-    "wp": 0.4417469958235358,
+    "win_prob": 0.4417469958235358,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3743,7 +3743,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 9:19",
-    "wp": 0.26702110681158225,
+    "win_prob": 0.26702110681158225,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3763,7 +3763,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 8:56",
-    "wp": 0.26093024071541127,
+    "win_prob": 0.26093024071541127,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3783,7 +3783,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 8:56",
-    "wp": 0.3802221917205909,
+    "win_prob": 0.3802221917205909,
     "home": "LAL",
     "away": "DEN",
     "home_score": 94,
@@ -3803,7 +3803,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 8:49",
-    "wp": 0.49722007835566745,
+    "win_prob": 0.49722007835566745,
     "home": "LAL",
     "away": "DEN",
     "home_score": 96,
@@ -3823,7 +3823,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 8:28",
-    "wp": 0.2531257085491644,
+    "win_prob": 0.2531257085491644,
     "home": "LAL",
     "away": "DEN",
     "home_score": 96,
@@ -3843,7 +3843,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 8:17",
-    "wp": 0.49400165221455533,
+    "win_prob": 0.49400165221455533,
     "home": "LAL",
     "away": "DEN",
     "home_score": 98,
@@ -3863,7 +3863,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 7:19",
-    "wp": 0.4875821722364726,
+    "win_prob": 0.4875821722364726,
     "home": "LAL",
     "away": "DEN",
     "home_score": 98,
@@ -3883,7 +3883,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 7:05",
-    "wp": 0.22701667128723918,
+    "win_prob": 0.22701667128723918,
     "home": "LAL",
     "away": "DEN",
     "home_score": 98,
@@ -3903,7 +3903,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 5:52",
-    "wp": 0.19934598933271552,
+    "win_prob": 0.19934598933271552,
     "home": "LAL",
     "away": "DEN",
     "home_score": 98,
@@ -3923,7 +3923,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 5:29",
-    "wp": 0.47244892360354523,
+    "win_prob": 0.47244892360354523,
     "home": "LAL",
     "away": "DEN",
     "home_score": 100,
@@ -3943,7 +3943,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 5:03",
-    "wp": 0.46804497440595494,
+    "win_prob": 0.46804497440595494,
     "home": "LAL",
     "away": "DEN",
     "home_score": 100,
@@ -3963,7 +3963,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 5:02",
-    "wp": 0.6249623706856953,
+    "win_prob": 0.6249623706856953,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -3983,7 +3983,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 5:02",
-    "wp": 0.44886353193361983,
+    "win_prob": 0.44886353193361983,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4003,7 +4003,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 4:42",
-    "wp": 0.6267021706969753,
+    "win_prob": 0.6267021706969753,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4023,7 +4023,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 4:42",
-    "wp": 0.36464637205997036,
+    "win_prob": 0.36464637205997036,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4043,7 +4043,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 4:42",
-    "wp": 0.29026556084751165,
+    "win_prob": 0.29026556084751165,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4063,7 +4063,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 4:42",
-    "wp": 0.22388091626887696,
+    "win_prob": 0.22388091626887696,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4083,7 +4083,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 3:47",
-    "wp": 0.19498317635157175,
+    "win_prob": 0.19498317635157175,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4103,7 +4103,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 3:34",
-    "wp": 0.09318942198343555,
+    "win_prob": 0.09318942198343555,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4123,7 +4123,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 3:34",
-    "wp": 0.2091081641806628,
+    "win_prob": 0.2091081641806628,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4143,7 +4143,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 3:32",
-    "wp": 0.20890114676050386,
+    "win_prob": 0.20890114676050386,
     "home": "LAL",
     "away": "DEN",
     "home_score": 102,
@@ -4163,7 +4163,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 3:20",
-    "wp": 0.3603382693248039,
+    "win_prob": 0.3603382693248039,
     "home": "LAL",
     "away": "DEN",
     "home_score": 104,
@@ -4183,7 +4183,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 2:50",
-    "wp": 0.058707313846243614,
+    "win_prob": 0.058707313846243614,
     "home": "LAL",
     "away": "DEN",
     "home_score": 104,
@@ -4203,7 +4203,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 2:29",
-    "wp": 0.3534871099170913,
+    "win_prob": 0.3534871099170913,
     "home": "LAL",
     "away": "DEN",
     "home_score": 107,
@@ -4223,7 +4223,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 2:01",
-    "wp": 0.3497456092211094,
+    "win_prob": 0.3497456092211094,
     "home": "LAL",
     "away": "DEN",
     "home_score": 107,
@@ -4243,7 +4243,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 2:01",
-    "wp": 0.1300068327318335,
+    "win_prob": 0.1300068327318335,
     "home": "LAL",
     "away": "DEN",
     "home_score": 107,
@@ -4263,7 +4263,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 2:01",
-    "wp": 0.19203140010509878,
+    "win_prob": 0.19203140010509878,
     "home": "LAL",
     "away": "DEN",
     "home_score": 107,
@@ -4282,7 +4282,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:58",
-    "wp": 0.2690821215156612,
+    "win_prob": 0.2690821215156612,
     "home": "LAL",
     "away": "DEN",
     "home_score": 107,
@@ -4302,7 +4302,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:52",
-    "wp": 0.1293223494930042,
+    "win_prob": 0.1293223494930042,
     "home": "LAL",
     "away": "DEN",
     "home_score": 107,
@@ -4322,7 +4322,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:52",
-    "wp": 0.34854605554035856,
+    "win_prob": 0.34854605554035856,
     "home": "LAL",
     "away": "DEN",
     "home_score": 108,
@@ -4342,7 +4342,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:52",
-    "wp": 0.43614702258838955,
+    "win_prob": 0.43614702258838955,
     "home": "LAL",
     "away": "DEN",
     "home_score": 109,
@@ -4362,7 +4362,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:36",
-    "wp": 0.43387867038203803,
+    "win_prob": 0.43387867038203803,
     "home": "LAL",
     "away": "DEN",
     "home_score": 109,
@@ -4382,7 +4382,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:22",
-    "wp": 0.24717770148640794,
+    "win_prob": 0.24717770148640794,
     "home": "LAL",
     "away": "DEN",
     "home_score": 109,
@@ -4402,7 +4402,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:13",
-    "wp": 0.24615499538276414,
+    "win_prob": 0.24615499538276414,
     "home": "LAL",
     "away": "DEN",
     "home_score": 109,
@@ -4422,7 +4422,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:13",
-    "wp": 0.5214177155658288,
+    "win_prob": 0.5214177155658288,
     "home": "LAL",
     "away": "DEN",
     "home_score": 110,
@@ -4442,7 +4442,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 1:13",
-    "wp": 0.6111109041192612,
+    "win_prob": 0.6111109041192612,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4462,7 +4462,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:51",
-    "wp": 0.243664630553582,
+    "win_prob": 0.243664630553582,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4482,7 +4482,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:31",
-    "wp": 0.42468662628337933,
+    "win_prob": 0.42468662628337933,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4502,7 +4502,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:26",
-    "wp": 0.42398117316997735,
+    "win_prob": 0.42398117316997735,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4522,7 +4522,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:22",
-    "wp": 0.24040277264949328,
+    "win_prob": 0.24040277264949328,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4542,7 +4542,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:06",
-    "wp": 0.238613359246374,
+    "win_prob": 0.238613359246374,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4562,7 +4562,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:04",
-    "wp": 0.4208801020404634,
+    "win_prob": 0.4208801020404634,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4582,7 +4582,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:01",
-    "wp": 0.4204576043106769,
+    "win_prob": 0.4204576043106769,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4602,7 +4602,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:00",
-    "wp": 0.0,
+    "win_prob": 0.0,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4622,7 +4622,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "Q4 0:00",
-    "wp": 0.0,
+    "win_prob": 0.0,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,
@@ -4641,7 +4641,7 @@ window.NBA_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 0.0,
+    "win_prob": 0.0,
     "home": "LAL",
     "away": "DEN",
     "home_score": 111,

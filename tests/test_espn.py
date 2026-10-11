@@ -35,7 +35,7 @@ NCAAF_SNIPPET = ROOT / "tests" / "fixtures" / "espn_ncaaf_summary_snippet.json"
 NHL_SNIPPET = ROOT / "tests" / "fixtures" / "espn_nhl_summary_snippet.json"
 SAMPLE = ROOT / "examples" / "nfl_espn_sample.json"
 HARBOR = ROOT / "examples" / "nfl_sample.json"
-WIDGET_SCRIPT = ROOT / "widget" / "nfl_replay.js"
+WIDGET_SCRIPT = ROOT / "replays" / "nfl" / "sample.js"
 
 
 def _summary() -> dict:
@@ -488,7 +488,7 @@ def test_jax_at_den_is_the_widget_replay():
             break
     assert twitch
 
-    script_path = ROOT / "widget" / "nfl_jax_den.js"
+    script_path = ROOT / "replays" / "nfl" / "jax_den.js"
     script = script_path.read_text(encoding="utf-8")
     assert "window.NFL_REPLAY = " in script
     assert "espn" not in script.lower()
@@ -501,7 +501,7 @@ def test_jax_at_den_is_the_widget_replay():
         assert frame["away"] == "JAX"
         assert frame["home_color"] == "#FB4F14"
         assert frame["away_color"] == "#006778"
-        assert frame["wp"] == compute_wp(state, state.prior_home, NFL_CONFIG)
+        assert frame["win_prob"] == compute_wp(state, state.prior_home, NFL_CONFIG)
         for name in ("down", "distance", "yardline", "possession"):
             value = getattr(state, name)
             if value is None:
@@ -555,7 +555,7 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
     assert team_color("GT", "ncaaf") == "#B3A369"
     assert team_color("COLO", "ncaaf") == "#CFB87C"
 
-    script_path = ROOT / "widget" / "ncaaf_cu_gt.js"
+    script_path = ROOT / "replays" / "ncaaf" / "cu_gt.js"
     script = script_path.read_text(encoding="utf-8")
     assert "window.NCAAF_REPLAY = " in script
     lowered = script.lower()
@@ -571,7 +571,7 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
         assert frame["away"] == "COLO"
         assert frame["home_color"] == "#B3A369"
         assert frame["away_color"] == "#CFB87C"
-        assert frame["wp"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
+        assert frame["win_prob"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
         assert frame["home_logo"] == "assets/logos/ncaaf/GT.png"
         assert frame["away_logo"] == "assets/logos/ncaaf/COLO.png"
         assert frame["period"] <= 4
@@ -580,7 +580,7 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
     assert frames[-1]["status"] == "final"
     assert frames[-1]["home_score"] == 13
     assert frames[-1]["away_score"] == 14
-    assert frames[-1]["wp"] == 0.0
+    assert frames[-1]["win_prob"] == 0.0
     ncaaf_logos = ROOT / "widget" / "logos" / "ncaaf"
     assert sorted(path.name for path in ncaaf_logos.iterdir()) == ["COLO.png", "GT.png", "TTU.png"]
 
@@ -643,7 +643,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     frames = json.loads(script[script.index("[") : script.rindex("]") + 1])
     assert list(frames[0]) == list(harbor_frames[0])
     for frame, state in zip(frames, states):
-        assert frame["wp"] == compute_wp(state, state.prior_home, NFL_CONFIG)
+        assert frame["win_prob"] == compute_wp(state, state.prior_home, NFL_CONFIG)
         if state.down is None:
             assert "down" not in frame
         else:
@@ -675,7 +675,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     )
     harbor_states = load_replay(HARBOR)
     assert len(harbor_rendered) == len(harbor_states)
-    assert harbor_rendered[-1]["wp"] == 1.0
+    assert harbor_rendered[-1]["win_prob"] == 1.0
 
     ingested_ncaaf = tmp_path / "ncaaf.json"
     completed_ncaaf = subprocess.run(
@@ -797,7 +797,7 @@ def test_min_at_col_is_the_nhl_widget_replay():
     assert team_color("MIN", "nhl") == "#154734"
     assert team_color("MIN", "nfl") != team_color("MIN", "nhl")
 
-    script_path = ROOT / "widget" / "nhl_col_min_g5.js"
+    script_path = ROOT / "replays" / "nhl" / "col_min_g5.js"
     script = script_path.read_text(encoding="utf-8")
     assert "window.NHL_REPLAY = " in script
     lowered = script.lower()
@@ -811,7 +811,7 @@ def test_min_at_col_is_the_nhl_widget_replay():
         assert frame["away"] == "MIN"
         assert frame["home_color"] == "#6F263D"
         assert frame["away_color"] == "#154734"
-        assert frame["wp"] == compute_wp(state, state.prior_home, NHL_CONFIG)
+        assert frame["win_prob"] == compute_wp(state, state.prior_home, NHL_CONFIG)
         assert frame["clock"] == format_clock(state)
         assert frame["home_logo"] == "assets/logos/nhl/COL.png"
         assert frame["away_logo"] == "assets/logos/nhl/MIN.png"
@@ -821,7 +821,7 @@ def test_min_at_col_is_the_nhl_widget_replay():
     assert frames[-1]["status"] == "final"
     assert frames[-1]["home_score"] == 4
     assert frames[-1]["away_score"] == 3
-    assert frames[-1]["wp"] == 1.0
+    assert frames[-1]["win_prob"] == 1.0
 
 
 def test_ingest_still_accepts_nfl_ncaaf_and_nhl_snippets(tmp_path: Path) -> None:
@@ -980,8 +980,8 @@ def test_demo_palette_is_sport_specific_and_colorado_gold():
     assert team_color("DEN", "nfl") != team_color("DEN", "nba")
     assert team_color("DEN", "nba") != team_color("DEN", "ncaah")
     page = (ROOT / "index.html").read_text(encoding="utf-8")
-    script = (ROOT / "widget" / "widget.js").read_text(encoding="utf-8")
-    assert 'src="widget/colors.js"' in page
+    script = (ROOT / "app.js").read_text(encoding="utf-8")
+    assert 'src="colors.js"' in page
     assert "colors.js" not in script
     assert 'return "assets/colors/"' in script
     assert "../assets/" not in script

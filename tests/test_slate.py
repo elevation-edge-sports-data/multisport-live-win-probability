@@ -442,14 +442,13 @@ def test_write_error_keeps_the_old_file(
     assert not out.with_name(out.name + ".tmp").exists()
 
 
-def test_default_out_is_widget_slate_and_usage_lists_the_command() -> None:
+def test_default_out_is_slate_js_and_usage_lists_the_command() -> None:
     options = parse_slate_args([])
     assert options.out == DEFAULT_OUT
-    assert options.out.name == "slate.js"
-    assert options.out.parent.name == "widget"
+    assert options.out == ROOT / "slate.js"
     assert options.date is None
     source = (ROOT / "src" / "live_wp" / "__main__.py").read_text(encoding="utf-8")
     assert (
         "python -m live_wp slate [--date YYYYMMDD] [--interval 15] "
-        "[--out widget/slate.js]"
+        "[--out slate.js]"
     ) in source

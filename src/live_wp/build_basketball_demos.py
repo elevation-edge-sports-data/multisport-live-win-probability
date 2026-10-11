@@ -15,7 +15,7 @@ from mswp.state import GameState
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURES = ROOT / "tests" / "fixtures"
 EXAMPLES = ROOT / "examples"
-WIDGET = ROOT / "widget"
+REPLAYS = ROOT / "replays"
 
 
 def build_basketball_demos() -> int:
@@ -37,7 +37,7 @@ def _nba() -> tuple[int, int]:
     (EXAMPLES / "nba_den_lal.json").write_text(
         dump_replay(thin), encoding="utf-8", newline="\n"
     )
-    (WIDGET / "nba_den_lal.js").write_text(
+    (REPLAYS / "nba" / "den_lal.js").write_text(
         render_widget_script(thin), encoding="utf-8", newline="\n"
     )
     return len(states), len(thin)
@@ -53,7 +53,7 @@ def _ncaab() -> tuple[int, int]:
     (EXAMPLES / "ncaab_cu_fla.json").write_text(
         dump_replay(thin), encoding="utf-8", newline="\n"
     )
-    (WIDGET / "ncaab_cu_fla.js").write_text(
+    (REPLAYS / "ncaab" / "cu_fla.js").write_text(
         render_widget_script(thin), encoding="utf-8", newline="\n"
     )
     return len(states), len(thin)

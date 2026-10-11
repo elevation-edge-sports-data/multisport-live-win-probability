@@ -30,20 +30,35 @@ from live_wp.colors import team_color
 
 # Marks live under assets/logos. The path is relative to the repo root page.
 _REPO_ROOT = Path(__file__).resolve().parents[2]
-_WIDGET_DIR = _REPO_ROOT / "widget"
+_REPLAYS_DIR = _REPO_ROOT / "replays"
+_MANIFEST_PATH = _REPO_ROOT / "manifest.js"
 _LOGO_ROOT = _REPO_ROOT / "assets" / "logos"
 _LOGO_SPORTS = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
 _LOGO_NAMES: dict[str, dict[str, str]] | None = None
 _BINDING_RE = re.compile(r"window\.(NFL|NHL|NBA|NCAAF|NCAAH|NCAAB)_REPLAY\s*=")
+_SEASON_COMMENT = re.compile(r"(?m)^// season:\s*(\S+)\s*$")
 _SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
+# Calendar year of the checked-in replay. Those scripts do not store as_of.
+_SEASON_BY_FILE = {
+    ("nfl", "nyg_den.js"): "2025",
+    ("nfl", "jax_den.js"): "2026",
+    ("nhl", "edm_col.js"): "2022",
+    ("nhl", "col_min_g5.js"): "2026",
+    ("nba", "den_lal.js"): "2024",
+    ("ncaaf", "cu_ttu.js"): "2024",
+    ("ncaaf", "cu_gt.js"): "2026",
+    ("ncaaf", "sample.js"): "2026",
+    ("ncaah", "den_mich.js"): "2026",
+    ("ncaab", "cu_fla.js"): "2024",
+}
 # The page opens the first NFL entry. Keep the six presentation demos first in each sport.
 _DEMO_FILE = {
-    "nfl": "nfl_nyg_den.js",
-    "nhl": "nhl_edm_col.js",
-    "nba": "nba_den_lal.js",
-    "ncaaf": "ncaaf_cu_ttu.js",
-    "ncaah": "ncaah_den_mich.js",
-    "ncaab": "ncaab_cu_fla.js",
+    "nfl": "nyg_den.js",
+    "nhl": "edm_col.js",
+    "nba": "den_lal.js",
+    "ncaaf": "cu_ttu.js",
+    "ncaah": "den_mich.js",
+    "ncaab": "cu_fla.js",
 }
 
 _REQUIRED = (
@@ -370,12 +385,13 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
         "nba": "window.NBA_REPLAY",
         "ncaab": "window.NCAAB_REPLAY",
     }[config.sport]
+    season = _season_year(states[0].as_of)
     frames = []
     for state in states:
         wp = compute_wp(state, state.prior_home, config)
         frame: dict[str, object] = {
             "clock": format_clock(state),
-            "wp": wp,
+            "win_prob": wp,
             "home": state.home,
             "away": state.away,
             "home_score": state.home_score,
@@ -407,10 +423,12 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
         frames.append(frame)
     body = json.dumps(frames, indent=2)
     script = (
-        "// Precomputed by compute_wp.\n"
-        "// The widget displays these values and does not run a second model.\n"
-        f"{binding} = {body};\n"
+        "// Precomputed win probability.\n"
+        "// The page displays these values and does not run a second model.\n"
     )
+    if season:
+        script += f"// season: {season}\n"
+    script += f"{binding} = {body};\n"
     if live:
         script += f"window.MSWP_LIVE = {binding};\n"
     return script
@@ -421,6 +439,33 @@ def _manifest_sort_key(entry: dict[str, str]) -> tuple[int, int, str]:
     sport_index = _SPORT_ORDER.index(sport) if sport in _SPORT_ORDER else len(_SPORT_ORDER)
     demo_first = 0 if entry["file"] == _DEMO_FILE.get(sport) else 1
     return (sport_index, demo_first, entry["file"])
+
+
+def _season_year(value: object) -> str:
+    """Four-digit year from a snapshot timestamp, or ""."""
+    if isinstance(value, datetime):
+        return str(value.year)
+    if isinstance(value, str) and len(value) >= 4 and value[:4].isdigit():
+        return value[:4]
+    return ""
+
+
+def _season_for_manifest(sport: str, filename: str, text: str, frame: Mapping[str, object]) -> str:
+    """Season string for one picker row.
+
+    A rendered script can carry ``// season: 2026``. Older checked-in
+    scripts keep the year in ``_SEASON_BY_FILE``.
+    """
+    comment = _SEASON_COMMENT.search(text)
+    if comment is not None and comment.group(1).strip():
+        return comment.group(1).strip()
+    raw = frame.get("season")
+    if isinstance(raw, str) and raw.strip():
+        return raw.strip()
+    year = _season_year(frame.get("as_of"))
+    if year:
+        return year
+    return _SEASON_BY_FILE.get((sport, filename), "")
 
 
 def _is_harbor_replay(home: object, away: object) -> bool:
@@ -457,23 +502,49 @@ def manifest_entry(path: Path) -> dict[str, str] | None:
         raise ValueError(f"{path.name} replay frame is missing teams")
     if _is_harbor_replay(home, away):
         return None
+    sport = match.group(1).lower()
     return {
-        "sport": match.group(1).lower(),
+        "sport": sport,
         "away": away,
         "home": home,
         "label": f"{away} at {home}",
         "file": path.name,
+        "season": _season_for_manifest(sport, path.name, text, frames[0]),
     }
+
+
+def _replay_scripts(directory: Path) -> list[Path]:
+    """Replay scripts in sport folders, or a flat directory of scripts.
+
+    The repository tree is ``replays/{sport}/*.js``. A directory with no
+    sport folder is scanned flat so a test can pass one temporary folder.
+    ``live_replay.js`` sits next to the sport folders and is not included
+    in the sport-folder scan.
+    """
+    sport_dirs = [
+        directory / sport
+        for sport in _SPORT_ORDER
+        if (directory / sport).is_dir()
+    ]
+    if sport_dirs:
+        paths: list[Path] = []
+        for sport_dir in sport_dirs:
+            paths.extend(
+                sorted(path for path in sport_dir.glob("*.js") if path.is_file())
+            )
+        return paths
+    return sorted(path for path in directory.glob("*.js") if path.is_file())
 
 
 def manifest_entries(directory: Path | None = None) -> list[dict[str, str]]:
     """Rendered replays under ``directory``, demo matchups first within each sport.
 
-    ``live_replay.js`` and the Harbor prototype are omitted.
+    ``live_replay.js`` and the Harbor prototype are omitted. The default
+    directory is ``replays/``.
     """
-    widget = Path(directory) if directory is not None else _WIDGET_DIR
+    root = Path(directory) if directory is not None else _REPLAYS_DIR
     entries: list[dict[str, str]] = []
-    for path in sorted(widget.glob("*.js")):
+    for path in _replay_scripts(root):
         entry = manifest_entry(path)
         if entry is not None:
             entries.append(entry)
@@ -492,11 +563,21 @@ def render_manifest_script(entries: list[dict[str, str]]) -> str:
 
 
 def write_manifest(directory: Path | None = None) -> Path:
-    """Write ``manifest.js`` for the replays the picker can open."""
-    widget = Path(directory) if directory is not None else _WIDGET_DIR
-    dest = widget / "manifest.js"
+    """Write ``manifest.js`` for the replays the picker can open.
+
+    The default scan is ``replays/`` and the file is written at the
+    repository root. A caller that passes ``directory`` gets
+    ``directory/manifest.js`` for that tree.
+    """
+    if directory is None:
+        scan = _REPLAYS_DIR
+        dest = _MANIFEST_PATH
+    else:
+        scan = Path(directory)
+        dest = scan / "manifest.js"
+    dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(
-        render_manifest_script(manifest_entries(widget)),
+        render_manifest_script(manifest_entries(scan)),
         encoding="utf-8",
         newline="\n",
     )
@@ -504,6 +585,12 @@ def write_manifest(directory: Path | None = None) -> Path:
 
 
 def refresh_manifest_if_widget(dest: Path) -> None:
-    """Rewrite ``widget/manifest.js`` when ``dest`` is a script in that directory."""
-    if dest.resolve().parent == _WIDGET_DIR.resolve():
-        write_manifest(_WIDGET_DIR)
+    """Rewrite ``manifest.js`` when ``dest`` is a script under the replays tree."""
+    resolved = dest.resolve()
+    root = _REPLAYS_DIR.resolve()
+    if resolved.parent != root and root not in resolved.parents:
+        return
+    if root == (_REPO_ROOT / "replays").resolve():
+        write_manifest()
+    else:
+        write_manifest(root)

@@ -1,4 +1,4 @@
-"""Rewrite a widget replay while the follow loop polls one game.
+"""Rewrite the live replay while the follow loop polls one game.
 
 Each printed change is passed through ``render_widget_script``, which
 recomputes win probability with the pack for that sport. College sports
@@ -6,8 +6,8 @@ are rejected. This module does not serve pages and does not open a socket
 of its own. The follow command owns the feed request.
 
 ``--game`` follows that id and does not read follow.json or rewrite the
-slate. Without ``--game``, the command reads widget/follow.json. Before
-each poll, and on each wait, it rewrites widget/slate.js for NFL, NHL,
+slate. Without ``--game``, the command reads follow.json. Before
+each poll, and on each wait, it rewrites slate.js for NFL, NHL,
 and NBA through the slate writer. A missing file waits. A new game id
 stops the current poll and replaces the replay from the new game's
 history.
@@ -38,11 +38,11 @@ from live_wp.follow import (
 from live_wp.replay import render_widget_script
 from live_wp.slate import DEFAULT_OUT as DEFAULT_SLATE, write_slate
 
-DEFAULT_OUT = Path(__file__).resolve().parents[2] / "widget" / "live_replay.js"
-DEFAULT_FOLLOW = Path(__file__).resolve().parents[2] / "widget" / "follow.json"
+DEFAULT_OUT = Path(__file__).resolve().parents[2] / "replays" / "live_replay.js"
+DEFAULT_FOLLOW = Path(__file__).resolve().parents[2] / "follow.json"
 _USAGE = (
     "usage: python -m live_wp live [--game ESPN_EVENT_ID] "
-    "[--sport nfl|nhl|nba] [--interval 15] [--out widget/live_replay.js]"
+    "[--sport nfl|nhl|nba] [--interval 15] [--out replays/live_replay.js]"
 )
 
 
@@ -111,9 +111,9 @@ def run_live(
     """Poll one event and rewrite the replay script on each printed change.
 
     ``--game`` wins. The follow file is not read and the slate is not
-    rewritten. Without it, ``follow_path`` (default widget/follow.json)
+    rewritten. Without it, ``follow_path`` (default follow.json)
     supplies sport and game id, and ``slate_path`` (default
-    widget/slate.js) is rewritten on that loop. Ctrl+C stops the poll
+    slate.js) is rewritten on that loop. Ctrl+C stops the poll
     and leaves the last scripts in place.
     """
     try:

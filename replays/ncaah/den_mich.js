@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NCAAH_REPLAY = [
   {
     "clock": "P1 20:00",
-    "wp": 0.486986193583999,
+    "win_prob": 0.486986193583999,
     "home": "DEN",
     "away": "MICH",
     "home_score": 0,
@@ -23,7 +23,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 20:00",
-    "wp": 0.486986193583999,
+    "win_prob": 0.486986193583999,
     "home": "DEN",
     "away": "MICH",
     "home_score": 0,
@@ -43,7 +43,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 13:35",
-    "wp": 0.48760648370395004,
+    "win_prob": 0.48760648370395004,
     "home": "DEN",
     "away": "MICH",
     "home_score": 0,
@@ -63,7 +63,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 13:17",
-    "wp": 0.8710802963429514,
+    "win_prob": 0.8710802963429514,
     "home": "DEN",
     "away": "MICH",
     "home_score": 0,
@@ -83,7 +83,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 13:02",
-    "wp": 0.8705903503225441,
+    "win_prob": 0.8705903503225441,
     "home": "DEN",
     "away": "MICH",
     "home_score": 0,
@@ -103,7 +103,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 11:17",
-    "wp": 0.48783613833950806,
+    "win_prob": 0.48783613833950806,
     "home": "DEN",
     "away": "MICH",
     "home_score": 0,
@@ -123,7 +123,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 10:31",
-    "wp": 0.6661915786286865,
+    "win_prob": 0.6661915786286865,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -143,7 +143,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 3:46",
-    "wp": 0.6792918253377238,
+    "win_prob": 0.6792918253377238,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -163,7 +163,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 3:42",
-    "wp": 0.48862392379211117,
+    "win_prob": 0.48862392379211117,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -183,7 +183,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 2:44",
-    "wp": 0.4887279803499408,
+    "win_prob": 0.4887279803499408,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -203,7 +203,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P1 2:43",
-    "wp": 0.2985168499125007,
+    "win_prob": 0.2985168499125007,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -223,7 +223,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P2 20:00",
-    "wp": 0.29294749897974176,
+    "win_prob": 0.29294749897974176,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -243,7 +243,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P2 19:41",
-    "wp": 0.6940719586123218,
+    "win_prob": 0.6940719586123218,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -263,7 +263,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P2 17:58",
-    "wp": 0.6837197016801011,
+    "win_prob": 0.6837197016801011,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -283,7 +283,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P2 17:41",
-    "wp": 0.2877603769391801,
+    "win_prob": 0.2877603769391801,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -303,7 +303,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P2 17:38",
-    "wp": 0.2876435460014645,
+    "win_prob": 0.2876435460014645,
     "home": "DEN",
     "away": "MICH",
     "home_score": 1,
@@ -323,7 +323,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P2 17:30",
-    "wp": 0.48930698247805043,
+    "win_prob": 0.48930698247805043,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -343,7 +343,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 20:00",
-    "wp": 0.4914559540112402,
+    "win_prob": 0.4914559540112402,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -363,7 +363,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 19:36",
-    "wp": 0.7775844323224679,
+    "win_prob": 0.7775844323224679,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -383,7 +383,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 18:04",
-    "wp": 0.7716356091066074,
+    "win_prob": 0.7716356091066074,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -403,7 +403,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 17:36",
-    "wp": 0.49177383577337763,
+    "win_prob": 0.49177383577337763,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -423,7 +423,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 15:38",
-    "wp": 0.49203576071458865,
+    "win_prob": 0.49203576071458865,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -443,7 +443,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 14:56",
-    "wp": 0.7590228391204765,
+    "win_prob": 0.7590228391204765,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -463,7 +463,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 14:03",
-    "wp": 0.7553757285425099,
+    "win_prob": 0.7553757285425099,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -483,7 +483,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 12:56",
-    "wp": 0.492393514320946,
+    "win_prob": 0.492393514320946,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -503,7 +503,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 9:46",
-    "wp": 0.49279966518907403,
+    "win_prob": 0.49279966518907403,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -523,7 +523,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 9:46",
-    "wp": 0.25086494455327585,
+    "win_prob": 0.25086494455327585,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -543,7 +543,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 9:21",
-    "wp": 0.2526514622619295,
+    "win_prob": 0.2526514622619295,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -563,7 +563,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 8:58",
-    "wp": 0.05026550887036661,
+    "win_prob": 0.05026550887036661,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -583,7 +583,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 8:58",
-    "wp": 0.14302046830969362,
+    "win_prob": 0.14302046830969362,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -603,7 +603,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 7:19",
-    "wp": 0.12406675345341563,
+    "win_prob": 0.12406675345341563,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -623,7 +623,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 5:46",
-    "wp": 0.10385792904801824,
+    "win_prob": 0.10385792904801824,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -643,7 +643,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 4:34",
-    "wp": 0.08634342815475556,
+    "win_prob": 0.08634342815475556,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -663,7 +663,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 2:54",
-    "wp": 0.0588385879024308,
+    "win_prob": 0.0588385879024308,
     "home": "DEN",
     "away": "MICH",
     "home_score": 2,
@@ -683,7 +683,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "P3 2:46",
-    "wp": 0.4935037464050197,
+    "win_prob": 0.4935037464050197,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -703,7 +703,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 20:00",
-    "wp": 0.4935971059976244,
+    "win_prob": 0.4935971059976244,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -723,7 +723,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 2:28",
-    "wp": 0.4935971059976244,
+    "win_prob": 0.4935971059976244,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -743,7 +743,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 2:26",
-    "wp": 0.7090300177521803,
+    "win_prob": 0.7090300177521803,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -763,7 +763,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 1:36",
-    "wp": 0.7090300177521803,
+    "win_prob": 0.7090300177521803,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -783,7 +783,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 1:31",
-    "wp": 0.49359710599762446,
+    "win_prob": 0.49359710599762446,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -803,7 +803,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 0:47",
-    "wp": 0.4935971059976244,
+    "win_prob": 0.4935971059976244,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -823,7 +823,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "OT 0:26",
-    "wp": 0.28051596287612524,
+    "win_prob": 0.28051596287612524,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -843,7 +843,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "2OT 20:00",
-    "wp": 0.28051596287612524,
+    "win_prob": 0.28051596287612524,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -863,7 +863,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "2OT 19:40",
-    "wp": 0.28051596287612524,
+    "win_prob": 0.28051596287612524,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -883,7 +883,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "2OT 19:31",
-    "wp": 0.4935971059976244,
+    "win_prob": 0.4935971059976244,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -903,7 +903,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "2OT 7:47",
-    "wp": 0.4935971059976244,
+    "win_prob": 0.4935971059976244,
     "home": "DEN",
     "away": "MICH",
     "home_score": 3,
@@ -923,7 +923,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "2OT 7:25",
-    "wp": 0.9999,
+    "win_prob": 0.9999,
     "home": "DEN",
     "away": "MICH",
     "home_score": 4,
@@ -943,7 +943,7 @@ window.NCAAH_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 1.0,
+    "win_prob": 1.0,
     "home": "DEN",
     "away": "MICH",
     "home_score": 4,

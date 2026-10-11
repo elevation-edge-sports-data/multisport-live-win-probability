@@ -1,13 +1,13 @@
 """Serve the repository root on 127.0.0.1.
 
 The document root is the repo, so ``/index.html`` loads
-``assets/colors`` and ``assets/logos`` and the scripts under ``widget/``.
-It does not estimate win probability and it does not forward a request
-anywhere else. The page loads a replay script that render-widget already
-wrote.
+``assets/colors``, ``assets/logos``, the page files at the root, and the
+scripts under ``replays/``. It does not estimate win probability and it
+does not forward a request anywhere else. The page loads a replay script
+that render-widget already wrote.
 
 The one extra route is POST /follow from this machine. A good body is
-written to ``widget/follow.json``. Every other path is still a static file.
+written to ``follow.json``. Every other path is still a static file.
 """
 
 from __future__ import annotations
@@ -72,7 +72,7 @@ class _Handler(SimpleHTTPRequestHandler):
             self.send_error(HTTPStatus.BAD_REQUEST)
             return
         try:
-            _write_follow_file(Path(self.directory) / "widget" / _FOLLOW_NAME, sport, game_id)
+            _write_follow_file(Path(self.directory) / _FOLLOW_NAME, sport, game_id)
         except OSError:
             self.send_error(HTTPStatus.INTERNAL_SERVER_ERROR)
             return

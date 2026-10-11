@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NCAAF_REPLAY = [
   {
     "clock": "Q1 15:00",
-    "wp": 0.5699999999999998,
+    "win_prob": 0.5699999999999998,
     "home": "TEX",
     "away": "OU",
     "home_score": 0,
@@ -18,7 +18,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 13:40",
-    "wp": 0.5759058086970179,
+    "win_prob": 0.5759058086970179,
     "home": "TEX",
     "away": "OU",
     "home_score": 0,
@@ -37,7 +37,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 11:40",
-    "wp": 0.5503389497503695,
+    "win_prob": 0.5503389497503695,
     "home": "TEX",
     "away": "OU",
     "home_score": 0,
@@ -56,7 +56,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 10:10",
-    "wp": 0.5251313130460065,
+    "win_prob": 0.5251313130460065,
     "home": "TEX",
     "away": "OU",
     "home_score": 0,
@@ -75,7 +75,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 9:00",
-    "wp": 0.831889099774449,
+    "win_prob": 0.831889099774449,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -94,7 +94,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 6:40",
-    "wp": 0.7354430349889832,
+    "win_prob": 0.7354430349889832,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -113,7 +113,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 4:10",
-    "wp": 0.7660016555531284,
+    "win_prob": 0.7660016555531284,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -132,7 +132,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q1 1:30",
-    "wp": 0.38669492009267903,
+    "win_prob": 0.38669492009267903,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -151,7 +151,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 15:00",
-    "wp": 0.5683543063484167,
+    "win_prob": 0.5683543063484167,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -170,7 +170,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 12:20",
-    "wp": 0.5328952798565518,
+    "win_prob": 0.5328952798565518,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -189,7 +189,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 10:00",
-    "wp": 0.4031178814847147,
+    "win_prob": 0.4031178814847147,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -208,7 +208,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 8:00",
-    "wp": 0.4762125797261118,
+    "win_prob": 0.4762125797261118,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -227,7 +227,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 5:00",
-    "wp": 0.5122315765488736,
+    "win_prob": 0.5122315765488736,
     "home": "TEX",
     "away": "OU",
     "home_score": 7,
@@ -246,7 +246,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 3:00",
-    "wp": 0.8327588745108332,
+    "win_prob": 0.8327588745108332,
     "home": "TEX",
     "away": "OU",
     "home_score": 14,
@@ -265,7 +265,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q2 1:00",
-    "wp": 0.6585721099675458,
+    "win_prob": 0.6585721099675458,
     "home": "TEX",
     "away": "OU",
     "home_score": 14,
@@ -284,7 +284,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 15:00",
-    "wp": 0.6921941990900341,
+    "win_prob": 0.6921941990900341,
     "home": "TEX",
     "away": "OU",
     "home_score": 14,
@@ -303,7 +303,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 12:40",
-    "wp": 0.6408262188503578,
+    "win_prob": 0.6408262188503578,
     "home": "TEX",
     "away": "OU",
     "home_score": 14,
@@ -322,7 +322,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 8:40",
-    "wp": 0.2117109981741761,
+    "win_prob": 0.2117109981741761,
     "home": "TEX",
     "away": "OU",
     "home_score": 14,
@@ -341,7 +341,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 6:00",
-    "wp": 0.43967663173441957,
+    "win_prob": 0.43967663173441957,
     "home": "TEX",
     "away": "OU",
     "home_score": 14,
@@ -360,7 +360,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 3:20",
-    "wp": 0.9049932601323004,
+    "win_prob": 0.9049932601323004,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -379,7 +379,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q3 0:40",
-    "wp": 0.7203443017076364,
+    "win_prob": 0.7203443017076364,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -398,7 +398,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 15:00",
-    "wp": 0.710386304057096,
+    "win_prob": 0.710386304057096,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -417,7 +417,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 12:00",
-    "wp": 0.7792498539730082,
+    "win_prob": 0.7792498539730082,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -436,7 +436,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 9:00",
-    "wp": 0.09008078321899443,
+    "win_prob": 0.09008078321899443,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -455,7 +455,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 6:40",
-    "wp": 0.3376959048410703,
+    "win_prob": 0.3376959048410703,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -474,7 +474,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 4:10",
-    "wp": 0.48948244667414037,
+    "win_prob": 0.48948244667414037,
     "home": "TEX",
     "away": "OU",
     "home_score": 21,
@@ -493,7 +493,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 2:00",
-    "wp": 0.8318178145698965,
+    "win_prob": 0.8318178145698965,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -512,7 +512,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:45",
-    "wp": 0.23801350589809206,
+    "win_prob": 0.23801350589809206,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -531,7 +531,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "Q4 0:00",
-    "wp": 0.5268682858768634,
+    "win_prob": 0.5268682858768634,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -550,7 +550,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "OT 0:00",
-    "wp": 0.5268682858768634,
+    "win_prob": 0.5268682858768634,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -569,7 +569,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "OT 0:00",
-    "wp": 0.5268682858768634,
+    "win_prob": 0.5268682858768634,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -588,7 +588,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "OT 0:00",
-    "wp": 0.006506758065893625,
+    "win_prob": 0.006506758065893625,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -607,7 +607,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "OT 0:00",
-    "wp": 0.25480298633706483,
+    "win_prob": 0.25480298633706483,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -626,7 +626,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "OT 0:00",
-    "wp": 0.25480298633706483,
+    "win_prob": 0.25480298633706483,
     "home": "TEX",
     "away": "OU",
     "home_score": 24,
@@ -645,7 +645,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "OT 0:00",
-    "wp": 0.5268682858768634,
+    "win_prob": 0.5268682858768634,
     "home": "TEX",
     "away": "OU",
     "home_score": 31,
@@ -664,7 +664,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "2OT 0:00",
-    "wp": 0.5268682858768634,
+    "win_prob": 0.5268682858768634,
     "home": "TEX",
     "away": "OU",
     "home_score": 31,
@@ -683,7 +683,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "2OT 0:00",
-    "wp": 0.5268682858768634,
+    "win_prob": 0.5268682858768634,
     "home": "TEX",
     "away": "OU",
     "home_score": 31,
@@ -702,7 +702,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "2OT 0:00",
-    "wp": 0.9950415990302713,
+    "win_prob": 0.9950415990302713,
     "home": "TEX",
     "away": "OU",
     "home_score": 38,
@@ -721,7 +721,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "2OT 0:00",
-    "wp": 0.7748062217947795,
+    "win_prob": 0.7748062217947795,
     "home": "TEX",
     "away": "OU",
     "home_score": 38,
@@ -740,7 +740,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "2OT 0:00",
-    "wp": 0.7748062217947795,
+    "win_prob": 0.7748062217947795,
     "home": "TEX",
     "away": "OU",
     "home_score": 38,
@@ -759,7 +759,7 @@ window.NCAAF_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 1.0,
+    "win_prob": 1.0,
     "home": "TEX",
     "away": "OU",
     "home_score": 38,

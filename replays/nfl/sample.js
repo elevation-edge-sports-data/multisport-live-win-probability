@@ -1,9 +1,9 @@
-// Precomputed by compute_wp from examples/nfl_sample.json.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NFL_REPLAY = [
   {
     "clock": "Q1 15:00",
-    "wp": 0.5800000000000001,
+    "win_prob": 0.5800000000000001,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 0,
@@ -18,7 +18,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 9:24",
-    "wp": 0.7693763084995756,
+    "win_prob": 0.7693763084995756,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 7,
@@ -33,7 +33,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 11:02",
-    "wp": 0.5662996365452024,
+    "win_prob": 0.5662996365452024,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 7,
@@ -48,7 +48,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 4:16",
-    "wp": 0.4437456418300448,
+    "win_prob": 0.4437456418300448,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 7,
@@ -63,7 +63,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 12:45",
-    "wp": 0.3028497885548054,
+    "win_prob": 0.3028497885548054,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 7,
@@ -78,7 +78,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 5:30",
-    "wp": 0.5966699873922825,
+    "win_prob": 0.5966699873922825,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 14,
@@ -93,7 +93,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 8:05",
-    "wp": 0.2975945629638963,
+    "win_prob": 0.2975945629638963,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 17,
@@ -108,7 +108,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 3:22",
-    "wp": 0.9029703974270941,
+    "win_prob": 0.9029703974270941,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 24,
@@ -123,7 +123,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 1:05",
-    "wp": 0.9871988147760045,
+    "win_prob": 0.9871988147760045,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 27,
@@ -138,7 +138,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 1.0,
+    "win_prob": 1.0,
     "home": "Harbor",
     "away": "Red Oak",
     "home_score": 27,

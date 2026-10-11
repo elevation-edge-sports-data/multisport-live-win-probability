@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NFL_REPLAY = [
   {
     "clock": "Q1 15:00",
-    "wp": 0.5867768595041323,
+    "win_prob": 0.5867768595041323,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -22,7 +22,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 14:55",
-    "wp": 0.5927169110454705,
+    "win_prob": 0.5927169110454705,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -45,7 +45,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 14:19",
-    "wp": 0.5979472302699372,
+    "win_prob": 0.5979472302699372,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -68,7 +68,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 13:36",
-    "wp": 0.586191634691784,
+    "win_prob": 0.586191634691784,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -91,7 +91,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 13:15",
-    "wp": 0.559220571048515,
+    "win_prob": 0.559220571048515,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -114,7 +114,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 13:11",
-    "wp": 0.6549051804499886,
+    "win_prob": 0.6549051804499886,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -137,7 +137,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 13:02",
-    "wp": 0.5720180026916917,
+    "win_prob": 0.5720180026916917,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -160,7 +160,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 12:38",
-    "wp": 0.5677106197767892,
+    "win_prob": 0.5677106197767892,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -183,7 +183,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 11:54",
-    "wp": 0.5458491087234068,
+    "win_prob": 0.5458491087234068,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -206,7 +206,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 11:13",
-    "wp": 0.5427190313730327,
+    "win_prob": 0.5427190313730327,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -229,7 +229,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 11:03",
-    "wp": 0.5332150805213721,
+    "win_prob": 0.5332150805213721,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -252,7 +252,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 10:57",
-    "wp": 0.5467954154942718,
+    "win_prob": 0.5467954154942718,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -275,7 +275,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 10:23",
-    "wp": 0.5622544462211159,
+    "win_prob": 0.5622544462211159,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -298,7 +298,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 10:18",
-    "wp": 0.5773298294323685,
+    "win_prob": 0.5773298294323685,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -321,7 +321,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 10:10",
-    "wp": 0.5673257871775497,
+    "win_prob": 0.5673257871775497,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -344,7 +344,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 9:47",
-    "wp": 0.5947916685239383,
+    "win_prob": 0.5947916685239383,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -367,7 +367,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 9:05",
-    "wp": 0.5946865578144862,
+    "win_prob": 0.5946865578144862,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -390,7 +390,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 8:44",
-    "wp": 0.5634854370975158,
+    "win_prob": 0.5634854370975158,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -413,7 +413,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 8:03",
-    "wp": 0.5559618830304578,
+    "win_prob": 0.5559618830304578,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -436,7 +436,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 7:22",
-    "wp": 0.6494392591289119,
+    "win_prob": 0.6494392591289119,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -459,7 +459,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 7:10",
-    "wp": 0.5476868078182102,
+    "win_prob": 0.5476868078182102,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -482,7 +482,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 7:07",
-    "wp": 0.5617652338754379,
+    "win_prob": 0.5617652338754379,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -505,7 +505,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 6:24",
-    "wp": 0.5181745330461864,
+    "win_prob": 0.5181745330461864,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -528,7 +528,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 5:39",
-    "wp": 0.5224626244771116,
+    "win_prob": 0.5224626244771116,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -551,7 +551,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 5:08",
-    "wp": 0.5150657389604358,
+    "win_prob": 0.5150657389604358,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -574,7 +574,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 4:24",
-    "wp": 0.5721273608881972,
+    "win_prob": 0.5721273608881972,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -597,7 +597,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 4:19",
-    "wp": 0.5880231309450764,
+    "win_prob": 0.5880231309450764,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -620,7 +620,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 4:10",
-    "wp": 0.5597704366877462,
+    "win_prob": 0.5597704366877462,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -643,7 +643,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 3:38",
-    "wp": 0.567541165632642,
+    "win_prob": 0.567541165632642,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -666,7 +666,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 3:01",
-    "wp": 0.582508309303723,
+    "win_prob": 0.582508309303723,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -689,7 +689,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 2:56",
-    "wp": 0.5678335157269045,
+    "win_prob": 0.5678335157269045,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -712,7 +712,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 2:17",
-    "wp": 0.6091021476105498,
+    "win_prob": 0.6091021476105498,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -735,7 +735,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 2:12",
-    "wp": 0.6891142246791311,
+    "win_prob": 0.6891142246791311,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -758,7 +758,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 2:05",
-    "wp": 0.5621202742759588,
+    "win_prob": 0.5621202742759588,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -781,7 +781,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 1:27",
-    "wp": 0.557062311826837,
+    "win_prob": 0.557062311826837,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -804,7 +804,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 0:50",
-    "wp": 0.5306384306499751,
+    "win_prob": 0.5306384306499751,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -827,7 +827,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 0:13",
-    "wp": 0.5375319517062186,
+    "win_prob": 0.5375319517062186,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -850,7 +850,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q1 0:00",
-    "wp": 0.5055577798790128,
+    "win_prob": 0.5055577798790128,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -873,7 +873,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 15:00",
-    "wp": 0.5753008101398698,
+    "win_prob": 0.5753008101398698,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -892,7 +892,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 15:00",
-    "wp": 0.5055577798790128,
+    "win_prob": 0.5055577798790128,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -915,7 +915,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 14:16",
-    "wp": 0.43971362496298616,
+    "win_prob": 0.43971362496298616,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -938,7 +938,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 13:32",
-    "wp": 0.46230871120075195,
+    "win_prob": 0.46230871120075195,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -961,7 +961,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 13:06",
-    "wp": 0.47627475082190973,
+    "win_prob": 0.47627475082190973,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -984,7 +984,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 12:13",
-    "wp": 0.1524695564241313,
+    "win_prob": 0.1524695564241313,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1007,7 +1007,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 12:06",
-    "wp": 0.37058190553389325,
+    "win_prob": 0.37058190553389325,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1030,7 +1030,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 11:43",
-    "wp": 0.3492478363305975,
+    "win_prob": 0.3492478363305975,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1053,7 +1053,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 11:08",
-    "wp": 0.3720310261336931,
+    "win_prob": 0.3720310261336931,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1076,7 +1076,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 10:34",
-    "wp": 0.3966057998830549,
+    "win_prob": 0.3966057998830549,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1099,7 +1099,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 10:04",
-    "wp": 0.3850724070891884,
+    "win_prob": 0.3850724070891884,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1122,7 +1122,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 9:16",
-    "wp": 0.5595814594398704,
+    "win_prob": 0.5595814594398704,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1145,7 +1145,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 8:34",
-    "wp": 0.566138045514278,
+    "win_prob": 0.566138045514278,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1168,7 +1168,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 7:52",
-    "wp": 0.5636384466048815,
+    "win_prob": 0.5636384466048815,
     "home": "DEN",
     "away": "JAX",
     "home_score": 0,
@@ -1191,7 +1191,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 7:01",
-    "wp": 0.6431520980606509,
+    "win_prob": 0.6431520980606509,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1214,7 +1214,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 6:56",
-    "wp": 0.39521895134293317,
+    "win_prob": 0.39521895134293317,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1237,7 +1237,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 6:17",
-    "wp": 0.39272046923263854,
+    "win_prob": 0.39272046923263854,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1260,7 +1260,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 6:14",
-    "wp": 0.4314941037307144,
+    "win_prob": 0.4314941037307144,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1283,7 +1283,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 5:34",
-    "wp": 0.46025606832650834,
+    "win_prob": 0.46025606832650834,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1306,7 +1306,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 5:28",
-    "wp": 0.44832354179508377,
+    "win_prob": 0.44832354179508377,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1329,7 +1329,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 5:18",
-    "wp": 0.40310860188243147,
+    "win_prob": 0.40310860188243147,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1352,7 +1352,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 4:43",
-    "wp": 0.38438466212298605,
+    "win_prob": 0.38438466212298605,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1375,7 +1375,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 4:12",
-    "wp": 0.44653992260066566,
+    "win_prob": 0.44653992260066566,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1398,7 +1398,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 3:52",
-    "wp": 0.44607560813729846,
+    "win_prob": 0.44607560813729846,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1421,7 +1421,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 3:17",
-    "wp": 0.5254551292434455,
+    "win_prob": 0.5254551292434455,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1444,7 +1444,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 3:00",
-    "wp": 0.6345100187547412,
+    "win_prob": 0.6345100187547412,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1467,7 +1467,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 2:56",
-    "wp": 0.6326356643564135,
+    "win_prob": 0.6326356643564135,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1490,7 +1490,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 2:15",
-    "wp": 0.5954469024356855,
+    "win_prob": 0.5954469024356855,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1513,7 +1513,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 2:08",
-    "wp": 0.40489372064494644,
+    "win_prob": 0.40489372064494644,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1536,7 +1536,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 2:00",
-    "wp": 0.44064295687819127,
+    "win_prob": 0.44064295687819127,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1559,7 +1559,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 1:21",
-    "wp": 0.40175802525751136,
+    "win_prob": 0.40175802525751136,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1582,7 +1582,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 1:00",
-    "wp": 0.3767923210123933,
+    "win_prob": 0.3767923210123933,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1605,7 +1605,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 0:43",
-    "wp": 0.3332708622712799,
+    "win_prob": 0.3332708622712799,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1628,7 +1628,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 0:21",
-    "wp": 0.31928273808477026,
+    "win_prob": 0.31928273808477026,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1651,7 +1651,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 0:16",
-    "wp": 0.28895145891903673,
+    "win_prob": 0.28895145891903673,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1674,7 +1674,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q2 0:00",
-    "wp": 0.16297220012643993,
+    "win_prob": 0.16297220012643993,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1697,7 +1697,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 15:00",
-    "wp": 0.28154613246814353,
+    "win_prob": 0.28154613246814353,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1716,7 +1716,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 14:51",
-    "wp": 0.2587019747090141,
+    "win_prob": 0.2587019747090141,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1739,7 +1739,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 14:13",
-    "wp": 0.2231395407811379,
+    "win_prob": 0.2231395407811379,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1762,7 +1762,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 13:34",
-    "wp": 0.17581451439148854,
+    "win_prob": 0.17581451439148854,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1785,7 +1785,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 12:50",
-    "wp": 0.14683556097037115,
+    "win_prob": 0.14683556097037115,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1808,7 +1808,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 12:09",
-    "wp": 0.1379100299759649,
+    "win_prob": 0.1379100299759649,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1831,7 +1831,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 11:26",
-    "wp": 0.13855062625744308,
+    "win_prob": 0.13855062625744308,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1854,7 +1854,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 10:49",
-    "wp": 0.09624762736601822,
+    "win_prob": 0.09624762736601822,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1877,7 +1877,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 10:30",
-    "wp": 0.08162327738445946,
+    "win_prob": 0.08162327738445946,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1900,7 +1900,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 9:49",
-    "wp": 0.08555533115157604,
+    "win_prob": 0.08555533115157604,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1923,7 +1923,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 9:12",
-    "wp": 0.0906057704644534,
+    "win_prob": 0.0906057704644534,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1946,7 +1946,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 9:02",
-    "wp": 0.05478679385074997,
+    "win_prob": 0.05478679385074997,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1969,7 +1969,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 8:57",
-    "wp": 0.16334848320105205,
+    "win_prob": 0.16334848320105205,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -1992,7 +1992,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 8:14",
-    "wp": 0.16074875313966075,
+    "win_prob": 0.16074875313966075,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2015,7 +2015,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 7:38",
-    "wp": 0.17997418187665254,
+    "win_prob": 0.17997418187665254,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2038,7 +2038,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 7:01",
-    "wp": 0.19795789473767655,
+    "win_prob": 0.19795789473767655,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2061,7 +2061,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 6:11",
-    "wp": 0.24207884813383868,
+    "win_prob": 0.24207884813383868,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2084,7 +2084,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 5:49",
-    "wp": 0.2119525777349629,
+    "win_prob": 0.2119525777349629,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2107,7 +2107,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 5:11",
-    "wp": 0.24993173216832587,
+    "win_prob": 0.24993173216832587,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2130,7 +2130,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 5:07",
-    "wp": 0.23153234359368868,
+    "win_prob": 0.23153234359368868,
     "home": "DEN",
     "away": "JAX",
     "home_score": 3,
@@ -2153,7 +2153,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 4:58",
-    "wp": 0.3479680967560406,
+    "win_prob": 0.3479680967560406,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2176,7 +2176,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 4:53",
-    "wp": 0.1937058008690976,
+    "win_prob": 0.1937058008690976,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2199,7 +2199,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 4:37",
-    "wp": 0.1810060999171691,
+    "win_prob": 0.1810060999171691,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2222,7 +2222,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 3:55",
-    "wp": 0.17716856765509426,
+    "win_prob": 0.17716856765509426,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2245,7 +2245,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 3:10",
-    "wp": 0.15126468651105718,
+    "win_prob": 0.15126468651105718,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2268,7 +2268,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 2:23",
-    "wp": 0.14247015301957072,
+    "win_prob": 0.14247015301957072,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2291,7 +2291,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 1:40",
-    "wp": 0.14663662333071242,
+    "win_prob": 0.14663662333071242,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2314,7 +2314,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 1:33",
-    "wp": 0.22990956923644507,
+    "win_prob": 0.22990956923644507,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2337,7 +2337,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 0:57",
-    "wp": 0.23294862541048328,
+    "win_prob": 0.23294862541048328,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2360,7 +2360,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 0:26",
-    "wp": 0.252654654610734,
+    "win_prob": 0.252654654610734,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2383,7 +2383,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q3 0:00",
-    "wp": 0.32363250675895405,
+    "win_prob": 0.32363250675895405,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2406,7 +2406,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 15:00",
-    "wp": 0.17685782542327955,
+    "win_prob": 0.17685782542327955,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2425,7 +2425,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 15:00",
-    "wp": 0.32363250675895405,
+    "win_prob": 0.32363250675895405,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2448,7 +2448,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 14:29",
-    "wp": 0.32592619407227774,
+    "win_prob": 0.32592619407227774,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2471,7 +2471,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 13:52",
-    "wp": 0.30085895905082544,
+    "win_prob": 0.30085895905082544,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2494,7 +2494,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 13:14",
-    "wp": 0.3931698411119451,
+    "win_prob": 0.3931698411119451,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2517,7 +2517,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 12:31",
-    "wp": 0.3955972842430924,
+    "win_prob": 0.3955972842430924,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2540,7 +2540,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 11:56",
-    "wp": 0.4718240336117441,
+    "win_prob": 0.4718240336117441,
     "home": "DEN",
     "away": "JAX",
     "home_score": 6,
@@ -2563,7 +2563,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 11:47",
-    "wp": 0.861994775513402,
+    "win_prob": 0.861994775513402,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2586,7 +2586,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 11:42",
-    "wp": 0.4919197015720338,
+    "win_prob": 0.4919197015720338,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2609,7 +2609,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 11:38",
-    "wp": 0.5218647200776014,
+    "win_prob": 0.5218647200776014,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2632,7 +2632,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 11:11",
-    "wp": 0.5567098001172519,
+    "win_prob": 0.5567098001172519,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2655,7 +2655,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 10:37",
-    "wp": 0.34242043383618215,
+    "win_prob": 0.34242043383618215,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2678,7 +2678,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 10:32",
-    "wp": 0.37121403034411404,
+    "win_prob": 0.37121403034411404,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2701,7 +2701,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 9:50",
-    "wp": 0.39786075751663835,
+    "win_prob": 0.39786075751663835,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2724,7 +2724,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 9:45",
-    "wp": 0.4329494268290438,
+    "win_prob": 0.4329494268290438,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2747,7 +2747,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 9:42",
-    "wp": 0.637616592064017,
+    "win_prob": 0.637616592064017,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2770,7 +2770,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 9:08",
-    "wp": 0.6534120260970073,
+    "win_prob": 0.6534120260970073,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2793,7 +2793,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 8:23",
-    "wp": 0.6997182179576179,
+    "win_prob": 0.6997182179576179,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2816,7 +2816,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 7:34",
-    "wp": 0.8014078485054075,
+    "win_prob": 0.8014078485054075,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2839,7 +2839,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 7:30",
-    "wp": 0.7750090718330636,
+    "win_prob": 0.7750090718330636,
     "home": "DEN",
     "away": "JAX",
     "home_score": 13,
@@ -2862,7 +2862,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 7:21",
-    "wp": 0.9983585747466683,
+    "win_prob": 0.9983585747466683,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -2885,7 +2885,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 7:21",
-    "wp": 0.9413254077057273,
+    "win_prob": 0.9413254077057273,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -2908,7 +2908,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 6:41",
-    "wp": 0.9247064205212407,
+    "win_prob": 0.9247064205212407,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -2931,7 +2931,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 6:03",
-    "wp": 0.9415925496075069,
+    "win_prob": 0.9415925496075069,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -2954,7 +2954,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 5:35",
-    "wp": 0.9397387329083113,
+    "win_prob": 0.9397387329083113,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -2977,7 +2977,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 4:56",
-    "wp": 0.9620908122196252,
+    "win_prob": 0.9620908122196252,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3000,7 +3000,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 4:52",
-    "wp": 0.9747559492223434,
+    "win_prob": 0.9747559492223434,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3023,7 +3023,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 4:46",
-    "wp": 0.9824117359637926,
+    "win_prob": 0.9824117359637926,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3046,7 +3046,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 4:41",
-    "wp": 0.9717689550534765,
+    "win_prob": 0.9717689550534765,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3069,7 +3069,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 3:59",
-    "wp": 0.9842056928988385,
+    "win_prob": 0.9842056928988385,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3092,7 +3092,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 3:41",
-    "wp": 0.9827743127954633,
+    "win_prob": 0.9827743127954633,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3115,7 +3115,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 3:33",
-    "wp": 0.9980725488786638,
+    "win_prob": 0.9980725488786638,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3138,7 +3138,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 3:26",
-    "wp": 0.99865385141615,
+    "win_prob": 0.99865385141615,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3161,7 +3161,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 3:19",
-    "wp": 0.9996520244074361,
+    "win_prob": 0.9996520244074361,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3184,7 +3184,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 2:35",
-    "wp": 0.9998627830964011,
+    "win_prob": 0.9998627830964011,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3207,7 +3207,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 2:00",
-    "wp": 0.9999,
+    "win_prob": 0.9999,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3230,7 +3230,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 1:20",
-    "wp": 0.9999,
+    "win_prob": 0.9999,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3253,7 +3253,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "Q4 0:39",
-    "wp": 0.9999,
+    "win_prob": 0.9999,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,
@@ -3276,7 +3276,7 @@ window.NFL_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 1.0,
+    "win_prob": 1.0,
     "home": "DEN",
     "away": "JAX",
     "home_score": 20,

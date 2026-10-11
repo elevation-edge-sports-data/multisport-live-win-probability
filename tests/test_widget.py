@@ -1,4 +1,4 @@
-"""Static widget contract: sport buttons, period panes, two views, no second model."""
+"""Static page contract: sport buttons, period panes, two views, no second model."""
 
 from __future__ import annotations
 
@@ -13,6 +13,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 WIDGET = ROOT / "widget"
+REPLAYS = ROOT / "replays"
 
 
 class _Buttons(HTMLParser):
@@ -41,15 +42,15 @@ class _Buttons(HTMLParser):
 
 def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
-    css = (WIDGET / "widget.css").read_text(encoding="utf-8")
-    script = (WIDGET / "widget.js").read_text(encoding="utf-8")
+    css = (ROOT / "styles.css").read_text(encoding="utf-8")
+    script = (ROOT / "app.js").read_text(encoding="utf-8")
     page = html.lower()
     assert "espn" not in page
     assert "espn.com" not in page
     assert "http://" not in page and "https://" not in page
     assert script.count("fetch(") == 4
     assert 'fetch("/follow"' in script
-    assert 'fetch("widget/follow.json"' in script
+    assert 'fetch("follow.json"' in script
     assert 'method: "POST"' in script
     assert 'method: "GET"' in script
     assert "live_replay.js?" in script
@@ -74,29 +75,29 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "colors.js" not in script
     assert "widget/logos" not in script
     assert "logos/nfl/" not in script
-    assert 'src="widget/manifest.js"' in html
-    assert 'src="widget/colors.js"' in html
+    assert 'src="manifest.js"' in html
+    assert 'src="colors.js"' in html
     assert 'src="live_replay.js"' not in html
     assert "live_replay.js" not in html
-    assert html.index('src="widget/manifest.js"') < html.index('src="widget/colors.js"') < html.index('src="widget/widget.js"')
+    assert html.index('src="manifest.js"') < html.index('src="colors.js"') < html.index('src="app.js"')
     for name in (
-        "nfl_nyg_den.js",
-        "nhl_edm_col.js",
-        "nba_den_lal.js",
-        "ncaaf_cu_ttu.js",
-        "ncaah_den_mich.js",
-        "ncaab_cu_fla.js",
-        "ncaaf_replay.js",
+        "nyg_den.js",
+        "edm_col.js",
+        "den_lal.js",
+        "cu_ttu.js",
+        "den_mich.js",
+        "cu_fla.js",
+        "sample.js",
     ):
         assert f'src="{name}"' not in html
-    assert (WIDGET / "nfl_replay.js").is_file()
+    assert (REPLAYS / "nfl" / "sample.js").is_file()
     assert "Red Oak" not in script
     assert 'home !== "harbor" && away !== "harbor"' in script
     assert "frame.home_color" in script or "home_color" in script
     assert "away_color" in script
     assert "--home: #1f8f86" in css
     assert "--away: #c94b32" in css
-    demo = (WIDGET / "nfl_nyg_den.js").read_text(encoding="utf-8").lower()
+    demo = (REPLAYS / "nfl" / "nyg_den.js").read_text(encoding="utf-8").lower()
     assert "espn" not in demo
     assert "fetch(" not in demo
     assert "https://" not in demo and "http://" not in demo
@@ -114,7 +115,9 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert html.index('id="level-college"') < html.index('id="sports"')
     assert html.index('id="sports"') < html.index('id="slate-row"')
     assert html.index('id="slate-row"') < html.index('id="slate"')
-    assert html.index('id="slate"') < html.index('id="game-row"')
+    assert html.index('id="slate"') < html.index('id="season-row"')
+    assert html.index('id="season-row"') < html.index('id="seasons"')
+    assert html.index('id="seasons"') < html.index('id="game-row"')
     assert html.index('id="game-row"') < html.index('id="games"')
     assert 'id="scrub-panes"' not in html
     assert 'id="position"' in html
@@ -149,7 +152,7 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert script.count("V4") == 1
     assert 'var BADGE_TEXT = "V4"' in script
     assert "badge.textContent = BADGE_TEXT" in script
-    assert 'src="widget/colors.js"' in html
+    assert 'src="colors.js"' in html
     assert 'data-theme="charcoal"' in html
     assert 'id="theme-dark"' in html and 'id="theme-light"' in html
     assert ">Dark<" in html and ">Light<" in html
@@ -186,7 +189,7 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "panel compact" in html
     assert 'id="score-chart"' not in html.split('class="panel compact"', 1)[1].split("</article>", 1)[0]
     assert "frame.home_score" in script or "home_score" in script
-    assert "frame.wp" in script
+    assert "frame.win_prob" in script
     assert "wp-rail" in script
     assert "NormalDist" not in script
     assert "Home win probability" not in html
@@ -216,16 +219,22 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert load_game.index("setPlaying(false)") < load_game.index('createElement("script")')
     use_frames = script[script.index("function useFrames"): script.index("function loadGame")]
     assert use_frames.index("setPlaying(false)") < use_frames.index("openingIndex(frames)")
-    for path in WIDGET.rglob("*"):
-        if path.suffix.lower() not in {".html", ".js", ".css"}:
-            continue
+    page_files = [
+        ROOT / "index.html",
+        ROOT / "app.js",
+        ROOT / "styles.css",
+        ROOT / "manifest.js",
+        ROOT / "colors.js",
+    ]
+    page_files.extend(REPLAYS.rglob("*.js"))
+    for path in page_files:
         text = path.read_text(encoding="utf-8").lower()
         assert "espn" not in text, path.name
         assert "espn.com" not in text, path.name
-        if path.name == "widget.js":
+        if path.name == "app.js":
             assert text.count("fetch(") == 4, path.name
             assert 'fetch("/follow"' in text, path.name
-            assert 'fetch("widget/follow.json"' in text, path.name
+            assert 'fetch("follow.json"' in text, path.name
             assert "live_replay.js" in text, path.name
         else:
             assert "fetch(" not in text, path.name
@@ -244,9 +253,9 @@ const fs = require("fs");
 const vm = require("vm");
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+vm.runInContext(fs.readFileSync("app.js", "utf8"), sandbox);
 const bands = sandbox.mswpBands;
-const text = fs.readFileSync("widget/ncaaf_replay.js", "utf8");
+const text = fs.readFileSync("replays/ncaaf/sample.js", "utf8");
 const frames = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
 const layout = bands.layoutBands(frames, "ncaaf");
 const placed = frames.map((frame) => ({
@@ -386,7 +395,7 @@ const fs = require("fs");
 const vm = require("vm");
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+vm.runInContext(fs.readFileSync("app.js", "utf8"), sandbox);
 const bands = sandbox.mswpBands;
 const regulation = [
   {period: 1, seconds_remaining_period: 1200, status: "live", clock: "P1 20:00"},
@@ -457,9 +466,9 @@ const fs = require("fs");
 const vm = require("vm");
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+vm.runInContext(fs.readFileSync("app.js", "utf8"), sandbox);
 const bands = sandbox.mswpBands;
-const text = fs.readFileSync("widget/ncaah_den_mich.js", "utf8");
+const text = fs.readFileSync("replays/ncaah/den_mich.js", "utf8");
 const frames = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
 const layout = bands.layoutBands(frames, "ncaah");
 const last = frames[frames.length - 1];
@@ -506,9 +515,9 @@ const fs = require("fs");
 const vm = require("vm");
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+vm.runInContext(fs.readFileSync("app.js", "utf8"), sandbox);
 const bands = sandbox.mswpBands;
-const text = fs.readFileSync("widget/ncaaf_cu_gt.js", "utf8");
+const text = fs.readFileSync("replays/ncaaf/cu_gt.js", "utf8");
 const frames = JSON.parse(text.slice(text.indexOf("["), text.lastIndexOf("]") + 1));
 const layout = bands.layoutBands(frames);
 const overtime = frames.filter((frame) => bands.frameIsOvertime(frame, "ncaaf"));
@@ -547,7 +556,7 @@ const fs = require("fs");
 const vm = require("vm");
 const sandbox = {};
 vm.createContext(sandbox);
-vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+vm.runInContext(fs.readFileSync("app.js", "utf8"), sandbox);
 sandbox.mswpColors.ingest("nfl", JSON.parse(fs.readFileSync("assets/colors/nfl.json", "utf8")));
 sandbox.mswpColors.ingest("ncaaf", JSON.parse(fs.readFileSync("assets/colors/ncaaf.json", "utf8")));
 const app = sandbox.mswpAppearance;
@@ -638,38 +647,39 @@ console.log(JSON.stringify({
     assert report["legacyDark"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#A71930"}
     assert report["migratedDark"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#A71930"}
     assert report["migratedLight"] is None
-    widget_script = (WIDGET / "widget.js").read_text(encoding="utf-8")
+    widget_script = (ROOT / "app.js").read_text(encoding="utf-8")
     set_theme = widget_script[widget_script.index("function setTheme"):widget_script.index("function show")]
     assert set_theme.index("writeAppearance()") < set_theme.index("themeName = next")
     assert "repairPair(" not in set_theme
 
 
 _DEMOS = {
-    "nfl_nyg_den.js": ("nfl", "NYG", "DEN"),
-    "nhl_edm_col.js": ("nhl", "EDM", "COL"),
-    "nba_den_lal.js": ("nba", "DEN", "LAL"),
-    "ncaaf_cu_ttu.js": ("ncaaf", "COLO", "TTU"),
-    "ncaah_den_mich.js": ("ncaah", "MICH", "DEN"),
-    "ncaab_cu_fla.js": ("ncaab", "COLO", "FLA"),
+    "nyg_den.js": ("nfl", "NYG", "DEN"),
+    "edm_col.js": ("nhl", "EDM", "COL"),
+    "den_lal.js": ("nba", "DEN", "LAL"),
+    "cu_ttu.js": ("ncaaf", "COLO", "TTU"),
+    "den_mich.js": ("ncaah", "MICH", "DEN"),
+    "cu_fla.js": ("ncaab", "COLO", "FLA"),
 }
 
 
-def _rendered_replay_names() -> set[str]:
-    names: set[str] = set()
-    for path in WIDGET.glob("*.js"):
-        text = path.read_text(encoding="utf-8")
-        if "window." in text and "_REPLAY =" in text:
-            names.add(path.name)
-    return names
+def _rendered_replay_keys() -> set[tuple[str, str]]:
+    found: set[tuple[str, str]] = set()
+    for sport in ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"):
+        for path in (REPLAYS / sport).glob("*.js"):
+            text = path.read_text(encoding="utf-8")
+            if "window." in text and "_REPLAY =" in text:
+                found.add((sport, path.name))
+    return found
 
 
 def test_write_manifest_lists_rendered_replays_except_harbor(tmp_path):
     from live_wp.replay import manifest_entries, manifest_entry, render_manifest_script, write_manifest
 
     dest = write_manifest()
-    assert dest == WIDGET / "manifest.js"
+    assert dest == ROOT / "manifest.js"
     text = dest.read_text(encoding="utf-8")
-    assert text == render_manifest_script(manifest_entries(WIDGET))
+    assert text == render_manifest_script(manifest_entries(REPLAYS))
     assert "espn.com" not in text.lower()
     assert "fetch(" not in text
     assert "https://" not in text and "http://" not in text
@@ -678,11 +688,12 @@ def test_write_manifest_lists_rendered_replays_except_harbor(tmp_path):
     by_file = {entry["file"]: entry for entry in entries}
     assert _DEMOS.keys() <= by_file.keys()
     assert len(entries) > len(_DEMOS)
-    rendered = _rendered_replay_names()
-    assert "nfl_replay.js" in rendered
-    assert "nfl_replay.js" not in by_file
-    assert rendered - {"nfl_replay.js"} == set(by_file)
-    assert manifest_entry(WIDGET / "nfl_replay.js") is None
+    rendered = _rendered_replay_keys()
+    listed = {(entry["sport"], entry["file"]) for entry in entries}
+    assert ("nfl", "sample.js") in rendered
+    assert ("nfl", "sample.js") not in listed
+    assert rendered - {("nfl", "sample.js")} == listed
+    assert manifest_entry(REPLAYS / "nfl" / "sample.js") is None
     away_harbor = tmp_path / "away_harbor.js"
     away_harbor.write_text(
         'window.NFL_REPLAY = [{"away": "Harbor", "home": "DEN", "period": 1}];\n',
@@ -691,21 +702,33 @@ def test_write_manifest_lists_rendered_replays_except_harbor(tmp_path):
     )
     assert manifest_entry(away_harbor) is None
     assert "live_replay.js" not in by_file
+    assert "app.js" not in by_file
     assert "widget.js" not in by_file
     assert "colors.js" not in by_file
     nfl = [entry for entry in entries if entry["sport"] == "nfl"]
-    assert nfl[0]["file"] == "nfl_nyg_den.js"
+    assert nfl[0]["file"] == "nyg_den.js"
     for entry in entries:
         assert entry["home"].casefold() != "harbor"
         assert entry["away"].casefold() != "harbor"
     for file_name, (sport, away, home) in _DEMOS.items():
         entry = by_file[file_name]
-        assert list(entry) == ["sport", "away", "home", "label", "file"]
+        assert list(entry) == ["sport", "away", "home", "label", "file", "season"]
         assert entry["sport"] == sport
         assert entry["away"] == away
         assert entry["home"] == home
         assert entry["label"] == f"{away} at {home}"
-    harbor = (WIDGET / "nfl_replay.js").read_text(encoding="utf-8")
+        assert entry["season"]
+    assert by_file["nyg_den.js"]["season"] == "2025"
+    assert by_file["jax_den.js"]["season"] == "2026"
+    assert by_file["edm_col.js"]["season"] == "2022"
+    assert by_file["col_min_g5.js"]["season"] == "2026"
+    assert by_file["den_lal.js"]["season"] == "2024"
+    assert by_file["cu_ttu.js"]["season"] == "2024"
+    assert by_file["cu_gt.js"]["season"] == "2026"
+    assert by_file["sample.js"]["season"] == "2026"
+    assert by_file["den_mich.js"]["season"] == "2026"
+    assert by_file["cu_fla.js"]["season"] == "2024"
+    harbor = (REPLAYS / "nfl" / "sample.js").read_text(encoding="utf-8")
     assert "home_logo" not in harbor and "away_logo" not in harbor
     assert '"home": "Harbor"' in harbor
     assert '"away": "Red Oak"' in harbor
@@ -724,8 +747,8 @@ def test_render_widget_refreshes_the_manifest_only_in_widget(tmp_path, monkeypat
     from live_wp import replay as replay_mod
     from live_wp.__main__ import render_widget
 
-    monkeypatch.setattr(replay_mod, "_WIDGET_DIR", tmp_path)
-    assert render_widget(ROOT / "examples" / "ncaaf_sample.json", tmp_path / "ncaaf_replay.js") == 0
+    monkeypatch.setattr(replay_mod, "_REPLAYS_DIR", tmp_path)
+    assert render_widget(ROOT / "examples" / "ncaaf_sample.json", tmp_path / "sample.js") == 0
     manifest = json.loads(
         (tmp_path / "manifest.js").read_text(encoding="utf-8").split("=", 1)[1].strip().rstrip(";")
     )
@@ -735,7 +758,8 @@ def test_render_widget_refreshes_the_manifest_only_in_widget(tmp_path, monkeypat
             "away": "OU",
             "home": "TEX",
             "label": "OU at TEX",
-            "file": "ncaaf_replay.js",
+            "file": "sample.js",
+            "season": "2026",
         }
     ]
     assert render_widget(ROOT / "examples" / "nfl_sample.json", tmp_path / "nfl_replay.js") == 0
@@ -749,7 +773,8 @@ def test_render_widget_refreshes_the_manifest_only_in_widget(tmp_path, monkeypat
             "away": "OU",
             "home": "TEX",
             "label": "OU at TEX",
-            "file": "ncaaf_replay.js",
+            "file": "sample.js",
+            "season": "2026",
         }
     ]
     elsewhere = tmp_path / "elsewhere"
@@ -893,14 +918,14 @@ body.appendChild = (node) => {
   const result = realAppend(node);
   if (node && node.tagName === "SCRIPT" && node.src) {
     const srcName = String(node.src);
-    const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+    const rel = String(srcName);
     vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
     if (typeof node.onload === "function") node.onload();
   }
   return result;
 };
 function run(name) {
-  vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), sandbox);
+  vm.runInContext(fs.readFileSync(name, "utf8"), sandbox);
 }
 run("manifest.js");
 sandbox.MSWP_MANIFEST.push({
@@ -918,7 +943,7 @@ sandbox.MSWP_MANIFEST.push({
   file: "away_harbor.js"
 });
 run("colors.js");
-run("widget.js");
+run("app.js");
 
 function buttonLabel(button) {
   if (button.textContent) return button.textContent;
@@ -933,6 +958,12 @@ function buttonsIn(id) {
 }
 function sportButtons() { return buttonsIn("sports"); }
 function gameButtons() { return buttonsIn("games"); }
+function seasonButtons() { return buttonsIn("seasons"); }
+function clickSeason(season) {
+  const button = seasonButtons().find((child) => child.getAttribute("data-season") === season);
+  if (!button) throw new Error("missing season " + season);
+  button.click();
+}
 function clickSport(sport) {
   const button = sportButtons().find((child) => child.getAttribute("data-sport") === sport);
   if (!button) throw new Error("missing sport " + sport);
@@ -987,6 +1018,8 @@ const bootAtEnd = scrub.value === scrub.max && scrub.max !== "0";
 const bootSports = sportButtons().map(buttonLabel);
 const bootSportPressed = sportButtons().filter((button) => button.getAttribute("aria-pressed") === "true").map(buttonLabel);
 const bootGames = gameButtons().map(buttonLabel);
+const bootSeasons = seasonButtons().map(buttonLabel);
+const bootSeasonPressed = seasonButtons().filter((button) => button.getAttribute("aria-pressed") === "true").map(buttonLabel);
 const bootFiles = gameButtons().map((button) => button.getAttribute("data-file"));
 const bootGameRow = document.getElementById("game-row").hidden === true;
 play.click();
@@ -1000,7 +1033,9 @@ clickSport("ncaaf");
 const ncaafScore = score.textContent;
 const ncaafPlay = play.textContent;
 const ncaafGames = gameButtons().map(buttonLabel);
-clickFile("ncaaf_replay.js");
+const ncaafSeasons = seasonButtons().map(buttonLabel);
+const ncaafSeasonPressed = seasonButtons().filter((button) => button.getAttribute("aria-pressed") === "true").map(buttonLabel);
+clickFile("sample.js");
 const ouScoreLabels = periodLabels("score-chart");
 const ouWpLabels = periodLabels("wp-chart");
 const ouWidths = paneWidths();
@@ -1008,7 +1043,7 @@ const ouPosition = readout();
 const ouPlay = play.textContent;
 const ouClock = document.getElementById("c-clock").textContent;
 const ouAtEnd = scrub.value === scrub.max;
-clickFile("ncaaf_cu_gt.js");
+clickFile("cu_gt.js");
 const gtLabels = periodLabels("score-chart");
 const gtWidths = paneWidths();
 const gtPosition = readout();
@@ -1034,6 +1069,7 @@ const nbaGames = gameButtons().length;
 const nbaRow = document.getElementById("game-row").hidden === true;
 const nbaScore = score.textContent;
 clickSport("nfl");
+clickSeason("2025");
 const nygAgain = score.textContent;
 const nygPosition = readout();
 document.getElementById("step-back").click();
@@ -1080,23 +1116,23 @@ function bootWidget(preloadNames, extraEntries) {
     const result = localAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
       const srcName = String(node.src);
-      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      const rel = String(srcName);
       vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), localSandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
   };
   function localRun(name) {
-    vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), localSandbox);
+    vm.runInContext(fs.readFileSync(name, "utf8"), localSandbox);
   }
   preloadNames.forEach(localRun);
   localRun("manifest.js");
   (extraEntries || []).forEach((entry) => localSandbox.MSWP_MANIFEST.push(entry));
   localRun("colors.js");
-  localRun("widget.js");
+  localRun("app.js");
   return localDocument;
 }
-const harborDoc = bootWidget(["nfl_replay.js"], [{
+const harborDoc = bootWidget(["replays/nfl/sample.js"], [{
   sport: "nfl",
   away: "Red Oak",
   home: "Harbor",
@@ -1130,6 +1166,8 @@ console.log(JSON.stringify({
   bootSports: bootSports,
   bootSportPressed: bootSportPressed,
   bootGames: bootGames,
+  bootSeasons: bootSeasons,
+  bootSeasonPressed: bootSeasonPressed,
   bootFiles: bootFiles,
   bootGameRow: bootGameRow,
   duringPlay: duringPlay,
@@ -1140,6 +1178,8 @@ console.log(JSON.stringify({
   ncaafScore: ncaafScore,
   ncaafPlay: ncaafPlay,
   ncaafGames: ncaafGames,
+  ncaafSeasons: ncaafSeasons,
+  ncaafSeasonPressed: ncaafSeasonPressed,
   ouScoreLabels: ouScoreLabels,
   ouWpLabels: ouWpLabels,
   ouWidths: ouWidths,
@@ -1200,9 +1240,9 @@ console.log(JSON.stringify({
     assert report["bootSportPressed"] == ["NFL"]
     assert report["collegeSports"] == ["NCAAF", "NCAAH", "NCAAB"]
     assert report["proSports"] == ["NFL", "NHL", "NBA"]
-    assert len(report["bootGames"]) > 1
-    for label in ("NYG at DEN", "JAX at DEN"):
-        assert label in report["bootGames"]
+    assert report["bootSeasons"] == ["2025", "2026"]
+    assert report["bootSeasonPressed"] == ["2025"]
+    assert report["bootGames"] == ["NYG at DEN"]
     for label in report["bootGames"]:
         assert "Harbor" not in label
     assert "Red Oak at Harbor" not in report["bootGames"]
@@ -1214,11 +1254,12 @@ console.log(JSON.stringify({
     assert report["duringScore"] != report["bootScore"]
     assert report["filteredScore"] == report["duringScore"]
     assert report["collegeGamesWhileNfl"] == []
-    assert "COLO" in report["ncaafScore"] and "TTU" in report["ncaafScore"]
+    assert "COLO" in report["ncaafScore"] and "GT" in report["ncaafScore"]
+    assert "TTU" not in report["ncaafScore"]
     assert report["ncaafPlay"] == "Play"
-    assert len(report["ncaafGames"]) > 1
-    for label in ("COLO at TTU", "COLO at GT", "OU at TEX"):
-        assert label in report["ncaafGames"]
+    assert report["ncaafSeasons"] == ["2024", "2026"]
+    assert report["ncaafSeasonPressed"] == ["2026"]
+    assert report["ncaafGames"] == ["COLO at GT", "OU at TEX"]
     assert report["ouScoreLabels"] == football
     assert report["ouWpLabels"] == football
     assert len(report["ouScoreLabels"]) == 6
@@ -1288,7 +1329,7 @@ def test_localhost_live_button_hides_on_404_and_keeps_the_archive(tmp_path):
         encoding="utf-8",
         newline="\n",
     )
-    archive = tmp_path / "nfl_nyg_den.js"
+    archive = tmp_path / "nyg_den.js"
     archive.write_text(
         'window.NFL_REPLAY = [{"away": "NYG", "home": "DEN", "period": 1}];\n',
         encoding="utf-8",
@@ -1301,13 +1342,13 @@ def test_localhost_live_button_hides_on_404_and_keeps_the_archive(tmp_path):
         newline="\n",
     )
     entries = manifest_entries(tmp_path)
-    assert [entry["file"] for entry in entries] == ["nfl_nyg_den.js"]
+    assert [entry["file"] for entry in entries] == ["nyg_den.js"]
     written = write_manifest(tmp_path)
     manifest_text = written.read_text(encoding="utf-8")
     assert "live_replay.js" not in manifest_text
     assert "Harbor" not in manifest_text
     assert "Red Oak" not in manifest_text
-    page_manifest = (WIDGET / "manifest.js").read_text(encoding="utf-8")
+    page_manifest = (ROOT / "manifest.js").read_text(encoding="utf-8")
     assert "live_replay.js" not in page_manifest
 
     probe = r"""
@@ -1397,7 +1438,7 @@ function frame(over) {
   return Object.assign({
     sport: "nfl",
     clock: "Q1 10:00",
-    wp: 0.5,
+    win_prob: 0.5,
     home: "DEN",
     away: "NYG",
     home_score: 0,
@@ -1416,7 +1457,7 @@ const frameB = frame({
   seconds_remaining_period: 300,
   home_score: 7,
   away_score: 3,
-  wp: 0.42
+  win_prob: 0.42
 });
 const frameC = frame({
   clock: "Q3 8:00",
@@ -1424,7 +1465,7 @@ const frameC = frame({
   seconds_remaining_period: 480,
   home_score: 14,
   away_score: 10,
-  wp: 0.61
+  win_prob: 0.61
 });
 const frameD = frame({
   clock: "Q4 1:00",
@@ -1432,7 +1473,7 @@ const frameD = frame({
   seconds_remaining_period: 60,
   home_score: 21,
   away_score: 13,
-  wp: 0.8,
+  win_prob: 0.8,
   status: "stale"
 });
 
@@ -1531,18 +1572,18 @@ async function boot(hostname, protocol, first) {
     const result = realAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
       const srcName = String(node.src);
-      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      const rel = String(srcName);
       vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
   };
   function run(name) {
-    vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), sandbox);
+    vm.runInContext(fs.readFileSync(name, "utf8"), sandbox);
   }
   run("manifest.js");
   run("colors.js");
-  run("widget.js");
+  run("app.js");
   const archive = sandbox.NFL_REPLAY;
   for (let i = 0; i < 8; i++) await settle();
   return { document, sandbox, fetches, intervals, feed, archive };
@@ -1623,7 +1664,7 @@ async function pollNext(page, item) {
   const afterSeekEnd = snapshot(page);
   await pollNext(page, http(200, liveSource([frameA, frameB, frameC, frameD])));
   const afterAppendAdvance = snapshot(page);
-  const archiveButton = page.document.getElementById("games").children.find((child) => child.getAttribute && child.getAttribute("data-file") === "nfl_nyg_den.js");
+  const archiveButton = page.document.getElementById("games").children.find((child) => child.getAttribute && child.getAttribute("data-file") === "nyg_den.js");
   if (!archiveButton) throw new Error("missing archive button");
   archiveButton.click();
   const afterArchive = snapshot(page);
@@ -1702,17 +1743,17 @@ async function pollNext(page, item) {
     saw_slate = False
     for item in report["fetches"]:
         assert (
-            item["url"].startswith("widget/live_replay.js?t=")
-            or item["url"].startswith("widget/slate.js?t=")
-            or item["url"] == "widget/follow.json"
+            item["url"].startswith("replays/live_replay.js?t=")
+            or item["url"].startswith("slate.js?t=")
+            or item["url"] == "follow.json"
             or item["url"].startswith("assets/colors/")
         )
         assert "espn" not in item["url"]
         assert "http://" not in item["url"] and "https://" not in item["url"]
         assert item["cache"] == "no-store"
-        if item["url"].startswith("widget/live_replay.js?t="):
+        if item["url"].startswith("replays/live_replay.js?t="):
             saw_live = True
-        if item["url"].startswith("widget/slate.js?t="):
+        if item["url"].startswith("slate.js?t="):
             saw_slate = True
     assert saw_live and saw_slate
     assert "live_replay.js" not in report["manifestFiles"]
@@ -1787,8 +1828,8 @@ async function pollNext(page, item) {
     assert report["localLabel"] == "NYG at DEN"
     assert report["localArchiveSame"] is True
     assert report["localFetches"]
-    assert "widget/follow.json" in report["localFetches"]
-    assert any(url.startswith("widget/live_replay.js?t=") for url in report["localFetches"])
+    assert "follow.json" in report["localFetches"]
+    assert any(url.startswith("replays/live_replay.js?t=") for url in report["localFetches"])
 
 
 def test_situation_line_is_the_current_frame_only(tmp_path):
@@ -1930,15 +1971,15 @@ function boot(sport, rows) {
   }];
   sandbox[BINDING[sport]] = rows;
   vm.createContext(sandbox);
-  vm.runInContext(fs.readFileSync("widget/colors.js", "utf8"), sandbox);
-  vm.runInContext(fs.readFileSync("widget/widget.js", "utf8"), sandbox);
+  vm.runInContext(fs.readFileSync("colors.js", "utf8"), sandbox);
+  vm.runInContext(fs.readFileSync("app.js", "utf8"), sandbox);
   return document;
 }
 
 function snap(sport, extra) {
   const row = {
     clock: "Q1 10:00",
-    wp: 0.62,
+    win_prob: 0.62,
     home: "DEN",
     away: "NYG",
     home_score: 10,
@@ -2217,7 +2258,7 @@ function liveFrame(over) {
   return Object.assign({
     sport: "nfl",
     clock: "Q1 10:00",
-    wp: 0.5,
+    win_prob: 0.5,
     home: "DEN",
     away: "NYG",
     home_score: 0,
@@ -2237,7 +2278,7 @@ const liveRows = [
     seconds_remaining_period: 300,
     home_score: 7,
     away_score: 3,
-    wp: 0.42
+    win_prob: 0.42
   })
 ];
 
@@ -2332,21 +2373,21 @@ function boot(options) {
     const result = realAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
       const srcName = String(node.src);
-      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      const rel = String(srcName);
       vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
   };
   function run(name) {
-    vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), sandbox);
+    vm.runInContext(fs.readFileSync(name, "utf8"), sandbox);
   }
   run("manifest.js");
   run("colors.js");
   if (options.live) {
     vm.runInContext("window.MSWP_LIVE = " + JSON.stringify(options.live) + ";", sandbox);
   }
-  run("widget.js");
+  run("app.js");
   return { document, calls, fetches };
 }
 
@@ -2363,6 +2404,12 @@ function clickSport(page, sport) {
 function clickFile(page, file) {
   const button = buttons(page.document, "games").find((child) => child.getAttribute("data-file") === file);
   if (!button) throw new Error("missing " + file);
+  button.click();
+}
+
+function clickSeason(page, season) {
+  const button = buttons(page.document, "seasons").find((child) => child.getAttribute("data-season") === season);
+  if (!button) throw new Error("missing season " + season);
   button.click();
 }
 
@@ -2406,7 +2453,8 @@ const nygSnap = snap(nyg);
 nyg.document.getElementById("level-college").click();
 nyg.document.getElementById("level-pro").click();
 const afterLevel = snap(nyg);
-clickFile(nyg, "nfl_jax_den.js");
+clickSeason(nyg, "2026");
+clickFile(nyg, "jax_den.js");
 const afterJax = snap(nyg);
 clickSport(nyg, "nba");
 const afterNba = snap(nyg);
@@ -2449,7 +2497,7 @@ const missingBefore = snap(missing);
   const missingAfter = snap(missing);
   clickLive(arrived);
   const afterLiveClick = snap(arrived);
-  clickFile(arrived, "nfl_jax_den.js");
+  clickFile(arrived, "jax_den.js");
   const afterArchiveClick = snap(arrived);
   console.log(JSON.stringify({
     nyg: nygSnap,
@@ -2509,16 +2557,20 @@ const missingBefore = snap(missing);
             assert row["levelCollege"] == "true"
 
     assert_open(report["nyg"], nyg, "nfl", "pro")
-    assert report["nyg"]["pressed"] == ["nfl_nyg_den.js"]
+    assert report["nyg"]["pressed"] == ["nyg_den.js"]
     assert report["nyg"]["liveCount"] == 0
     assert report["nyg"]["calls"] == []
     assert report["nyg"]["gameRowHidden"] is False
     assert report["afterLevel"]["score"] == nyg
     assert report["afterLevel"]["calls"] == []
-    assert report["afterJax"]["calls"] == ["index.html?sport=nfl&game=jax-den"]
+    assert report["afterJax"]["calls"] == [
+        "index.html?sport=nfl&game=jax-den",
+        "index.html?sport=nfl&game=jax-den",
+    ]
     assert_open(report["afterJax"], jax, "nfl", "pro")
-    assert report["afterJax"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["afterJax"]["pressed"] == ["jax_den.js"]
     assert report["afterNba"]["calls"] == [
+        "index.html?sport=nfl&game=jax-den",
         "index.html?sport=nfl&game=jax-den",
         "index.html?sport=nba&game=den-lal",
     ]
@@ -2526,7 +2578,7 @@ const missingBefore = snap(missing);
     assert "DEN" in report["afterNba"]["score"] and "LAL" in report["afterNba"]["score"]
     assert report["afterNba"]["gameRowHidden"] is True
     assert_open(report["jax"], jax, "nfl", "pro")
-    assert report["jax"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["jax"]["pressed"] == ["jax_den.js"]
     assert report["jax"]["calls"] == []
     assert_open(report["mich"], mich, "ncaah", "college")
     assert report["mich"]["gameRowHidden"] is True
@@ -2535,13 +2587,13 @@ const missingBefore = snap(missing);
     assert "LAL" in report["lal"]["score"] and "DEN" in report["lal"]["score"]
     assert_open(report["unknownGame"], nyg, "nfl", "pro")
     assert "MICH" not in report["unknownGame"]["score"]
-    assert report["unknownGame"]["pressed"] == ["nfl_nyg_den.js"]
+    assert report["unknownGame"]["pressed"] == ["nyg_den.js"]
     assert_open(report["unknownSport"], nyg, "nfl", "pro")
     assert "MICH" not in report["unknownSport"]["score"]
-    assert report["unknownSport"]["pressed"] == ["nfl_nyg_den.js"]
+    assert report["unknownSport"]["pressed"] == ["nyg_den.js"]
     assert_open(report["waiting"], jax, "nfl", "pro")
     assert report["waiting"]["liveCount"] == 0
-    assert report["waiting"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["waiting"]["pressed"] == ["jax_den.js"]
     assert report["preset"]["score"] == live
     assert report["preset"]["clock"] == "Q2 5:00"
     assert report["preset"]["play"] == "Play"
@@ -2566,7 +2618,7 @@ const missingBefore = snap(missing);
     assert report["arrivedBefore"]["fetches"]
     assert report["arrivedBefore"]["fetches"][0] == "assets/colors/nfl.json"
     live_urls = [url for url in report["arrivedBefore"]["fetches"] if "live_replay.js" in url]
-    assert live_urls[0].startswith("widget/live_replay.js?")
+    assert live_urls[0].startswith("replays/live_replay.js?")
     assert "espn" not in report["arrivedBefore"]["fetches"][0]
     assert "http://" not in report["arrivedBefore"]["fetches"][0]
     assert "https://" not in report["arrivedBefore"]["fetches"][0]
@@ -2584,7 +2636,7 @@ const missingBefore = snap(missing);
     assert report["afterLiveClick"]["score"] == live
     assert report["afterLiveClick"]["play"] == "Play"
     assert_open(report["afterArchiveClick"], jax, "nfl", "pro")
-    assert report["afterArchiveClick"]["pressed"] == ["nfl_jax_den.js"]
+    assert report["afterArchiveClick"]["pressed"] == ["jax_den.js"]
     assert report["afterArchiveClick"]["calls"] == [
         "?sport=nfl&game=nyg-den&live=1",
         "?sport=nfl&game=jax-den",
@@ -2710,13 +2762,13 @@ function slateSource(rows) {
 function liveSource() {
   const rows = [
     {
-      sport: "nfl", clock: "Q1 10:00", wp: 0.5, home: "DEN", away: "NYG",
+      sport: "nfl", clock: "Q1 10:00", win_prob: 0.5, home: "DEN", away: "NYG",
       home_score: 0, away_score: 0, status: "live", period: 1,
       seconds_remaining_period: 600, seconds_remaining_total: 3300,
       prior_home: 0.58, game_id: "401"
     },
     {
-      sport: "nfl", clock: "Q2 5:00", wp: 0.42, home: "DEN", away: "NYG",
+      sport: "nfl", clock: "Q2 5:00", win_prob: 0.42, home: "DEN", away: "NYG",
       home_score: 7, away_score: 3, status: "live", period: 2,
       seconds_remaining_period: 300, seconds_remaining_total: 2100,
       prior_home: 0.58, game_id: "401",
@@ -2728,7 +2780,7 @@ function liveSource() {
 
 function liveSourceFor(gameId) {
   const rows = [{
-    sport: "nfl", clock: "Q3 1:00", wp: 0.33, home: "BUF", away: "KC",
+    sport: "nfl", clock: "Q3 1:00", win_prob: 0.33, home: "BUF", away: "KC",
     home_score: 14, away_score: 17, status: "live", period: 3,
     seconds_remaining_period: 60, seconds_remaining_total: 960,
     prior_home: 0.62, game_id: gameId,
@@ -2827,18 +2879,18 @@ function boot(options) {
     const result = realAppend(node);
     if (node && node.tagName === "SCRIPT" && node.src) {
       const srcName = String(node.src);
-      const rel = srcName.indexOf("widget/") === 0 ? srcName : path.join("widget", srcName);
+      const rel = String(srcName);
       vm.runInContext(fs.readFileSync(path.join(process.cwd(), rel), "utf8"), sandbox);
       if (typeof node.onload === "function") node.onload();
     }
     return result;
   };
   function run(name) {
-    vm.runInContext(fs.readFileSync(path.join("widget", name), "utf8"), sandbox);
+    vm.runInContext(fs.readFileSync(name, "utf8"), sandbox);
   }
   run("manifest.js");
   run("colors.js");
-  run("widget.js");
+  run("app.js");
   return { document, calls, fetches, intervals, slateItems, liveItems };
 }
 
@@ -2939,7 +2991,7 @@ async function runPoll(page) {
   const card = snap(page);
   clickSlate(page, "401");
   const livePick = snap(page);
-  clickFile(page, "nfl_nyg_den.js");
+  clickFile(page, "nyg_den.js");
   const afterArchive = snap(page);
   clickSport(page, "nba");
   const nba = snap(page);
@@ -3168,9 +3220,9 @@ async function runPoll(page) {
     assert report["pollMs"] == [15000]
     for item in opened["fetches"]:
         assert (
-            item["url"].startswith("widget/slate.js?t=")
-            or item["url"].startswith("widget/live_replay.js?t=")
-            or item["url"] == "widget/follow.json"
+            item["url"].startswith("slate.js?t=")
+            or item["url"].startswith("replays/live_replay.js?t=")
+            or item["url"] == "follow.json"
             or item["url"].startswith("assets/colors/")
         )
         assert "espn" not in item["url"]
@@ -3184,8 +3236,8 @@ async function runPoll(page) {
     ]
     assert "900" not in opened["slateIds"]
     assert opened["slateHidden"] is False
-    assert len(opened["archive"]) > 1
-    nyg = next(item for item in opened["archive"] if item["file"] == "nfl_nyg_den.js")
+    assert opened["archive"] == [{"file": "nyg_den.js", "label": "NYG at DEN"}]
+    nyg = next(item for item in opened["archive"] if item["file"] == "nyg_den.js")
     assert nyg["label"] == "NYG at DEN"
     assert report["duringPlay"] == "Pause"
     card = report["card"]
@@ -3226,14 +3278,14 @@ async function runPoll(page) {
     assert nba["gameHidden"] is False
     assert nba["slateHidden"] is False
     assert nba["slateLabels"] == ["BOS at NYK"]
-    assert nba["archive"] == [{"file": "nba_den_lal.js", "label": "DEN at LAL"}]
+    assert nba["archive"] == [{"file": "den_lal.js", "label": "DEN at LAL"}]
     assert nba["calls"][-1] == "?sport=nba&game=den-lal"
     assert "id=" not in nba["calls"][-1]
     assert report["college"]["slateLabels"] == []
     assert report["college"]["slateIds"] == []
     assert report["college"]["slateHidden"] is True
     assert report["shown"]["slateLabels"] == opened["slateLabels"]
-    assert len(report["shown"]["archive"]) > 1
+    assert report["shown"]["archive"] == [{"file": "nyg_den.js", "label": "NYG at DEN"}]
     assert report["emptied"]["slateLabels"] == []
     assert report["emptied"]["slateHidden"] is True
     assert report["emptied"]["archive"] == report["shown"]["archive"]
@@ -3241,7 +3293,7 @@ async function runPoll(page) {
     assert report["missing"]["slateLabels"] == []
     assert report["missing"]["slateHidden"] is True
     assert report["missing"]["archive"] == report["shown"]["archive"]
-    kept = next(item for item in report["missing"]["archive"] if item["file"] == "nfl_nyg_den.js")
+    kept = next(item for item in report["missing"]["archive"] if item["file"] == "nyg_den.js")
     assert kept["label"] == "NYG at DEN"
     assert [item["url"] for item in report["pages"]["fetches"]] == ["assets/colors/nfl.json"]
     assert "NYG" in report["pages"]["score"]
@@ -3288,9 +3340,9 @@ async function runPoll(page) {
     assert posts(report["collegePosts"]) == []
     for item in report["collegePosts"]["fetches"]:
         assert (
-            item["url"].startswith("widget/slate.js?t=")
-            or item["url"].startswith("widget/live_replay.js?t=")
-            or item["url"] == "widget/follow.json"
+            item["url"].startswith("slate.js?t=")
+            or item["url"].startswith("replays/live_replay.js?t=")
+            or item["url"] == "follow.json"
             or item["url"].startswith("assets/colors/")
         )
         assert item["url"] != "/follow"
@@ -3338,18 +3390,18 @@ async function runPoll(page) {
         assert "http://" not in item["url"] and "https://" not in item["url"]
         assert (
             item["url"] == "/follow"
-            or item["url"] == "widget/follow.json"
-            or item["url"].startswith("widget/slate.js?t=")
-            or item["url"].startswith("widget/live_replay.js?t=")
+            or item["url"] == "follow.json"
+            or item["url"].startswith("slate.js?t=")
+            or item["url"].startswith("replays/live_replay.js?t=")
             or item["url"].startswith("assets/colors/")
         )
 
     def gets(row):
-        return [item for item in row["fetches"] if item["url"] == "widget/follow.json"]
+        return [item for item in row["fetches"] if item["url"] == "follow.json"]
 
     follow_card = report["followCard"]
     assert gets(follow_card) == [{
-        "url": "widget/follow.json",
+        "url": "follow.json",
         "cache": "no-store",
         "method": "GET",
         "body": "",
@@ -3428,7 +3480,7 @@ async function runPoll(page) {
     assert missing_follow["sportPressed"] == ["nfl"]
     assert missing_follow["calls"] == []
     assert gets(missing_follow) == [{
-        "url": "widget/follow.json",
+        "url": "follow.json",
         "cache": "no-store",
         "method": "GET",
         "body": "",

@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NCAAB_REPLAY = [
   {
     "clock": "H1 20:00",
-    "wp": 0.5787760475024571,
+    "win_prob": 0.5787760475024571,
     "home": "FLA",
     "away": "COLO",
     "home_score": 0,
@@ -23,7 +23,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 19:42",
-    "wp": 0.6412928469221355,
+    "win_prob": 0.6412928469221355,
     "home": "FLA",
     "away": "COLO",
     "home_score": 2,
@@ -43,7 +43,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 19:23",
-    "wp": 0.6414950059629315,
+    "win_prob": 0.6414950059629315,
     "home": "FLA",
     "away": "COLO",
     "home_score": 2,
@@ -63,7 +63,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 19:23",
-    "wp": 0.5761220656629956,
+    "win_prob": 0.5761220656629956,
     "home": "FLA",
     "away": "COLO",
     "home_score": 2,
@@ -83,7 +83,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 19:16",
-    "wp": 0.4783435847446877,
+    "win_prob": 0.4783435847446877,
     "home": "FLA",
     "away": "COLO",
     "home_score": 2,
@@ -103,7 +103,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 19:04",
-    "wp": 0.6105367877620782,
+    "win_prob": 0.6105367877620782,
     "home": "FLA",
     "away": "COLO",
     "home_score": 4,
@@ -123,7 +123,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 18:36",
-    "wp": 0.4773858871532322,
+    "win_prob": 0.4773858871532322,
     "home": "FLA",
     "away": "COLO",
     "home_score": 4,
@@ -143,7 +143,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 18:27",
-    "wp": 0.6421131933613441,
+    "win_prob": 0.6421131933613441,
     "home": "FLA",
     "away": "COLO",
     "home_score": 7,
@@ -163,7 +163,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:48",
-    "wp": 0.5758596574098311,
+    "win_prob": 0.5758596574098311,
     "home": "FLA",
     "away": "COLO",
     "home_score": 7,
@@ -183,7 +183,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:48",
-    "wp": 0.6425642977112105,
+    "win_prob": 0.6425642977112105,
     "home": "FLA",
     "away": "COLO",
     "home_score": 7,
@@ -203,7 +203,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:40",
-    "wp": 0.7313805097125448,
+    "win_prob": 0.7313805097125448,
     "home": "FLA",
     "away": "COLO",
     "home_score": 10,
@@ -223,7 +223,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:20",
-    "wp": 0.6084590601442588,
+    "win_prob": 0.6084590601442588,
     "home": "FLA",
     "away": "COLO",
     "home_score": 10,
@@ -243,7 +243,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:20",
-    "wp": 0.6737883159197138,
+    "win_prob": 0.6737883159197138,
     "home": "FLA",
     "away": "COLO",
     "home_score": 10,
@@ -263,7 +263,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:20",
-    "wp": 0.5757864349030544,
+    "win_prob": 0.5757864349030544,
     "home": "FLA",
     "away": "COLO",
     "home_score": 10,
@@ -283,7 +283,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 17:12",
-    "wp": 0.7321966536502177,
+    "win_prob": 0.7321966536502177,
     "home": "FLA",
     "away": "COLO",
     "home_score": 13,
@@ -303,7 +303,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 16:52",
-    "wp": 0.6085932372582636,
+    "win_prob": 0.6085932372582636,
     "home": "FLA",
     "away": "COLO",
     "home_score": 13,
@@ -323,7 +323,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 16:34",
-    "wp": 0.7333317144001368,
+    "win_prob": 0.7333317144001368,
     "home": "FLA",
     "away": "COLO",
     "home_score": 15,
@@ -343,7 +343,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 16:09",
-    "wp": 0.6088109811074354,
+    "win_prob": 0.6088109811074354,
     "home": "FLA",
     "away": "COLO",
     "home_score": 15,
@@ -363,7 +363,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 15:44",
-    "wp": 0.6756391995285286,
+    "win_prob": 0.6756391995285286,
     "home": "FLA",
     "away": "COLO",
     "home_score": 15,
@@ -383,7 +383,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 15:33",
-    "wp": 0.7352229137550195,
+    "win_prob": 0.7352229137550195,
     "home": "FLA",
     "away": "COLO",
     "home_score": 17,
@@ -403,7 +403,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 14:32",
-    "wp": 0.6746166313273598,
+    "win_prob": 0.6746166313273598,
     "home": "FLA",
     "away": "COLO",
     "home_score": 17,
@@ -423,7 +423,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 14:25",
-    "wp": 0.815537185099966,
+    "win_prob": 0.815537185099966,
     "home": "FLA",
     "away": "COLO",
     "home_score": 20,
@@ -443,7 +443,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 13:50",
-    "wp": 0.8171055525225271,
+    "win_prob": 0.8171055525225271,
     "home": "FLA",
     "away": "COLO",
     "home_score": 20,
@@ -463,7 +463,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 13:50",
-    "wp": 0.7643799230103479,
+    "win_prob": 0.7643799230103479,
     "home": "FLA",
     "away": "COLO",
     "home_score": 20,
@@ -483,7 +483,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 13:48",
-    "wp": 0.7067016619738613,
+    "win_prob": 0.7067016619738613,
     "home": "FLA",
     "away": "COLO",
     "home_score": 20,
@@ -503,7 +503,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 13:12",
-    "wp": 0.7077371455393308,
+    "win_prob": 0.7077371455393308,
     "home": "FLA",
     "away": "COLO",
     "home_score": 20,
@@ -523,7 +523,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 13:02",
-    "wp": 0.8193161966389206,
+    "win_prob": 0.8193161966389206,
     "home": "FLA",
     "away": "COLO",
     "home_score": 22,
@@ -543,7 +543,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 12:44",
-    "wp": 0.7669982596153406,
+    "win_prob": 0.7669982596153406,
     "home": "FLA",
     "away": "COLO",
     "home_score": 22,
@@ -563,7 +563,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 12:44",
-    "wp": 0.8201635950547913,
+    "win_prob": 0.8201635950547913,
     "home": "FLA",
     "away": "COLO",
     "home_score": 22,
@@ -583,7 +583,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 12:39",
-    "wp": 0.8636623939207471,
+    "win_prob": 0.8636623939207471,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -603,7 +603,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 11:57",
-    "wp": 0.8657747747215254,
+    "win_prob": 0.8657747747215254,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -623,7 +623,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 11:57",
-    "wp": 0.8205250694296382,
+    "win_prob": 0.8205250694296382,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -643,7 +643,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 11:45",
-    "wp": 0.7694537737602885,
+    "win_prob": 0.7694537737602885,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -663,7 +663,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 11:14",
-    "wp": 0.8245591615279727,
+    "win_prob": 0.8245591615279727,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -683,7 +683,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 11:14",
-    "wp": 0.7707900610174258,
+    "win_prob": 0.7707900610174258,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -703,7 +703,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 11:08",
-    "wp": 0.7115626313406789,
+    "win_prob": 0.7115626313406789,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -723,7 +723,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 10:04",
-    "wp": 0.77618206653971,
+    "win_prob": 0.77618206653971,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -743,7 +743,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 10:04",
-    "wp": 0.713709499801401,
+    "win_prob": 0.713709499801401,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -763,7 +763,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 9:42",
-    "wp": 0.6471932702067404,
+    "win_prob": 0.6471932702067404,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -783,7 +783,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 9:28",
-    "wp": 0.7175419080038954,
+    "win_prob": 0.7175419080038954,
     "home": "FLA",
     "away": "COLO",
     "home_score": 24,
@@ -803,7 +803,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 9:28",
-    "wp": 0.7778817419782363,
+    "win_prob": 0.7778817419782363,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -823,7 +823,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:59",
-    "wp": 0.7792879773298166,
+    "win_prob": 0.7792879773298166,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -843,7 +843,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:59",
-    "wp": 0.682795768779254,
+    "win_prob": 0.682795768779254,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -863,7 +863,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:59",
-    "wp": 0.6480244269243927,
+    "win_prob": 0.6480244269243927,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -883,7 +883,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:31",
-    "wp": 0.71966658438975,
+    "win_prob": 0.71966658438975,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -903,7 +903,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:31",
-    "wp": 0.612252146053302,
+    "win_prob": 0.612252146053302,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -923,7 +923,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:31",
-    "wp": 0.5749051379330001,
+    "win_prob": 0.5749051379330001,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -943,7 +943,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:02",
-    "wp": 0.5748946208740789,
+    "win_prob": 0.5748946208740789,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -963,7 +963,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 8:02",
-    "wp": 0.6520678929476665,
+    "win_prob": 0.6520678929476665,
     "home": "FLA",
     "away": "COLO",
     "home_score": 26,
@@ -983,7 +983,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 7:54",
-    "wp": 0.7211088235596974,
+    "win_prob": 0.7211088235596974,
     "home": "FLA",
     "away": "COLO",
     "home_score": 28,
@@ -1003,7 +1003,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 7:31",
-    "wp": 0.5748893191888197,
+    "win_prob": 0.5748893191888197,
     "home": "FLA",
     "away": "COLO",
     "home_score": 28,
@@ -1023,7 +1023,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 7:21",
-    "wp": 0.7224395705359152,
+    "win_prob": 0.7224395705359152,
     "home": "FLA",
     "away": "COLO",
     "home_score": 30,
@@ -1043,7 +1043,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 7:00",
-    "wp": 0.7233091777810738,
+    "win_prob": 0.7233091777810738,
     "home": "FLA",
     "away": "COLO",
     "home_score": 30,
@@ -1063,7 +1063,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 7:00",
-    "wp": 0.687846493253556,
+    "win_prob": 0.687846493253556,
     "home": "FLA",
     "away": "COLO",
     "home_score": 30,
@@ -1082,7 +1082,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 6:49",
-    "wp": 0.5356659929096285,
+    "win_prob": 0.5356659929096285,
     "home": "FLA",
     "away": "COLO",
     "home_score": 30,
@@ -1102,7 +1102,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 6:22",
-    "wp": 0.5353395527315469,
+    "win_prob": 0.5353395527315469,
     "home": "FLA",
     "away": "COLO",
     "home_score": 30,
@@ -1122,7 +1122,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 6:22",
-    "wp": 0.6167848871614419,
+    "win_prob": 0.6167848871614419,
     "home": "FLA",
     "away": "COLO",
     "home_score": 30,
@@ -1142,7 +1142,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 6:00",
-    "wp": 0.7258968979673688,
+    "win_prob": 0.7258968979673688,
     "home": "FLA",
     "away": "COLO",
     "home_score": 33,
@@ -1162,7 +1162,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 5:32",
-    "wp": 0.7271596757897831,
+    "win_prob": 0.7271596757897831,
     "home": "FLA",
     "away": "COLO",
     "home_score": 33,
@@ -1182,7 +1182,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 5:32",
-    "wp": 0.6143731611336661,
+    "win_prob": 0.6143731611336661,
     "home": "FLA",
     "away": "COLO",
     "home_score": 33,
@@ -1202,7 +1202,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 5:32",
-    "wp": 0.5749326420703196,
+    "win_prob": 0.5749326420703196,
     "home": "FLA",
     "away": "COLO",
     "home_score": 33,
@@ -1222,7 +1222,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 4:16",
-    "wp": 0.5750212951497019,
+    "win_prob": 0.5750212951497019,
     "home": "FLA",
     "away": "COLO",
     "home_score": 33,
@@ -1242,7 +1242,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 4:16",
-    "wp": 0.6952406876293572,
+    "win_prob": 0.6952406876293572,
     "home": "FLA",
     "away": "COLO",
     "home_score": 34,
@@ -1262,7 +1262,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 4:16",
-    "wp": 0.7307795563476028,
+    "win_prob": 0.7307795563476028,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1282,7 +1282,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 4:01",
-    "wp": 0.5335831355686924,
+    "win_prob": 0.5335831355686924,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1302,7 +1302,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 3:46",
-    "wp": 0.6191485047534122,
+    "win_prob": 0.6191485047534122,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1322,7 +1322,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 3:46",
-    "wp": 0.5333908349249957,
+    "win_prob": 0.5333908349249957,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1342,7 +1342,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 3:36",
-    "wp": 0.448963721199461,
+    "win_prob": 0.448963721199461,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1362,7 +1362,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:58",
-    "wp": 0.44732501740609193,
+    "win_prob": 0.44732501740609193,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1382,7 +1382,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:58",
-    "wp": 0.5361804279421936,
+    "win_prob": 0.5361804279421936,
     "home": "FLA",
     "away": "COLO",
     "home_score": 35,
@@ -1402,7 +1402,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:50",
-    "wp": 0.6201422671187656,
+    "win_prob": 0.6201422671187656,
     "home": "FLA",
     "away": "COLO",
     "home_score": 37,
@@ -1422,7 +1422,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:30",
-    "wp": 0.6205185567958253,
+    "win_prob": 0.6205185567958253,
     "home": "FLA",
     "away": "COLO",
     "home_score": 37,
@@ -1442,7 +1442,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:30",
-    "wp": 0.44608256985431705,
+    "win_prob": 0.44608256985431705,
     "home": "FLA",
     "away": "COLO",
     "home_score": 37,
@@ -1462,7 +1462,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:30",
-    "wp": 0.4909071491960049,
+    "win_prob": 0.4909071491960049,
     "home": "FLA",
     "away": "COLO",
     "home_score": 37,
@@ -1481,7 +1481,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:30",
-    "wp": 0.4036160344898058,
+    "win_prob": 0.4036160344898058,
     "home": "FLA",
     "away": "COLO",
     "home_score": 37,
@@ -1501,7 +1501,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:16",
-    "wp": 0.402776774404374,
+    "win_prob": 0.402776774404374,
     "home": "FLA",
     "away": "COLO",
     "home_score": 37,
@@ -1521,7 +1521,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:16",
-    "wp": 0.5356790843845406,
+    "win_prob": 0.5356790843845406,
     "home": "FLA",
     "away": "COLO",
     "home_score": 38,
@@ -1541,7 +1541,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 2:16",
-    "wp": 0.44544969778722177,
+    "win_prob": 0.44544969778722177,
     "home": "FLA",
     "away": "COLO",
     "home_score": 38,
@@ -1561,7 +1561,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:53",
-    "wp": 0.3595196921784328,
+    "win_prob": 0.3595196921784328,
     "home": "FLA",
     "away": "COLO",
     "home_score": 38,
@@ -1581,7 +1581,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:40",
-    "wp": 0.5352436908073048,
+    "win_prob": 0.5352436908073048,
     "home": "FLA",
     "away": "COLO",
     "home_score": 40,
@@ -1601,7 +1601,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:06",
-    "wp": 0.442160889208217,
+    "win_prob": 0.442160889208217,
     "home": "FLA",
     "away": "COLO",
     "home_score": 40,
@@ -1621,7 +1621,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:06",
-    "wp": 0.5790186800963559,
+    "win_prob": 0.5790186800963559,
     "home": "FLA",
     "away": "COLO",
     "home_score": 41,
@@ -1641,7 +1641,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:06",
-    "wp": 0.6222352085486247,
+    "win_prob": 0.6222352085486247,
     "home": "FLA",
     "away": "COLO",
     "home_score": 42,
@@ -1661,7 +1661,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:02",
-    "wp": 0.5312111515824364,
+    "win_prob": 0.5312111515824364,
     "home": "FLA",
     "away": "COLO",
     "home_score": 42,
@@ -1681,7 +1681,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 1:02",
-    "wp": 0.5772843231783591,
+    "win_prob": 0.5772843231783591,
     "home": "FLA",
     "away": "COLO",
     "home_score": 42,
@@ -1700,7 +1700,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 0:43",
-    "wp": 0.4410319901121688,
+    "win_prob": 0.4410319901121688,
     "home": "FLA",
     "away": "COLO",
     "home_score": 42,
@@ -1720,7 +1720,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 0:28",
-    "wp": 0.665420286580452,
+    "win_prob": 0.665420286580452,
     "home": "FLA",
     "away": "COLO",
     "home_score": 45,
@@ -1740,7 +1740,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H1 0:05",
-    "wp": 0.4846629661625809,
+    "win_prob": 0.4846629661625809,
     "home": "FLA",
     "away": "COLO",
     "home_score": 45,
@@ -1760,7 +1760,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 20:00",
-    "wp": 0.5793975704103481,
+    "win_prob": 0.5793975704103481,
     "home": "FLA",
     "away": "COLO",
     "home_score": 45,
@@ -1780,7 +1780,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 19:47",
-    "wp": 0.6670730545942902,
+    "win_prob": 0.6670730545942902,
     "home": "FLA",
     "away": "COLO",
     "home_score": 47,
@@ -1800,7 +1800,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 19:12",
-    "wp": 0.6685645123169716,
+    "win_prob": 0.6685645123169716,
     "home": "FLA",
     "away": "COLO",
     "home_score": 47,
@@ -1820,7 +1820,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 19:12",
-    "wp": 0.5296597505054073,
+    "win_prob": 0.5296597505054073,
     "home": "FLA",
     "away": "COLO",
     "home_score": 47,
@@ -1840,7 +1840,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 19:12",
-    "wp": 0.4828635434940406,
+    "win_prob": 0.4828635434940406,
     "home": "FLA",
     "away": "COLO",
     "home_score": 47,
@@ -1860,7 +1860,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 18:59",
-    "wp": 0.6691385927725926,
+    "win_prob": 0.6691385927725926,
     "home": "FLA",
     "away": "COLO",
     "home_score": 49,
@@ -1880,7 +1880,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 18:34",
-    "wp": 0.4341901912692612,
+    "win_prob": 0.4341901912692612,
     "home": "FLA",
     "away": "COLO",
     "home_score": 49,
@@ -1900,7 +1900,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 18:17",
-    "wp": 0.4332163070132791,
+    "win_prob": 0.4332163070132791,
     "home": "FLA",
     "away": "COLO",
     "home_score": 49,
@@ -1920,7 +1920,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 18:17",
-    "wp": 0.5326805751455063,
+    "win_prob": 0.5326805751455063,
     "home": "FLA",
     "away": "COLO",
     "home_score": 49,
@@ -1940,7 +1940,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 18:17",
-    "wp": 0.5801585195484313,
+    "win_prob": 0.5801585195484313,
     "home": "FLA",
     "away": "COLO",
     "home_score": 50,
@@ -1960,7 +1960,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 17:47",
-    "wp": 0.5804256893528096,
+    "win_prob": 0.5804256893528096,
     "home": "FLA",
     "away": "COLO",
     "home_score": 50,
@@ -1980,7 +1980,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 17:47",
-    "wp": 0.4797775995093223,
+    "win_prob": 0.4797775995093223,
     "home": "FLA",
     "away": "COLO",
     "home_score": 50,
@@ -2000,7 +2000,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 17:36",
-    "wp": 0.38324535324443654,
+    "win_prob": 0.38324535324443654,
     "home": "FLA",
     "away": "COLO",
     "home_score": 50,
@@ -2020,7 +2020,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 17:27",
-    "wp": 0.5806167367394686,
+    "win_prob": 0.5806167367394686,
     "home": "FLA",
     "away": "COLO",
     "home_score": 52,
@@ -2040,7 +2040,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 16:57",
-    "wp": 0.58092409618678,
+    "win_prob": 0.58092409618678,
     "home": "FLA",
     "away": "COLO",
     "home_score": 52,
@@ -2060,7 +2060,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 16:57",
-    "wp": 0.47783110984779853,
+    "win_prob": 0.47783110984779853,
     "home": "FLA",
     "away": "COLO",
     "home_score": 52,
@@ -2080,7 +2080,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 16:43",
-    "wp": 0.6758940120411233,
+    "win_prob": 0.6758940120411233,
     "home": "FLA",
     "away": "COLO",
     "home_score": 54,
@@ -2100,7 +2100,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 15:50",
-    "wp": 0.6789604422404483,
+    "win_prob": 0.6789604422404483,
     "home": "FLA",
     "away": "COLO",
     "home_score": 54,
@@ -2120,7 +2120,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 15:50",
-    "wp": 0.6294368691909812,
+    "win_prob": 0.6294368691909812,
     "home": "FLA",
     "away": "COLO",
     "home_score": 54,
@@ -2139,7 +2139,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 15:50",
-    "wp": 0.5265776162871372,
+    "win_prob": 0.5265776162871372,
     "home": "FLA",
     "away": "COLO",
     "home_score": 54,
@@ -2159,7 +2159,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 15:50",
-    "wp": 0.4750458745176476,
+    "win_prob": 0.4750458745176476,
     "home": "FLA",
     "away": "COLO",
     "home_score": 54,
@@ -2179,7 +2179,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 15:34",
-    "wp": 0.6799424082646127,
+    "win_prob": 0.6799424082646127,
     "home": "FLA",
     "away": "COLO",
     "home_score": 56,
@@ -2199,7 +2199,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 15:19",
-    "wp": 0.42173960871024735,
+    "win_prob": 0.42173960871024735,
     "home": "FLA",
     "away": "COLO",
     "home_score": 56,
@@ -2219,7 +2219,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 14:16",
-    "wp": 0.41698961286127856,
+    "win_prob": 0.41698961286127856,
     "home": "FLA",
     "away": "COLO",
     "home_score": 56,
@@ -2239,7 +2239,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 14:16",
-    "wp": 0.5293516587582139,
+    "win_prob": 0.5293516587582139,
     "home": "FLA",
     "away": "COLO",
     "home_score": 56,
@@ -2259,7 +2259,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 14:08",
-    "wp": 0.31388913702552723,
+    "win_prob": 0.31388913702552723,
     "home": "FLA",
     "away": "COLO",
     "home_score": 56,
@@ -2279,7 +2279,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 14:04",
-    "wp": 0.42031905520180146,
+    "win_prob": 0.42031905520180146,
     "home": "FLA",
     "away": "COLO",
     "home_score": 56,
@@ -2299,7 +2299,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:55",
-    "wp": 0.5290438608644482,
+    "win_prob": 0.5290438608644482,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2319,7 +2319,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:40",
-    "wp": 0.5288220427697656,
+    "win_prob": 0.5288220427697656,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2339,7 +2339,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:40",
-    "wp": 0.36084042497246765,
+    "win_prob": 0.36084042497246765,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2359,7 +2359,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:40",
-    "wp": 0.3101786860934593,
+    "win_prob": 0.3101786860934593,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2379,7 +2379,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:19",
-    "wp": 0.41668838228020677,
+    "win_prob": 0.41668838228020677,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2399,7 +2399,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:19",
-    "wp": 0.3072913343394865,
+    "win_prob": 0.3072913343394865,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2419,7 +2419,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 13:06",
-    "wp": 0.21389280035345548,
+    "win_prob": 0.21389280035345548,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2439,7 +2439,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 12:39",
-    "wp": 0.3055667617064221,
+    "win_prob": 0.3055667617064221,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2459,7 +2459,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 12:39",
-    "wp": 0.20918505512603253,
+    "win_prob": 0.20918505512603253,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2479,7 +2479,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 12:28",
-    "wp": 0.13404664248055898,
+    "win_prob": 0.13404664248055898,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2499,7 +2499,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 12:25",
-    "wp": 0.2100237819954887,
+    "win_prob": 0.2100237819954887,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2519,7 +2519,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 12:25",
-    "wp": 0.168995244381484,
+    "win_prob": 0.168995244381484,
     "home": "FLA",
     "away": "COLO",
     "home_score": 58,
@@ -2538,7 +2538,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 12:05",
-    "wp": 0.30042273144776444,
+    "win_prob": 0.30042273144776444,
     "home": "FLA",
     "away": "COLO",
     "home_score": 60,
@@ -2558,7 +2558,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 11:51",
-    "wp": 0.09877483342261512,
+    "win_prob": 0.09877483342261512,
     "home": "FLA",
     "away": "COLO",
     "home_score": 60,
@@ -2578,7 +2578,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 11:35",
-    "wp": 0.24568380114239607,
+    "win_prob": 0.24568380114239607,
     "home": "FLA",
     "away": "COLO",
     "home_score": 62,
@@ -2598,7 +2598,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 11:35",
-    "wp": 0.15805687626116915,
+    "win_prob": 0.15805687626116915,
     "home": "FLA",
     "away": "COLO",
     "home_score": 62,
@@ -2618,7 +2618,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 11:35",
-    "wp": 0.19897010804883009,
+    "win_prob": 0.19897010804883009,
     "home": "FLA",
     "away": "COLO",
     "home_score": 62,
@@ -2637,7 +2637,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 11:35",
-    "wp": 0.2956303816341942,
+    "win_prob": 0.2956303816341942,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2657,7 +2657,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:58",
-    "wp": 0.2893571504126683,
+    "win_prob": 0.2893571504126683,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2677,7 +2677,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:58",
-    "wp": 0.18988465818419814,
+    "win_prob": 0.18988465818419814,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2697,7 +2697,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:37",
-    "wp": 0.1130756850712038,
+    "win_prob": 0.1130756850712038,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2717,7 +2717,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:10",
-    "wp": 0.1830377557437578,
+    "win_prob": 0.1830377557437578,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2737,7 +2737,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:10",
-    "wp": 0.08065373305602153,
+    "win_prob": 0.08065373305602153,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2757,7 +2757,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:10",
-    "wp": 0.14340171187723505,
+    "win_prob": 0.14340171187723505,
     "home": "FLA",
     "away": "COLO",
     "home_score": 63,
@@ -2777,7 +2777,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 10:00",
-    "wp": 0.27860138289939745,
+    "win_prob": 0.27860138289939745,
     "home": "FLA",
     "away": "COLO",
     "home_score": 66,
@@ -2797,7 +2797,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 9:41",
-    "wp": 0.10155602273383263,
+    "win_prob": 0.10155602273383263,
     "home": "FLA",
     "away": "COLO",
     "home_score": 66,
@@ -2817,7 +2817,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 9:41",
-    "wp": 0.1764611714114347,
+    "win_prob": 0.1764611714114347,
     "home": "FLA",
     "away": "COLO",
     "home_score": 66,
@@ -2837,7 +2837,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 9:32",
-    "wp": 0.17435549749826806,
+    "win_prob": 0.17435549749826806,
     "home": "FLA",
     "away": "COLO",
     "home_score": 66,
@@ -2857,7 +2857,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 9:32",
-    "wp": 0.09964343730695008,
+    "win_prob": 0.09964343730695008,
     "home": "FLA",
     "away": "COLO",
     "home_score": 66,
@@ -2877,7 +2877,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 9:13",
-    "wp": 0.04986380579922417,
+    "win_prob": 0.04986380579922417,
     "home": "FLA",
     "away": "COLO",
     "home_score": 66,
@@ -2897,7 +2897,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 8:47",
-    "wp": 0.20974663213629446,
+    "win_prob": 0.20974663213629446,
     "home": "FLA",
     "away": "COLO",
     "home_score": 69,
@@ -2917,7 +2917,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 8:43",
-    "wp": 0.2087432309228464,
+    "win_prob": 0.2087432309228464,
     "home": "FLA",
     "away": "COLO",
     "home_score": 69,
@@ -2937,7 +2937,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 8:24",
-    "wp": 0.06033544691784437,
+    "win_prob": 0.06033544691784437,
     "home": "FLA",
     "away": "COLO",
     "home_score": 69,
@@ -2957,7 +2957,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 8:13",
-    "wp": 0.25500920272749383,
+    "win_prob": 0.25500920272749383,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -2977,7 +2977,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:44",
-    "wp": 0.10530492873827746,
+    "win_prob": 0.10530492873827746,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -2997,7 +2997,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:44",
-    "wp": 0.0753807026836138,
+    "win_prob": 0.0753807026836138,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -3017,7 +3017,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:44",
-    "wp": 0.052422637352614265,
+    "win_prob": 0.052422637352614265,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -3037,7 +3037,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:43",
-    "wp": 0.023077326001217258,
+    "win_prob": 0.023077326001217258,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -3057,7 +3057,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:43",
-    "wp": 0.05382452038376839,
+    "win_prob": 0.05382452038376839,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -3077,7 +3077,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:43",
-    "wp": 0.03581887645561843,
+    "win_prob": 0.03581887645561843,
     "home": "FLA",
     "away": "COLO",
     "home_score": 72,
@@ -3096,7 +3096,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:39",
-    "wp": 0.10668402944412797,
+    "win_prob": 0.10668402944412797,
     "home": "FLA",
     "away": "COLO",
     "home_score": 74,
@@ -3116,7 +3116,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:39",
-    "wp": 0.05142853345886411,
+    "win_prob": 0.05142853345886411,
     "home": "FLA",
     "away": "COLO",
     "home_score": 74,
@@ -3136,7 +3136,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:39",
-    "wp": 0.1449375302522763,
+    "win_prob": 0.1449375302522763,
     "home": "FLA",
     "away": "COLO",
     "home_score": 75,
@@ -3156,7 +3156,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:24",
-    "wp": 0.03221316270446356,
+    "win_prob": 0.03221316270446356,
     "home": "FLA",
     "away": "COLO",
     "home_score": 75,
@@ -3176,7 +3176,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:24",
-    "wp": 0.07270482948671736,
+    "win_prob": 0.07270482948671736,
     "home": "FLA",
     "away": "COLO",
     "home_score": 75,
@@ -3196,7 +3196,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:24",
-    "wp": 0.020760224615114398,
+    "win_prob": 0.020760224615114398,
     "home": "FLA",
     "away": "COLO",
     "home_score": 75,
@@ -3216,7 +3216,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:09",
-    "wp": 0.018978848804353132,
+    "win_prob": 0.018978848804353132,
     "home": "FLA",
     "away": "COLO",
     "home_score": 75,
@@ -3236,7 +3236,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:09",
-    "wp": 0.06905565617487752,
+    "win_prob": 0.06905565617487752,
     "home": "FLA",
     "away": "COLO",
     "home_score": 76,
@@ -3256,7 +3256,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 7:09",
-    "wp": 0.09843730915163523,
+    "win_prob": 0.09843730915163523,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3276,7 +3276,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 6:50",
-    "wp": 0.093041185552029,
+    "win_prob": 0.093041185552029,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3296,7 +3296,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 6:50",
-    "wp": 0.026910165372503625,
+    "win_prob": 0.026910165372503625,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3316,7 +3316,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 6:50",
-    "wp": 0.0643789710911814,
+    "win_prob": 0.0643789710911814,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3336,7 +3336,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 6:26",
-    "wp": 0.058396633532790176,
+    "win_prob": 0.058396633532790176,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3356,7 +3356,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 6:26",
-    "wp": 0.023286125400498903,
+    "win_prob": 0.023286125400498903,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3376,7 +3376,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 6:06",
-    "wp": 0.006893544916781014,
+    "win_prob": 0.006893544916781014,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3396,7 +3396,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 5:23",
-    "wp": 0.015153562505870133,
+    "win_prob": 0.015153562505870133,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3416,7 +3416,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 5:23",
-    "wp": 0.0021940116905623253,
+    "win_prob": 0.0021940116905623253,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3436,7 +3436,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 5:23",
-    "wp": 0.0010684618449978145,
+    "win_prob": 0.0010684618449978145,
     "home": "FLA",
     "away": "COLO",
     "home_score": 77,
@@ -3456,7 +3456,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 5:16",
-    "wp": 0.014232024270918575,
+    "win_prob": 0.014232024270918575,
     "home": "FLA",
     "away": "COLO",
     "home_score": 79,
@@ -3476,7 +3476,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:49",
-    "wp": 0.0012789274895342873,
+    "win_prob": 0.0012789274895342873,
     "home": "FLA",
     "away": "COLO",
     "home_score": 79,
@@ -3496,7 +3496,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:49",
-    "wp": 0.0005754636261257051,
+    "win_prob": 0.0005754636261257051,
     "home": "FLA",
     "away": "COLO",
     "home_score": 79,
@@ -3516,7 +3516,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:36",
-    "wp": 0.004803771815353519,
+    "win_prob": 0.004803771815353519,
     "home": "FLA",
     "away": "COLO",
     "home_score": 80,
@@ -3536,7 +3536,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:36",
-    "wp": 0.009391021127037325,
+    "win_prob": 0.009391021127037325,
     "home": "FLA",
     "away": "COLO",
     "home_score": 81,
@@ -3556,7 +3556,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:30",
-    "wp": 0.00038147156464257703,
+    "win_prob": 0.00038147156464257703,
     "home": "FLA",
     "away": "COLO",
     "home_score": 81,
@@ -3576,7 +3576,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:17",
-    "wp": 0.007386347519362346,
+    "win_prob": 0.007386347519362346,
     "home": "FLA",
     "away": "COLO",
     "home_score": 83,
@@ -3596,7 +3596,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:17",
-    "wp": 0.0015642180482108303,
+    "win_prob": 0.0015642180482108303,
     "home": "FLA",
     "away": "COLO",
     "home_score": 83,
@@ -3616,7 +3616,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 4:17",
-    "wp": 0.014284507199693708,
+    "win_prob": 0.014284507199693708,
     "home": "FLA",
     "away": "COLO",
     "home_score": 84,
@@ -3636,7 +3636,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 3:46",
-    "wp": 0.0019215571371630213,
+    "win_prob": 0.0019215571371630213,
     "home": "FLA",
     "away": "COLO",
     "home_score": 84,
@@ -3656,7 +3656,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 3:46",
-    "wp": 0.019016247219543758,
+    "win_prob": 0.019016247219543758,
     "home": "FLA",
     "away": "COLO",
     "home_score": 85,
@@ -3676,7 +3676,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 3:46",
-    "wp": 0.03518774514061346,
+    "win_prob": 0.03518774514061346,
     "home": "FLA",
     "away": "COLO",
     "home_score": 86,
@@ -3696,7 +3696,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 3:15",
-    "wp": 0.025398609792176396,
+    "win_prob": 0.025398609792176396,
     "home": "FLA",
     "away": "COLO",
     "home_score": 86,
@@ -3716,7 +3716,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 3:15",
-    "wp": 0.005438474734805909,
+    "win_prob": 0.005438474734805909,
     "home": "FLA",
     "away": "COLO",
     "home_score": 86,
@@ -3736,7 +3736,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:44",
-    "wp": 0.005060606434178216,
+    "win_prob": 0.005060606434178216,
     "home": "FLA",
     "away": "COLO",
     "home_score": 86,
@@ -3756,7 +3756,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:38",
-    "wp": 0.005045874421046592,
+    "win_prob": 0.005045874421046592,
     "home": "FLA",
     "away": "COLO",
     "home_score": 86,
@@ -3776,7 +3776,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:19",
-    "wp": 0.004999474673387183,
+    "win_prob": 0.004999474673387183,
     "home": "FLA",
     "away": "COLO",
     "home_score": 86,
@@ -3796,7 +3796,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:19",
-    "wp": 0.04548705623786542,
+    "win_prob": 0.04548705623786542,
     "home": "FLA",
     "away": "COLO",
     "home_score": 87,
@@ -3816,7 +3816,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:19",
-    "wp": 0.08034507667849633,
+    "win_prob": 0.08034507667849633,
     "home": "FLA",
     "away": "COLO",
     "home_score": 88,
@@ -3836,7 +3836,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:11",
-    "wp": 0.08014455598062348,
+    "win_prob": 0.08014455598062348,
     "home": "FLA",
     "away": "COLO",
     "home_score": 88,
@@ -3856,7 +3856,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:11",
-    "wp": 0.01101982062522866,
+    "win_prob": 0.01101982062522866,
     "home": "FLA",
     "away": "COLO",
     "home_score": 88,
@@ -3876,7 +3876,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:11",
-    "wp": 0.004980051899875992,
+    "win_prob": 0.004980051899875992,
     "home": "FLA",
     "away": "COLO",
     "home_score": 88,
@@ -3896,7 +3896,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 2:06",
-    "wp": 0.08001942278490715,
+    "win_prob": 0.08001942278490715,
     "home": "FLA",
     "away": "COLO",
     "home_score": 90,
@@ -3916,7 +3916,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:32",
-    "wp": 0.02228358209501169,
+    "win_prob": 0.02228358209501169,
     "home": "FLA",
     "away": "COLO",
     "home_score": 90,
@@ -3936,7 +3936,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:26",
-    "wp": 0.07902366982766584,
+    "win_prob": 0.07902366982766584,
     "home": "FLA",
     "away": "COLO",
     "home_score": 90,
@@ -3956,7 +3956,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:26",
-    "wp": 0.0108021565843468,
+    "win_prob": 0.0108021565843468,
     "home": "FLA",
     "away": "COLO",
     "home_score": 90,
@@ -3976,7 +3976,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:26",
-    "wp": 0.044641066360143145,
+    "win_prob": 0.044641066360143145,
     "home": "FLA",
     "away": "COLO",
     "home_score": 90,
@@ -3996,7 +3996,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:18",
-    "wp": 0.13019120719139576,
+    "win_prob": 0.13019120719139576,
     "home": "FLA",
     "away": "COLO",
     "home_score": 92,
@@ -4016,7 +4016,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:18",
-    "wp": 0.0423950483537342,
+    "win_prob": 0.0423950483537342,
     "home": "FLA",
     "away": "COLO",
     "home_score": 92,
@@ -4036,7 +4036,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 1:18",
-    "wp": 0.20102646877128338,
+    "win_prob": 0.20102646877128338,
     "home": "FLA",
     "away": "COLO",
     "home_score": 93,
@@ -4056,7 +4056,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:51",
-    "wp": 0.021920200606549367,
+    "win_prob": 0.021920200606549367,
     "home": "FLA",
     "away": "COLO",
     "home_score": 93,
@@ -4076,7 +4076,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:41",
-    "wp": 0.07791469720843303,
+    "win_prob": 0.07791469720843303,
     "home": "FLA",
     "away": "COLO",
     "home_score": 93,
@@ -4096,7 +4096,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:38",
-    "wp": 0.2887085359871692,
+    "win_prob": 0.2887085359871692,
     "home": "FLA",
     "away": "COLO",
     "home_score": 96,
@@ -4116,7 +4116,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:37",
-    "wp": 0.28865108005711915,
+    "win_prob": 0.28865108005711915,
     "home": "FLA",
     "away": "COLO",
     "home_score": 96,
@@ -4136,7 +4136,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:35",
-    "wp": 0.12389724286247877,
+    "win_prob": 0.12389724286247877,
     "home": "FLA",
     "away": "COLO",
     "home_score": 96,
@@ -4156,7 +4156,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:35",
-    "wp": 0.288536184356672,
+    "win_prob": 0.288536184356672,
     "home": "FLA",
     "away": "COLO",
     "home_score": 96,
@@ -4176,7 +4176,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:22",
-    "wp": 0.12345044022928758,
+    "win_prob": 0.12345044022928758,
     "home": "FLA",
     "away": "COLO",
     "home_score": 96,
@@ -4196,7 +4196,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:22",
-    "wp": 0.39268584245951754,
+    "win_prob": 0.39268584245951754,
     "home": "FLA",
     "away": "COLO",
     "home_score": 97,
@@ -4216,7 +4216,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:22",
-    "wp": 0.19204572980789036,
+    "win_prob": 0.19204572980789036,
     "home": "FLA",
     "away": "COLO",
     "home_score": 97,
@@ -4236,7 +4236,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:14",
-    "wp": 0.3921686283278047,
+    "win_prob": 0.3921686283278047,
     "home": "FLA",
     "away": "COLO",
     "home_score": 97,
@@ -4256,7 +4256,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:14",
-    "wp": 0.1916783660691042,
+    "win_prob": 0.1916783660691042,
     "home": "FLA",
     "away": "COLO",
     "home_score": 97,
@@ -4276,7 +4276,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:14",
-    "wp": 0.1231760464134165,
+    "win_prob": 0.1231760464134165,
     "home": "FLA",
     "away": "COLO",
     "home_score": 97,
@@ -4296,7 +4296,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:11",
-    "wp": 0.618246514174379,
+    "win_prob": 0.618246514174379,
     "home": "FLA",
     "away": "COLO",
     "home_score": 100,
@@ -4316,7 +4316,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:06",
-    "wp": 0.38284427613882577,
+    "win_prob": 0.38284427613882577,
     "home": "FLA",
     "away": "COLO",
     "home_score": 100,
@@ -4336,7 +4336,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:02",
-    "wp": 0.1911281280575075,
+    "win_prob": 0.1911281280575075,
     "home": "FLA",
     "away": "COLO",
     "home_score": 100,
@@ -4356,7 +4356,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "H2 0:01",
-    "wp": 0.39132856192630106,
+    "win_prob": 0.39132856192630106,
     "home": "FLA",
     "away": "COLO",
     "home_score": 100,
@@ -4376,7 +4376,7 @@ window.NCAAB_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 0.0,
+    "win_prob": 0.0,
     "home": "FLA",
     "away": "COLO",
     "home_score": 100,

@@ -1,9 +1,9 @@
-// Precomputed by compute_wp.
-// The widget displays these values and does not run a second model.
+// Precomputed win probability.
+// The page displays these values and does not run a second model.
 window.NHL_REPLAY = [
   {
     "clock": "P1 20:00",
-    "wp": 0.550488022782139,
+    "win_prob": 0.550488022782139,
     "home": "COL",
     "away": "EDM",
     "home_score": 0,
@@ -24,7 +24,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 20:00",
-    "wp": 0.550488022782139,
+    "win_prob": 0.550488022782139,
     "home": "COL",
     "away": "EDM",
     "home_score": 0,
@@ -45,7 +45,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 15:17",
-    "wp": 0.5487213978086363,
+    "win_prob": 0.5487213978086363,
     "home": "COL",
     "away": "EDM",
     "home_score": 0,
@@ -66,7 +66,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 14:56",
-    "wp": 0.3806142186011345,
+    "win_prob": 0.3806142186011345,
     "home": "COL",
     "away": "EDM",
     "home_score": 0,
@@ -87,7 +87,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 14:28",
-    "wp": 0.3797420981805986,
+    "win_prob": 0.3797420981805986,
     "home": "COL",
     "away": "EDM",
     "home_score": 0,
@@ -108,7 +108,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 14:20",
-    "wp": 0.5483579143668696,
+    "win_prob": 0.5483579143668696,
     "home": "COL",
     "away": "EDM",
     "home_score": 1,
@@ -129,7 +129,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 5:02",
-    "wp": 0.5446486724473675,
+    "win_prob": 0.5446486724473675,
     "home": "COL",
     "away": "EDM",
     "home_score": 1,
@@ -150,7 +150,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 4:50",
-    "wp": 0.720447897309057,
+    "win_prob": 0.720447897309057,
     "home": "COL",
     "away": "EDM",
     "home_score": 2,
@@ -171,7 +171,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 0:58",
-    "wp": 0.7264306231070059,
+    "win_prob": 0.7264306231070059,
     "home": "COL",
     "away": "EDM",
     "home_score": 2,
@@ -192,7 +192,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 0:23",
-    "wp": 0.5426794769027155,
+    "win_prob": 0.5426794769027155,
     "home": "COL",
     "away": "EDM",
     "home_score": 2,
@@ -213,7 +213,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 0:14",
-    "wp": 0.7276700181394702,
+    "win_prob": 0.7276700181394702,
     "home": "COL",
     "away": "EDM",
     "home_score": 3,
@@ -234,7 +234,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P1 0:14",
-    "wp": 0.9502438564120442,
+    "win_prob": 0.9502438564120442,
     "home": "COL",
     "away": "EDM",
     "home_score": 3,
@@ -255,7 +255,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 20:00",
-    "wp": 0.95009047388697,
+    "win_prob": 0.95009047388697,
     "home": "COL",
     "away": "EDM",
     "home_score": 3,
@@ -276,7 +276,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 19:29",
-    "wp": 0.9497515937523344,
+    "win_prob": 0.9497515937523344,
     "home": "COL",
     "away": "EDM",
     "home_score": 3,
@@ -297,7 +297,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 19:28",
-    "wp": 0.982777836884495,
+    "win_prob": 0.982777836884495,
     "home": "COL",
     "away": "EDM",
     "home_score": 4,
@@ -318,7 +318,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 19:28",
-    "wp": 0.8653248396429095,
+    "win_prob": 0.8653248396429095,
     "home": "COL",
     "away": "EDM",
     "home_score": 4,
@@ -339,7 +339,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 17:02",
-    "wp": 0.8714217766538238,
+    "win_prob": 0.8714217766538238,
     "home": "COL",
     "away": "EDM",
     "home_score": 4,
@@ -360,7 +360,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 17:01",
-    "wp": 0.7335633545906054,
+    "win_prob": 0.7335633545906054,
     "home": "COL",
     "away": "EDM",
     "home_score": 4,
@@ -381,7 +381,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 15:26",
-    "wp": 0.7367691072199437,
+    "win_prob": 0.7367691072199437,
     "home": "COL",
     "away": "EDM",
     "home_score": 4,
@@ -402,7 +402,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 15:22",
-    "wp": 0.8758269165604392,
+    "win_prob": 0.8758269165604392,
     "home": "COL",
     "away": "EDM",
     "home_score": 5,
@@ -423,7 +423,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 13:42",
-    "wp": 0.8804296160276274,
+    "win_prob": 0.8804296160276274,
     "home": "COL",
     "away": "EDM",
     "home_score": 5,
@@ -444,7 +444,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 13:40",
-    "wp": 0.9545112040348872,
+    "win_prob": 0.9545112040348872,
     "home": "COL",
     "away": "EDM",
     "home_score": 6,
@@ -465,7 +465,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 13:07",
-    "wp": 0.9555749208520625,
+    "win_prob": 0.9555749208520625,
     "home": "COL",
     "away": "EDM",
     "home_score": 6,
@@ -486,7 +486,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 12:41",
-    "wp": 0.9956233253276408,
+    "win_prob": 0.9956233253276408,
     "home": "COL",
     "away": "EDM",
     "home_score": 6,
@@ -507,7 +507,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 10:41",
-    "wp": 0.9958538113080181,
+    "win_prob": 0.9958538113080181,
     "home": "COL",
     "away": "EDM",
     "home_score": 6,
@@ -528,7 +528,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 10:26",
-    "wp": 0.9607977251577737,
+    "win_prob": 0.9607977251577737,
     "home": "COL",
     "away": "EDM",
     "home_score": 6,
@@ -549,7 +549,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 3:53",
-    "wp": 0.9735321891628198,
+    "win_prob": 0.9735321891628198,
     "home": "COL",
     "away": "EDM",
     "home_score": 6,
@@ -570,7 +570,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 3:40",
-    "wp": 0.9936443375342554,
+    "win_prob": 0.9936443375342554,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -591,7 +591,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 3:18",
-    "wp": 0.9938927733621931,
+    "win_prob": 0.9938927733621931,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -612,7 +612,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 3:09",
-    "wp": 0.9749277733585823,
+    "win_prob": 0.9749277733585823,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -633,7 +633,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 3:01",
-    "wp": 0.9751802773212741,
+    "win_prob": 0.9751802773212741,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -654,7 +654,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 2:55",
-    "wp": 0.8471452384517874,
+    "win_prob": 0.8471452384517874,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -675,7 +675,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 0:58",
-    "wp": 0.8680718872802362,
+    "win_prob": 0.8680718872802362,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -696,7 +696,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P2 0:49",
-    "wp": 0.9792783825666002,
+    "win_prob": 0.9792783825666002,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -717,7 +717,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 20:00",
-    "wp": 0.9807598904221484,
+    "win_prob": 0.9807598904221484,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -738,7 +738,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 16:34",
-    "wp": 0.9866567047447407,
+    "win_prob": 0.9866567047447407,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -759,7 +759,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 16:32",
-    "wp": 0.9412008530557954,
+    "win_prob": 0.9412008530557954,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -780,7 +780,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 8:56",
-    "wp": 0.974445278711229,
+    "win_prob": 0.974445278711229,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -801,7 +801,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 8:41",
-    "wp": 0.900119877012478,
+    "win_prob": 0.900119877012478,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -822,7 +822,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 7:33",
-    "wp": 0.9186718227998071,
+    "win_prob": 0.9186718227998071,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -843,7 +843,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 7:24",
-    "wp": 0.7032602846573515,
+    "win_prob": 0.7032602846573515,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -864,7 +864,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 7:24",
-    "wp": 0.8781902955746691,
+    "win_prob": 0.8781902955746691,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -885,7 +885,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 6:08",
-    "wp": 0.8936457887181616,
+    "win_prob": 0.8936457887181616,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -906,7 +906,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 4:59",
-    "wp": 0.9092432610850908,
+    "win_prob": 0.9092432610850908,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -927,7 +927,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 4:01",
-    "wp": 0.9236643497245635,
+    "win_prob": 0.9236643497245635,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -948,7 +948,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 2:58",
-    "wp": 0.9408610806712555,
+    "win_prob": 0.9408610806712555,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -969,7 +969,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 1:34",
-    "wp": 0.9666318755070323,
+    "win_prob": 0.9666318755070323,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -990,7 +990,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 0:25",
-    "wp": 0.9906084095036063,
+    "win_prob": 0.9906084095036063,
     "home": "COL",
     "away": "EDM",
     "home_score": 7,
@@ -1011,7 +1011,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "P3 0:22",
-    "wp": 0.9999,
+    "win_prob": 0.9999,
     "home": "COL",
     "away": "EDM",
     "home_score": 8,
@@ -1032,7 +1032,7 @@ window.NHL_REPLAY = [
   },
   {
     "clock": "FINAL",
-    "wp": 1.0,
+    "win_prob": 1.0,
     "home": "COL",
     "away": "EDM",
     "home_score": 8,

@@ -1,4 +1,4 @@
-"""Club colors for the replay widget. No logos and no remote assets.
+"""Club colors for the replay page. No logos and no remote assets.
 
 Colors are read from ``assets/colors/{sport}.json``. A row is keyed by
 sport and the logo filename stem. Pro files store that stem in ``id``.

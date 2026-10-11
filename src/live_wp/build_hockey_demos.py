@@ -13,7 +13,7 @@ from mswp.hockey.config import NCAAH_CONFIG, NHL_CONFIG
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURES = ROOT / "tests" / "fixtures"
 EXAMPLES = ROOT / "examples"
-WIDGET = ROOT / "widget"
+REPLAYS = ROOT / "replays"
 
 
 def build_hockey_demos() -> int:
@@ -35,7 +35,7 @@ def _nhl() -> tuple[int, int]:
     (EXAMPLES / "nhl_edm_col.json").write_text(
         dump_replay(thin), encoding="utf-8", newline="\n"
     )
-    (WIDGET / "nhl_edm_col.js").write_text(
+    (REPLAYS / "nhl" / "edm_col.js").write_text(
         render_widget_script(thin), encoding="utf-8", newline="\n"
     )
     return len(states), len(thin)
@@ -51,7 +51,7 @@ def _ncaah() -> tuple[int, int]:
     (EXAMPLES / "ncaah_den_mich.json").write_text(
         dump_replay(thin), encoding="utf-8", newline="\n"
     )
-    (WIDGET / "ncaah_den_mich.js").write_text(
+    (REPLAYS / "ncaah" / "den_mich.js").write_text(
         render_widget_script(thin), encoding="utf-8", newline="\n"
     )
     return len(states), len(thin)

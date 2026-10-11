@@ -1,9 +1,9 @@
 // Displays one rendered replay chosen from window.MSWP_MANIFEST.
 // Each replay was produced by the Python pack for that sport. This file
 // does not estimate win probability. On 127.0.0.1 or localhost it reads
-// widget/live_replay.js and widget/slate.js. A pro slate click on that host POSTs
+// replays/live_replay.js and slate.js. A pro slate click on that host POSTs
 // /follow. On that host, when the query does not already choose a game,
-// it also GETs widget/follow.json once. If that pro sport and game_id are
+// it also GETs follow.json once. If that pro sport and game_id are
 // on the slate, the page opens that row. GitHub Pages is / and does not
 // request follow.json. College does not read it. Club colors for the
 // selected sport are assets/colors/{sport}.json, one file per league,
@@ -702,6 +702,52 @@
     return out;
   }
 
+  function compareSeason(a, b) {
+    var left = Number(a);
+    var right = Number(b);
+    if (isFinite(left) && isFinite(right) && String(left) === a && String(right) === b) {
+      if (left < right) return -1;
+      if (left > right) return 1;
+      return 0;
+    }
+    if (a < b) return -1;
+    if (a > b) return 1;
+    return 0;
+  }
+
+  function seasonsForSport(entries, sport) {
+    var seen = {};
+    var out = [];
+    var games = gamesForSport(entries, sport);
+    var i;
+    for (i = 0; i < games.length; i++) {
+      var season = String(games[i].season || "").trim();
+      if (!season || seen[season]) continue;
+      seen[season] = true;
+      out.push(season);
+    }
+    out.sort(compareSeason);
+    return out;
+  }
+
+  function latestSeason(entries, sport) {
+    var seasons = seasonsForSport(entries, sport);
+    if (!seasons.length) return "";
+    return seasons[seasons.length - 1];
+  }
+
+  function gamesForSportSeason(entries, sport, season) {
+    var games = gamesForSport(entries, sport);
+    var wanted = String(season == null ? "" : season).trim();
+    if (!wanted) return games;
+    var out = [];
+    var i;
+    for (i = 0; i < games.length; i++) {
+      if (String(games[i].season || "").trim() === wanted) out.push(games[i]);
+    }
+    return out;
+  }
+
   function gamesForLevel(entries, level) {
     var out = [];
     var i;
@@ -748,6 +794,7 @@
   var manifest = Array.isArray(root.MSWP_MANIFEST) ? root.MSWP_MANIFEST.slice() : [];
   var frames = [];
   var sportName = "nfl";
+  var seasonName = "";
   var currentFile = "";
   var levelName = "pro";
   var themeName = "charcoal";
@@ -815,18 +862,18 @@
 
   function formatHomePercent(frame) {
     if (frame.status === "final") {
-      if (frame.wp >= 1) return "100";
-      if (frame.wp <= 0) return "0";
+      if (frame.win_prob >= 1) return "100";
+      if (frame.win_prob <= 0) return "0";
     }
-    return (frame.wp * 100).toFixed(2);
+    return (frame.win_prob * 100).toFixed(2);
   }
 
   function formatAwayPercent(frame) {
     if (frame.status === "final") {
-      if (frame.wp >= 1) return "0";
-      if (frame.wp <= 0) return "100";
+      if (frame.win_prob >= 1) return "0";
+      if (frame.win_prob <= 0) return "100";
     }
-    return ((1 - frame.wp) * 100).toFixed(2);
+    return ((1 - frame.win_prob) * 100).toFixed(2);
   }
 
   function text(id, value) {
@@ -1094,8 +1141,8 @@
   function paintTicker(frame) {
     var homeBar = document.getElementById("c-home-bar");
     var awayBar = document.getElementById("c-away-bar");
-    var decidedHome = frame.status === "final" && frame.wp >= 1;
-    var decidedAway = frame.status === "final" && frame.wp <= 0;
+    var decidedHome = frame.status === "final" && frame.win_prob >= 1;
+    var decidedAway = frame.status === "final" && frame.win_prob <= 0;
     if (decidedHome || decidedAway) {
       homeBar.style.flex = decidedHome ? "1 1 0" : "0 0 0";
       awayBar.style.flex = decidedAway ? "1 1 0" : "0 0 0";
@@ -1103,8 +1150,8 @@
       awayBar.style.minWidth = "0";
       return;
     }
-    homeBar.style.flex = frame.wp + " 1 0";
-    awayBar.style.flex = (1 - frame.wp) + " 1 0";
+    homeBar.style.flex = frame.win_prob + " 1 0";
+    awayBar.style.flex = (1 - frame.win_prob) + " 1 0";
     homeBar.style.minWidth = "";
     awayBar.style.minWidth = "";
   }
@@ -1527,7 +1574,7 @@
   }
 
   function requestScript(fileName, serial) {
-    var stem = fileName === "slate.js" ? "widget/slate.js?" : "widget/live_replay.js?";
+    var stem = fileName === "slate.js" ? "slate.js?" : "replays/live_replay.js?";
     return root.fetch(stem + "t=" + Date.now() + "-" + serial, { cache: "no-store" });
   }
 
@@ -1596,7 +1643,7 @@
     }, noteSlateMissing);
   }
 
-  // widget/follow.json is a static file on this host. One GET at boot.
+  // follow.json is a static file on this host. One GET at boot.
   // A query string, a college page, and any other host skip it.
   function readFollowPayload(text) {
     var data;
@@ -1646,7 +1693,7 @@
     if (!hostAllowsLive() || typeof root.fetch !== "function") return;
     if (queryOwned || collegeBoot || levelName === "college") return;
     try {
-      pending = root.fetch("widget/follow.json", { method: "GET", cache: "no-store" });
+      pending = root.fetch("follow.json", { method: "GET", cache: "no-store" });
     } catch (err) {
       followSettled = true;
       return;
@@ -1813,13 +1860,50 @@
     }
   }
 
+  function chooseSeason(sport) {
+    var seasons = seasonsForSport(manifest, sport);
+    if (!seasonName || seasons.indexOf(seasonName) < 0) {
+      seasonName = seasons.length ? seasons[seasons.length - 1] : "";
+    }
+    return seasonName;
+  }
+
+  function renderSeasons() {
+    var row = document.getElementById("seasons");
+    var level = document.getElementById("season-row");
+    if (!row) return;
+    var onLevel = levelForSport(sportName) === levelName;
+    var seasons = onLevel ? seasonsForSport(manifest, sportName) : [];
+    var selected = onLevel ? chooseSeason(sportName) : "";
+    var i;
+    row.textContent = "";
+    if (level) level.hidden = seasons.length === 0;
+    for (i = 0; i < seasons.length; i++) {
+      var season = seasons[i];
+      var button = document.createElement("button");
+      var on = season === selected;
+      button.type = "button";
+      button.className = on ? "sport is-selected" : "sport";
+      button.setAttribute("data-season", season);
+      button.setAttribute("aria-pressed", on ? "true" : "false");
+      button.textContent = season;
+      row.appendChild(button);
+    }
+  }
+
   function renderGames() {
     var row = document.getElementById("games");
     var level = document.getElementById("game-row");
-    var entries = gamesForSport(manifest, sportName);
+    var sportGames = gamesForSport(manifest, sportName);
+    var season = chooseSeason(sportName);
+    var entries = gamesForSportSeason(manifest, sportName, season);
     var onLevel = levelForSport(sportName) === levelName;
     var showSlate = slateRowsForSport(sportName).length > 0;
-    var showArchive = onLevel && (entries.length > 1 || (showSlate && entries.length === 1));
+    var showArchive = onLevel && (
+      entries.length > 1 ||
+      (showSlate && entries.length === 1) ||
+      (entries.length === 1 && sportGames.length > 1)
+    );
     var showLive = liveControlVisible();
     var show = showArchive || showLive;
     var i;
@@ -1855,6 +1939,7 @@
     renderLevel();
     renderSports();
     renderSlate();
+    renderSeasons();
     renderGames();
   }
 
@@ -1864,6 +1949,7 @@
     boardRow = null;
     showReplayChrome();
     sportName = entry && entry.sport ? entry.sport : sportName;
+    if (entry && entry.season) seasonName = String(entry.season).trim();
     currentFile = entry && entry.file ? entry.file : "";
     frames = rows;
     scrub.max = String(frames.length - 1);
@@ -1874,10 +1960,12 @@
     show(openingIndex(frames));
   }
 
-  function replaySrc(file) {
-    var name = String(file || "");
-    if (!name || name.indexOf("/") >= 0 || name.indexOf("\\") >= 0) return name;
-    return "widget/" + name;
+  function replaySrc(entry) {
+    var file = entry && entry.file ? String(entry.file) : "";
+    var sport = entry && entry.sport ? String(entry.sport) : "";
+    if (!file || file.indexOf("/") >= 0 || file.indexOf("\\") >= 0) return file;
+    if (!sport || sport.indexOf("/") >= 0 || sport.indexOf("\\") >= 0) return file;
+    return "replays/" + sport + "/" + file;
   }
 
   function loadGame(entry) {
@@ -1893,7 +1981,7 @@
     }
     var token = ++loadToken;
     var script = document.createElement("script");
-    script.src = replaySrc(entry.file);
+    script.src = replaySrc(entry);
     script.onload = function () {
       if (token !== loadToken) return;
       var rows = readSportFrames(root, entry.sport);
@@ -1973,8 +2061,27 @@
   document.getElementById("sports").addEventListener("click", function (event) {
     var sport = attrFrom(event, "data-sport");
     if (!sport) return;
-    var games = gamesForSport(manifest, sport);
+    seasonName = latestSeason(manifest, sport);
+    var games = gamesForSportSeason(manifest, sport, seasonName);
     if (!games.length) return;
+    followBlocked = true;
+    writeQuery(games[0].sport, games[0].away, games[0].home, false);
+    loadGame(games[0]);
+  });
+
+  document.getElementById("seasons").addEventListener("click", function (event) {
+    var season = attrFrom(event, "data-season");
+    if (!season) return;
+    var games = gamesForSportSeason(manifest, sportName, season);
+    if (!games.length) return;
+    seasonName = season;
+    var i;
+    for (i = 0; i < games.length; i++) {
+      if (games[i].file === currentFile && !viewingLive && !viewingBoard) {
+        renderPicker();
+        return;
+      }
+    }
     followBlocked = true;
     writeQuery(games[0].sport, games[0].away, games[0].home, false);
     loadGame(games[0]);
@@ -2288,7 +2395,7 @@
     axisLabel(svg, plot.left - 8, yAtLow(1, 0, 1), "100", "end");
 
     var points = shown.map(function (frame) {
-      return { x: xOf(frame), p: frame.wp };
+      return { x: xOf(frame), p: frame.win_prob };
     });
     for (var i = 1; i < points.length; i++) {
       splitPiece(points[i - 1], points[i]).forEach(function (piece) {

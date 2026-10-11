@@ -1,4 +1,4 @@
-"""Write the NFL, NHL, and NBA scoreboards to widget/slate.js.
+"""Write the NFL, NHL, and NBA scoreboards to slate.js.
 
 The slate command reads those three scoreboards and stops.
 ``--interval`` polls until Ctrl+C. The no-game live loop calls
@@ -37,12 +37,12 @@ from live_wp.follow import (
     slate_states,
 )
 
-DEFAULT_OUT = Path(__file__).resolve().parents[2] / "widget" / "slate.js"
+DEFAULT_OUT = Path(__file__).resolve().parents[2] / "slate.js"
 _DEFAULT_INTERVAL = 15.0
 _SPORTS = ("nfl", "nhl", "nba")
 _USAGE = (
     "usage: python -m live_wp slate "
-    "[--date YYYYMMDD] [--interval 15] [--out widget/slate.js]"
+    "[--date YYYYMMDD] [--interval 15] [--out slate.js]"
 )
 
 

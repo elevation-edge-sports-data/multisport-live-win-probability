@@ -1,4 +1,4 @@
-"""Local widget server and the live replay writer.
+"""Local page server and the live replay writer.
 
 Serve tests bind 127.0.0.1 and then stop the server. Every other test
 in this module blocks sockets. None of them call ESPN.
@@ -113,7 +113,7 @@ def _get(host: str, port: int, path: str) -> tuple[int, bytes]:
 
 
 class _Running:
-    """One local widget server. Leaving the block always stops it."""
+    """One local page server. Leaving the block always stops it."""
 
     def __init__(self) -> None:
         self.server: object = None
@@ -300,7 +300,7 @@ def _assert_no_college(urls: list[str]) -> None:
 
 
 def _real_slate_bytes() -> bytes | None:
-    path = ROOT / "widget" / "slate.js"
+    path = ROOT / "slate.js"
     if not path.is_file():
         return None
     return path.read_bytes()
@@ -320,13 +320,13 @@ def test_serve_binds_localhost_and_stops() -> None:
         assert b"Multisport live win probability" in body
         assert b"live_replay.js" not in body
         assert b"espn" not in body.lower()
-        live_status, live_body = _get(host, port, "/widget/live_replay.js")
+        live_status, live_body = _get(host, port, "/replays/live_replay.js")
         assert live_status == 200
         assert b"window." not in live_body
-        bust_status, bust_body = _get(host, port, "/widget/live_replay.js?t=1")
+        bust_status, bust_body = _get(host, port, "/replays/live_replay.js?t=1")
         assert bust_status == 200
         assert bust_body == live_body
-        css_status, css = _get(host, port, "/widget/widget.css")
+        css_status, css = _get(host, port, "/styles.css")
         assert css_status == 200
         assert b"text-align: right" in css
         missing, missing_body = _get(
@@ -419,15 +419,13 @@ def test_serve_post_follow_writes_follow_json_and_keeps_a_bad_body(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
     root = tmp_path
-    widget = root / "widget"
-    widget.mkdir()
     index = root / "index.html"
     index.write_text(
         "<!DOCTYPE html><title>Multisport live win probability</title>\n",
         encoding="utf-8",
         newline="\n",
     )
-    follow = widget / "follow.json"
+    follow = root / "follow.json"
     follow.write_text(_selection("nba", "11"), encoding="utf-8", newline="\n")
     original = follow.read_bytes()
     kept_index = index.read_bytes()
@@ -506,8 +504,8 @@ def test_serve_post_follow_writes_follow_json_and_keeps_a_bad_body(
         assert b"Internal Server Error" in failed
         assert follow.read_bytes() == kept
         assert not follow.with_name(follow.name + ".tmp").exists()
-        names = sorted(path.name for path in widget.iterdir())
-        assert names == ["follow.json"]
+        names = sorted(path.name for path in root.iterdir())
+        assert names == ["follow.json", "index.html"]
         assert index.is_file()
     finally:
         server.shutdown()
@@ -549,25 +547,21 @@ def test_page_points_at_the_local_replay_and_does_not_fetch() -> None:
     assert "fetch(" not in lowered
     assert "espn" not in lowered
     assert "http://" not in lowered and "https://" not in lowered
-    assert 'src="widget/manifest.js"' in html
-    assert 'src="widget/colors.js"' in html
-    assert 'src="widget/widget.js"' in html
-    redirect = (ROOT / "widget" / "index.html").read_text(encoding="utf-8").lower()
-    assert 'url=../' in redirect
-    assert "fetch(" not in redirect
-    assert "espn" not in redirect
-    script = (ROOT / "widget" / "widget.js").read_text(encoding="utf-8")
+    assert 'src="manifest.js"' in html
+    assert 'src="colors.js"' in html
+    assert 'src="app.js"' in html
+    script = (ROOT / "app.js").read_text(encoding="utf-8")
     assert script.count("fetch(") == 4
     assert 'fetch("/follow"' in script
-    assert 'fetch("widget/follow.json"' in script
-    assert "widget/live_replay.js?" in script
+    assert 'fetch("follow.json"' in script
+    assert "replays/live_replay.js?" in script
     assert "127.0.0.1" in script
     assert "localhost" in script
     assert "MSWP_LIVE" in script
     assert "XMLHttpRequest" not in script
     assert "WebSocket" not in script
     assert "espn" not in script.lower()
-    stub = (ROOT / "widget" / "live_replay.js").read_text(encoding="utf-8")
+    stub = (ROOT / "replays" / "live_replay.js").read_text(encoding="utf-8")
     assert "window." not in stub
     assert "fetch(" not in stub
     assert "espn" not in stub.lower()
@@ -705,7 +699,7 @@ def test_live_default_out_is_the_widget_replay() -> None:
     options = parse_live_args(["--game", "55"])
     assert options.out == DEFAULT_OUT
     assert options.out.name == "live_replay.js"
-    assert options.out.parent.name == "widget"
+    assert options.out == ROOT / "replays" / "live_replay.js"
     assert options.interval == 15.0
     assert options.sport == "nfl"
     assert options.game == "55"
@@ -713,8 +707,7 @@ def test_live_default_out_is_the_widget_replay() -> None:
     assert watched.game is None
     assert watched.out == DEFAULT_OUT
     assert watched.interval == 15.0
-    assert DEFAULT_FOLLOW.name == "follow.json"
-    assert DEFAULT_FOLLOW.parent == DEFAULT_OUT.parent
+    assert DEFAULT_FOLLOW == ROOT / "follow.json"
 
 
 def _with_id(event: dict, game_id: str) -> dict:

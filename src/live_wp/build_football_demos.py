@@ -10,7 +10,7 @@ from mswp.state import GameState
 
 ROOT = Path(__file__).resolve().parents[2]
 EXAMPLES = ROOT / "examples"
-WIDGET = ROOT / "widget"
+REPLAYS = ROOT / "replays"
 
 
 def build_football_demos() -> int:
@@ -24,7 +24,8 @@ def build_football_demos() -> int:
 def _stamp(path: Path, prior: float) -> list[GameState]:
     states = [replace(state, prior_home=prior) for state in load_replay(path)]
     path.write_text(dump_replay(states), encoding="utf-8", newline="\n")
-    (WIDGET / f"{path.stem}.js").write_text(
-        render_widget_script(states), encoding="utf-8", newline="\n"
-    )
+    sport, _, rest = path.stem.partition("_")
+    dest = REPLAYS / sport / f"{rest}.js"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(render_widget_script(states), encoding="utf-8", newline="\n")
     return states

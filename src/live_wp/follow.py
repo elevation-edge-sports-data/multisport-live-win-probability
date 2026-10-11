@@ -1,7 +1,7 @@
 """Poll an unofficial ESPN site API and print replay lines.
 
 Network stays in this module. The mappers accept dicts and do not fetch.
-The widget does not call this. ``--sport nfl`` is the default. ``nhl`` uses
+The page does not call this. ``--sport nfl`` is the default. ``nhl`` uses
 the hockey feed and ``nba`` uses the basketball feed. College football,
 college hockey, and college basketball are rejected.
 """
@@ -343,7 +343,7 @@ def follow_game(
     ``sport`` defaults to nfl. ``on_change`` runs after each printed line
     with that snapshot. When ``stop`` returns true, the loop returns 0
     before the next fetch. ``before_poll``, when set, runs after that
-    check and before the fetch. The widget does not call this loop.
+    check and before the fetch. The page does not call this loop.
     """
     if interval < 5:
         raise ValueError("interval must be at least 5 seconds")
