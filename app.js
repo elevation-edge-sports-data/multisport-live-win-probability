@@ -8,9 +8,11 @@
 // requests GET /slate for the active sport and that day, and draws the
 // same slate row. While that dated slate is showing, the season list
 // and archive game buttons stay hidden. A click on that row requests
-// GET /replay. When the server returns frames, the page draws them on
-// the charts the same way it draws an archived replay. A game that has
-// not started, or a replay with no frames, keeps the scoreboard card.
+// GET /replay. When the server returns frames, including a single
+// snapshot, the page draws them on the charts. A game that has not
+// started, or a replay with no frames, keeps the scoreboard card.
+// A live chart on that date asks again every 15 seconds until the game
+// is final or the chart is closed.
 // Clearing the date restores the season list, the archive buttons, and
 // the archive game on the charts. GitHub Pages hides the date field.
 // It is / and does not request follow.json. College does not read it.
@@ -1778,8 +1780,77 @@
     loadGame(games[0]);
   }
 
-  // Dated slate clicks ask for a temporary replay. No frames keeps the
-  // scoreboard card. The charts stay empty until a later archive load.
+  function slateReplayUrl(sportKey, gameId, dateKey) {
+    return "/replay?sport=" + encodeURIComponent(sportKey) +
+      "&game_id=" + encodeURIComponent(gameId) +
+      "&date=" + encodeURIComponent(dateKey);
+  }
+
+  function loadReplay(url) {
+    return root.fetch(url, { cache: "no-store" });
+  }
+
+  // One frame is enough. An empty body, including HTTP 204, is not.
+  function replayRows(text) {
+    var parsed = readLiveAssignment(text);
+    if (!parsed || !parsed.rows || parsed.rows.length < 1) return null;
+    return parsed;
+  }
+
+  function frameTotal(frame) {
+    var home = Number(frame && frame.home_score);
+    var away = Number(frame && frame.away_score);
+    if (!isFinite(home)) home = 0;
+    if (!isFinite(away)) away = 0;
+    return home + away;
+  }
+
+  function laterFrame(previous, next) {
+    var prevStamp = previous && (previous.as_of || previous.asOf);
+    var nextStamp = next && (next.as_of || next.asOf);
+    var prevElapsed;
+    var nextElapsed;
+    if (prevStamp && nextStamp) return String(nextStamp) > String(prevStamp);
+    prevElapsed = Number(previous && previous.elapsed_seconds);
+    nextElapsed = Number(next && next.elapsed_seconds);
+    if (isFinite(prevElapsed) && isFinite(nextElapsed)) return nextElapsed > prevElapsed;
+    return false;
+  }
+
+  function slateReplayAdvanced(previous, next) {
+    var prevLast;
+    var nextLast;
+    if (!next || next.length < 1) return false;
+    if (!previous || previous.length < 1) return true;
+    if (next.length > previous.length) return true;
+    prevLast = previous[previous.length - 1];
+    nextLast = next[next.length - 1];
+    if (nextLast.status === "final" && prevLast.status !== "final") return true;
+    if (frameTotal(nextLast) > frameTotal(prevLast)) return true;
+    return laterFrame(prevLast, nextLast);
+  }
+
+  function replaceSlateFrames(rows) {
+    var wasOnLast = frames.length > 0 && index === frames.length - 1;
+    frames = rows;
+    scrub.max = String(frames.length - 1);
+    if (wasOnLast) show(frames.length - 1);
+    else {
+      if (index > frames.length - 1) index = frames.length - 1;
+      show(index);
+    }
+  }
+
+  function slateChartIsLive() {
+    var last;
+    if (viewingLive || viewingBoard || currentFile) return false;
+    if (!slateChartId || !slateDate || !frames.length) return false;
+    last = frames[frames.length - 1];
+    return !!(last && last.status === "live");
+  }
+
+  // Dated slate clicks ask for a temporary replay. One or more frames
+  // draw the chart. No frames, including HTTP 204, keeps the scoreboard card.
   function requestSlateReplay(row) {
     var serial;
     var sportKey;
@@ -1795,11 +1866,9 @@
     gameId = row.gameId;
     dateKey = slateDate;
     slateChartId = "";
-    url = "/replay?sport=" + encodeURIComponent(sportKey) +
-      "&game_id=" + encodeURIComponent(gameId) +
-      "&date=" + encodeURIComponent(dateKey);
+    url = slateReplayUrl(sportKey, gameId, dateKey);
     try {
-      pending = root.fetch(url, { cache: "no-store" });
+      pending = loadReplay(url);
     } catch (err) {
       return;
     }
@@ -1813,12 +1882,59 @@
       if (text == null || serial !== replaySerial) return;
       if (!slateDate || slateDate !== dateKey || sportName !== sportKey) return;
       if (!viewingBoard || !boardRow || boardRow.gameId !== gameId) return;
-      parsed = readLiveAssignment(text);
-      if (!parsed || !parsed.rows || !parsed.rows.length) return;
+      parsed = replayRows(text);
+      if (!parsed) return;
       if (parsed.gameId && parsed.gameId !== gameId) return;
       preferId = "";
       slateChartId = gameId;
       useFrames({ sport: sportKey, file: "" }, parsed.rows);
+      // Live replays open on the first row, which is 0-0. A dated slate
+      // click should show the line through the current score.
+      if (frames.length && frames[frames.length - 1].status === "live") {
+        show(frames.length - 1);
+      }
+    }).catch(function () {});
+  }
+
+  // While a dated chart is still live, ask again on the same interval as
+  // the other host polls. A final game, a cleared date, or leaving the
+  // chart stops it. replaySerial drops a response from an older click.
+  function pollSlateReplay() {
+    var serial;
+    var sportKey;
+    var gameId;
+    var dateKey;
+    var url;
+    var pending;
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    if (!slateChartIsLive()) return;
+    replaySerial += 1;
+    serial = replaySerial;
+    sportKey = sportName;
+    gameId = slateChartId;
+    dateKey = slateDate;
+    url = slateReplayUrl(sportKey, gameId, dateKey);
+    try {
+      pending = loadReplay(url);
+    } catch (err) {
+      return;
+    }
+    Promise.resolve(pending).then(function (response) {
+      if (serial !== replaySerial) return null;
+      if (!slateChartIsLive() || slateChartId !== gameId || slateDate !== dateKey) return null;
+      if (!response || !response.ok || response.status === 204) return null;
+      if (typeof response.text !== "function") return null;
+      return response.text();
+    }).then(function (text) {
+      var parsed;
+      if (text == null || serial !== replaySerial) return;
+      if (!slateChartIsLive() || slateChartId !== gameId || slateDate !== dateKey) return;
+      if (sportName !== sportKey) return;
+      parsed = replayRows(text);
+      if (!parsed) return;
+      if (parsed.gameId && parsed.gameId !== gameId) return;
+      if (!slateReplayAdvanced(frames, parsed.rows)) return;
+      replaceSlateFrames(parsed.rows);
     }).catch(function () {});
   }
 
@@ -1931,6 +2047,7 @@
     root.setInterval(function () {
       pollLive();
       pollSlate();
+      pollSlateReplay();
     }, LIVE_POLL_MS);
   }
 
@@ -2160,6 +2277,7 @@
   }
 
   function useFrames(entry, rows) {
+    if (!rows || rows.length < 1) return;
     setPlaying(false);
     viewingLive = false;
     boardRow = null;
@@ -2377,6 +2495,18 @@
     return plot.left + t * width;
   }
 
+  // One snapshot has no second point, so the stroke would be zero length.
+  // A short run keeps the score step and the win-probability line visible.
+  function loneRun(x) {
+    var pad = 32;
+    var left = plot.left;
+    var right = plot.width - plot.right;
+    if (x >= left + pad) return [x - pad, x];
+    var end = x + pad;
+    if (end > right) end = right;
+    return [x, end];
+  }
+
   function yAt(value, valueMin, valueMax) {
     var span = plot.height - plot.top - plot.bottom;
     var t = valueMax === valueMin ? 0 : (value - valueMin) / (valueMax - valueMin);
@@ -2469,6 +2599,8 @@
       clearCharts();
       return;
     }
+    // A single live snapshot still draws. Empty frames do not.
+    if (!frames.length) return;
     var layout = layoutBands(frames, sportName);
     var shown = frames.slice(0, currentIndex + 1);
     function xOf(frame) {
@@ -2574,8 +2706,16 @@
     var d = "";
     var lastX = 0;
     var lastY = 0;
+    var run;
     if (!shown.length) return;
+    if (shown.length === 1) {
+      lastX = xOf(shown[0]);
+      lastY = yAt(shown[0][field], 0, scoreMax);
+      run = loneRun(lastX);
+      d = "M " + run[0] + " " + lastY + " H " + run[1];
+    }
     shown.forEach(function (frame, i) {
+      if (shown.length === 1) return;
       var x = xOf(frame);
       var y = yAt(frame[field], 0, scoreMax);
       lastX = x;
@@ -2615,6 +2755,19 @@
     var points = shown.map(function (frame) {
       return { x: xOf(frame), p: frame.win_prob };
     });
+    if (!points.length) return;
+    if (points.length === 1) {
+      var alone = loneRun(points[0].x);
+      var aloneY = yAtLow(points[0].p, 0, 1);
+      appendSeriesPath(svg, {
+        d: "M " + alone[0] + " " + aloneY + " L " + alone[1] + " " + aloneY,
+        fill: "none",
+        stroke: colors[sideOf(points[0].p)],
+        "stroke-width": "2",
+        "data-series": "wp-line",
+        "data-tone": sideOf(points[0].p)
+      });
+    }
     for (var i = 1; i < points.length; i++) {
       splitPiece(points[i - 1], points[i]).forEach(function (piece) {
         var y0 = yAtLow(piece.p0, 0, 1);

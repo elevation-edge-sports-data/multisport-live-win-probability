@@ -123,6 +123,12 @@ def espn_summary_to_states(
 
     ``density="all"`` keeps every play on ``drives.previous`` and any
     top-level ``plays`` list, plus the opening snapshot and the final.
+
+    A final summary closes on the whistle. A live summary is only the
+    plays so far. Scoring rows may omit a total or a clock, the current
+    drive may be unfinished, and the status is still ``in``. Those rows
+    are kept. The last snapshot is the current score, period, and clock
+    with status ``live``.
     """
     if not isinstance(summary, Mapping):
         raise TypeError("ESPN summary must be an object")
@@ -577,8 +583,11 @@ def _summary_states(
 ) -> list[GameState]:
     home, away, final_home, final_away = _competitors(competition)
     config = _config_for(sport)
+    # Live summaries often omit the period clock that a final summary has.
+    # A missing clock is filled from the plays. It is not a reason to drop
+    # the scoring list.
     espn_state, status_period, status_display = _status_parts(
-        _status_block(competition, header), sport
+        _status_block(competition, header), sport, allow_partial=True
     )
     prior = _resolve_prior(summary, prior_home)
     game_id = _event_id(header, competition)
@@ -657,7 +666,14 @@ def _summary_states(
     )
 
     for play in plays:
+        reported = _play_scores(play)
+        if reported is None and _is_marked_scoring(play):
+            # A live scoring row can name the points and the team without
+            # the running totals a final play carries.
+            reported = _points_after_score(play, home, away, last_home, last_away)
         period = _play_period(play)
+        if period is None and reported is not None and _is_marked_scoring(play):
+            period = status_period
         if period is None:
             continue
         clock = _play_clock_seconds(play, sport)
@@ -665,9 +681,7 @@ def _summary_states(
         spot = _play_spot(play)
         possessing = _play_possession_id(spot)
         entered_home, entered_away = last_home, last_away
-        scores = _play_scores(play)
-        if scores is None:
-            scores = (entered_home, entered_away)
+        scores = reported if reported is not None else (entered_home, entered_away)
 
         if density in {"scoring", "situation"}:
             for quarter in range(max(started) + 1, period + 1):
@@ -701,7 +715,6 @@ def _summary_states(
                 )
                 two_minute_done.add(period)
 
-        reported = _play_scores(play)
         score_changed = reported is not None and reported != (entered_home, entered_away)
         if _is_hockey(sport):
             minute_key = (period, _nhl_elapsed_minute(period, clock))
@@ -757,14 +770,29 @@ def _summary_states(
             synthetic=True,
         )
     elif espn_state == "in":
-        if status_period is None or status_display is None:
-            raise ValueError("ESPN live status is missing a period clock")
-        now_clock = _parse_clock(status_display)
+        # Final games emit a 0:00 whistle. A live game keeps the current
+        # scoreboard clock. When that clock is missing, the last play is
+        # the current frame instead of failing the whole summary.
+        period = status_period
+        if period is None:
+            period = states[-1].period if states else 1
+        fallback_clock = (
+            states[-1].seconds_remaining_period
+            if states
+            else _period_length(period, sport)
+        )
+        if status_display is None:
+            now_clock = fallback_clock
+        else:
+            try:
+                now_clock = _parse_clock(status_display)
+            except ValueError:
+                now_clock = fallback_clock
         situation = competition.get("situation")
         spot = situation if isinstance(situation, Mapping) else None
         possessing = spot.get("possession") if spot is not None else None
         emit(
-            period=status_period,
+            period=period,
             period_seconds=now_clock,
             home_score=final_home,
             away_score=final_away,
@@ -837,7 +865,7 @@ def _listed_plays(
 
 def _plays(summary: Mapping[str, Any], sport: str = "nfl") -> list[Mapping[str, Any]]:
     ordered: list[Mapping[str, Any]] = []
-    seen: set[str] = set()
+    seen: dict[str, int] = {}
 
     def add(play: object) -> None:
         if not isinstance(play, Mapping):
@@ -845,9 +873,14 @@ def _plays(summary: Mapping[str, Any], sport: str = "nfl") -> list[Mapping[str, 
         play_id = play.get("id")
         if play_id is not None:
             key = str(play_id)
-            if key in seen:
+            previous = seen.get(key)
+            if previous is not None:
+                # A live drive can list the play before its score is filled
+                # in. The scoringPlays copy of that id has the totals.
+                if _play_scores(ordered[previous]) is None and _play_scores(play) is not None:
+                    ordered[previous] = play
                 return
-            seen.add(key)
+            seen[key] = len(ordered)
         ordered.append(play)
 
     drives = summary.get("drives")
@@ -936,7 +969,44 @@ def _nhl_elapsed_minute(period: int, remaining: int) -> int:
 def _play_scores(play: Mapping[str, Any]) -> tuple[int, int] | None:
     if "homeScore" not in play or "awayScore" not in play:
         return None
-    return _score(play.get("homeScore")), _score(play.get("awayScore"))
+    try:
+        return _score(play.get("homeScore")), _score(play.get("awayScore"))
+    except (TypeError, ValueError):
+        # One unreadable total must not drop the rest of a live summary.
+        return None
+
+
+def _is_marked_scoring(play: Mapping[str, Any]) -> bool:
+    if play.get("scoringPlay") is True:
+        return True
+    return isinstance(play.get("scoringType"), Mapping)
+
+
+def _points_after_score(
+    play: Mapping[str, Any],
+    home: _Side,
+    away: _Side,
+    last_home: int,
+    last_away: int,
+) -> tuple[int, int] | None:
+    """Running score when a scoring row names points and a team only.
+
+    Final plays include ``homeScore`` and ``awayScore``, so this is not
+    used for a completed game.
+    """
+    value = _whole_number(play.get("scoreValue"))
+    if value is None or value <= 0:
+        return None
+    team = play.get("team")
+    team_id = team.get("id") if isinstance(team, Mapping) else None
+    if team_id is None:
+        return None
+    token = str(team_id)
+    if token == home.id:
+        return last_home + value, last_away
+    if token == away.id:
+        return last_home, last_away + value
+    return None
 
 
 def _play_spot(play: Mapping[str, Any]) -> Mapping[str, Any] | None:
@@ -1202,11 +1272,15 @@ def _status_block(
 def _status_parts(
     status: Mapping[str, Any],
     sport: str,
+    *,
+    allow_partial: bool = False,
 ) -> tuple[str, int | None, str | None]:
     """Map ESPN status to a state, period, and display clock.
 
     A final summary may omit period and displayClock. Callers then use the
-    last play's period and 0:00.
+    last play's period and 0:00. A live summary may omit them too.
+    ``allow_partial`` keeps that in-progress body instead of refusing it.
+    Scoreboard rows stay strict.
     """
     kind = status.get("type")
     if not isinstance(kind, Mapping):
@@ -1227,7 +1301,10 @@ def _status_parts(
     if espn_state == "pre":
         return "pre", 1, _seconds_to_display(_config_for(sport).period_seconds)
     if espn_state != "post" and period is None:
-        raise ValueError("ESPN status period must be >= 1 once the game has started")
+        if not (allow_partial and espn_state == "in"):
+            raise ValueError(
+                "ESPN status period must be >= 1 once the game has started"
+            )
     return espn_state, period, display
 
 

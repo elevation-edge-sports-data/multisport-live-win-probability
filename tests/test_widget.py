@@ -3363,6 +3363,107 @@ async function runPoll(page) {
   await flush();
   const chartedArchive = snap(charted);
 
+  function pointScript(rows) {
+    return "window.NFL_REPLAY = " + JSON.stringify(rows) + ";\nwindow.MSWP_LIVE = window.NFL_REPLAY;\n";
+  }
+  function liveRow(awayScore, homeScore, status, elapsed, winProb) {
+    return {
+      sport: "nfl",
+      clock: status === "final" ? "FINAL" : "Q2 8:00",
+      win_prob: winProb,
+      home: "DEN",
+      away: "JAX",
+      home_score: homeScore,
+      away_score: awayScore,
+      status: status,
+      period: 2,
+      seconds_remaining_period: status === "final" ? 0 : 480,
+      seconds_remaining_total: status === "final" ? 0 : 2280,
+      prior_home: 0.61,
+      game_id: "703",
+      elapsed_seconds: elapsed
+    };
+  }
+  function seriesNames(doc, id) {
+    const found = [];
+    function walk(node) {
+      (node.children || []).forEach((child) => {
+        const name = child.getAttribute && child.getAttribute("data-series");
+        if (name) found.push(name);
+        walk(child);
+      });
+    }
+    walk(doc.getElementById(id));
+    return found;
+  }
+  function replayCount(target) {
+    return target.fetches.filter((item) => String(item.url).indexOf("/replay?") === 0).length;
+  }
+  const liveSlate = [
+    { sport: "nfl", game_id: "703", away: "JAX", home: "DEN", status: "live", away_score: 3, home_score: 7, prior_home: 0.61 }
+  ];
+  const liveChart = boot({
+    slate: [http(200, slateSource(slateRows))],
+    live: [http(200, liveSource())],
+    slateApi: [http(200, JSON.stringify(liveSlate))],
+    replay: [
+      http(200, pointScript([liveRow(3, 7, "live", 1320, 0.42)])),
+      http(200, pointScript([
+        liveRow(0, 0, "pre", 0, 0.61),
+        liveRow(3, 7, "live", 1320, 0.42),
+        liveRow(6, 10, "live", 1800, 0.55)
+      ])),
+      http(200, pointScript([
+        liveRow(0, 0, "pre", 0, 0.61),
+        liveRow(3, 7, "live", 1320, 0.42),
+        liveRow(6, 10, "live", 1800, 0.55),
+        liveRow(6, 13, "live", 2100, 0.7)
+      ])),
+      http(200, pointScript([
+        liveRow(0, 0, "pre", 0, 0.61),
+        liveRow(6, 13, "final", 3600, 1)
+      ]))
+    ]
+  });
+  await flush();
+  const liveInput = liveChart.document.getElementById("slate-date");
+  liveInput.value = "2026-10-11";
+  liveInput.dispatch("change");
+  await flush();
+  clickSlate(liveChart, "703");
+  await flush();
+  const liveOne = snap(liveChart);
+  liveOne.wp = liveChart.document.getElementById("c-wp").textContent;
+  liveOne.scoreSeries = seriesNames(liveChart.document, "score-chart");
+  liveOne.wpSeries = seriesNames(liveChart.document, "wp-chart");
+  liveOne.replayCount = replayCount(liveChart);
+  function fillPoll(target) {
+    target.liveItems.push(http(200, liveSource()));
+    target.slateItems.push(http(200, slateSource(slateRows)));
+  }
+  fillPoll(liveChart);
+  await runPoll(liveChart);
+  const liveGrown = snap(liveChart);
+  liveGrown.replayCount = replayCount(liveChart);
+  const liveScrub = liveChart.document.getElementById("scrub");
+  liveScrub.value = "0";
+  liveScrub.dispatch("input");
+  const liveHeldBefore = snap(liveChart);
+  fillPoll(liveChart);
+  await runPoll(liveChart);
+  const liveKept = snap(liveChart);
+  liveKept.replayCount = replayCount(liveChart);
+  liveScrub.value = liveScrub.max;
+  liveScrub.dispatch("input");
+  fillPoll(liveChart);
+  await runPoll(liveChart);
+  const liveFinal = snap(liveChart);
+  liveFinal.replayCount = replayCount(liveChart);
+  fillPoll(liveChart);
+  await runPoll(liveChart);
+  const liveQuiet = snap(liveChart);
+  liveQuiet.replayCount = replayCount(liveChart);
+
   console.log(JSON.stringify({
     pollMs: page.intervals.filter((entry) => entry.ms === 15000).map((entry) => entry.ms),
     opened: opened,
@@ -3417,7 +3518,13 @@ async function runPoll(page) {
     chartedCleared: chartedCleared,
     chartedCollege: chartedCollege,
     chartedCollegeCleared: chartedCollegeCleared,
-    chartedArchive: chartedArchive
+    chartedArchive: chartedArchive,
+    liveOne: liveOne,
+    liveGrown: liveGrown,
+    liveHeldBefore: liveHeldBefore,
+    liveKept: liveKept,
+    liveFinal: liveFinal,
+    liveQuiet: liveQuiet
   }));
 })().catch((err) => {
   console.error(err && err.stack ? err.stack : err);
@@ -3963,6 +4070,26 @@ async function runPoll(page) {
         {"file": "cu_gt.js", "label": "COLO at GT"},
         {"file": "sample.js", "label": "OU at TEX"},
     ]
+    live_one = report["liveOne"]
+    assert live_one["boardHidden"] is True
+    assert live_one["scoreNodes"] > 0
+    assert live_one["wpNodes"] > 0
+    assert "JAX 3" in live_one["score"] and "DEN 7" in live_one["score"]
+    assert live_one["wp"] == "42.00%"
+    assert "away-score" in live_one["scoreSeries"] and "home-score" in live_one["scoreSeries"]
+    assert "wp-line" in live_one["wpSeries"]
+    assert live_one["replayCount"] == 1
+    assert report["liveGrown"]["replayCount"] == 2
+    assert "JAX 6" in report["liveGrown"]["score"] and "DEN 10" in report["liveGrown"]["score"]
+    assert "JAX 0" in report["liveHeldBefore"]["score"] and "DEN 0" in report["liveHeldBefore"]["score"]
+    assert "JAX 0" in report["liveKept"]["score"] and "DEN 0" in report["liveKept"]["score"]
+    assert "13" not in report["liveKept"]["score"]
+    assert report["liveKept"]["replayCount"] == 3
+    assert report["liveFinal"]["clock"] == "FINAL"
+    assert "JAX 6" in report["liveFinal"]["score"] and "DEN 13" in report["liveFinal"]["score"]
+    assert report["liveFinal"]["replayCount"] == 4
+    assert report["liveQuiet"]["replayCount"] == 4
+    assert report["liveQuiet"]["clock"] == "FINAL"
     charted_archive = report["chartedArchive"]
     assert charted_archive["boardHidden"] is True
     assert "OU" in charted_archive["score"] and "TEX" in charted_archive["score"]

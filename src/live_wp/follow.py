@@ -10,13 +10,14 @@ used for the pro leagues refuse a body from a different league.
 from __future__ import annotations
 
 import json
+import os
 import sys
 import time
 import urllib.error
 import urllib.request
 from collections.abc import Callable, Mapping
 from dataclasses import dataclass, replace
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 from urllib.parse import urlencode
 
@@ -513,22 +514,98 @@ def replay_states(
 ) -> list[GameState]:
     """Snapshots to chart for one slate game.
 
-    A game that has not started, or a body with no snapshots, returns an
-    empty list. That is not a failure. A live or final summary returns its
-    scoring snapshots, including the opening row. When that summary has
-    none, a live or final scoreboard row is the one snapshot. ``fetch``
-    reads the scoreboard and, unless that row is still pre, the summary.
+    A game that has not started returns an empty list. That is not a
+    failure. Final summaries carry the full scoring list. A live summary
+    is partial: the scoring plays so far, an unfinished drive, and a clock
+    that is not the final whistle. Those snapshots are used when any of
+    them has started. When that body has no usable play, a live or final
+    scoreboard row is still charted, as an opening 0-0 plus the current
+    score. Only a true pre-game, or a body with no row and no snapshots,
+    returns an empty list. ``fetch`` reads the scoreboard and, unless that
+    row is still pre, the summary.
     """
     getter = _feed_fetch(sport) if fetch is None else fetch
     board_state = _board_snapshot(game_id, date, getter, sport)
     if board_state is not None and board_state.status == "pre":
+        _log_replay_debug(board_state, None, [])
         return []
     summary_states = _summary_snapshots(game_id, getter, sport)
     if summary_states and any(state.status != "pre" for state in summary_states):
-        return summary_states
+        chosen = _ensure_line(summary_states)
+        _log_replay_debug(board_state, len(summary_states), chosen)
+        return chosen
     if board_state is not None and board_state.status != "pre":
-        return [board_state]
+        chosen = _ensure_line([board_state])
+        _log_replay_debug(board_state, len(summary_states), chosen)
+        return chosen
+    _log_replay_debug(board_state, len(summary_states), [])
     return []
+
+
+def _log_replay_debug(
+    board: GameState | None,
+    summary_count: int | None,
+    chosen: list[GameState],
+) -> None:
+    """Stderr note for one slate replay. Silent unless MSWP_DEBUG_REPLAY=1."""
+    if os.environ.get("MSWP_DEBUG_REPLAY") != "1":
+        return
+    if board is None:
+        board_line = "board_state missing"
+    else:
+        board_line = (
+            f"board_state status={board.status} "
+            f"score={board.away_score}-{board.home_score}"
+        )
+    summary_line = "skipped" if summary_count is None else str(summary_count)
+    print(
+        f"replay_states {board_line} summary_states={summary_line} "
+        f"returned={len(chosen)}",
+        file=sys.stderr,
+    )
+
+
+def _ensure_line(states: list[GameState]) -> list[GameState]:
+    """Give a lone started snapshot an opening point so the chart is a line.
+
+    A full scoring list already starts at 0-0. A live scoreboard row, or a
+    summary that kept only the current frame, does not.
+    """
+    if len(states) != 1 or states[0].status == "pre":
+        return states
+    current = states[0]
+    opening = _opening_state(current)
+    if (
+        opening.period == current.period
+        and opening.seconds_remaining_period == current.seconds_remaining_period
+        and opening.home_score == current.home_score
+        and opening.away_score == current.away_score
+        and opening.status == current.status
+    ):
+        return states
+    return [opening, current]
+
+
+def _opening_state(current: GameState) -> GameState:
+    """0-0 at the start of period 1, with the current row's prior."""
+    config = config_for_state(current)
+    return replace(
+        current,
+        home_score=0,
+        away_score=0,
+        period=1,
+        seconds_remaining_period=config.period_seconds,
+        seconds_remaining_total=config.regulation_seconds,
+        status="pre",
+        as_of=current.as_of - timedelta(seconds=1),
+        possession=None,
+        down=None,
+        distance=None,
+        yardline=None,
+        timeouts=None,
+        strength=None,
+        extra_attacker=None,
+    )
 
 
 def _feed_fetch(sport: str) -> Fetch:
@@ -596,7 +673,12 @@ def _basketball_chart_states(
     payload: Mapping[str, Any], prior: float | None
 ) -> list[GameState]:
     plays = payload.get("plays")
-    if isinstance(payload.get("header"), Mapping) and isinstance(plays, list) and plays:
+    scoring = payload.get("scoringPlays")
+    has_plays = isinstance(plays, list) and bool(plays)
+    has_scoring = isinstance(scoring, list) and bool(scoring)
+    # A live summary may list only the baskets so far, under plays or
+    # scoringPlays. Either list is enough. An empty body falls through.
+    if isinstance(payload.get("header"), Mapping) and (has_plays or has_scoring):
         return events_from_espn_basketball(payload, prior_home=prior, density="scoring")
     if isinstance(payload.get("competitions"), list):
         return [scoreboard_event_to_state(payload, prior_home=prior)]

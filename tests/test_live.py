@@ -23,6 +23,7 @@ from live_wp.__main__ import main
 from live_wp.follow import (
     FollowError,
     _with_frozen_prior,
+    replay_states,
     scoreboard_url,
     slate_states,
     summary_url,
@@ -1554,6 +1555,40 @@ def test_replay_script_charts_started_games_for_every_sport() -> None:
         assert f'"home": "{home}"' in rendered
         assert called[0] == scoreboard_url("20260920", sport=sport)
         assert summary_url("55", sport=sport) in called
+
+
+def test_replay_states_charts_a_live_summary_and_a_scoreboard_line() -> None:
+    summary = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    status = summary["header"]["competitions"][0]["status"]
+    status["type"] = {"state": "in", "name": "STATUS_IN_PROGRESS", "completed": False}
+    status["period"] = 4
+    status["displayClock"] = "1:12"
+    _urls, fetch = _replay_fetch("nfl", _replay_event("nfl", "9001001", "in"), summary)
+    states = replay_states("9001001", sport="nfl", date="20260920", fetch=fetch)
+    assert len(states) > 2
+    assert states[0].status == "pre"
+    assert states[0].home_score == 0 and states[0].away_score == 0
+    assert states[-1].status == "live"
+    assert states[-1].home_score == 14 and states[-1].away_score == 10
+    assert len({state.prior_home for state in states}) == 1
+
+    board_urls, board_fetch = _replay_fetch("nba", _replay_event("nba", "55", "in"))
+    boarded = replay_states("55", sport="nba", date="20260920", fetch=board_fetch)
+    assert [state.status for state in boarded] == ["pre", "live"]
+    assert boarded[0].home_score == 0 and boarded[0].away_score == 0
+    assert boarded[0].period == 1
+    assert boarded[0].seconds_remaining_period == 12 * 60
+    assert boarded[-1].home_score == 20 and boarded[-1].away_score == 13
+    assert boarded[-1].prior_home == boarded[0].prior_home
+    assert summary_url("55", sport="nba") in board_urls
+
+    quiet, untouched = _replay_fetch("nhl", _replay_event("nhl", "77", "pre"))
+    assert replay_states("77", sport="nhl", date="20260920", fetch=untouched) == []
+    assert quiet == [scoreboard_url("20260920", sport="nhl")]
 
 
 def test_replay_script_skips_a_pre_game_and_a_feed_failure() -> None:

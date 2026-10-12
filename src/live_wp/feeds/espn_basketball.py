@@ -192,6 +192,11 @@ def events_from_espn_basketball(
     ``density="situation"`` also keeps about one clock sample per minute.
     Basketball plays have no down or distance, so a situation event is a
     change of score, period, or clock.
+
+    A final list ends on the last play. A live list is only the plays so
+    far, sometimes under ``scoringPlays`` when ``plays`` is still empty.
+    The last snapshot stays ``live`` and uses the header score and clock.
+    It is not marked final just because the score is not tied.
     """
     if density not in DENSITIES:
         raise ValueError("density must be scoring, situation, or all")
@@ -211,8 +216,9 @@ def events_from_espn_basketball(
     prior = home_moneyline_prior(payload)
     if prior is None:
         prior = prior_home if prior_home is not None else DEFAULT_PRIOR_HOME
-    plays = payload.get("plays")
-    if not isinstance(plays, list) or not plays:
+    espn_state = _espn_progress(competition)
+    plays = _basketball_plays(payload)
+    if not plays:
         raise ValueError("ESPN basketball summary has no plays")
 
     as_of = datetime(2024, 4, 1, tzinfo=timezone.utc)
@@ -220,14 +226,19 @@ def events_from_espn_basketball(
     for index, raw in enumerate(plays):
         if not isinstance(raw, Mapping):
             continue
-        period_block = raw.get("period") if isinstance(raw.get("period"), Mapping) else {}
-        period = int(period_block.get("number") or 1)
-        clock = raw.get("clock") if isinstance(raw.get("clock"), Mapping) else {}
-        display = str(clock.get("displayValue") or "0:00")
-        period_left = _parse_clock(display)
+        try:
+            home_score = int(raw.get("homeScore") or 0)
+            away_score = int(raw.get("awayScore") or 0)
+        except (TypeError, ValueError):
+            # One bad total must not drop the baskets already played.
+            continue
+        period = _play_period_number(raw)
+        display = _play_clock_display(raw)
+        try:
+            period_left = _parse_clock(display)
+        except ValueError:
+            period_left = 0
         total_left = _total_remaining(period, period_left, config)
-        home_score = int(raw.get("homeScore") or 0)
-        away_score = int(raw.get("awayScore") or 0)
         possession = _possession(raw, home_id, away_id)
         status = "live"
         text = str(raw.get("text") or "").lower()
@@ -235,7 +246,9 @@ def events_from_espn_basketball(
             status = "pre"
         if "end of game" in text:
             status = "final"
-        if index == len(plays) - 1 and home_score != away_score:
+        # A finished game's last play is the whistle. A live game's last
+        # play is not final just because the score is not tied.
+        if espn_state == "post" and index == len(plays) - 1 and home_score != away_score:
             status = "final"
         states.append(
             GameState(
@@ -255,11 +268,167 @@ def events_from_espn_basketball(
                 possession=possession,
             )
         )
+    if states and (states[0].home_score != 0 or states[0].away_score != 0):
+        states.insert(
+            0,
+            _opening_state(sport, game_id, home, away, prior, config, as_of),
+        )
     if not states:
-        raise ValueError("ESPN basketball summary produced no snapshots")
-    if density == "all":
+        if espn_state != "in":
+            raise ValueError("ESPN basketball summary produced no snapshots")
+        states = [_opening_state(sport, game_id, home, away, prior, config, as_of)]
+    if density != "all":
+        states = _select_density(states, density)
+    if espn_state == "in":
+        states = _with_live_tail(
+            states,
+            competition,
+            config,
+            sport=sport,
+            game_id=game_id,
+            home=home,
+            away=away,
+            home_id=home_id,
+            away_id=away_id,
+            prior=prior,
+            as_of=as_of,
+        )
+    return states
+
+
+def _basketball_plays(payload: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+    """Play rows. A live body may have only ``scoringPlays`` so far."""
+    plays = payload.get("plays")
+    if isinstance(plays, list) and plays:
+        return [play for play in plays if isinstance(play, Mapping)]
+    scoring = payload.get("scoringPlays")
+    if isinstance(scoring, list):
+        return [play for play in scoring if isinstance(play, Mapping)]
+    return []
+
+
+def _espn_progress(competition: Mapping[str, Any]) -> str:
+    status_block = competition.get("status")
+    if not isinstance(status_block, Mapping):
+        return ""
+    kind = status_block.get("type")
+    if not isinstance(kind, Mapping):
+        return ""
+    return str(kind.get("state") or "").lower()
+
+
+def _play_period_number(raw: Mapping[str, Any]) -> int:
+    period = raw.get("period")
+    number = period.get("number") if isinstance(period, Mapping) else period
+    parsed = _whole_period(number)
+    if parsed is None and isinstance(number, float) and number.is_integer():
+        whole = int(number)
+        if whole >= 1:
+            return whole
+    return parsed if parsed is not None else 1
+
+
+def _play_clock_display(raw: Mapping[str, Any]) -> str:
+    clock = raw.get("clock")
+    if isinstance(clock, Mapping):
+        return str(clock.get("displayValue") or "0:00")
+    if isinstance(clock, str) and clock.strip():
+        return clock.strip()
+    return "0:00"
+
+
+def _opening_state(
+    sport: str,
+    game_id: str,
+    home: str,
+    away: str,
+    prior: float,
+    config: SportConfig,
+    as_of: datetime,
+) -> GameState:
+    period_left = config.period_seconds
+    return GameState(
+        sport=sport,
+        game_id=game_id,
+        home=home,
+        away=away,
+        home_score=0,
+        away_score=0,
+        period=1,
+        seconds_remaining_period=period_left,
+        seconds_remaining_total=_total_remaining(1, period_left, config),
+        status="pre",
+        source="espn-summary",
+        as_of=as_of,
+        prior_home=prior,
+    )
+
+
+def _with_live_tail(
+    states: list[GameState],
+    competition: Mapping[str, Any],
+    config: SportConfig,
+    *,
+    sport: str,
+    game_id: str,
+    home: str,
+    away: str,
+    home_id: str,
+    away_id: str,
+    prior: float,
+    as_of: datetime,
+) -> list[GameState]:
+    """Make the last frame the current header, with status ``live``.
+
+    Scoring density drops a timeout that does not change the score. The
+    header still has the live clock and the score after that timeout.
+    """
+    status_block = competition.get("status")
+    if not isinstance(status_block, Mapping):
         return states
-    return _select_density(states, density)
+    try:
+        home_score, away_score = _competitor_scores(competition)
+    except ValueError:
+        return states
+    period = _whole_period(status_block.get("period"))
+    if period is None:
+        period = states[-1].period if states else 1
+    display = status_block.get("displayClock")
+    if isinstance(display, str) and display.strip():
+        try:
+            period_left = _parse_clock(display)
+        except ValueError:
+            period_left = _status_clock(status_block, config, "in", period)
+    else:
+        period_left = _status_clock(status_block, config, "in", period)
+    tail = GameState(
+        sport=sport,
+        game_id=game_id,
+        home=home,
+        away=away,
+        home_score=home_score,
+        away_score=away_score,
+        period=max(period, 1),
+        seconds_remaining_period=period_left,
+        seconds_remaining_total=_total_remaining(period, period_left, config),
+        status="live",
+        source="espn-summary",
+        as_of=as_of,
+        prior_home=prior,
+        possession=_situation_possession(competition, home_id, away_id),
+    )
+    if not states:
+        return [_opening_state(sport, game_id, home, away, prior, config, as_of), tail]
+    last = states[-1]
+    if (
+        last.status == "live"
+        and last.home_score == tail.home_score
+        and last.away_score == tail.away_score
+        and last.period == tail.period
+        and last.seconds_remaining_period == tail.seconds_remaining_period
+    ):
+        return states
+    return [*states, tail]
 
 
 def _sport(payload: Mapping[str, Any]) -> str:

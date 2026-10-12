@@ -444,6 +444,167 @@ def test_density_selects_how_many_plays_become_snapshots():
         espn_summary_to_states(summary, density="plays")
 
 
+def test_live_summary_keeps_scoring_plays_without_a_final_clock():
+    summary = _summary()
+    status = summary["header"]["competitions"][0]["status"]
+    status["type"] = {"state": "in", "name": "STATUS_IN_PROGRESS", "completed": False}
+    status.pop("displayClock", None)
+    status.pop("period", None)
+    # The first basket names points and a team, not the running total.
+    play = summary["drives"]["previous"][0]["plays"][0]
+    assert play["scoringPlay"] is True
+    del play["homeScore"]
+    del play["awayScore"]
+    states = espn_summary_to_states(summary, density="scoring")
+    assert states[0].status == "pre"
+    assert states[0].home_score == 0 and states[0].away_score == 0
+    assert any(
+        state.period == 1 and state.home_score == 7 and state.away_score == 0
+        for state in states
+    )
+    assert len([state for state in states if state.status != "pre"]) >= 2
+    assert states[-1].status == "live"
+    assert states[-1].home_score == 14 and states[-1].away_score == 10
+    assert all(state.status != "final" for state in states)
+
+
+def test_live_summary_reads_scoring_plays_when_drives_are_missing():
+    summary = _summary()
+    scoring = []
+    for drive in summary["drives"]["previous"]:
+        scoring.extend(play for play in drive["plays"] if play.get("scoringPlay"))
+    del summary["drives"]
+    summary["scoringPlays"] = scoring
+    status = summary["header"]["competitions"][0]["status"]
+    status["type"] = {"state": "in", "name": "STATUS_IN_PROGRESS", "completed": False}
+    status["period"] = 2
+    status["displayClock"] = "3:05"
+    summary["header"]["competitions"][0]["competitors"][0]["score"] = "7"
+    summary["header"]["competitions"][0]["competitors"][1]["score"] = "10"
+    states = espn_summary_to_states(summary, density="scoring")
+    assert states[0].status == "pre"
+    assert any(state.home_score == 7 and state.away_score == 0 for state in states)
+    assert any(state.home_score == 7 and state.away_score == 10 for state in states)
+    assert states[-1].status == "live"
+    assert states[-1].period == 2
+    assert states[-1].seconds_remaining_period == 185
+    assert states[-1].home_score == 7 and states[-1].away_score == 10
+
+
+def _live_nba_summary() -> dict:
+    return {
+        "header": {
+            "id": "55",
+            "uid": "s:40~l:46~e:55",
+            "league": {
+                "id": "46",
+                "uid": "s:40~l:46",
+                "slug": "nba",
+                "abbreviation": "NBA",
+                "name": "National Basketball Association",
+            },
+            "competitions": [
+                {
+                    "id": "55",
+                    "uid": "s:40~l:46~e:55",
+                    "date": "2026-10-11T00:00:00Z",
+                    "competitors": [
+                        {
+                            "homeAway": "home",
+                            "score": "12",
+                            "team": {"id": "1", "abbreviation": "NYK"},
+                        },
+                        {
+                            "homeAway": "away",
+                            "score": "9",
+                            "team": {"id": "2", "abbreviation": "BOS"},
+                        },
+                    ],
+                    "status": {
+                        "displayClock": "8:00",
+                        "period": 1,
+                        "type": {"state": "in", "name": "STATUS_IN_PROGRESS"},
+                    },
+                }
+            ],
+        },
+        "plays": [
+            {
+                "id": "1",
+                "text": "Jump ball",
+                "homeScore": 0,
+                "awayScore": 0,
+                "period": {"number": 1},
+                "clock": {"displayValue": "12:00"},
+                "scoringPlay": False,
+            },
+            {
+                "id": "2",
+                "text": "BOS makes a layup",
+                "homeScore": 0,
+                "awayScore": 2,
+                "period": {"number": 1},
+                "clock": {"displayValue": "11:30"},
+                "scoringPlay": True,
+                "scoreValue": 2,
+                "team": {"id": "2"},
+            },
+            {
+                "id": "3",
+                "text": "NYK makes a three",
+                "homeScore": 3,
+                "awayScore": 2,
+                "period": {"number": 1},
+                "clock": {"displayValue": "11:00"},
+                "scoringPlay": True,
+                "scoreValue": 3,
+                "team": {"id": "1"},
+            },
+            {
+                "id": "4",
+                "text": "Timeout",
+                "homeScore": 12,
+                "awayScore": 9,
+                "period": {"number": 1},
+                "clock": {"displayValue": "8:00"},
+                "scoringPlay": False,
+            },
+        ],
+    }
+
+
+def test_live_basketball_summary_ends_on_the_current_score():
+    summary = _live_nba_summary()
+    states = events_from_espn_basketball(summary, density="scoring")
+    assert states[0].status == "pre"
+    assert states[0].home_score == 0 and states[0].away_score == 0
+    assert any(state.away_score == 2 and state.home_score == 0 for state in states)
+    assert any(state.home_score == 3 and state.away_score == 2 for state in states)
+    assert states[-1].status == "live"
+    assert states[-1].home_score == 12 and states[-1].away_score == 9
+    assert states[-1].period == 1
+    assert states[-1].seconds_remaining_period == 8 * 60
+    assert all(state.status != "final" for state in states)
+
+    bare = _live_nba_summary()
+    baskets = [play for play in bare["plays"] if play.get("scoringPlay")]
+    bare["plays"] = []
+    bare["scoringPlays"] = baskets
+    from_scoring = events_from_espn_basketball(bare, density="scoring")
+    assert from_scoring[0].status == "pre"
+    assert from_scoring[0].home_score == 0 and from_scoring[0].away_score == 0
+    assert from_scoring[-1].status == "live"
+    assert from_scoring[-1].home_score == 12 and from_scoring[-1].away_score == 9
+    assert len(from_scoring) >= 3
+
+    finished = _live_nba_summary()
+    finished["header"]["competitions"][0]["status"]["type"]["state"] = "post"
+    finished["plays"][-1]["text"] = "End of Game"
+    final_states = events_from_espn_basketball(finished, density="scoring")
+    assert final_states[-1].status == "final"
+    assert final_states[-1].home_score == 12 and final_states[-1].away_score == 9
+
+
 def test_jax_at_den_is_the_replay():
     states = load_replay(ROOT / "examples" / "nfl_jax_den.json")
     assert states
