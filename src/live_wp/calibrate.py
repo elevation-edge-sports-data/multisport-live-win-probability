@@ -68,7 +68,7 @@ _SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
 
 _METRIC_HEADERS = (
     "n",
-    "mean_wp",
+    "mean_win_prob",
     "home_win_rate",
     "brier",
     "log_loss",
@@ -118,7 +118,7 @@ def home_result(state: GameState) -> float:
 
 
 def summarize(pairs: list[tuple[float, float]]) -> dict[str, object]:
-    """n, mean predicted home WP, home win rate, Brier, and log loss.
+    """n, mean predicted home win probability, home win rate, Brier, and log loss.
 
     ``pairs`` are ``(predicted, outcome)``. Log loss clips each prediction
     to ``[1e-6, 1-1e-6]``. The mean and Brier use the unclipped value.
@@ -176,7 +176,7 @@ def format_report(report: dict[str, object]) -> str:
         "Each snapshot is scored against its game's final snapshot "
         "(1 home win, 0 away win, 0.5 tie). "
         "An example replay and an ESPN ingest of the same game are both counted. "
-        "mean_wp is the mean predicted home win probability. "
+        "mean_win_prob is the mean predicted home win probability. "
         "Log loss clips a prediction to [1e-6, 1-1e-6]. "
         "The mean and Brier do not.",
         "Regulation buckets are >15:00, 5:00 through 15:00, "

@@ -4,8 +4,17 @@
 // replays/live_replay.js and slate.js. A pro slate click on that host POSTs
 // /follow. On that host, when the query does not already choose a game,
 // it also GETs follow.json once. If that pro sport and game_id are
-// on the slate, the page opens that row. GitHub Pages is / and does not
-// request follow.json. College does not read it. Club colors for the
+// on the slate, the page opens that row. A date field on that host
+// requests GET /slate for the active sport and that day, and draws the
+// same slate row. While that dated slate is showing, the season list
+// and archive game buttons stay hidden. A click on that row requests
+// GET /replay. When the server returns frames, the page draws them on
+// the charts the same way it draws an archived replay. A game that has
+// not started, or a replay with no frames, keeps the scoreboard card.
+// Clearing the date restores the season list, the archive buttons, and
+// the archive game on the charts. GitHub Pages hides the date field.
+// It is / and does not request follow.json. College does not read it.
+// Club colors for the
 // selected sport are assets/colors/{sport}.json, one file per league,
 // keyed by sport and id. id is the logo filename stem. Logos on a frame
 // are assets/logos/{sport}/{abbr}.png and applyLogo uses that string as-is.
@@ -669,19 +678,13 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V4";
+  var BADGE_TEXT = "V5";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
 
-  function levelForSport(sport) {
-    if (PRO_SPORTS.indexOf(sport) >= 0) return "pro";
-    if (COLLEGE_SPORTS.indexOf(sport) >= 0) return "college";
-    return "";
-  }
-
-  function sportsForLevel(level) {
-    return level === "college" ? COLLEGE_SPORTS : PRO_SPORTS;
+  function isCollegeSport(sport) {
+    return COLLEGE_SPORTS.indexOf(sport) >= 0;
   }
 
   // Either side named Harbor is the nfl_sample prototype. It stays out of
@@ -748,16 +751,6 @@
     return out;
   }
 
-  function gamesForLevel(entries, level) {
-    var out = [];
-    var i;
-    if (!entries) return out;
-    for (i = 0; i < entries.length; i++) {
-      if (levelForSport(entries[i].sport) === level && listedGame(entries[i])) out.push(entries[i]);
-    }
-    return out;
-  }
-
   function bindingName(sport) {
     if (sport === "nfl") return "NFL_REPLAY";
     if (sport === "ncaaf") return "NCAAF_REPLAY";
@@ -778,10 +771,7 @@
 
   root.MSWP_BADGE = BADGE_TEXT;
   root.mswpPicker = {
-    levelForSport: levelForSport,
-    sportsForLevel: sportsForLevel,
     gamesForSport: gamesForSport,
-    gamesForLevel: gamesForLevel,
     bindingName: bindingName,
     readSportFrames: readSportFrames
   };
@@ -796,7 +786,6 @@
   var sportName = "nfl";
   var seasonName = "";
   var currentFile = "";
-  var levelName = "pro";
   var themeName = "charcoal";
   var awaySwatch = null;
   var homeSwatch = null;
@@ -818,6 +807,15 @@
   var slateReady = false;
   var slateSettled = false;
   var slatePollSerial = 0;
+  var slateDate = "";
+  var datedRows = [];
+  var datedReady = false;
+  var datedSport = "";
+  var datedDate = "";
+  var datedSerial = 0;
+  var replaySerial = 0;
+  var slateChartId = "";
+  var heldArchive = null;
   var viewingBoard = false;
   var boardRow = null;
   var preferId = "";
@@ -1186,24 +1184,14 @@
     return null;
   }
 
-  function renderLevel() {
-    var proButton = document.getElementById("level-pro");
-    var collegeButton = document.getElementById("level-college");
-    proButton.setAttribute("aria-pressed", levelName === "pro" ? "true" : "false");
-    collegeButton.setAttribute("aria-pressed", levelName === "college" ? "true" : "false");
-    proButton.classList.toggle("is-selected", levelName === "pro");
-    collegeButton.classList.toggle("is-selected", levelName === "college");
-  }
-
   function renderSports() {
     var row = document.getElementById("sports");
-    var sports = sportsForLevel(levelName);
     var i;
     row.textContent = "";
-    for (i = 0; i < sports.length; i++) {
-      var sport = sports[i];
+    for (i = 0; i < SPORT_ORDER.length; i++) {
+      var sport = SPORT_ORDER[i];
       var button = document.createElement("button");
-      var on = sport === sportName && levelForSport(sportName) === levelName;
+      var on = sport === sportName;
       button.type = "button";
       button.className = on ? "sport is-selected" : "sport";
       button.setAttribute("data-sport", sport);
@@ -1336,8 +1324,7 @@
     return liveHidden === false &&
       !!liveFrames &&
       liveFrames.length > 0 &&
-      liveSport === sportName &&
-      levelForSport(sportName) === levelName;
+      liveSport === sportName;
   }
 
   // The live file still assigns the archive binding. Read it on a side
@@ -1401,7 +1388,7 @@
       var home = String(row.home || "").trim();
       var status = String(row.status || "").trim().toLowerCase();
       var prior = Number(row.prior_home);
-      if (PRO_SPORTS.indexOf(sport) < 0) continue;
+      if (SPORT_ORDER.indexOf(sport) < 0) continue;
       if (!gameId || !away || !home) continue;
       if (!isFinite(prior)) prior = 0.5;
       out.push({
@@ -1426,21 +1413,36 @@
 
   function findSlateRow(gameId) {
     var id = String(gameId == null ? "" : gameId).trim();
+    var source = slateDate ? datedRows : slateRows;
     var i;
     if (!id) return null;
-    for (i = 0; i < slateRows.length; i++) {
-      if (slateRows[i].gameId === id) return slateRows[i];
+    for (i = 0; i < source.length; i++) {
+      if (source[i].gameId === id) return source[i];
     }
     return null;
   }
 
+  function datedSlateShowing() {
+    return !!(
+      slateDate &&
+      datedReady &&
+      datedSport === sportName &&
+      datedDate === slateDate
+    );
+  }
+
   function slateRowsForSport(sport) {
     var out = [];
+    var source;
     var i;
-    if (levelName !== "pro") return out;
-    if (PRO_SPORTS.indexOf(sport) < 0) return out;
-    for (i = 0; i < slateRows.length; i++) {
-      if (slateRows[i].sport === sport) out.push(slateRows[i]);
+    if (SPORT_ORDER.indexOf(sport) < 0) return out;
+    if (slateDate && sport === sportName) {
+      source = (datedReady && datedSport === sport && datedDate === slateDate) ? datedRows : [];
+    } else {
+      source = slateRows;
+    }
+    for (i = 0; i < source.length; i++) {
+      if (source[i].sport === sport) out.push(source[i]);
     }
     return out;
   }
@@ -1456,6 +1458,7 @@
   function slateButtonOn(row) {
     if (viewingBoard && boardRow && boardRow.gameId === row.gameId) return true;
     if (viewingLive && liveGameId && liveGameId === row.gameId) return true;
+    if (slateChartId && slateChartId === row.gameId && !currentFile && !viewingBoard) return true;
     return false;
   }
 
@@ -1531,7 +1534,6 @@
     if (!sameGame) {
       setPlaying(false);
       sportName = liveSport;
-      if (levelForSport(sportName)) levelName = levelForSport(sportName);
       writePrior();
       loadMatchupAppearance();
       renderPicker();
@@ -1579,7 +1581,9 @@
   }
 
   // The click selects the row. This POST does not write a file. College
-  // rows are not on the board, and this host is the only one that sends.
+  // rows draw on the slate, and this host is the only one that sends.
+  // The POST stays on the pro sports. The live command still refuses
+  // a college sport.
   function postFollow(row) {
     if (!hostAllowsLive() || typeof root.fetch !== "function") return;
     if (!row || PRO_SPORTS.indexOf(row.sport) < 0 || !row.gameId) return;
@@ -1643,6 +1647,213 @@
     }, noteSlateMissing);
   }
 
+  // A chosen date replaces the slate row for the active sport. slate.js
+  // keeps polling and fills that row again when the date is cleared.
+  // This host is the only one that asks. The request does not write a file.
+  function syncDateControl() {
+    var row = document.getElementById("slate-date-row");
+    if (!row) return;
+    row.hidden = !hostAllowsLive();
+  }
+
+  function readDatedRows(text) {
+    var data;
+    try {
+      data = JSON.parse(String(text || ""));
+    } catch (err) {
+      return null;
+    }
+    if (!Array.isArray(data)) return null;
+    return normalizeSlate(data);
+  }
+
+  function noteDatedMissing(serial) {
+    if (serial !== datedSerial || !slateDate) return;
+    datedRows = [];
+    datedReady = true;
+    datedSport = sportName;
+    datedDate = slateDate;
+    renderSlate();
+    renderSeasons();
+    renderGames();
+  }
+
+  function requestDatedSlate(sport) {
+    var url;
+    var pending;
+    var serial;
+    var dateKey;
+    var sportKey;
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    if (!slateDate || SPORT_ORDER.indexOf(sport) < 0) return;
+    datedSerial += 1;
+    serial = datedSerial;
+    dateKey = slateDate;
+    sportKey = sport;
+    datedReady = false;
+    datedRows = [];
+    datedSport = sportKey;
+    datedDate = dateKey;
+    renderSlate();
+    renderSeasons();
+    renderGames();
+    url = "/slate?sport=" + encodeURIComponent(sportKey) +
+      "&date=" + encodeURIComponent(dateKey);
+    try {
+      pending = root.fetch(url, { cache: "no-store" });
+    } catch (err) {
+      noteDatedMissing(serial);
+      return;
+    }
+    Promise.resolve(pending).then(function (response) {
+      if (serial !== datedSerial) return null;
+      if (!response || !response.ok || typeof response.text !== "function") {
+        noteDatedMissing(serial);
+        return null;
+      }
+      return response.text();
+    }).then(function (text) {
+      var rows;
+      if (text == null || serial !== datedSerial) return;
+      rows = readDatedRows(text);
+      if (rows == null) {
+        noteDatedMissing(serial);
+        return;
+      }
+      if (sportKey !== sportName || dateKey !== slateDate) return;
+      datedRows = rows;
+      datedReady = true;
+      datedSport = sportKey;
+      datedDate = dateKey;
+      renderSlate();
+      renderSeasons();
+      renderGames();
+    }).catch(function () {
+      noteDatedMissing(serial);
+    });
+  }
+
+  function ensureDatedSlate() {
+    if (!slateDate || !hostAllowsLive()) return;
+    if (datedReady && datedSport === sportName && datedDate === slateDate) return;
+    requestDatedSlate(sportName);
+  }
+
+  function rememberArchive() {
+    if (viewingBoard || !currentFile) return;
+    heldArchive = { sport: sportName, file: currentFile, season: seasonName };
+  }
+
+  function leaveSlateChart() {
+    replaySerial += 1;
+    slateChartId = "";
+    heldArchive = null;
+  }
+
+  function restoreHeldArchive() {
+    var held = heldArchive;
+    var games;
+    var i;
+    replaySerial += 1;
+    slateChartId = "";
+    heldArchive = null;
+    preferId = "";
+    if (held && held.sport === sportName && held.file) {
+      games = gamesForSport(manifest, sportName);
+      for (i = 0; i < games.length; i++) {
+        if (games[i].file === held.file) {
+          if (held.season) seasonName = held.season;
+          loadGame(games[i]);
+          return;
+        }
+      }
+    }
+    games = gamesForSportSeason(manifest, sportName, chooseSeason(sportName));
+    if (!games.length) {
+      renderSlate();
+      renderSeasons();
+      renderGames();
+      return;
+    }
+    loadGame(games[0]);
+  }
+
+  // Dated slate clicks ask for a temporary replay. No frames keeps the
+  // scoreboard card. The charts stay empty until a later archive load.
+  function requestSlateReplay(row) {
+    var serial;
+    var sportKey;
+    var gameId;
+    var dateKey;
+    var url;
+    var pending;
+    if (!hostAllowsLive() || typeof root.fetch !== "function") return;
+    if (!row || !row.gameId || !slateDate || SPORT_ORDER.indexOf(row.sport) < 0) return;
+    replaySerial += 1;
+    serial = replaySerial;
+    sportKey = row.sport;
+    gameId = row.gameId;
+    dateKey = slateDate;
+    slateChartId = "";
+    url = "/replay?sport=" + encodeURIComponent(sportKey) +
+      "&game_id=" + encodeURIComponent(gameId) +
+      "&date=" + encodeURIComponent(dateKey);
+    try {
+      pending = root.fetch(url, { cache: "no-store" });
+    } catch (err) {
+      return;
+    }
+    Promise.resolve(pending).then(function (response) {
+      if (serial !== replaySerial) return null;
+      if (!response || !response.ok || response.status === 204) return null;
+      if (typeof response.text !== "function") return null;
+      return response.text();
+    }).then(function (text) {
+      var parsed;
+      if (text == null || serial !== replaySerial) return;
+      if (!slateDate || slateDate !== dateKey || sportName !== sportKey) return;
+      if (!viewingBoard || !boardRow || boardRow.gameId !== gameId) return;
+      parsed = readLiveAssignment(text);
+      if (!parsed || !parsed.rows || !parsed.rows.length) return;
+      if (parsed.gameId && parsed.gameId !== gameId) return;
+      preferId = "";
+      slateChartId = gameId;
+      useFrames({ sport: sportKey, file: "" }, parsed.rows);
+    }).catch(function () {});
+  }
+
+  function onSlateDate() {
+    var input = document.getElementById("slate-date");
+    var raw;
+    var compact;
+    var backToArchive;
+    if (!input || !hostAllowsLive()) return;
+    raw = String(input.value || "").trim();
+    compact = raw.replace(/-/g, "");
+    if (!raw) {
+      backToArchive = viewingBoard || !!slateChartId;
+      datedSerial += 1;
+      slateDate = "";
+      datedRows = [];
+      datedReady = false;
+      datedSport = "";
+      datedDate = "";
+      if (backToArchive) {
+        restoreHeldArchive();
+        return;
+      }
+      replaySerial += 1;
+      renderSlate();
+      renderSeasons();
+      renderGames();
+      return;
+    }
+    if (!/^[0-9]{8}$/.test(compact)) return;
+    if (compact === slateDate && datedReady && datedSport === sportName && datedDate === compact) return;
+    slateDate = compact;
+    requestDatedSlate(sportName);
+  }
+
   // follow.json is a static file on this host. One GET at boot.
   // A query string, a college page, and any other host skip it.
   function readFollowPayload(text) {
@@ -1675,7 +1886,7 @@
   // still on another game. Boot does not rewrite the URL.
   function resolveFollowBoot() {
     var row;
-    if (queryOwned || followBlocked || collegeBoot || levelName === "college") return;
+    if (queryOwned || followBlocked || collegeBoot || isCollegeSport(sportName)) return;
     if (!followSettled || !followWant) return;
     if (!slateSettled || !slateReady) return;
     row = findFollowRow(followWant);
@@ -1691,7 +1902,7 @@
   function readFollowFile() {
     var pending;
     if (!hostAllowsLive() || typeof root.fetch !== "function") return;
-    if (queryOwned || collegeBoot || levelName === "college") return;
+    if (queryOwned || collegeBoot || isCollegeSport(sportName)) return;
     try {
       pending = root.fetch("follow.json", { method: "GET", cache: "no-store" });
     } catch (err) {
@@ -1704,7 +1915,7 @@
     }).then(function (text) {
       followSettled = true;
       if (text == null) return;
-      if (queryOwned || followBlocked || collegeBoot || levelName === "college") return;
+      if (queryOwned || followBlocked || collegeBoot || isCollegeSport(sportName)) return;
       followWant = readFollowPayload(text);
       resolveFollowBoot();
     }).catch(function () {
@@ -1768,7 +1979,6 @@
     boardRow = row;
     sportName = row.sport;
     currentFile = "";
-    if (levelForSport(sportName)) levelName = levelForSport(sportName);
     showBoardChrome();
     paintBoard(row);
     renderPicker();
@@ -1776,6 +1986,7 @@
     // writeQuery clears the id. Keep it so a later live file with this
     // game uses the existing live path. Until then the board card stays.
     preferId = row.gameId;
+    ensureDatedSlate();
   }
 
   function selectLive(fromClick) {
@@ -1790,12 +2001,12 @@
     currentFile = "";
     frames = liveFrames;
     scrub.max = String(frames.length - 1);
-    if (levelForSport(sportName)) levelName = levelForSport(sportName);
     writePrior();
     renderPicker();
     loadMatchupAppearance();
     show(frames.length - 1);
     if (fromClick !== false) writeQuery(liveSport, liveAway, liveHome, true, liveGameId);
+    ensureDatedSlate();
   }
 
   function selectSlate(row, fromClick) {
@@ -1815,6 +2026,7 @@
 
   function resolvePreferredId() {
     var row;
+    var ready;
     if (!preferId) return;
     if (liveHasThisGame()) {
       preferId = "";
@@ -1822,8 +2034,12 @@
       selectLive(false);
       return;
     }
+    // A chosen date owns the row. A slate.js poll must not drop that card
+    // or replace it with the archive while the date is still selected.
+    if (slateDate && !datedReady) return;
     row = findSlateRow(preferId);
-    if (row && slateReady) {
+    ready = slateDate ? datedReady : slateReady;
+    if (row && ready) {
       if (!viewingBoard || !boardRow || boardRow.gameId !== row.gameId) {
         showBoard(row, false);
       } else {
@@ -1832,6 +2048,7 @@
       }
       return;
     }
+    if (slateDate) return;
     if (slateReady && liveSettled && !row) {
       preferId = "";
       preferLive = false;
@@ -1872,11 +2089,14 @@
     var row = document.getElementById("seasons");
     var level = document.getElementById("season-row");
     if (!row) return;
-    var onLevel = levelForSport(sportName) === levelName;
-    var seasons = onLevel ? seasonsForSport(manifest, sportName) : [];
-    var selected = onLevel ? chooseSeason(sportName) : "";
+    var seasons = seasonsForSport(manifest, sportName);
+    var selected = chooseSeason(sportName);
     var i;
     row.textContent = "";
+    if (datedSlateShowing()) {
+      if (level) level.hidden = true;
+      return;
+    }
     if (level) level.hidden = seasons.length === 0;
     for (i = 0; i < seasons.length; i++) {
       var season = seasons[i];
@@ -1897,15 +2117,12 @@
     var sportGames = gamesForSport(manifest, sportName);
     var season = chooseSeason(sportName);
     var entries = gamesForSportSeason(manifest, sportName, season);
-    var onLevel = levelForSport(sportName) === levelName;
     var showSlate = slateRowsForSport(sportName).length > 0;
-    var showArchive = onLevel && (
-      entries.length > 1 ||
+    var showArchive = entries.length > 1 ||
       (showSlate && entries.length === 1) ||
-      (entries.length === 1 && sportGames.length > 1)
-    );
+      (entries.length === 1 && sportGames.length > 1);
     var showLive = liveControlVisible();
-    var show = showArchive || showLive;
+    var show = !datedSlateShowing() && (showArchive || showLive);
     var i;
     row.textContent = "";
     if (level) level.hidden = !show;
@@ -1936,7 +2153,6 @@
   }
 
   function renderPicker() {
-    renderLevel();
     renderSports();
     renderSlate();
     renderSeasons();
@@ -1953,11 +2169,11 @@
     currentFile = entry && entry.file ? entry.file : "";
     frames = rows;
     scrub.max = String(frames.length - 1);
-    if (levelForSport(sportName)) levelName = levelForSport(sportName);
     writePrior();
     renderPicker();
     loadMatchupAppearance();
     show(openingIndex(frames));
+    ensureDatedSlate();
   }
 
   function replaySrc(entry) {
@@ -2047,17 +2263,6 @@
     return "";
   }
 
-  document.getElementById("level-pro").addEventListener("click", function () {
-    levelName = "pro";
-    renderPicker();
-  });
-
-  document.getElementById("level-college").addEventListener("click", function () {
-    levelName = "college";
-    followBlocked = true;
-    renderPicker();
-  });
-
   document.getElementById("sports").addEventListener("click", function (event) {
     var sport = attrFrom(event, "data-sport");
     if (!sport) return;
@@ -2065,6 +2270,7 @@
     var games = gamesForSportSeason(manifest, sport, seasonName);
     if (!games.length) return;
     followBlocked = true;
+    leaveSlateChart();
     writeQuery(games[0].sport, games[0].away, games[0].home, false);
     loadGame(games[0]);
   });
@@ -2083,6 +2289,7 @@
       }
     }
     followBlocked = true;
+    leaveSlateChart();
     writeQuery(games[0].sport, games[0].away, games[0].home, false);
     loadGame(games[0]);
   });
@@ -2090,6 +2297,7 @@
   document.getElementById("games").addEventListener("click", function (event) {
     if (attrFrom(event, "data-live")) {
       followBlocked = true;
+      leaveSlateChart();
       selectLive();
       return;
     }
@@ -2097,6 +2305,7 @@
     if (!file) return;
     var i;
     followBlocked = true;
+    leaveSlateChart();
     for (i = 0; i < manifest.length; i++) {
       if (manifest[i].file === file && listedGame(manifest[i])) {
         writeQuery(manifest[i].sport, manifest[i].away, manifest[i].home, false);
@@ -2111,9 +2320,18 @@
     var row = findSlateRow(id);
     if (!row) return;
     followBlocked = true;
+    if (slateDate && hostAllowsLive()) {
+      rememberArchive();
+      showBoard(row);
+      requestSlateReplay(row);
+      return;
+    }
     selectSlate(row);
     postFollow(row);
   });
+
+  var slateDateInput = document.getElementById("slate-date");
+  if (slateDateInput) slateDateInput.addEventListener("change", onSlateDate);
 
   document.getElementById("theme-dark").addEventListener("click", function () {
     setTheme("charcoal");
@@ -2526,8 +2744,8 @@
       requested.kind === "match" ||
       requested.kind === "fallback"
     );
-    collegeBoot = (requested.kind === "match" && levelForSport(requested.entry.sport) === "college") ||
-      (!queryOwned && levelForSport(preset) === "college");
+    collegeBoot = (requested.kind === "match" && isCollegeSport(requested.entry.sport)) ||
+      (!queryOwned && isCollegeSport(preset));
     // live=1 is ignored unless this host is the one that serves the file.
     preferLive = liveAsked && hostAllowsLive();
     if (requestedId && !hostAllowsLive()) {
@@ -2568,6 +2786,7 @@
     loadGame(defaultEntry());
   }
 
+  syncDateControl();
   renderPicker();
   bootFromQuery();
   startHostPolls();

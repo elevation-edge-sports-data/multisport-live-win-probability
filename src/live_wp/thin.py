@@ -1,4 +1,4 @@
-"""Drop replay vertices that do not change the drawn WP polyline."""
+"""Drop replay vertices that do not change the drawn win-probability polyline."""
 
 from __future__ import annotations
 

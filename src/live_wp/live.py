@@ -2,8 +2,10 @@
 
 Each printed change is passed through ``render_widget_script``, which
 recomputes win probability with the pack for that sport. College sports
-are rejected. This module does not serve pages and does not open a socket
-of its own. The follow command owns the feed request.
+are rejected by this command. ``replay_script`` is the one-shot the local
+server uses for a dated slate game, and it accepts the same six sports as
+follow. This module does not serve pages and does not open a socket of its
+own. The follow command owns the feed request.
 
 ``--game`` follows that id and does not read follow.json or rewrite the
 slate. Without ``--game``, the command reads follow.json. Before
@@ -29,11 +31,14 @@ from live_wp.follow import (
     FollowError,
     UsageError,
     _flag_value,
+    _parse_date,
+    _parse_feed_sport,
     _parse_game,
     _parse_interval,
     _parse_sport,
     fetch_json,
     follow_game,
+    replay_states,
 )
 from live_wp.replay import render_widget_script
 from live_wp.slate import DEFAULT_OUT as DEFAULT_SLATE, write_slate
@@ -188,6 +193,34 @@ def _follow_file(
         while _read_follow(path) == target:
             refresh()
             pause(options.interval)
+
+
+def replay_script(
+    sport: str,
+    game_id: str,
+    *,
+    date: str | None = None,
+    fetch=None,
+) -> str | None:
+    """Render one slate game the way ``live_replay.js`` is rendered.
+
+    The result is the live script, including ``window.MSWP_LIVE``. A game
+    that has not started, or that has no snapshots, returns None. The
+    caller does not treat that as a failure. This does not write a file
+    and does not start the follow poll.
+    """
+    try:
+        selected = _parse_feed_sport(sport)
+        parsed_game = _parse_game(game_id, selected)
+        parsed_date = None if date is None else _parse_date(date)
+    except UsageError as exc:
+        raise ValueError(str(exc)) from exc
+    states = replay_states(
+        parsed_game, sport=selected, date=parsed_date, fetch=fetch
+    )
+    if not states:
+        return None
+    return render_widget_script(states, live=True)
 
 
 def _remember(path: Path):

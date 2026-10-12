@@ -3,9 +3,9 @@
 The caller loads the JSON. This module does not fetch. It accepts a
 scoreboard event object or a game summary object from the unofficial ESPN
 site API. NFL maps to sport ``nfl``. College football maps to sport ``ncaaf``.
-NHL maps to sport ``nhl``. NBA and NCAAB summaries are ingested through
-the basketball adapter instead of this module, so calls here still refuse
-them. Any other league is refused.
+NHL maps to sport ``nhl``. College hockey maps to sport ``ncaah``. NBA and
+NCAAB summaries are ingested through the basketball adapter instead of this
+module, so calls here still refuse them. Any other league is refused.
 
 A home American moneyline, when present, is converted once into
 ``prior_home`` and reused on every snapshot. ESPN's own win-probability
@@ -21,13 +21,22 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from mswp import NCAAF_CONFIG, DEFAULT_PRIOR_HOME, NFL_CONFIG, NHL_CONFIG, GameState
+from mswp import (
+    NCAAF_CONFIG,
+    NCAAH_CONFIG,
+    DEFAULT_PRIOR_HOME,
+    NFL_CONFIG,
+    NHL_CONFIG,
+    GameState,
+)
 from mswp.config import SportConfig
 
 # League ids on ESPN uids: NFL is l:28, college football is l:23, NHL is l:90.
+# Men's college hockey is l:91.
 _NFL_LEAGUE_ID = "28"
 _NCAAF_LEAGUE_ID = "23"
 _NHL_LEAGUE_ID = "90"
+_NCAAH_LEAGUE_ID = "91"
 _UID_LEAGUE = re.compile(r"(?:^|~)l:(\d+)(?:~|$)")
 _AT_SPOT = re.compile(r"\bat\s+([A-Za-z][A-Za-z0-9.]{1,11})\s+(\d{1,2})\b", re.I)
 _TEAM_SPOT = re.compile(r"\b([A-Za-z][A-Za-z0-9.]{1,11})\s+(\d{1,2})\b")
@@ -170,12 +179,17 @@ def require_nfl_payload(payload: Mapping[str, Any]) -> None:
 def require_nhl_payload(payload: Mapping[str, Any]) -> None:
     """Raise unless this payload is confirmed NHL.
 
-    A scoreboard list is allowed here. College football and any other league
-    are refused. This does not fetch.
+    A scoreboard list is allowed here. College football, college hockey, and
+    any other league are refused. This does not fetch.
     """
     if not isinstance(payload, Mapping):
         raise TypeError("ESPN payload must be an object")
-    college, nfl, nhl, other = _classify_league(payload)
+    college, nfl, nhl, ncaah, other = _classify_league(payload)
+    if ncaah and not nhl:
+        raise ValueError(
+            "ESPN payload is college hockey (ncaah), not NHL. "
+            "This adapter maps NHL games only."
+        )
     if college and not nhl:
         raise ValueError(
             "ESPN payload is college football (ncaaf), not NHL. "
@@ -185,14 +199,119 @@ def require_nhl_payload(payload: Mapping[str, Any]) -> None:
         raise ValueError("ESPN payload is nfl, not NHL.")
     if other and not nhl:
         raise ValueError(f"ESPN payload is {other[0]}, not NHL.")
-    if (other or nfl or college) and nhl:
-        token = other[0] if other else ("nfl" if nfl else "college football")
+    if (other or nfl or college or ncaah) and nhl:
+        if other:
+            token = other[0]
+        elif nfl:
+            token = "nfl"
+        elif college:
+            token = "college football"
+        else:
+            token = "college hockey"
         raise ValueError(
             f"ESPN payload mixes NHL with {token}. Refusing to map it as nhl."
         )
     if not nhl:
         raise ValueError(
             "ESPN payload is not NHL. The league could not be confirmed as nhl."
+        )
+
+
+def require_ncaaf_payload(payload: Mapping[str, Any]) -> None:
+    """Raise unless this payload is confirmed college football.
+
+    A scoreboard list is allowed here. NFL and any other league are refused.
+    This does not fetch.
+    """
+    if not isinstance(payload, Mapping):
+        raise TypeError("ESPN payload must be an object")
+    college, nfl, nhl, ncaah, other = _classify_league(payload)
+    if nfl and not college:
+        raise ValueError(
+            "ESPN payload is nfl, not college football (ncaaf). "
+            "This adapter maps college football games only."
+        )
+    if nhl and not college:
+        raise ValueError(
+            "ESPN payload is nhl, not college football (ncaaf). "
+            "This adapter maps college football games only."
+        )
+    if ncaah and not college:
+        raise ValueError(
+            "ESPN payload is college hockey (ncaah), not college football (ncaaf). "
+            "This adapter maps college football games only."
+        )
+    if other and not college:
+        raise ValueError(
+            f"ESPN payload is {other[0]}, not college football (ncaaf). "
+            "This adapter maps college football games only."
+        )
+    if (other or nfl or nhl or ncaah) and college:
+        if other:
+            token = other[0]
+        elif nfl:
+            token = "nfl"
+        elif nhl:
+            token = "nhl"
+        else:
+            token = "college hockey"
+        raise ValueError(
+            "ESPN payload mixes college football with "
+            f"{token}. Refusing to map it as ncaaf."
+        )
+    if not college:
+        raise ValueError(
+            "ESPN payload is not college football. "
+            "The league could not be confirmed as ncaaf."
+        )
+
+
+def require_ncaah_payload(payload: Mapping[str, Any]) -> None:
+    """Raise unless this payload is confirmed college hockey.
+
+    A scoreboard list is allowed here. NHL and any other league are refused.
+    This does not fetch.
+    """
+    if not isinstance(payload, Mapping):
+        raise TypeError("ESPN payload must be an object")
+    college, nfl, nhl, ncaah, other = _classify_league(payload)
+    if nhl and not ncaah:
+        raise ValueError(
+            "ESPN payload is nhl, not college hockey (ncaah). "
+            "This adapter maps college hockey games only."
+        )
+    if college and not ncaah:
+        raise ValueError(
+            "ESPN payload is college football (ncaaf), not college hockey (ncaah). "
+            "This adapter maps college hockey games only."
+        )
+    if nfl and not ncaah:
+        raise ValueError(
+            "ESPN payload is nfl, not college hockey (ncaah). "
+            "This adapter maps college hockey games only."
+        )
+    if other and not ncaah:
+        raise ValueError(
+            f"ESPN payload is {other[0]}, not college hockey (ncaah). "
+            "This adapter maps college hockey games only."
+        )
+    if (other or nfl or nhl or college) and ncaah:
+        if other:
+            token = other[0]
+        elif nfl:
+            token = "nfl"
+        elif nhl:
+            token = "nhl"
+        else:
+            token = "college football"
+        raise ValueError(
+            "ESPN payload mixes college hockey with "
+            f"{token}. Refusing to map it as ncaah."
+        )
+    if not ncaah:
+        raise ValueError(
+            "ESPN payload is not college hockey. "
+            "The league could not be confirmed as ncaah."
         )
 
 
@@ -211,11 +330,12 @@ def home_moneyline_prior(payload: Mapping[str, Any]) -> float | None:
 
 def _classify_league(
     payload: Mapping[str, Any],
-) -> tuple[bool, bool, bool, list[str]]:
-    """Return college, nfl, nhl, and any other league tokens on the payload."""
+) -> tuple[bool, bool, bool, bool, list[str]]:
+    """Return college football, nfl, nhl, college hockey, and other tokens."""
     college = False
     nfl = False
     nhl = False
+    ncaah = False
     other: list[str] = []
 
     for league in _league_objects(payload):
@@ -224,11 +344,18 @@ def _classify_league(
         name = str(league.get("name") or "").strip().lower()
         league_id = str(league.get("id") or "").strip()
         if (
+            slug in {"mens-college-hockey", "college-hockey", "ncaah"}
+            or abbreviation == "NCAAH"
+            or league_id == _NCAAH_LEAGUE_ID
+            or "college hockey" in name
+        ):
+            ncaah = True
+        elif (
             slug in {"college-football", "ncaaf"}
             or abbreviation == "NCAAF"
             or league_id == _NCAAF_LEAGUE_ID
             or "college football" in name
-            or "ncaa" in name
+            or ("ncaa" in name and "hockey" not in name)
         ):
             college = True
         elif (
@@ -250,7 +377,9 @@ def _classify_league(
 
     for uid in _identity_uids(payload):
         for league_id in _UID_LEAGUE.findall(uid):
-            if league_id == _NCAAF_LEAGUE_ID:
+            if league_id == _NCAAH_LEAGUE_ID:
+                ncaah = True
+            elif league_id == _NCAAF_LEAGUE_ID:
                 college = True
             elif league_id == _NFL_LEAGUE_ID:
                 nfl = True
@@ -261,14 +390,20 @@ def _classify_league(
 
     for href in _identity_hrefs(payload):
         lowered = href.lower()
-        if "/college-football/" in lowered or "/ncaaf/" in lowered:
+        if (
+            "/mens-college-hockey/" in lowered
+            or "/college-hockey/" in lowered
+            or "/ncaah/" in lowered
+        ):
+            ncaah = True
+        elif "/college-football/" in lowered or "/ncaaf/" in lowered:
             college = True
         elif "/nfl/" in lowered:
             nfl = True
         elif "/nhl/" in lowered or "/hockey/nhl" in lowered:
             nhl = True
 
-    return college, nfl, nhl, other
+    return college, nfl, nhl, ncaah, other
 
 
 def _require_nfl(payload: Mapping[str, Any]) -> None:
@@ -277,7 +412,12 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
     Follow uses this. College football and NHL are legal ingest sports and
     are still refused here.
     """
-    college, nfl, nhl, other = _classify_league(payload)
+    college, nfl, nhl, ncaah, other = _classify_league(payload)
+    if ncaah and not nfl:
+        raise ValueError(
+            "ESPN payload is college hockey (ncaah), not NFL. "
+            "This adapter maps NFL games only."
+        )
     if college:
         raise ValueError(
             "ESPN payload is college football (ncaaf), not NFL. "
@@ -287,8 +427,13 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
         raise ValueError("ESPN payload is nhl, not NFL.")
     if other and not nfl:
         raise ValueError(f"ESPN payload is {other[0]}, not NFL.")
-    if (other or nhl) and nfl:
-        token = other[0] if other else "nhl"
+    if (other or nhl or ncaah) and nfl:
+        if other:
+            token = other[0]
+        elif nhl:
+            token = "nhl"
+        else:
+            token = "college hockey"
         raise ValueError(
             f"ESPN payload mixes NFL with {token}. Refusing to map it as nfl."
         )
@@ -299,8 +444,8 @@ def _require_nfl(payload: Mapping[str, Any]) -> None:
 
 
 def _supported_sport(payload: Mapping[str, Any]) -> str:
-    """``nfl``, ``ncaaf``, or ``nhl``. Anything else is refused."""
-    college, nfl, nhl, other = _classify_league(payload)
+    """``nfl``, ``ncaaf``, ``nhl``, or ``ncaah``. Anything else is refused."""
+    college, nfl, nhl, ncaah, other = _classify_league(payload)
     selected: list[str] = []
     if nfl:
         selected.append("NFL")
@@ -308,6 +453,8 @@ def _supported_sport(payload: Mapping[str, Any]) -> str:
         selected.append("college football")
     if nhl:
         selected.append("nhl")
+    if ncaah:
+        selected.append("college hockey")
     if len(selected) > 1:
         raise ValueError(
             f"ESPN payload mixes {selected[0]} with {selected[1]}. "
@@ -320,6 +467,8 @@ def _supported_sport(payload: Mapping[str, Any]) -> str:
         )
     if other:
         raise ValueError(f"ESPN payload is {other[0]}, not NFL.")
+    if ncaah:
+        return "ncaah"
     if college:
         return "ncaaf"
     if nhl:
@@ -331,9 +480,15 @@ def _supported_sport(payload: Mapping[str, Any]) -> str:
     )
 
 
+def _is_hockey(sport: str) -> bool:
+    return sport in {"nhl", "ncaah"}
+
+
 def _config_for(sport: str) -> SportConfig:
     if sport == "ncaaf":
         return NCAAF_CONFIG
+    if sport == "ncaah":
+        return NCAAH_CONFIG
     if sport == "nhl":
         return NHL_CONFIG
     return NFL_CONFIG
@@ -548,7 +703,7 @@ def _summary_states(
 
         reported = _play_scores(play)
         score_changed = reported is not None and reported != (entered_home, entered_away)
-        if sport == "nhl":
+        if _is_hockey(sport):
             minute_key = (period, _nhl_elapsed_minute(period, clock))
             fresh_minute = minute_key not in seen_minutes
             seen_minutes.add(minute_key)
@@ -584,7 +739,7 @@ def _summary_states(
         )
         if status_display is None:
             final_clock = 0
-            if sport == "nhl" and states:
+            if _is_hockey(sport) and states:
                 # The status clock is blank after an overtime goal. Keep
                 # the last play's remaining time instead of jumping to 0:00.
                 final_clock = states[-1].seconds_remaining_period
@@ -744,13 +899,13 @@ def _play_period(play: Mapping[str, Any]) -> int | None:
 def _play_clock_seconds(play: Mapping[str, Any], sport: str = "nfl") -> int:
     """Seconds remaining in the period.
 
-    Football play clocks are already time remaining. NHL play-by-play
+    Football play clocks are already time remaining. Hockey play-by-play
     clocks count up from 0:00 at the period start, so those are flipped.
     A scoreboard ``displayClock`` is time remaining for every sport and
     does not come through here.
     """
     raw = _raw_play_clock_seconds(play)
-    if sport != "nhl":
+    if not _is_hockey(sport):
         return raw
     period = _play_period(play) or 1
     length = _period_length(period, sport)
@@ -813,7 +968,7 @@ def _play_possession_id(spot: Mapping[str, Any] | None) -> object | None:
 def _has_two_minute(period: int, sport: str) -> bool:
     # Regulation warnings are at the end of each half. NFL overtime has one too.
     # College overtime is untimed, and hockey has no two-minute warning.
-    if sport == "nhl":
+    if _is_hockey(sport):
         return False
     config = _config_for(sport)
     if period in {2, 4}:
@@ -842,7 +997,7 @@ def _build(
     # are not read yet, and a play has no down or distance.
     optional = (
         {}
-        if sport == "nhl"
+        if _is_hockey(sport)
         else _football_fields(spot, possessing_id, home, away)
     )
     return GameState(

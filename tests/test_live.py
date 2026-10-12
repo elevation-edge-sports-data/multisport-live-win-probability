@@ -7,6 +7,7 @@ in this module blocks sockets. None of them call ESPN.
 from __future__ import annotations
 
 import http.client
+import inspect
 import json
 import socket
 import threading
@@ -19,12 +20,26 @@ import pytest
 from mswp import compute_wp
 
 from live_wp.__main__ import main
-from live_wp.follow import _with_frozen_prior, scoreboard_url, slate_states
-from live_wp.slate import render_slate_script
-from live_wp.live import DEFAULT_FOLLOW, DEFAULT_OUT, parse_live_args, run_live
+from live_wp.follow import (
+    FollowError,
+    _with_frozen_prior,
+    scoreboard_url,
+    slate_states,
+    summary_url,
+)
+from live_wp.slate import render_slate_script, slate_rows
+from live_wp.live import (
+    DEFAULT_FOLLOW,
+    DEFAULT_OUT,
+    parse_live_args,
+    replay_script,
+    run_live,
+)
 from live_wp.replay import config_for_state, format_line, render_widget_script
 from live_wp.serve import (
+    _Handler,
     _request_from_localhost,
+    _request_path,
     bind_widget_server,
     parse_serve_args,
     run_serve,
@@ -318,6 +333,9 @@ def test_serve_binds_localhost_and_stops() -> None:
         status, body = _get(host, port, "/")
         assert status == 200
         assert b"Multisport live win probability" in body
+        assert b'id="slate-date"' in body
+        assert b'type="date"' in body
+        assert b"slate-date-row" in body
         assert b"live_replay.js" not in body
         assert b"espn" not in body.lower()
         live_status, live_body = _get(host, port, "/replays/live_replay.js")
@@ -354,7 +372,7 @@ def test_serve_binds_localhost_and_stops() -> None:
         connection.close()
 
 
-def test_local_http_get_returns_the_widget_then_stops() -> None:
+def test_local_http_get_returns_the_page_then_stops() -> None:
     with _Running() as running:
         server = running.server
         host, port = server.server_address[:2]  # type: ignore[attr-defined]
@@ -363,7 +381,7 @@ def test_local_http_get_returns_the_widget_then_stops() -> None:
             assert status == 200
             assert b"<!DOCTYPE html>" in body
             assert b"Multisport live win probability" in body
-        missing, missing_body = _http_get(host, port, "/no-such-widget-file")
+        missing, missing_body = _http_get(host, port, "/no-such-file")
         assert missing == 404
         assert b"Multisport live win probability" not in missing_body
     assert running.thread is not None
@@ -514,6 +532,488 @@ def test_serve_post_follow_writes_follow_json_and_keeps_a_bad_body(
     assert not thread.is_alive()
 
 
+_FEED_LEAGUES = {
+    "nfl": {
+        "id": "28",
+        "uid": "s:20~l:28",
+        "slug": "nfl",
+        "abbreviation": "NFL",
+        "name": "National Football League",
+    },
+    "nhl": {
+        "id": "90",
+        "uid": "s:70~l:90",
+        "slug": "nhl",
+        "abbreviation": "NHL",
+        "name": "National Hockey League",
+    },
+    "nba": {
+        "id": "46",
+        "uid": "s:40~l:46",
+        "slug": "nba",
+        "abbreviation": "NBA",
+        "name": "National Basketball Association",
+    },
+    "ncaaf": {
+        "id": "23",
+        "uid": "s:20~l:23",
+        "slug": "college-football",
+        "abbreviation": "NCAAF",
+        "name": "NCAA Football",
+    },
+    "ncaah": {
+        "id": "91",
+        "uid": "s:70~l:91",
+        "slug": "mens-college-hockey",
+        "abbreviation": "NCAAH",
+        "name": "NCAA Men's Ice Hockey",
+    },
+    "ncaab": {
+        "id": "41",
+        "uid": "s:40~l:41",
+        "slug": "mens-college-basketball",
+        "abbreviation": "NCAAB",
+        "name": "NCAA Men's Basketball",
+    },
+}
+_FEED_SERIES = {
+    "nfl": ("20", "28"),
+    "nhl": ("70", "90"),
+    "nba": ("40", "46"),
+    "ncaaf": ("20", "23"),
+    "ncaah": ("70", "91"),
+    "ncaab": ("40", "41"),
+}
+_SLATE_FIELDS = (
+    "sport",
+    "game_id",
+    "away",
+    "home",
+    "status",
+    "away_score",
+    "home_score",
+    "prior_home",
+)
+
+
+def _feed_event(
+    sport: str,
+    event_id: str,
+    *,
+    home: str,
+    away: str,
+    home_score: str,
+    away_score: str,
+    state: str,
+    period: int,
+    clock: str,
+    moneyline: int | None = None,
+) -> dict:
+    series, league = _FEED_SERIES[sport]
+    uid = f"s:{series}~l:{league}~e:{event_id}"
+    competition: dict = {
+        "id": event_id,
+        "uid": uid,
+        "date": "2026-09-20T00:00:00Z",
+        "competitors": [
+            {
+                "homeAway": "home",
+                "score": home_score,
+                "team": {
+                    "id": "1",
+                    "uid": f"s:{series}~l:{league}~t:1",
+                    "abbreviation": home,
+                },
+            },
+            {
+                "homeAway": "away",
+                "score": away_score,
+                "team": {
+                    "id": "2",
+                    "uid": f"s:{series}~l:{league}~t:2",
+                    "abbreviation": away,
+                },
+            },
+        ],
+        "status": {
+            "displayClock": clock,
+            "period": period,
+            "type": {"state": state, "name": "STATUS"},
+        },
+    }
+    if moneyline is not None:
+        competition["odds"] = [{"homeTeamOdds": {"moneyLine": moneyline}}]
+    return {
+        "id": event_id,
+        "uid": uid,
+        "date": "2026-09-20T00:00:00Z",
+        "competitions": [competition],
+    }
+
+
+def _feed_board(sport: str, events: list[dict]) -> dict:
+    return {"leagues": [dict(_FEED_LEAGUES[sport])], "events": events}
+
+
+class _SlateFetch:
+    def __init__(self, boards: dict[str, dict], empty: dict[str, dict]) -> None:
+        self.urls: list[str] = []
+        self._boards = boards
+        self._empty = empty
+
+    def __call__(self, url: str) -> dict:
+        self.urls.append(url)
+        if "dates=20260101" in url:
+            return self._board_for(url, self._empty)
+        return self._board_for(url, self._boards)
+
+    def _board_for(self, url: str, boards: dict[str, dict]) -> dict:
+        for sport, board in boards.items():
+            root = scoreboard_url(sport=sport)
+            if url == root or url.startswith(root + "?"):
+                return board
+        raise AssertionError(url)
+
+
+def _http_request_target(host: str, port: int, target: str) -> tuple[int, bytes]:
+    """Send one origin-form or absolute-form GET. Returns status and body."""
+    request = (
+        f"GET {target} HTTP/1.0\r\n"
+        f"Host: {host}:{port}\r\n"
+        "Connection: close\r\n\r\n"
+    )
+    with socket.create_connection((host, port), timeout=5) as sock:
+        sock.settimeout(5)
+        sock.sendall(request.encode("ascii"))
+        chunks: list[bytes] = []
+        while True:
+            block = sock.recv(8192)
+            if not block:
+                break
+            chunks.append(block)
+    data = b"".join(chunks)
+    head, _, body = data.partition(b"\r\n\r\n")
+    return int(head.split()[1]), body
+
+
+def _http_get_meta(
+    host: str,
+    port: int,
+    path: str,
+    *,
+    host_header: str | None = None,
+) -> tuple[int, str, str, bytes]:
+    last: Exception | None = None
+    headers: dict[str, str] = {}
+    if host_header is not None:
+        headers["Host"] = host_header
+    for _ in range(20):
+        try:
+            connection = http.client.HTTPConnection(host, port, timeout=2)
+            try:
+                connection.request("GET", path, headers=headers)
+                response = connection.getresponse()
+                content_type = response.getheader("Content-Type") or ""
+                cache = response.getheader("Cache-Control") or ""
+                return response.status, content_type, cache, response.read()
+            finally:
+                connection.close()
+        except OSError as exc:
+            last = exc
+            time.sleep(0.05)
+    raise AssertionError(last)
+
+
+def test_get_slate_returns_one_sport_for_the_requested_day(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    def blocked(*_args: object, **_kwargs: object) -> None:
+        raise AssertionError("slate route opened a network request")
+
+    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    real_before = _real_slate_bytes()
+    boards = {
+        "nfl": _board(),
+        "nhl": _feed_board(
+            "nhl",
+            [
+                _feed_event(
+                    "nhl",
+                    "77",
+                    home="COL",
+                    away="MIN",
+                    home_score="2",
+                    away_score="1",
+                    state="post",
+                    period=3,
+                    clock="0:00",
+                    moneyline=-121,
+                )
+            ],
+        ),
+        "nba": _feed_board(
+            "nba",
+            [
+                _feed_event(
+                    "nba",
+                    "88",
+                    home="LAL",
+                    away="DEN",
+                    home_score="10",
+                    away_score="8",
+                    state="in",
+                    period=2,
+                    clock="5:00",
+                )
+            ],
+        ),
+        "ncaaf": _feed_board(
+            "ncaaf",
+            [
+                _feed_event(
+                    "ncaaf",
+                    "88001",
+                    home="TEX",
+                    away="OU",
+                    home_score="21",
+                    away_score="14",
+                    state="post",
+                    period=4,
+                    clock="0:00",
+                    moneyline=-150,
+                )
+            ],
+        ),
+        "ncaah": _feed_board(
+            "ncaah",
+            [
+                _feed_event(
+                    "ncaah",
+                    "91001",
+                    home="DEN",
+                    away="MICH",
+                    home_score="3",
+                    away_score="2",
+                    state="post",
+                    period=3,
+                    clock="0:00",
+                )
+            ],
+        ),
+        "ncaab": _feed_board(
+            "ncaab",
+            [
+                _feed_event(
+                    "ncaab",
+                    "401638608",
+                    home="COLO",
+                    away="FLA",
+                    home_score="102",
+                    away_score="100",
+                    state="in",
+                    period=2,
+                    clock="5:00",
+                )
+            ],
+        ),
+    }
+    empty = {sport: _feed_board(sport, []) for sport in boards}
+    reader = _SlateFetch(boards, empty)
+    expected = {
+        sport: slate_rows(date="20260920", sport=sport, fetch=reader)
+        for sport in boards
+    }
+    assert reader.urls == [
+        scoreboard_url("20260920", sport=sport) for sport in boards
+    ]
+    assert all(row for row in expected.values())
+    server_reader = _SlateFetch(boards, empty)
+    root = tmp_path
+    marker = "window.MSWP_SLATE = [];\n"
+    (root / "slate.js").write_text(marker, encoding="utf-8", newline="\n")
+    (root / "index.html").write_text(
+        "<!DOCTYPE html><title>Multisport live win probability</title>\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+    server = bind_widget_server(0, directory=root)
+    server.slate_fetch = server_reader
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    host, port = server.server_address[:2]
+    try:
+        for sport in boards:
+            before = len(server_reader.urls)
+            status, content_type, cache, body = _http_get_meta(
+                host, port, f"/slate?sport={sport}&date=20260920"
+            )
+            assert status == 200
+            assert content_type.startswith("application/json")
+            assert cache == "no-store"
+            rows = json.loads(body)
+            assert rows == expected[sport]
+            assert rows
+            assert list(rows[0]) == list(_SLATE_FIELDS)
+            text = body.decode("utf-8")
+            assert "window.MSWP_SLATE" not in text
+            for forbidden in ("clock", "possession", "win_prob", '"wp"'):
+                assert forbidden not in text
+            assert server_reader.urls[before:] == [
+                scoreboard_url("20260920", sport=sport)
+            ]
+            assert "summary" not in server_reader.urls[-1]
+        status, content_type, _cache, body = _http_get_meta(
+            host, port, "/slate?sport=NCAAF&date=20260920"
+        )
+        assert status == 200
+        assert content_type.startswith("application/json")
+        assert json.loads(body) == expected["ncaaf"]
+        status, content_type, _cache, body = _http_get_meta(
+            host, port, "/slate?date=20260101&sport=nba"
+        )
+        assert status == 200
+        assert json.loads(body) == []
+        assert server_reader.urls[-1] == scoreboard_url("20260101", sport="nba")
+        for path in (
+            "/slate",
+            "/slate?sport=nfl",
+            "/slate?date=20260920",
+            "/slate?sport=mlb&date=20260920",
+            "/slate?sport=ncaaf&date=2026-09-20",
+            "/slate?sport=ncaah&date=20260931",
+            "/slate?sport=nba&date=20260230",
+        ):
+            before = len(server_reader.urls)
+            status, _content_type, _cache, _body = _http_get_meta(host, port, path)
+            assert status == 400, path
+            assert len(server_reader.urls) == before
+        before = len(server_reader.urls)
+        status, _content_type, _cache, _body = _http_get_meta(
+            host,
+            port,
+            "/slate?sport=nhl&date=20260920",
+            host_header="example.com",
+        )
+        assert status == 403
+        assert len(server_reader.urls) == before
+        for target in (
+            "/slate?sport=ncaaf&date=20261011",
+            "/slate/?sport=ncaaf&date=20261011",
+            f"http://{host}:{port}/slate?sport=ncaaf&date=20261011",
+        ):
+            status, body = _http_request_target(host, port, target)
+            assert status != 404, target
+            assert b"File not found" not in body
+            assert status == 200
+            assert json.loads(body) == expected["ncaaf"]
+        status, page = _http_get(host, port, "/slate.js")
+        assert status == 200
+        assert page.decode("utf-8") == marker
+        status, page = _http_get(host, port, "/index.html")
+        assert status == 200
+        assert b"Multisport live win probability" in page
+        def fail(_url: str) -> dict:
+            raise FollowError("scoreboard failed")
+
+        server.slate_fetch = fail
+        status, _content_type, _cache, failed = _http_get_meta(
+            host, port, "/slate?sport=nfl&date=20260920"
+        )
+        assert status == 502
+        assert b"Bad Gateway" in failed
+        server.slate_fetch = server_reader
+        status, _content_type, _cache, body = _http_get_meta(
+            host, port, "/slate?sport=nhl&date=20260920"
+        )
+        assert status == 200
+        assert json.loads(body) == expected["nhl"]
+        status, posted = _http_post(
+            host, port, "/follow", b'{"sport":"nfl","game_id":"55"}'
+        )
+        assert status == 204
+        assert posted == b""
+        assert (root / "slate.js").read_text(encoding="utf-8") == marker
+        assert not (root / "slate.js.tmp").exists()
+        names = sorted(path.name for path in root.iterdir())
+        assert "slate.js.tmp" not in names
+    finally:
+        server.shutdown()
+        thread.join(5)
+        server.server_close()
+    assert not thread.is_alive()
+    assert _real_slate_bytes() == real_before
+
+
+def test_cli_serve_reaches_get_slate_before_the_file_handler(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """python -m live_wp serve must answer /slate, not a missing file."""
+
+    def blocked(*_args: object, **_kwargs: object) -> None:
+        raise AssertionError("slate route opened a network request")
+
+    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    assert _request_path("/slate?sport=ncaaf&date=20261011") == "/slate"
+    assert _request_path("/slate/?sport=ncaaf&date=20261011") == "/slate"
+    assert (
+        _request_path("http://127.0.0.1:8765/slate?sport=ncaaf&date=20261011")
+        == "/slate"
+    )
+    source = inspect.getsource(_Handler.do_GET)
+    assert source.index('"/slate"') < source.index("super().do_GET")
+    assert source.index('"/replay"') < source.index("super().do_GET")
+    board = _feed_board(
+        "ncaaf",
+        [
+            _feed_event(
+                "ncaaf",
+                "88001",
+                home="TEX",
+                away="OU",
+                home_score="21",
+                away_score="14",
+                state="post",
+                period=4,
+                clock="0:00",
+            )
+        ],
+    )
+    fetch = _SlateFetch({"ncaaf": board}, {})
+    ready = threading.Event()
+    box: dict[str, object] = {}
+
+    def on_ready(server: object) -> None:
+        server.slate_fetch = fetch  # type: ignore[attr-defined]
+        box["server"] = server
+        ready.set()
+
+    def runner() -> None:
+        box["code"] = run_serve(["--port", "0"], on_ready=on_ready)
+
+    thread = threading.Thread(target=runner, daemon=True)
+    thread.start()
+    assert ready.wait(5)
+    server = box["server"]
+    assert server.RequestHandlerClass.func is _Handler  # type: ignore[attr-defined]
+    host, port = server.server_address[:2]  # type: ignore[attr-defined]
+    try:
+        status, body = _http_request_target(
+            host, port, "/slate?sport=ncaaf&date=20261011"
+        )
+        assert status != 404
+        assert b"File not found" not in body
+        assert status == 200
+        rows = json.loads(body)
+        assert rows[0]["sport"] == "ncaaf"
+        assert rows[0]["game_id"] == "88001"
+        assert fetch.urls == [scoreboard_url("20261011", sport="ncaaf")]
+    finally:
+        server.shutdown()  # type: ignore[attr-defined]
+        thread.join(5)
+        server.server_close()  # type: ignore[attr-defined]
+    assert not thread.is_alive()
+
+
 def test_follow_route_accepts_only_a_loopback_host() -> None:
     assert _request_from_localhost("127.0.0.1", "127.0.0.1:8765")
     assert _request_from_localhost("127.0.0.1", "localhost:8765")
@@ -533,6 +1033,8 @@ def test_serve_defaults_to_8765_and_rejects_a_bad_port(
     assert "urlopen" not in source
     assert "urllib" not in source
     assert "espn" not in source.lower()
+    assert '"/slate"' in source
+    assert '"/replay"' in source
     assert main(["serve", "--port", "70000"]) == 2
     captured = capsys.readouterr()
     assert captured.out == ""
@@ -551,9 +1053,11 @@ def test_page_points_at_the_local_replay_and_does_not_fetch() -> None:
     assert 'src="colors.js"' in html
     assert 'src="app.js"' in html
     script = (ROOT / "app.js").read_text(encoding="utf-8")
-    assert script.count("fetch(") == 4
+    assert script.count("fetch(") == 6
     assert 'fetch("/follow"' in script
     assert 'fetch("follow.json"' in script
+    assert '"/slate?sport="' in script
+    assert '"/replay?sport="' in script
     assert "replays/live_replay.js?" in script
     assert "127.0.0.1" in script
     assert "localhost" in script
@@ -695,7 +1199,7 @@ def test_ctrl_c_stops_and_leaves_the_last_replay(
     assert not out.with_name(out.name + ".tmp").exists()
 
 
-def test_live_default_out_is_the_widget_replay() -> None:
+def test_live_default_out_is_the_live_replay() -> None:
     options = parse_live_args(["--game", "55"])
     assert options.out == DEFAULT_OUT
     assert options.out.name == "live_replay.js"
@@ -977,3 +1481,183 @@ def test_follow_file_college_does_not_fetch(
     assert "college football" in captured.err.lower()
     assert not out.exists()
     assert not slate.exists()
+
+
+_REPLAY_SIDES = {
+    "nfl": ("JAX", "DEN"),
+    "nhl": ("MIN", "COL"),
+    "nba": ("BOS", "NYK"),
+    "ncaaf": ("COLO", "GT"),
+    "ncaah": ("MICH", "DEN"),
+    "ncaab": ("COLO", "FLA"),
+}
+
+
+def _replay_event(sport: str, event_id: str, state: str) -> dict:
+    away, home = _REPLAY_SIDES[sport]
+    return _feed_event(
+        sport,
+        event_id,
+        home=home,
+        away=away,
+        home_score="0" if state == "pre" else "20",
+        away_score="0" if state == "pre" else "13",
+        state=state,
+        period=1 if state == "pre" else 4,
+        clock="15:00" if state == "pre" else "0:00",
+        moneyline=-150,
+    )
+
+
+def _replay_fetch(sport: str, event: dict, summary: dict | None = None):
+    urls: list[str] = []
+
+    def fetch(url: str) -> dict:
+        urls.append(url)
+        if "summary?" in url:
+            if summary is None:
+                raise FollowError("summary has no snapshots")
+            return summary
+        return _feed_board(sport, [event])
+
+    return urls, fetch
+
+
+def test_replay_script_charts_started_games_for_every_sport() -> None:
+    summary = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    urls, fetch = _replay_fetch(
+        "nfl", _replay_event("nfl", "9001001", "post"), summary
+    )
+    script = replay_script("nfl", "9001001", date="20260920", fetch=fetch)
+    assert script is not None
+    assert "\r" not in script
+    assert "window.MSWP_LIVE" in script
+    assert script.count('"win_prob"') > 1
+    assert '"game_id": "9001001"' in script
+    assert urls == [
+        scoreboard_url("20260920", sport="nfl"),
+        summary_url("9001001", sport="nfl"),
+    ]
+
+    for sport in _REPLAY_SIDES:
+        called, getter = _replay_fetch(sport, _replay_event(sport, "55", "post"))
+        rendered = replay_script(sport, "55", date="20260920", fetch=getter)
+        assert rendered is not None
+        assert "window.MSWP_LIVE" in rendered
+        assert f'"sport": "{sport}"' in rendered
+        away, home = _REPLAY_SIDES[sport]
+        assert f'"away": "{away}"' in rendered
+        assert f'"home": "{home}"' in rendered
+        assert called[0] == scoreboard_url("20260920", sport=sport)
+        assert summary_url("55", sport=sport) in called
+
+
+def test_replay_script_skips_a_pre_game_and_a_feed_failure() -> None:
+    urls, fetch = _replay_fetch("ncaaf", _replay_event("ncaaf", "880", "pre"))
+    assert replay_script("ncaaf", "880", date="20260920", fetch=fetch) is None
+    assert urls == [scoreboard_url("20260920", sport="ncaaf")]
+
+    def down(_url: str) -> dict:
+        raise FollowError("scoreboard unavailable")
+
+    assert replay_script("nba", "55", date="20260920", fetch=down) is None
+
+
+def test_get_replay_returns_a_temporary_script_or_no_content(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    def blocked(*_args: object, **_kwargs: object) -> None:
+        raise AssertionError("replay route opened a network request")
+
+    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    summary = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    urls, fetch = _replay_fetch(
+        "nfl", _replay_event("nfl", "9001001", "post"), summary
+    )
+    index = tmp_path / "index.html"
+    index.write_text("<!DOCTYPE html><title>page</title>\n", encoding="utf-8", newline="\n")
+    server = bind_widget_server(0, directory=tmp_path)
+    server.replay_fetch = fetch  # type: ignore[attr-defined]
+    thread = threading.Thread(target=server.serve_forever, daemon=True)
+    thread.start()
+    host, port = server.server_address[:2]
+    try:
+        status, content_type, cache, body = _http_get_meta(
+            host, port, "/replay?sport=nfl&game_id=9001001&date=20260920"
+        )
+        assert status == 200
+        assert content_type.startswith("text/javascript")
+        assert cache == "no-store"
+        script = body.decode("utf-8")
+        assert "\r" not in script
+        assert "window.MSWP_LIVE" in script
+        assert script.count('"win_prob"') > 1
+        assert not (tmp_path / "follow.json").exists()
+        assert not (tmp_path / "replays" / "live_replay.js").exists()
+        assert urls == [
+            scoreboard_url("20260920", sport="nfl"),
+            summary_url("9001001", sport="nfl"),
+        ]
+
+        pre_urls, pre_fetch = _replay_fetch("nhl", _replay_event("nhl", "77", "pre"))
+        server.replay_fetch = pre_fetch  # type: ignore[attr-defined]
+        status, content_type, _cache, body = _http_get_meta(
+            host, port, "/replay?sport=nhl&game_id=77&date=20260920"
+        )
+        assert status == 204
+        assert body == b""
+        assert pre_urls == [scoreboard_url("20260920", sport="nhl")]
+
+        quiet: list[str] = []
+
+        def refuse(url: str) -> dict:
+            quiet.append(url)
+            raise AssertionError(url)
+
+        server.replay_fetch = refuse  # type: ignore[attr-defined]
+        for path in (
+            "/replay?sport=mlb&game_id=55&date=20260920",
+            "/replay?sport=ncaab&game_id=abc&date=20260920",
+            "/replay?sport=ncaah&date=20260920",
+            "/replay?sport=nba&game_id=55&date=2026-09-20",
+            "/replay?sport=nfl&game_id=55&date=20260230",
+        ):
+            status, _body = _http_get(host, port, path)
+            assert status == 400
+        assert quiet == []
+        status, _body = _http_get_meta(
+            host,
+            port,
+            "/replay?sport=ncaaf&game_id=880&date=20260920",
+            host_header="example.com",
+        )[:2]
+        assert status == 403
+        assert quiet == []
+        college_urls, college_fetch = _replay_fetch(
+            "ncaaf", _replay_event("ncaaf", "880", "post")
+        )
+        server.replay_fetch = college_fetch  # type: ignore[attr-defined]
+        status, body = _http_request_target(
+            host,
+            port,
+            f"http://{host}:{port}/replay?sport=ncaaf&game_id=880&date=20260920",
+        )
+        assert status == 200
+        assert b"window.MSWP_LIVE" in body
+        assert b'"sport": "ncaaf"' in body
+        assert college_urls[0] == scoreboard_url("20260920", sport="ncaaf")
+        names = sorted(path.name for path in tmp_path.iterdir())
+        assert names == ["index.html"]
+    finally:
+        server.shutdown()
+        thread.join(5)
+        server.server_close()
+    assert not thread.is_alive()

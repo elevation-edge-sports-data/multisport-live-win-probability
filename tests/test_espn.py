@@ -35,7 +35,7 @@ NCAAF_SNIPPET = ROOT / "tests" / "fixtures" / "espn_ncaaf_summary_snippet.json"
 NHL_SNIPPET = ROOT / "tests" / "fixtures" / "espn_nhl_summary_snippet.json"
 SAMPLE = ROOT / "examples" / "nfl_espn_sample.json"
 HARBOR = ROOT / "examples" / "nfl_sample.json"
-WIDGET_SCRIPT = ROOT / "replays" / "nfl" / "sample.js"
+HARBOR_REPLAY = ROOT / "replays" / "nfl" / "sample.js"
 
 
 def _summary() -> dict:
@@ -444,7 +444,7 @@ def test_density_selects_how_many_plays_become_snapshots():
         espn_summary_to_states(summary, density="plays")
 
 
-def test_jax_at_den_is_the_widget_replay():
+def test_jax_at_den_is_the_replay():
     states = load_replay(ROOT / "examples" / "nfl_jax_den.json")
     assert states
     assert {state.sport for state in states} == {"nfl"}
@@ -514,7 +514,7 @@ def test_jax_at_den_is_the_widget_replay():
     assert (ROOT / frames[0]["away_logo"]).is_file()
 
 
-def test_colo_at_gt_is_the_ncaaf_widget_replay():
+def test_colo_at_gt_is_the_ncaaf_replay():
     states = load_replay(ROOT / "examples" / "ncaaf_cu_gt.json")
     assert len(states) >= 100
     assert {state.sport for state in states} == {"ncaaf"}
@@ -581,8 +581,9 @@ def test_colo_at_gt_is_the_ncaaf_widget_replay():
     assert frames[-1]["home_score"] == 13
     assert frames[-1]["away_score"] == 14
     assert frames[-1]["win_prob"] == 0.0
-    ncaaf_logos = ROOT / "widget" / "logos" / "ncaaf"
-    assert sorted(path.name for path in ncaaf_logos.iterdir()) == ["COLO.png", "GT.png", "TTU.png"]
+    ncaaf_logos = ROOT / "assets" / "logos" / "ncaaf"
+    for name in ("COLO.png", "GT.png", "TTU.png"):
+        assert (ncaaf_logos / name).is_file()
 
 
 def test_checked_in_sample_matches_the_snippet_and_loads():
@@ -638,7 +639,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     assert script == render_widget_script(states)
     assert "window.NFL_REPLAY = " in script
     assert "espn" not in script.lower()
-    harbor_text = WIDGET_SCRIPT.read_text(encoding="utf-8")
+    harbor_text = HARBOR_REPLAY.read_text(encoding="utf-8")
     harbor_frames = json.loads(harbor_text[harbor_text.index("[") : harbor_text.rindex("]") + 1])
     frames = json.loads(script[script.index("[") : script.rindex("]") + 1])
     assert list(frames[0]) == list(harbor_frames[0])
@@ -763,7 +764,7 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
     assert all(state.strength is None and state.down is None for state in everything)
 
 
-def test_min_at_col_is_the_nhl_widget_replay():
+def test_min_at_col_is_the_nhl_replay():
     path = ROOT / "examples" / "nhl_col_min_g5.json"
     states = load_replay(path)
     assert states

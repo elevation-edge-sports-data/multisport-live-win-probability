@@ -12,7 +12,6 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-WIDGET = ROOT / "widget"
 REPLAYS = ROOT / "replays"
 
 
@@ -40,7 +39,7 @@ class _Buttons(HTMLParser):
             self._text.append(data)
 
 
-def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
+def test_page_filters_games_from_the_manifest_and_keeps_two_views():
     html = (ROOT / "index.html").read_text(encoding="utf-8")
     css = (ROOT / "styles.css").read_text(encoding="utf-8")
     script = (ROOT / "app.js").read_text(encoding="utf-8")
@@ -48,9 +47,11 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "espn" not in page
     assert "espn.com" not in page
     assert "http://" not in page and "https://" not in page
-    assert script.count("fetch(") == 4
+    assert script.count("fetch(") == 6
     assert 'fetch("/follow"' in script
     assert 'fetch("follow.json"' in script
+    assert '"/slate?sport="' in script
+    assert '"/replay?sport="' in script
     assert 'method: "POST"' in script
     assert 'method: "GET"' in script
     assert "live_replay.js?" in script
@@ -108,11 +109,16 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     parser.feed(html)
     sports = [item for item in parser.buttons if "sport" in item[0].get("class", "")]
     views = [item for item in parser.buttons if "data-view-choice" in item[0]]
-    assert [text.strip() for _, text in sports] == ["Pro", "College"]
-    assert all("disabled" not in item[0] for item in sports)
-    assert ">Pro<" in html and ">College<" in html
-    assert html.index('id="level-pro"') < html.index('id="level-college"')
-    assert html.index('id="level-college"') < html.index('id="sports"')
+    assert sports == []
+    assert 'id="level-pro"' not in html and 'id="level-college"' not in html
+    assert 'aria-label="Level"' not in html
+    assert ">Pro<" not in html and ">College<" not in html
+    assert html.index('id="sports"') < html.index('id="slate-date-row"')
+    assert html.index('id="slate-date-row"') < html.index('id="slate-row"')
+    assert 'id="slate-date-row" hidden' in html
+    assert 'id="slate-date"' in html
+    assert 'type="date"' in html
+    assert ".slate-date" in css
     assert html.index('id="sports"') < html.index('id="slate-row"')
     assert html.index('id="slate-row"') < html.index('id="slate"')
     assert html.index('id="slate"') < html.index('id="season-row"')
@@ -149,8 +155,8 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert 'id="badge"' in html
     assert "V3.3" not in script
     assert "V3.5" not in script
-    assert script.count("V4") == 1
-    assert 'var BADGE_TEXT = "V4"' in script
+    assert script.count("V5") == 1
+    assert 'var BADGE_TEXT = "V5"' in script
     assert "badge.textContent = BADGE_TEXT" in script
     assert 'src="colors.js"' in html
     assert 'data-theme="charcoal"' in html
@@ -211,8 +217,10 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
     assert "sport-nfl" not in script
     for binding in ("NFL_REPLAY", "NHL_REPLAY", "NBA_REPLAY", "NCAAF_REPLAY", "NCAAH_REPLAY", "NCAAB_REPLAY"):
         assert f'return "{binding}"' in script
-    assert 'getElementById("level-pro").addEventListener("click"' in script
-    assert 'getElementById("level-college").addEventListener("click"' in script
+    assert "level-pro" not in script and "level-college" not in script
+    assert "levelName" not in script and "sportsForLevel" not in script
+    assert "levelForSport" not in script and "gamesForLevel" not in script
+    assert "renderLevel" not in script
     assert 'getElementById("sports").addEventListener("click"' in script
     assert 'getElementById("games").addEventListener("click"' in script
     load_game = script[script.index("function loadGame"): script.index("playButton.addEventListener")]
@@ -232,17 +240,20 @@ def test_widget_filters_games_from_the_manifest_and_keeps_two_views():
         assert "espn" not in text, path.name
         assert "espn.com" not in text, path.name
         if path.name == "app.js":
-            assert text.count("fetch(") == 4, path.name
+            assert text.count("fetch(") == 6, path.name
             assert 'fetch("/follow"' in text, path.name
             assert 'fetch("follow.json"' in text, path.name
+            assert '"/slate?sport="' in text, path.name
+            assert '"/replay?sport="' in text, path.name
             assert "live_replay.js" in text, path.name
         else:
             assert "fetch(" not in text, path.name
         assert "https://" not in text, path.name
         bare = text.replace("http://www.w3.org/2000/svg", "")
         assert "http://" not in bare, path.name
-    ncaaf_logos = sorted(path.name for path in (WIDGET / "logos" / "ncaaf").iterdir())
-    assert ncaaf_logos == ["COLO.png", "GT.png", "TTU.png"]
+    ncaaf_logos = ROOT / "assets" / "logos" / "ncaaf"
+    for name in ("COLO.png", "GT.png", "TTU.png"):
+        assert (ncaaf_logos / name).is_file()
 
 
 def test_extra_period_panes_follow_time_played():
@@ -647,8 +658,8 @@ console.log(JSON.stringify({
     assert report["legacyDark"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#A71930"}
     assert report["migratedDark"] == {"homeSwatch": "#FB4F14", "awaySwatch": "#A71930"}
     assert report["migratedLight"] is None
-    widget_script = (ROOT / "app.js").read_text(encoding="utf-8")
-    set_theme = widget_script[widget_script.index("function setTheme"):widget_script.index("function show")]
+    page_script = (ROOT / "app.js").read_text(encoding="utf-8")
+    set_theme = page_script[page_script.index("function setTheme"):page_script.index("function show")]
     assert set_theme.index("writeAppearance()") < set_theme.index("themeName = next")
     assert "repairPair(" not in set_theme
 
@@ -743,7 +754,7 @@ def test_write_manifest_lists_rendered_replays_except_harbor(tmp_path):
     assert dest.read_text(encoding="utf-8") == text
 
 
-def test_render_widget_refreshes_the_manifest_only_in_widget(tmp_path, monkeypatch):
+def test_render_widget_refreshes_the_manifest_only_under_replays(tmp_path, monkeypatch):
     from live_wp import replay as replay_mod
     from live_wp.__main__ import render_widget
 
@@ -1025,11 +1036,11 @@ const bootGameRow = document.getElementById("game-row").hidden === true;
 play.click();
 const duringPlay = play.textContent;
 const duringScore = score.textContent;
-document.getElementById("level-college").click();
-const filteredScore = score.textContent;
-const collegeSports = sportButtons().map(buttonLabel);
-const collegeGamesWhileNfl = gameButtons().map(buttonLabel);
+const sportsDuringNfl = sportButtons().map(buttonLabel);
+const gamesDuringNfl = gameButtons().map(buttonLabel);
 clickSport("ncaaf");
+const sportsOnNcaaf = sportButtons().map(buttonLabel);
+const ncaafPressed = sportButtons().filter((button) => button.getAttribute("aria-pressed") === "true").map(buttonLabel);
 const ncaafScore = score.textContent;
 const ncaafPlay = play.textContent;
 const ncaafGames = gameButtons().map(buttonLabel);
@@ -1061,10 +1072,9 @@ clickSport("ncaab");
 const ncaabGames = gameButtons().length;
 const ncaabRow = document.getElementById("game-row").hidden === true;
 const ncaabScore = score.textContent;
-document.getElementById("level-pro").click();
-const proSports = sportButtons().map(buttonLabel);
-const proScoreWhileNcaab = score.textContent;
+const sportsOnNcaab = sportButtons().map(buttonLabel);
 clickSport("nba");
+const sportsOnNba = sportButtons().map(buttonLabel);
 const nbaGames = gameButtons().length;
 const nbaRow = document.getElementById("game-row").hidden === true;
 const nbaScore = score.textContent;
@@ -1074,7 +1084,7 @@ const nygAgain = score.textContent;
 const nygPosition = readout();
 document.getElementById("step-back").click();
 const nygStep = readout();
-function bootWidget(preloadNames, extraEntries) {
+function bootPage(preloadNames, extraEntries) {
   const localById = {};
   function localGet(id) {
     if (!localById[id]) localById[id] = element("div");
@@ -1132,7 +1142,7 @@ function bootWidget(preloadNames, extraEntries) {
   localRun("app.js");
   return localDocument;
 }
-const harborDoc = bootWidget(["replays/nfl/sample.js"], [{
+const harborDoc = bootPage(["replays/nfl/sample.js"], [{
   sport: "nfl",
   away: "Red Oak",
   home: "Harbor",
@@ -1172,9 +1182,10 @@ console.log(JSON.stringify({
   bootGameRow: bootGameRow,
   duringPlay: duringPlay,
   duringScore: duringScore,
-  filteredScore: filteredScore,
-  collegeSports: collegeSports,
-  collegeGamesWhileNfl: collegeGamesWhileNfl,
+  sportsDuringNfl: sportsDuringNfl,
+  gamesDuringNfl: gamesDuringNfl,
+  sportsOnNcaaf: sportsOnNcaaf,
+  ncaafPressed: ncaafPressed,
   ncaafScore: ncaafScore,
   ncaafPlay: ncaafPlay,
   ncaafGames: ncaafGames,
@@ -1200,8 +1211,8 @@ console.log(JSON.stringify({
   ncaabGames: ncaabGames,
   ncaabRow: ncaabRow,
   ncaabScore: ncaabScore,
-  proSports: proSports,
-  proScoreWhileNcaab: proScoreWhileNcaab,
+  sportsOnNcaab: sportsOnNcaab,
+  sportsOnNba: sportsOnNba,
   nbaGames: nbaGames,
   nbaRow: nbaRow,
   nbaScore: nbaScore,
@@ -1230,16 +1241,21 @@ console.log(JSON.stringify({
     football = ["Q1", "Q2", "Q3", "Q4", "OT", "2OT"]
     hockey = ["P1", "P2", "P3", "OT", "2OT"]
     regulation = ["Q1", "Q2", "Q3", "Q4"]
-    assert report["badge"] == "V4"
+    assert report["badge"] == "V5"
     assert "NYG" in report["bootScore"] and "DEN" in report["bootScore"]
     assert report["bootClock"] == "FINAL"
     assert report["bootPosition"] == "FINAL"
     assert "·" not in report["bootPosition"]
     assert report["bootAtEnd"] is True
-    assert report["bootSports"] == ["NFL", "NHL", "NBA"]
+    six = ["NFL", "NHL", "NBA", "NCAAF", "NCAAH", "NCAAB"]
+    assert report["bootSports"] == six
     assert report["bootSportPressed"] == ["NFL"]
-    assert report["collegeSports"] == ["NCAAF", "NCAAH", "NCAAB"]
-    assert report["proSports"] == ["NFL", "NHL", "NBA"]
+    assert report["sportsDuringNfl"] == six
+    assert report["gamesDuringNfl"] == report["bootGames"]
+    assert report["sportsOnNcaaf"] == six
+    assert report["ncaafPressed"] == ["NCAAF"]
+    assert report["sportsOnNcaab"] == six
+    assert report["sportsOnNba"] == six
     assert report["bootSeasons"] == ["2025", "2026"]
     assert report["bootSeasonPressed"] == ["2025"]
     assert report["bootGames"] == ["NYG at DEN"]
@@ -1252,8 +1268,6 @@ console.log(JSON.stringify({
     assert report["bootGameRow"] is False
     assert report["duringPlay"] == "Pause"
     assert report["duringScore"] != report["bootScore"]
-    assert report["filteredScore"] == report["duringScore"]
-    assert report["collegeGamesWhileNfl"] == []
     assert "COLO" in report["ncaafScore"] and "GT" in report["ncaafScore"]
     assert "TTU" not in report["ncaafScore"]
     assert report["ncaafPlay"] == "Play"
@@ -1296,7 +1310,6 @@ console.log(JSON.stringify({
     assert report["ncaabGames"] == 0
     assert report["ncaabRow"] is True
     assert "FLA" in report["ncaabScore"]
-    assert report["proScoreWhileNcaab"] == report["ncaabScore"]
     assert report["nbaGames"] == 0
     assert report["nbaRow"] is True
     assert "LAL" in report["nbaScore"]
@@ -2430,8 +2443,7 @@ function snap(page) {
     clock: doc.getElementById("c-clock").textContent,
     play: doc.getElementById("play").textContent,
     atEnd: scrub.value === scrub.max && Number(scrub.max) > 0,
-    levelPro: doc.getElementById("level-pro").getAttribute("aria-pressed"),
-    levelCollege: doc.getElementById("level-college").getAttribute("aria-pressed"),
+    sports: sports.map((button) => button.getAttribute("data-sport")),
     sport: sports.filter((button) => button.getAttribute("aria-pressed") === "true").map((button) => button.getAttribute("data-sport")),
     pressed: games.filter((button) => button.getAttribute("aria-pressed") === "true").map((button) => (
       button.getAttribute("data-live") === "true" ? "live" : button.getAttribute("data-file")
@@ -2450,9 +2462,6 @@ const nyg = boot({
   hold: true
 });
 const nygSnap = snap(nyg);
-nyg.document.getElementById("level-college").click();
-nyg.document.getElementById("level-pro").click();
-const afterLevel = snap(nyg);
 clickSeason(nyg, "2026");
 clickFile(nyg, "jax_den.js");
 const afterJax = snap(nyg);
@@ -2501,7 +2510,6 @@ const missingBefore = snap(missing);
   const afterArchiveClick = snap(arrived);
   console.log(JSON.stringify({
     nyg: nygSnap,
-    afterLevel: afterLevel,
     afterJax: afterJax,
     afterNba: afterNba,
     jax: snap(jax),
@@ -2543,55 +2551,48 @@ const missingBefore = snap(missing);
     mich = f"MICH 3 {dash} DEN 4"
     live = f"NYG 3 {dash} DEN 7"
 
-    def assert_open(row, score, sport, level):
+    def assert_open(row, score, sport):
         assert row["score"] == score
         assert row["clock"] == "FINAL"
         assert row["play"] == "Play"
         assert row["atEnd"] is True
         assert row["sport"] == [sport]
-        if level == "pro":
-            assert row["levelPro"] == "true"
-            assert row["levelCollege"] == "false"
-        else:
-            assert row["levelPro"] == "false"
-            assert row["levelCollege"] == "true"
+        assert row["sports"] == ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"]
 
-    assert_open(report["nyg"], nyg, "nfl", "pro")
+    assert_open(report["nyg"], nyg, "nfl")
     assert report["nyg"]["pressed"] == ["nyg_den.js"]
     assert report["nyg"]["liveCount"] == 0
     assert report["nyg"]["calls"] == []
     assert report["nyg"]["gameRowHidden"] is False
-    assert report["afterLevel"]["score"] == nyg
-    assert report["afterLevel"]["calls"] == []
     assert report["afterJax"]["calls"] == [
         "index.html?sport=nfl&game=jax-den",
         "index.html?sport=nfl&game=jax-den",
     ]
-    assert_open(report["afterJax"], jax, "nfl", "pro")
+    assert_open(report["afterJax"], jax, "nfl")
     assert report["afterJax"]["pressed"] == ["jax_den.js"]
     assert report["afterNba"]["calls"] == [
         "index.html?sport=nfl&game=jax-den",
         "index.html?sport=nfl&game=jax-den",
         "index.html?sport=nba&game=den-lal",
     ]
-    assert_open(report["afterNba"], report["afterNba"]["score"], "nba", "pro")
+    assert_open(report["afterNba"], report["afterNba"]["score"], "nba")
     assert "DEN" in report["afterNba"]["score"] and "LAL" in report["afterNba"]["score"]
     assert report["afterNba"]["gameRowHidden"] is True
-    assert_open(report["jax"], jax, "nfl", "pro")
+    assert_open(report["jax"], jax, "nfl")
     assert report["jax"]["pressed"] == ["jax_den.js"]
     assert report["jax"]["calls"] == []
-    assert_open(report["mich"], mich, "ncaah", "college")
+    assert_open(report["mich"], mich, "ncaah")
     assert report["mich"]["gameRowHidden"] is True
     assert report["mich"]["liveCount"] == 0
-    assert_open(report["lal"], report["lal"]["score"], "nba", "pro")
+    assert_open(report["lal"], report["lal"]["score"], "nba")
     assert "LAL" in report["lal"]["score"] and "DEN" in report["lal"]["score"]
-    assert_open(report["unknownGame"], nyg, "nfl", "pro")
+    assert_open(report["unknownGame"], nyg, "nfl")
     assert "MICH" not in report["unknownGame"]["score"]
     assert report["unknownGame"]["pressed"] == ["nyg_den.js"]
-    assert_open(report["unknownSport"], nyg, "nfl", "pro")
+    assert_open(report["unknownSport"], nyg, "nfl")
     assert "MICH" not in report["unknownSport"]["score"]
     assert report["unknownSport"]["pressed"] == ["nyg_den.js"]
-    assert_open(report["waiting"], jax, "nfl", "pro")
+    assert_open(report["waiting"], jax, "nfl")
     assert report["waiting"]["liveCount"] == 0
     assert report["waiting"]["pressed"] == ["jax_den.js"]
     assert report["preset"]["score"] == live
@@ -2599,21 +2600,22 @@ const missingBefore = snap(missing);
     assert report["preset"]["play"] == "Play"
     assert report["preset"]["atEnd"] is True
     assert report["preset"]["sport"] == ["nfl"]
+    assert report["preset"]["sports"] == ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"]
     assert report["preset"]["pressed"] == ["live"]
     assert report["preset"]["liveCount"] == 1
     assert report["preset"]["liveLabel"] == "NYG at DEN"
     assert report["preset"]["calls"] == []
-    assert_open(report["otherHost"], nyg, "nfl", "pro")
+    assert_open(report["otherHost"], nyg, "nfl")
     assert report["otherHost"]["liveCount"] == 0
     assert report["otherHost"]["fetches"] == ["assets/colors/nfl.json"]
     assert report["otherHost"]["score"] != live
-    assert_open(report["fileHost"], jax, "nfl", "pro")
+    assert_open(report["fileHost"], jax, "nfl")
     assert report["fileHost"]["liveCount"] == 0
     assert report["fileHost"]["fetches"] == ["assets/colors/nfl.json"]
     assert all("follow.json" not in url for url in report["nyg"]["fetches"])
     assert all("follow.json" not in url for url in report["mich"]["fetches"])
     assert all("follow.json" not in url for url in report["otherHost"]["fetches"])
-    assert_open(report["arrivedBefore"], jax, "nfl", "pro")
+    assert_open(report["arrivedBefore"], jax, "nfl")
     assert report["arrivedBefore"]["liveCount"] == 0
     assert report["arrivedBefore"]["fetches"]
     assert report["arrivedBefore"]["fetches"][0] == "assets/colors/nfl.json"
@@ -2628,14 +2630,14 @@ const missingBefore = snap(missing);
     assert report["arrivedAfter"]["pressed"] == ["live"]
     assert report["arrivedAfter"]["liveLabel"] == "NYG at DEN"
     assert report["arrivedAfter"]["calls"] == []
-    assert_open(report["missingBefore"], mich, "ncaah", "college")
-    assert_open(report["missingAfter"], mich, "ncaah", "college")
+    assert_open(report["missingBefore"], mich, "ncaah")
+    assert_open(report["missingAfter"], mich, "ncaah")
     assert report["missingAfter"]["liveCount"] == 0
     assert report["missingAfter"]["score"] != live
     assert report["afterLiveClick"]["calls"] == ["?sport=nfl&game=nyg-den&live=1"]
     assert report["afterLiveClick"]["score"] == live
     assert report["afterLiveClick"]["play"] == "Play"
-    assert_open(report["afterArchiveClick"], jax, "nfl", "pro")
+    assert_open(report["afterArchiveClick"], jax, "nfl")
     assert report["afterArchiveClick"]["pressed"] == ["jax_den.js"]
     assert report["afterArchiveClick"]["calls"] == [
         "?sport=nfl&game=nyg-den&live=1",
@@ -2731,11 +2733,25 @@ function element(tag) {
       node = node.parentNode;
     }
   };
+  el.dispatch = (type) => {
+    const event = { target: el };
+    const list = el.listeners && el.listeners[type] ? el.listeners[type].slice() : [];
+    list.forEach((fn) => fn(event));
+  };
   return el;
 }
 
 function http(status, body) {
   return { ok: status >= 200 && status < 300, status: status, body: body == null ? "" : String(body) };
+}
+
+function deferredHttp(status, body) {
+  let release;
+  const gate = new Promise((resolve) => { release = resolve; });
+  const item = http(status, body);
+  item.gate = gate;
+  item.release = release;
+  return item;
 }
 
 function settle() {
@@ -2797,9 +2813,25 @@ function boot(options) {
   const slateItems = (options.slate || []).slice();
   const liveItems = (options.live || []).slice();
   const followItems = (options.follow || []).slice();
+  const slateApiItems = (options.slateApi || []).slice();
+  const replayItems = (options.replay || []).slice();
   const byId = {};
   function getElementById(id) {
-    if (!byId[id]) byId[id] = element("div");
+    if (!byId[id]) {
+      byId[id] = element("div");
+      if (id === "slate-date-row") {
+        let hidden = true;
+        byId[id].dateTouched = false;
+        Object.defineProperty(byId[id], "hidden", {
+          configurable: true,
+          get() { return hidden; },
+          set(value) {
+            byId[id].dateTouched = true;
+            hidden = !!value;
+          }
+        });
+      }
+    }
     byId[id].id = id;
     return byId[id];
   }
@@ -2862,12 +2894,14 @@ function boot(options) {
       if (address.indexOf("slate.js") >= 0) item = slateItems.shift();
       else if (address.indexOf("live_replay.js") >= 0) item = liveItems.shift();
       else if (address.indexOf("follow.json") >= 0) item = followItems.shift();
+      else if (address.indexOf("/slate?") === 0) item = slateApiItems.shift();
+      else if (address.indexOf("/replay?") === 0) item = replayItems.shift();
       else item = http(599, address);
       if (!item) item = http(404, "");
       return Promise.resolve({
         ok: item.ok,
         status: item.status,
-        text: () => Promise.resolve(item.body)
+        text: () => (item.gate ? item.gate.then(() => item.body) : Promise.resolve(item.body))
       });
     },
     document
@@ -2891,7 +2925,7 @@ function boot(options) {
   run("manifest.js");
   run("colors.js");
   run("app.js");
-  return { document, calls, fetches, intervals, slateItems, liveItems };
+  return { document, calls, fetches, intervals, slateItems, liveItems, slateApiItems };
 }
 
 function buttons(doc, id) {
@@ -2935,6 +2969,10 @@ function snap(page) {
     status: doc.getElementById("board-status").textContent,
     prior: doc.getElementById("board-prior").textContent,
     slateHidden: doc.getElementById("slate-row").hidden === true,
+    seasonHidden: doc.getElementById("season-row").hidden === true,
+    dateHidden: doc.getElementById("slate-date-row").hidden === true,
+    dateTouched: doc.getElementById("slate-date-row").dateTouched === true,
+    dateValue: doc.getElementById("slate-date").value || "",
     slateLabels: slate.map((button) => button.textContent),
     slateIds: slate.map((button) => button.getAttribute("data-slate-id")),
     slatePressed: slate.filter((button) => button.getAttribute("aria-pressed") === "true").map((button) => button.getAttribute("data-slate-id")),
@@ -2942,6 +2980,7 @@ function snap(page) {
     archive: archive.map((button) => ({ file: button.getAttribute("data-file"), label: button.textContent })),
     liveLabel: live.length ? live[0].textContent : "",
     livePressed: live.length ? live[0].getAttribute("aria-pressed") : "",
+    sportLabels: buttons(doc, "sports").map((button) => button.textContent),
     sportPressed: buttons(doc, "sports").filter((button) => button.getAttribute("aria-pressed") === "true").map((button) => button.getAttribute("data-sport")),
     calls: page.calls.slice(),
     fetches: page.fetches.map((item) => ({
@@ -2995,7 +3034,6 @@ async function runPoll(page) {
   const afterArchive = snap(page);
   clickSport(page, "nba");
   const nba = snap(page);
-  page.document.getElementById("level-college").click();
   clickSport(page, "ncaaf");
   const college = snap(page);
 
@@ -3069,9 +3107,10 @@ async function runPoll(page) {
     live: [http(200, liveSource())]
   });
   await flush();
-  collegeOnly.document.getElementById("level-college").click();
   clickSport(collegeOnly, "ncaaf");
   const collegePosts = snap(collegeOnly);
+  clickSlate(collegeOnly, "900");
+  const collegeCard = snap(collegeOnly);
 
   const followCard = boot({
     follow: [http(200, '{"sport":"nfl","game_id":"402"}')],
@@ -3162,6 +3201,168 @@ async function runPoll(page) {
   await flush();
   const collegeQuerySnap = snap(collegeQuery);
 
+  const datedNfl = [
+    { sport: "nfl", game_id: "701", away: "JAX", home: "DEN", status: "final", away_score: 13, home_score: 20, prior_home: 0.81 },
+    { sport: "nfl", game_id: "702", away: "NYJ", home: "NE", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 }
+  ];
+  const datedNcaaf = [
+    { sport: "ncaaf", game_id: "880", away: "COLO", home: "GT", status: "live", away_score: 7, home_score: 10, prior_home: 0.44 }
+  ];
+  const datedNhl = [
+    { sport: "nhl", game_id: "77", away: "MIN", home: "COL", status: "final", away_score: 1, home_score: 2, prior_home: 0.55 }
+  ];
+  const datedEarly = [
+    { sport: "nhl", game_id: "1", away: "BUF", home: "KC", status: "final", away_score: 1, home_score: 2, prior_home: 0.5 }
+  ];
+  const datedLate = [
+    { sport: "nhl", game_id: "2", away: "OTT", home: "TOR", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 }
+  ];
+  const dated = boot({
+    slate: [http(200, slateSource(slateRows))],
+    live: [http(200, liveSource())],
+    slateApi: [
+      http(200, JSON.stringify(datedNfl)),
+      http(200, JSON.stringify(datedNcaaf)),
+      http(404, ""),
+      http(200, JSON.stringify(datedNhl))
+    ]
+  });
+  await flush();
+  const datedBefore = snap(dated);
+  const dateInput = dated.document.getElementById("slate-date");
+  dateInput.value = "2026-09-20";
+  dateInput.dispatch("change");
+  await flush();
+  const datedPicked = snap(dated);
+  clickSlate(dated, "701");
+  const datedCard = snap(dated);
+  clickSport(dated, "ncaaf");
+  await flush();
+  clickSlate(dated, "880");
+  const datedCollege = snap(dated);
+  dated.slateItems.push(http(200, slateSource(slateRows)));
+  dated.liveItems.push(http(200, liveSource()));
+  await runPoll(dated);
+  const datedPolled = snap(dated);
+  dateInput.value = "";
+  dateInput.dispatch("change");
+  await flush();
+  const datedCleared = snap(dated);
+  dateInput.value = "2026-10-02";
+  dateInput.dispatch("change");
+  await flush();
+  const datedFailed = snap(dated);
+  clickSport(dated, "nhl");
+  await flush();
+  const datedNhlSnap = snap(dated);
+  const slow = deferredHttp(200, JSON.stringify(datedEarly));
+  dated.slateApiItems.push(slow);
+  dated.slateApiItems.push(http(200, JSON.stringify(datedLate)));
+  dateInput.value = "2026-09-01";
+  dateInput.dispatch("change");
+  dateInput.value = "2026-09-02";
+  dateInput.dispatch("change");
+  await flush();
+  const datedStale = snap(dated);
+  slow.release();
+  await flush();
+  const datedStaleLate = snap(dated);
+
+  const offHost = boot({
+    hostname: "example.github.io",
+    protocol: "https:",
+    slate: [http(200, slateSource(slateRows))],
+    live: [http(200, liveSource())],
+    slateApi: [http(200, JSON.stringify(datedNfl))]
+  });
+  await flush();
+  const offHostBefore = snap(offHost);
+  const offInput = offHost.document.getElementById("slate-date");
+  offInput.value = "2026-09-20";
+  offInput.dispatch("change");
+  await flush();
+  const offHostAfter = snap(offHost);
+
+  function replayScript(sport, gameId, away, home, awayScore, homeScore) {
+    const binding = {
+      nfl: "NFL_REPLAY",
+      nhl: "NHL_REPLAY",
+      nba: "NBA_REPLAY",
+      ncaaf: "NCAAF_REPLAY",
+      ncaah: "NCAAH_REPLAY",
+      ncaab: "NCAAB_REPLAY"
+    }[sport];
+    const rows = [
+      {
+        sport: sport, clock: "Q1 15:00", win_prob: 0.61, home: home, away: away,
+        home_score: 0, away_score: 0, status: "pre", period: 1,
+        seconds_remaining_period: 900, seconds_remaining_total: 3600,
+        prior_home: 0.61, game_id: gameId, elapsed_seconds: 0
+      },
+      {
+        sport: sport, clock: "FINAL", win_prob: 1, home: home, away: away,
+        home_score: homeScore, away_score: awayScore, status: "final", period: 4,
+        seconds_remaining_period: 0, seconds_remaining_total: 0,
+        prior_home: 0.61, game_id: gameId, elapsed_seconds: 3600
+      }
+    ];
+    return "window." + binding + " = " + JSON.stringify(rows) + ";\nwindow.MSWP_LIVE = window." + binding + ";\n";
+  }
+  const chartNfl = [
+    { sport: "nfl", game_id: "701", away: "JAX", home: "DEN", status: "final", away_score: 13, home_score: 20, prior_home: 0.81 },
+    { sport: "nfl", game_id: "702", away: "NYJ", home: "NE", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 }
+  ];
+  const chartCollege = [
+    { sport: "ncaaf", game_id: "880", away: "COLO", home: "GT", status: "final", away_score: 7, home_score: 10, prior_home: 0.44 }
+  ];
+  const charted = boot({
+    slate: [http(200, slateSource(slateRows))],
+    live: [http(200, liveSource())],
+    slateApi: [
+      http(200, JSON.stringify(chartNfl)),
+      http(200, JSON.stringify(chartCollege))
+    ],
+    replay: [
+      http(200, replayScript("nfl", "701", "JAX", "DEN", 6, 44)),
+      http(204, ""),
+      http(200, replayScript("ncaaf", "880", "COLO", "GT", 9, 2))
+    ]
+  });
+  await flush();
+  const chartInput = charted.document.getElementById("slate-date");
+  chartInput.value = "2026-09-20";
+  chartInput.dispatch("change");
+  await flush();
+  clickSlate(charted, "701");
+  await flush();
+  const chartedNfl = snap(charted);
+  charted.liveItems.push(http(200, liveSourceFor("402")));
+  charted.slateItems.push(http(200, slateSource(slateRows)));
+  await runPoll(charted);
+  const chartedPolled = snap(charted);
+  clickSlate(charted, "702");
+  await flush();
+  const chartedPre = snap(charted);
+  chartInput.value = "";
+  chartInput.dispatch("change");
+  await flush();
+  const chartedCleared = snap(charted);
+  clickSport(charted, "ncaaf");
+  await flush();
+  chartInput.value = "2026-09-20";
+  chartInput.dispatch("change");
+  await flush();
+  clickSlate(charted, "880");
+  await flush();
+  const chartedCollege = snap(charted);
+  chartInput.value = "";
+  chartInput.dispatch("change");
+  await flush();
+  const chartedCollegeCleared = snap(charted);
+  clickFile(charted, "sample.js");
+  await flush();
+  const chartedArchive = snap(charted);
+
   console.log(JSON.stringify({
     pollMs: page.intervals.filter((entry) => entry.ms === 15000).map((entry) => entry.ms),
     opened: opened,
@@ -3184,6 +3385,7 @@ async function runPoll(page) {
     rescored: rescored,
     joined: joined,
     collegePosts: collegePosts,
+    collegeCard: collegeCard,
     followCard: followCardSnap,
     followJoined: followJoined,
     followLive: followLiveSnap,
@@ -3195,7 +3397,27 @@ async function runPoll(page) {
     badFollow: badFollowSnap,
     collegeFile: collegeFileSnap,
     collegeQuery: collegeQuerySnap,
-    followBadge: followCard.document.getElementById("badge").textContent
+    followBadge: followCard.document.getElementById("badge").textContent,
+    datedBefore: datedBefore,
+    datedPicked: datedPicked,
+    datedCard: datedCard,
+    datedCollege: datedCollege,
+    datedPolled: datedPolled,
+    datedCleared: datedCleared,
+    datedFailed: datedFailed,
+    datedNhl: datedNhlSnap,
+    datedStale: datedStale,
+    datedStaleLate: datedStaleLate,
+    offHostBefore: offHostBefore,
+    offHostAfter: offHostAfter,
+    offHostUnused: offHost.slateApiItems.length,
+    chartedNfl: chartedNfl,
+    chartedPolled: chartedPolled,
+    chartedPre: chartedPre,
+    chartedCleared: chartedCleared,
+    chartedCollege: chartedCollege,
+    chartedCollegeCleared: chartedCollegeCleared,
+    chartedArchive: chartedArchive
   }));
 })().catch((err) => {
   console.error(err && err.stack ? err.stack : err);
@@ -3228,6 +3450,9 @@ async function runPoll(page) {
         assert "espn" not in item["url"]
         assert "http://" not in item["url"] and "https://" not in item["url"]
         assert item["cache"] == "no-store"
+    six = ["NFL", "NHL", "NBA", "NCAAF", "NCAAH", "NCAAB"]
+    assert opened["sportLabels"] == six
+    assert opened["sportPressed"] == ["nfl"]
     assert opened["slateLabels"] == [
         "NYG at DEN 3-7",
         "KC at BUF 17-14",
@@ -3236,6 +3461,8 @@ async function runPoll(page) {
     ]
     assert "900" not in opened["slateIds"]
     assert opened["slateHidden"] is False
+    assert opened["seasonHidden"] is False
+    assert opened["gameHidden"] is False
     assert opened["archive"] == [{"file": "nyg_den.js", "label": "NYG at DEN"}]
     nyg = next(item for item in opened["archive"] if item["file"] == "nyg_den.js")
     assert nyg["label"] == "NYG at DEN"
@@ -3275,15 +3502,19 @@ async function runPoll(page) {
     assert "id=" not in report["afterArchive"]["calls"][-1]
     assert "live=1" not in report["afterArchive"]["calls"][-1]
     nba = report["nba"]
+    assert nba["sportLabels"] == six
+    assert nba["sportPressed"] == ["nba"]
     assert nba["gameHidden"] is False
     assert nba["slateHidden"] is False
     assert nba["slateLabels"] == ["BOS at NYK"]
     assert nba["archive"] == [{"file": "den_lal.js", "label": "DEN at LAL"}]
     assert nba["calls"][-1] == "?sport=nba&game=den-lal"
     assert "id=" not in nba["calls"][-1]
-    assert report["college"]["slateLabels"] == []
-    assert report["college"]["slateIds"] == []
-    assert report["college"]["slateHidden"] is True
+    assert report["college"]["sportLabels"] == six
+    assert report["college"]["sportPressed"] == ["ncaaf"]
+    assert report["college"]["slateLabels"] == ["COLO at TTU"]
+    assert report["college"]["slateIds"] == ["900"]
+    assert report["college"]["slateHidden"] is False
     assert report["shown"]["slateLabels"] == opened["slateLabels"]
     assert report["shown"]["archive"] == [{"file": "nyg_den.js", "label": "NYG at DEN"}]
     assert report["emptied"]["slateLabels"] == []
@@ -3314,7 +3545,7 @@ async function runPoll(page) {
     assert report["idCard"]["wpNodes"] == 0
     assert report["idCard"]["situation"] == ""
     assert report["idCard"]["calls"] == []
-    assert report["badge"] == "V4"
+    assert report["badge"] == "V5"
 
     def posts(row):
         return [item for item in row["fetches"] if item["method"] == "POST"]
@@ -3338,6 +3569,17 @@ async function runPoll(page) {
         '{"sport":"nfl","game_id":"401"}',
     ]
     assert posts(report["collegePosts"]) == []
+    college_card = report["collegeCard"]
+    assert college_card["boardHidden"] is False
+    assert college_card["away"] == "COLO"
+    assert college_card["home"] == "TTU"
+    assert college_card["status"] == "pre"
+    assert college_card["boardScore"] == "0-0"
+    assert college_card["slatePressed"] == ["900"]
+    assert college_card["slateLabels"] == ["COLO at TTU"]
+    assert college_card["sportLabels"] == six
+    assert college_card["sportPressed"] == ["ncaaf"]
+    assert posts(college_card) == []
     for item in report["collegePosts"]["fetches"]:
         assert (
             item["url"].startswith("slate.js?t=")
@@ -3512,6 +3754,222 @@ async function runPoll(page) {
     assert college_query["slatePressed"] == []
     assert gets(college_query) == []
     assert all("follow.json" not in item["url"] for item in college_query["fetches"])
-    assert report["followBadge"] == "V4"
-    assert report["badge"] == "V4"
+    assert report["followBadge"] == "V5"
+    assert report["badge"] == "V5"
     assert all("follow.json" not in item["url"] for item in report["pages"]["fetches"])
+    assert opened["dateHidden"] is False
+    assert opened["dateTouched"] is True
+    assert report["pages"]["dateHidden"] is True
+    assert report["pages"]["dateTouched"] is True
+    assert report["pagesBare"]["dateHidden"] is True
+    assert all(not item["url"].startswith("/slate?") for item in opened["fetches"])
+
+    def slate_gets(row: dict) -> list[dict]:
+        return [item for item in row["fetches"] if str(item["url"]).startswith("/slate?")]
+
+    before = report["datedBefore"]
+    assert before["dateHidden"] is False
+    assert before["dateTouched"] is True
+    assert before["dateValue"] == ""
+    assert before["slateLabels"] == opened["slateLabels"]
+    assert before["seasonHidden"] is False
+    assert before["gameHidden"] is False
+    assert before["archive"] == opened["archive"]
+    assert slate_gets(before) == []
+    picked_day = report["datedPicked"]
+    assert picked_day["dateValue"] == "2026-09-20"
+    assert picked_day["slateHidden"] is False
+    assert picked_day["seasonHidden"] is True
+    assert picked_day["gameHidden"] is True
+    assert picked_day["archive"] == []
+    assert picked_day["slateLabels"] == ["JAX at DEN 13-20", "NYJ at NE"]
+    assert picked_day["slateIds"] == ["701", "702"]
+    assert slate_gets(picked_day) == [{
+        "url": "/slate?sport=nfl&date=20260920",
+        "cache": "no-store",
+        "method": "GET",
+        "body": "",
+    }]
+    dated_card = report["datedCard"]
+    assert dated_card["boardHidden"] is False
+    assert dated_card["away"] == "JAX"
+    assert dated_card["home"] == "DEN"
+    assert dated_card["boardScore"] == "13-20"
+    assert dated_card["status"] == "final"
+    assert dated_card["prior"] == "Pregame DEN 81.00%"
+    assert dated_card["slatePressed"] == ["701"]
+    assert dated_card["seasonHidden"] is True
+    assert dated_card["gameHidden"] is True
+    assert dated_card["archive"] == []
+    assert dated_card["scoreNodes"] == 0
+    assert dated_card["wpNodes"] == 0
+    assert posts(dated_card) == []
+    assert [item for item in dated_card["fetches"] if str(item["url"]).startswith("/replay?")] == [{
+        "url": "/replay?sport=nfl&game_id=701&date=20260920",
+        "cache": "no-store",
+        "method": "GET",
+        "body": "",
+    }]
+    assert slate_gets(dated_card) == slate_gets(picked_day)
+    dated_college = report["datedCollege"]
+    assert dated_college["sportPressed"] == ["ncaaf"]
+    assert dated_college["slateLabels"] == ["COLO at GT 7-10"]
+    assert dated_college["slateIds"] == ["880"]
+    assert dated_college["slatePressed"] == ["880"]
+    assert dated_college["seasonHidden"] is True
+    assert dated_college["gameHidden"] is True
+    assert dated_college["archive"] == []
+    assert dated_college["boardHidden"] is False
+    assert dated_college["away"] == "COLO"
+    assert dated_college["home"] == "GT"
+    assert dated_college["boardScore"] == "7-10"
+    assert dated_college["status"] == "live"
+    assert dated_college["prior"] == "Pregame COLO 56.00%"
+    assert posts(dated_college) == posts(dated_card)
+    assert slate_gets(dated_college)[-1] == {
+        "url": "/slate?sport=ncaaf&date=20260920",
+        "cache": "no-store",
+        "method": "GET",
+        "body": "",
+    }
+    assert [item for item in dated_college["fetches"] if str(item["url"]).startswith("/replay?")][-1] == {
+        "url": "/replay?sport=ncaaf&game_id=880&date=20260920",
+        "cache": "no-store",
+        "method": "GET",
+        "body": "",
+    }
+    dated_polled = report["datedPolled"]
+    assert dated_polled["slateLabels"] == ["COLO at GT 7-10"]
+    assert dated_polled["slatePressed"] == ["880"]
+    assert dated_polled["seasonHidden"] is True
+    assert dated_polled["gameHidden"] is True
+    assert dated_polled["archive"] == []
+    assert slate_gets(dated_polled) == slate_gets(dated_college)
+    dated_cleared = report["datedCleared"]
+    assert dated_cleared["dateValue"] == ""
+    assert dated_cleared["slateHidden"] is False
+    assert dated_cleared["seasonHidden"] is False
+    assert dated_cleared["gameHidden"] is False
+    assert dated_cleared["archive"] == [
+        {"file": "cu_gt.js", "label": "COLO at GT"},
+        {"file": "sample.js", "label": "OU at TEX"},
+    ]
+    assert dated_cleared["slateLabels"] == ["COLO at TTU"]
+    assert dated_cleared["slateIds"] == ["900"]
+    assert slate_gets(dated_cleared) == slate_gets(dated_college)
+    dated_failed = report["datedFailed"]
+    assert dated_failed["dateValue"] == "2026-10-02"
+    assert dated_failed["slateLabels"] == []
+    assert dated_failed["slateHidden"] is True
+    assert dated_failed["seasonHidden"] is True
+    assert dated_failed["gameHidden"] is True
+    assert dated_failed["archive"] == []
+    assert slate_gets(dated_failed)[-1]["url"] == "/slate?sport=ncaaf&date=20261002"
+    dated_nhl = report["datedNhl"]
+    assert dated_nhl["sportPressed"] == ["nhl"]
+    assert dated_nhl["seasonHidden"] is True
+    assert dated_nhl["gameHidden"] is True
+    assert dated_nhl["archive"] == []
+    assert dated_nhl["slateLabels"] == ["MIN at COL 1-2"]
+    assert dated_nhl["slateIds"] == ["77"]
+    assert slate_gets(dated_nhl)[-1]["url"] == "/slate?sport=nhl&date=20261002"
+    dated_stale = report["datedStale"]
+    assert dated_stale["seasonHidden"] is True
+    assert dated_stale["gameHidden"] is True
+    assert dated_stale["archive"] == []
+    assert dated_stale["slateLabels"] == ["OTT at TOR"]
+    assert [item["url"] for item in slate_gets(dated_stale)[-2:]] == [
+        "/slate?sport=nhl&date=20260901",
+        "/slate?sport=nhl&date=20260902",
+    ]
+    dated_late = report["datedStaleLate"]
+    assert dated_late["slateLabels"] == ["OTT at TOR"]
+    assert dated_late["slateIds"] == ["2"]
+    off_host = report["offHostAfter"]
+    assert report["offHostBefore"]["dateHidden"] is True
+    assert report["offHostBefore"]["dateTouched"] is True
+    assert off_host["dateHidden"] is True
+    assert off_host["dateValue"] == "2026-09-20"
+    assert slate_gets(off_host) == []
+    assert report["offHostUnused"] == 1
+    assert "NYG" in off_host["score"]
+    for item in off_host["fetches"]:
+        assert "espn" not in item["url"]
+        assert "http://" not in item["url"] and "https://" not in item["url"]
+
+    def replay_gets(row: dict) -> list[dict]:
+        return [item for item in row["fetches"] if str(item["url"]).startswith("/replay?")]
+
+    charted_nfl = report["chartedNfl"]
+    assert charted_nfl["boardHidden"] is True
+    assert charted_nfl["scoreNodes"] > 0
+    assert charted_nfl["wpNodes"] > 0
+    assert "JAX 6" in charted_nfl["score"] and "DEN 44" in charted_nfl["score"]
+    assert charted_nfl["clock"] == "FINAL"
+    assert charted_nfl["slatePressed"] == ["701"]
+    assert charted_nfl["seasonHidden"] is True
+    assert charted_nfl["gameHidden"] is True
+    assert charted_nfl["archive"] == []
+    assert posts(charted_nfl) == []
+    assert replay_gets(charted_nfl)[-1] == {
+        "url": "/replay?sport=nfl&game_id=701&date=20260920",
+        "cache": "no-store",
+        "method": "GET",
+        "body": "",
+    }
+    charted_polled = report["chartedPolled"]
+    assert "JAX 6" in charted_polled["score"] and "DEN 44" in charted_polled["score"]
+    assert charted_polled["boardHidden"] is True
+    assert charted_polled["scoreNodes"] > 0
+    assert charted_polled["wpNodes"] > 0
+    assert charted_polled["slatePressed"] == ["701"]
+    charted_pre = report["chartedPre"]
+    assert charted_pre["boardHidden"] is False
+    assert charted_pre["away"] == "NYJ"
+    assert charted_pre["home"] == "NE"
+    assert charted_pre["status"] == "pre"
+    assert charted_pre["scoreNodes"] == 0
+    assert charted_pre["wpNodes"] == 0
+    assert charted_pre["slatePressed"] == ["702"]
+    assert replay_gets(charted_pre)[-1]["url"] == "/replay?sport=nfl&game_id=702&date=20260920"
+    charted_cleared = report["chartedCleared"]
+    assert charted_cleared["dateValue"] == ""
+    assert charted_cleared["boardHidden"] is True
+    assert charted_cleared["seasonHidden"] is False
+    assert charted_cleared["gameHidden"] is False
+    assert "NYG" in charted_cleared["score"] and "DEN" in charted_cleared["score"]
+    assert "JAX" not in charted_cleared["score"]
+    assert charted_cleared["scoreNodes"] > 0
+    assert charted_cleared["wpNodes"] > 0
+    assert charted_cleared["archive"] == [{"file": "nyg_den.js", "label": "NYG at DEN"}]
+    charted_college = report["chartedCollege"]
+    assert charted_college["sportPressed"] == ["ncaaf"]
+    assert charted_college["boardHidden"] is True
+    assert charted_college["scoreNodes"] > 0
+    assert charted_college["wpNodes"] > 0
+    assert "COLO 9" in charted_college["score"] and "GT 2" in charted_college["score"]
+    assert charted_college["slatePressed"] == ["880"]
+    assert charted_college["seasonHidden"] is True
+    assert charted_college["gameHidden"] is True
+    assert posts(charted_college) == []
+    assert replay_gets(charted_college)[-1]["url"] == "/replay?sport=ncaaf&game_id=880&date=20260920"
+    charted_back = report["chartedCollegeCleared"]
+    assert charted_back["boardHidden"] is True
+    assert "COLO 14" in charted_back["score"] and "GT 13" in charted_back["score"]
+    assert "COLO 9" not in charted_back["score"]
+    assert charted_back["seasonHidden"] is False
+    assert charted_back["gameHidden"] is False
+    assert charted_back["archive"] == [
+        {"file": "cu_gt.js", "label": "COLO at GT"},
+        {"file": "sample.js", "label": "OU at TEX"},
+    ]
+    charted_archive = report["chartedArchive"]
+    assert charted_archive["boardHidden"] is True
+    assert "OU" in charted_archive["score"] and "TEX" in charted_archive["score"]
+    assert "COLO" not in charted_archive["score"]
+    assert charted_archive["scoreNodes"] > 0
+    assert charted_archive["wpNodes"] > 0
+    assert charted_archive["slatePressed"] == []
+    for item in charted_archive["fetches"]:
+        assert "espn" not in item["url"]
+        assert "http://" not in item["url"] and "https://" not in item["url"]

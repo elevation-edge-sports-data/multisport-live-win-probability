@@ -1,9 +1,10 @@
 """Poll an unofficial ESPN site API and print replay lines.
 
 Network stays in this module. The mappers accept dicts and do not fetch.
-The page does not call this. ``--sport nfl`` is the default. ``nhl`` uses
-the hockey feed and ``nba`` uses the basketball feed. College football,
-college hockey, and college basketball are rejected.
+The page does not call this. ``--sport nfl`` is the default. ``nhl`` and
+``ncaah`` use the hockey feed. ``nba`` and ``ncaab`` use the basketball
+feed. ``ncaaf`` uses the college-football feed. The same payload checks
+used for the pro leagues refuse a body from a different league.
 """
 
 from __future__ import annotations
@@ -24,6 +25,8 @@ from mswp import GameState, compute_wp
 from live_wp.feeds.espn import (
     espn_scoreboard_event_to_state,
     home_moneyline_prior,
+    require_ncaaf_payload,
+    require_ncaah_payload,
     require_nfl_payload,
     require_nhl_payload,
     states_from_espn,
@@ -31,6 +34,7 @@ from live_wp.feeds.espn import (
 from live_wp.feeds.espn_basketball import (
     events_from_espn_basketball,
     require_nba_payload,
+    require_ncaab_payload,
     scoreboard_event_to_state,
 )
 from live_wp.replay import config_for_state, format_line
@@ -39,9 +43,16 @@ _ROOTS = {
     "nfl": "https://site.api.espn.com/apis/site/v2/sports/football/nfl/",
     "nhl": "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/",
     "nba": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/",
+    "ncaaf": "https://site.api.espn.com/apis/site/v2/sports/football/college-football/",
+    "ncaah": "https://site.api.espn.com/apis/site/v2/sports/hockey/mens-college-hockey/",
+    "ncaab": (
+        "https://site.api.espn.com/apis/site/v2/sports/basketball/"
+        "mens-college-basketball/"
+    ),
 }
 _NFL_ROOT = _ROOTS["nfl"]
-_FOLLOW_SPORTS = ("nfl", "nhl", "nba")
+_PRO_SPORTS = ("nfl", "nhl", "nba")
+_FEED_SPORTS = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
 _COLLEGE_SPORTS = {
     "ncaaf": "college football (ncaaf)",
     "ncaah": "college hockey (ncaah)",
@@ -92,7 +103,7 @@ def _root(sport: str) -> str:
     except KeyError:
         raise ValueError(
             "ESPN sport is not a followed league. "
-            "This command fetches nfl, nhl, and nba games only."
+            "This command fetches nfl, nhl, nba, ncaaf, ncaah, and ncaab games only."
         ) from None
 
 
@@ -120,7 +131,8 @@ def fetch_json(
     """GET one ESPN URL with the standard library and decode a JSON object.
 
     ``opener`` replaces ``urllib.request.urlopen`` in tests. ``sport``
-    defaults to nfl. College URLs are rejected before the opener is called.
+    defaults to nfl. A URL for a different league is rejected before the
+    opener is called.
     """
     reject_follow_url(url, sport)
     open_url = urllib.request.urlopen if opener is None else opener
@@ -173,12 +185,21 @@ def format_slate_line(state: GameState) -> str:
 def reject_follow_url(url: str, sport: str = "nfl") -> None:
     """Refuse a URL that is not the scoreboard or summary for ``sport``.
 
-    The nfl path keeps the original college-football refusal. College
-    hockey and college basketball are refused in that same style.
+    The nfl path keeps the original college-football refusal. Each other
+    sport refuses the other five league paths in that same style, then
+    requires its own site root.
     """
     if sport == "nfl":
         reject_non_nfl_url(url)
         return
+    if sport in _PRO_SPORTS:
+        _reject_pro_feed_url(url, sport)
+        return
+    _reject_college_feed_url(url, sport)
+
+
+def _reject_pro_feed_url(url: str, sport: str) -> None:
+    """NHL and NBA keep the original refusal of every college path."""
     lowered = url.lower()
     if "college-football" in lowered or "ncaaf" in lowered:
         raise ValueError(
@@ -210,6 +231,53 @@ def reject_follow_url(url: str, sport: str = "nfl") -> None:
             f"ESPN URL is not an {label} scoreboard or summary. "
             f"This command fetches {label} games only."
         )
+
+
+def _reject_college_feed_url(url: str, sport: str) -> None:
+    """Require the college root and refuse every other league path."""
+    lowered = url.lower()
+    own = _COLLEGE_SPORTS[sport]
+    for other, marks, label in _COLLEGE_URL_MARKS:
+        if other == sport:
+            continue
+        if any(mark in lowered for mark in marks):
+            raise ValueError(
+                f"ESPN URL is {label}, not {own}. "
+                f"This command fetches {own} games only."
+            )
+    for marks, label in _PRO_URL_MARKS:
+        if any(mark in lowered for mark in marks):
+            raise ValueError(
+                f"ESPN URL is {label}, not {own}. "
+                f"This command fetches {own} games only."
+            )
+    root = _root(sport)
+    pretty = sport.upper()
+    if not lowered.startswith(root):
+        raise ValueError(
+            f"ESPN URL is not an {pretty} scoreboard or summary. "
+            f"This command fetches {pretty} games only."
+        )
+
+
+_COLLEGE_URL_MARKS = (
+    ("ncaaf", ("college-football", "ncaaf"), "college football (ncaaf)"),
+    (
+        "ncaah",
+        ("mens-college-hockey", "college-hockey", "ncaah"),
+        "college hockey (ncaah)",
+    ),
+    (
+        "ncaab",
+        ("mens-college-basketball", "college-basketball", "ncaab"),
+        "college basketball (ncaab)",
+    ),
+)
+_PRO_URL_MARKS = (
+    (("/football/nfl/", "/nfl/"), "NFL"),
+    (("/hockey/nhl/", "/nhl/"), "NHL"),
+    (("/basketball/nba/", "/nba/"), "NBA"),
+)
 
 
 def slate_states(payload: Mapping[str, Any], *, sport: str = "nfl") -> list[GameState]:
@@ -248,7 +316,7 @@ def run_follow(
         print(
             "usage: python -m live_wp follow "
             "[--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15] "
-            "[--sport nfl|nhl|nba]",
+            "[--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]",
             file=sys.stderr,
         )
         return 2
@@ -310,7 +378,7 @@ def parse_follow_args(args: list[str]) -> _Options:
             if sport is not None:
                 raise UsageError("--sport was given twice")
             raw, index = _flag_value("--sport", index, tokens)
-            sport = _parse_sport(raw)
+            sport = _parse_feed_sport(raw)
             continue
         raise UsageError(f"unrecognized argument: {token}")
     selected = "nfl" if sport is None else sport
@@ -413,11 +481,11 @@ def _current_state(
 ) -> GameState:
     """Latest snapshot. A summary keeps its trailing status row.
 
-    College football, college hockey, and college basketball can be
-    ingested where a saved file exists. This command does not follow them.
+    College football and college hockey use the football and hockey
+    mappers. College basketball uses the basketball mapper, as the NBA does.
     """
     _require_sport_payload(payload, sport)
-    if sport == "nba":
+    if sport in {"nba", "ncaab"}:
         states = _basketball_states(payload, prior)
     else:
         states = states_from_espn(payload, prior_home=prior, density="all")
@@ -436,8 +504,107 @@ def _basketball_states(
     raise ValueError("ESPN payload did not produce a snapshot")
 
 
+def replay_states(
+    game_id: str,
+    *,
+    sport: str,
+    date: str | None = None,
+    fetch: Fetch | None = None,
+) -> list[GameState]:
+    """Snapshots to chart for one slate game.
+
+    A game that has not started, or a body with no snapshots, returns an
+    empty list. That is not a failure. A live or final summary returns its
+    scoring snapshots, including the opening row. When that summary has
+    none, a live or final scoreboard row is the one snapshot. ``fetch``
+    reads the scoreboard and, unless that row is still pre, the summary.
+    """
+    getter = _feed_fetch(sport) if fetch is None else fetch
+    board_state = _board_snapshot(game_id, date, getter, sport)
+    if board_state is not None and board_state.status == "pre":
+        return []
+    summary_states = _summary_snapshots(game_id, getter, sport)
+    if summary_states and any(state.status != "pre" for state in summary_states):
+        return summary_states
+    if board_state is not None and board_state.status != "pre":
+        return [board_state]
+    return []
+
+
+def _feed_fetch(sport: str) -> Fetch:
+    """GET helper for one sport. The caller has already checked the sport."""
+
+    def getter(url: str) -> Mapping[str, Any]:
+        return fetch_json(url, sport=sport)
+
+    return getter
+
+
+def _board_snapshot(
+    game_id: str, date: str | None, fetch: Fetch, sport: str
+) -> GameState | None:
+    """The scoreboard row for this id, or None when it is missing or unusable."""
+    try:
+        board = fetch(scoreboard_url(date, sport=sport))
+        _require_sport_payload(board, sport)
+    except (FollowError, ValueError, TypeError, OSError):
+        return None
+    if not isinstance(board, Mapping) or not isinstance(board.get("events"), list):
+        return None
+    for event in board["events"]:
+        if not isinstance(event, Mapping) or not _same_id(event, game_id):
+            continue
+        try:
+            return _current_state(event, home_moneyline_prior(event), sport)
+        except (ValueError, TypeError):
+            return None
+    return None
+
+
+def _summary_snapshots(game_id: str, fetch: Fetch, sport: str) -> list[GameState]:
+    """Scoring snapshots from the summary. Empty when the body has none."""
+    try:
+        summary = fetch(summary_url(game_id, sport=sport))
+        return _chart_states(summary, sport)
+    except (FollowError, ValueError, TypeError, OSError):
+        return []
+
+
+def _chart_states(payload: Mapping[str, Any], sport: str) -> list[GameState]:
+    """Scoring snapshots for a summary or one scoreboard event.
+
+    The opening row stays. ``prior_home`` is the first moneyline on the
+    body, frozen the same way the follow loop freezes it.
+    """
+    if not isinstance(payload, Mapping):
+        return []
+    _require_sport_payload(payload, sport)
+    prior = home_moneyline_prior(payload)
+    if sport in {"nba", "ncaab"}:
+        states = _basketball_chart_states(payload, prior)
+    else:
+        states = states_from_espn(payload, prior_home=prior, density="scoring")
+    if prior is None:
+        return states
+    return [
+        state if state.prior_home == prior else replace(state, prior_home=prior)
+        for state in states
+    ]
+
+
+def _basketball_chart_states(
+    payload: Mapping[str, Any], prior: float | None
+) -> list[GameState]:
+    plays = payload.get("plays")
+    if isinstance(payload.get("header"), Mapping) and isinstance(plays, list) and plays:
+        return events_from_espn_basketball(payload, prior_home=prior, density="scoring")
+    if isinstance(payload.get("competitions"), list):
+        return [scoreboard_event_to_state(payload, prior_home=prior)]
+    return []
+
+
 def _slate_state(event: Mapping[str, Any], sport: str) -> GameState:
-    if sport == "nba":
+    if sport in {"nba", "ncaab"}:
         return scoreboard_event_to_state(event)
     return espn_scoreboard_event_to_state(event)
 
@@ -446,8 +613,17 @@ def _require_sport_payload(payload: Mapping[str, Any], sport: str) -> None:
     if sport == "nhl":
         require_nhl_payload(payload)
         return
+    if sport == "ncaah":
+        require_ncaah_payload(payload)
+        return
     if sport == "nba":
         require_nba_payload(payload)
+        return
+    if sport == "ncaab":
+        require_ncaab_payload(payload)
+        return
+    if sport == "ncaaf":
+        require_ncaaf_payload(payload)
         return
     require_nfl_payload(payload)
 
@@ -541,7 +717,16 @@ def _parse_date(text: str) -> str:
     return text
 
 
+def _parse_feed_sport(text: str) -> str:
+    """Sport for follow and slate. College sports are included."""
+    lowered = text.strip().lower()
+    if lowered not in _FEED_SPORTS:
+        raise UsageError("sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab")
+    return lowered
+
+
 def _parse_sport(text: str) -> str:
+    """Sport for the live command. College sports stay a usage error there."""
     lowered = text.strip().lower()
     if lowered in _COLLEGE_SPORTS:
         label = _COLLEGE_SPORTS[lowered]
@@ -549,19 +734,19 @@ def _parse_sport(text: str) -> str:
             f"ESPN sport is {label}, not a followed league. "
             "This command fetches nfl, nhl, and nba games only."
         )
-    if lowered not in _FOLLOW_SPORTS:
+    if lowered not in _PRO_SPORTS:
         raise UsageError("sport must be nfl, nhl, or nba")
     return lowered
 
 
 def _parse_game(text: str, sport: str) -> str:
     lowered = text.lower()
-    if "college-football" in lowered or "ncaaf" in lowered:
+    if sport != "ncaaf" and ("college-football" in lowered or "ncaaf" in lowered):
         raise UsageError(
             "ESPN URL is college football (ncaaf), not NFL. "
             "This command fetches NFL games only."
         )
-    if (
+    if sport != "ncaah" and (
         "college-hockey" in lowered
         or "mens-college-hockey" in lowered
         or "ncaah" in lowered
@@ -570,7 +755,7 @@ def _parse_game(text: str, sport: str) -> str:
             "ESPN URL is college hockey (ncaah), not NHL. "
             "This command fetches NHL games only."
         )
-    if (
+    if sport != "ncaab" and (
         "mens-college-basketball" in lowered
         or "college-basketball" in lowered
         or "ncaab" in lowered

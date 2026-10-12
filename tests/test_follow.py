@@ -465,29 +465,162 @@ def test_follow_nhl_and_nba_parse_saved_payloads(
     assert nba_captured.out.endswith("| 0.000\n")
 
 
-def test_follow_sport_ncaaf_exits_with_an_error(
+def test_follow_accepts_college_sports(capsys: pytest.CaptureFixture[str]) -> None:
+    ncaaf_payload = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_ncaaf_summary_snippet.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    ncaaf_fetch = _Fetch([ncaaf_payload])
+    ncaaf_code = run_follow(
+        ["--sport", "ncaaf", "--game", "88001"],
+        fetch=ncaaf_fetch,
+        sleep=lambda _seconds: None,
+    )
+    ncaaf_state = states_from_espn(ncaaf_payload, density="all")[-1]
+    assert ncaaf_code == 0
+    assert ncaaf_fetch.urls == [scoreboard_url(sport="ncaaf")]
+    assert "college-football/scoreboard" in ncaaf_fetch.urls[0]
+    assert ncaaf_state.sport == "ncaaf"
+    assert ncaaf_state.status == "final"
+    ncaaf_out = capsys.readouterr()
+    assert ncaaf_out.err == ""
+    assert ncaaf_out.out.splitlines() == [
+        format_line(
+            ncaaf_state,
+            compute_wp(ncaaf_state, ncaaf_state.prior_home, config_for_state(ncaaf_state)),
+        )
+    ]
+
+    ncaab_payload = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_ncaab_401638608_summary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    ncaab_fetch = _Fetch([ncaab_payload])
+    ncaab_code = run_follow(
+        ["--sport", "ncaab", "--game", "401638608"],
+        fetch=ncaab_fetch,
+        sleep=lambda _seconds: None,
+    )
+    ncaab_state = events_from_espn_basketball(ncaab_payload, density="all")[-1]
+    assert ncaab_code == 0
+    assert ncaab_fetch.urls == [scoreboard_url(sport="ncaab")]
+    assert "mens-college-basketball/scoreboard" in ncaab_fetch.urls[0]
+    assert ncaab_state.sport == "ncaab"
+    assert ncaab_state.status == "final"
+    ncaab_out = capsys.readouterr()
+    assert ncaab_out.err == ""
+    assert ncaab_out.out.splitlines() == [
+        format_line(
+            ncaab_state,
+            compute_wp(ncaab_state, ncaab_state.prior_home, config_for_state(ncaab_state)),
+        )
+    ]
+
+    hockey = {
+        "leagues": [
+            {
+                "id": "91",
+                "uid": "s:70~l:91",
+                "slug": "mens-college-hockey",
+                "abbreviation": "NCAAH",
+                "name": "NCAA Men's Ice Hockey",
+            }
+        ],
+        "events": [
+            {
+                "id": "77",
+                "uid": "s:70~l:91~e:77",
+                "competitions": [
+                    {
+                        "id": "77",
+                        "uid": "s:70~l:91~e:77",
+                        "date": "2026-10-11T00:00:00Z",
+                        "competitors": [
+                            {
+                                "homeAway": "home",
+                                "score": "3",
+                                "team": {
+                                    "id": "1",
+                                    "uid": "s:70~l:91~t:1",
+                                    "abbreviation": "DEN",
+                                },
+                            },
+                            {
+                                "homeAway": "away",
+                                "score": "2",
+                                "team": {
+                                    "id": "2",
+                                    "uid": "s:70~l:91~t:2",
+                                    "abbreviation": "MICH",
+                                },
+                            },
+                        ],
+                        "status": {
+                            "displayClock": "0:00",
+                            "period": 3,
+                            "type": {"state": "post", "name": "STATUS_FINAL"},
+                        },
+                    }
+                ],
+            }
+        ],
+    }
+    hockey_fetch = _Fetch([hockey])
+    hockey_code = run_follow(
+        ["--sport", "ncaah", "--date", "20261011", "--game", "77"],
+        fetch=hockey_fetch,
+        sleep=lambda _seconds: None,
+    )
+    assert hockey_code == 0
+    assert hockey_fetch.urls == [scoreboard_url("20261011", sport="ncaah")]
+    assert "mens-college-hockey/scoreboard" in hockey_fetch.urls[0]
+    hockey_out = capsys.readouterr()
+    assert hockey_out.err == ""
+    assert "MICH" in hockey_out.out and "DEN" in hockey_out.out
+    assert hockey_out.out.endswith("| 1.000\n")
+
+
+def test_college_scoreboard_url_is_opened_for_that_sport() -> None:
+    opened: list[str] = []
+
+    def opener(request: object, timeout: float = 0) -> _Response:
+        address = request.full_url  # type: ignore[attr-defined]
+        opened.append(address)
+        return _Response({}, address)
+
+    for sport, mark in (
+        ("ncaaf", "college-football/scoreboard"),
+        ("ncaah", "mens-college-hockey/scoreboard"),
+        ("ncaab", "mens-college-basketball/scoreboard"),
+    ):
+        opened.clear()
+        url = scoreboard_url(sport=sport)
+        assert mark in url
+        assert fetch_json(url, opener=opener, sport=sport) == {}
+        assert opened == [url]
+
+    def refuse(request: object, timeout: float = 0) -> _Response:
+        raise AssertionError(f"opened {request!r}")
+
+    with pytest.raises(ValueError, match="NFL"):
+        fetch_json(scoreboard_url(), opener=refuse, sport="ncaaf")
+    with pytest.raises(ValueError, match="college hockey"):
+        fetch_json(scoreboard_url(sport="ncaah"), opener=refuse, sport="nhl")
+
+
+def test_unknown_sport_is_still_a_usage_error(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     def fetch(url: str) -> dict:
         raise AssertionError(url)
 
-    code = run_follow(["--sport", "ncaaf", "--game", "55"], fetch=fetch)
+    code = run_follow(["--sport", "mlb", "--game", "55"], fetch=fetch)
     captured = capsys.readouterr()
     assert code == 2
     assert captured.out == ""
-    assert "college football" in captured.err.lower()
-    assert "ncaaf" in captured.err.lower()
-
-    for sport, label in (
-        ("ncaah", "college hockey"),
-        ("ncaab", "college basketball"),
-    ):
-        refused = run_follow(["--sport", sport, "--game", "55"], fetch=fetch)
-        refused_err = capsys.readouterr()
-        assert refused == 2
-        assert refused_err.out == ""
-        assert label in refused_err.err.lower()
-        assert sport in refused_err.err.lower()
+    assert "sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab" in captured.err
 
 
 def test_network_import_stays_in_the_follow_command() -> None:

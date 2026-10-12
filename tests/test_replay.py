@@ -24,8 +24,8 @@ from live_wp.replay import (
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "examples" / "nfl_sample.json"
 NCAAF_FIXTURE = ROOT / "examples" / "ncaaf_sample.json"
-WIDGET_SCRIPT = ROOT / "replays" / "nfl" / "sample.js"
-NCAAF_WIDGET = ROOT / "replays" / "ncaaf" / "sample.js"
+HARBOR_REPLAY = ROOT / "replays" / "nfl" / "sample.js"
+NCAAF_REPLAY = ROOT / "replays" / "ncaaf" / "sample.js"
 
 _OPTIONAL = {
     "possession",
@@ -91,8 +91,8 @@ def test_replay_cli_prints_compute_wp():
     assert lines == expected
 
 
-def test_widget_replay_matches_compute_wp():
-    text = WIDGET_SCRIPT.read_text(encoding="utf-8")
+def test_replay_script_matches_compute_wp():
+    text = HARBOR_REPLAY.read_text(encoding="utf-8")
     payload = text[text.index("[") : text.rindex("]") + 1]
     frames = json.loads(payload)
     states = load_replay(FIXTURE)
@@ -168,7 +168,7 @@ def test_ncaaf_sample_reaches_two_overtimes_and_matches_compute_wp():
     assert "OT " in completed.stdout
     assert "2OT " in completed.stdout
 
-    text = NCAAF_WIDGET.read_text(encoding="utf-8")
+    text = NCAAF_REPLAY.read_text(encoding="utf-8")
     assert "window.NCAAF_REPLAY = " in text
     lowered = text.lower()
     assert "espn" not in lowered
@@ -262,7 +262,7 @@ def test_render_widget_script_copies_situation_fields_only_when_set():
         assert name not in frames[4]
 
 
-def test_team_logo_reads_assets_not_the_widget_tree():
+def test_team_logo_reads_assets():
     assert team_logo("DEN", sport="nfl") == "assets/logos/nfl/DEN.png"
     assert team_logo("jax", sport="nfl") == "assets/logos/nfl/JAX.png"
     assert team_logo("COLO", sport="ncaaf") == "assets/logos/ncaaf/COLO.png"

@@ -30,9 +30,9 @@ usage: python -m live_wp replay <json>
        python -m live_wp ingest-espn <in.json> <out.json> [--density scoring|situation|all]
        python -m live_wp render-widget <replay.json> <out.js>
        python -m live_wp write-manifest
-       python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15] [--sport nfl|nhl|nba]
+       python -m live_wp follow [--date YYYYMMDD] [--game ESPN_EVENT_ID] [--interval 15] [--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]
        python -m live_wp live [--game ESPN_EVENT_ID] [--sport nfl|nhl|nba] [--interval 15] [--out replays/live_replay.js]
-       python -m live_wp slate [--date YYYYMMDD] [--interval 15] [--out slate.js]
+       python -m live_wp slate [--date YYYYMMDD] [--interval 15] [--out slate.js] [--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]
        python -m live_wp serve [--port 8765]
        python -m live_wp calibrate [replay-or-espn.json ...]
        python -m live_wp build-football-demos

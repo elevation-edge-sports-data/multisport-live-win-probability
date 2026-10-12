@@ -183,13 +183,29 @@ h1 {
   display: none;
 }
 
-.level-label {
-  flex: 0 0 4.4rem;
+.slate-date-label {
   margin: 0;
-  color: var(--gold);
+  color: var(--muted);
   font-size: 0.72rem;
   font-weight: 650;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+}
+
+.slate-date {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  font: inherit;
+  font-size: 0.78rem;
+  max-width: 100%;
+  color-scheme: dark;
+}
+
+:root[data-theme="offwhite"] .slate-date {
+  color-scheme: light;
 }
 
 .level .sports {

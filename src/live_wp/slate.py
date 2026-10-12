@@ -1,10 +1,13 @@
-"""Write the NFL, NHL, and NBA scoreboards to slate.js.
+"""Write scoreboards to slate.js.
 
-The slate command reads those three scoreboards and stops.
-``--interval`` polls until Ctrl+C. The no-game live loop calls
-``write_slate`` on that same loop. College sports are rejected and no
-college URL is requested. This module does not serve pages and does
-not open a socket of its own. The follow command owns the feed request.
+With no ``--sport``, the slate command reads the NFL, NHL, and NBA
+scoreboards and stops. ``--sport`` writes one sport, including ncaaf,
+ncaah, and ncaab. ``--interval`` polls until Ctrl+C. The no-game live
+loop calls ``write_slate`` on that same loop and still refreshes the
+three pro scoreboards. ``slate_rows`` reads one sport and does not
+write a file. The local page server uses it for GET /slate. This
+module does not open a socket of its own. The follow command owns the
+feed request.
 
 Each row is one GameState from ``slate_states``, the same mapping
 ``slate_lines`` prints. The printed line is that slate line prefixed
@@ -28,8 +31,10 @@ from live_wp.follow import (
     FollowError,
     Sleeper,
     UsageError,
+    _FEED_SPORTS,
     _flag_value,
     _parse_date,
+    _parse_feed_sport,
     _parse_interval,
     fetch_json,
     scoreboard_url,
@@ -42,7 +47,8 @@ _DEFAULT_INTERVAL = 15.0
 _SPORTS = ("nfl", "nhl", "nba")
 _USAGE = (
     "usage: python -m live_wp slate "
-    "[--date YYYYMMDD] [--interval 15] [--out slate.js]"
+    "[--date YYYYMMDD] [--interval 15] [--out slate.js] "
+    "[--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]"
 )
 
 
@@ -51,6 +57,7 @@ class _Options:
     date: str | None
     interval: float | None
     out: Path
+    sport: str | None
 
 
 def parse_slate_args(args: list[str]) -> _Options:
@@ -63,6 +70,7 @@ def parse_slate_args(args: list[str]) -> _Options:
     date: str | None = None
     interval: float | None = None
     out: Path | None = None
+    sport: str | None = None
     index = 0
     tokens = list(args)
     while index < len(tokens):
@@ -86,11 +94,18 @@ def parse_slate_args(args: list[str]) -> _Options:
                 raise UsageError("--out needs a value")
             out = Path(raw)
             continue
+        if token == "--sport" or token.startswith("--sport="):
+            if sport is not None:
+                raise UsageError("--sport was given twice")
+            raw, index = _flag_value("--sport", index, tokens)
+            sport = _parse_feed_sport(raw)
+            continue
         raise UsageError(f"unrecognized argument: {token}")
     return _Options(
         date=date,
         interval=interval,
         out=DEFAULT_OUT if out is None else out,
+        sport=sport,
     )
 
 
@@ -100,10 +115,11 @@ def run_slate(
     fetch: Fetch | None = None,
     sleep: Sleeper | None = None,
 ) -> int:
-    """Read the three pro scoreboards and write ``window.MSWP_SLATE``.
+    """Read the requested scoreboards and write ``window.MSWP_SLATE``.
 
-    Ctrl+C stops a poll and leaves the last file in place. A failed
-    write leaves the previous file in place.
+    With no ``--sport`` that is NFL, NHL, and NBA. ``--sport`` names one
+    league, including a college sport. Ctrl+C stops a poll and leaves the
+    last file in place. A failed write leaves the previous file in place.
     """
     try:
         options = parse_slate_args(args)
@@ -116,7 +132,7 @@ def run_slate(
     try:
         while True:
             _written, lines = write_slate(
-                options.out, date=options.date, fetch=getter
+                options.out, date=options.date, fetch=getter, sport=options.sport
             )
             for line in lines:
                 print(line, flush=True)
@@ -135,21 +151,45 @@ def write_slate(
     *,
     date: str | None = None,
     fetch: Fetch | None = None,
+    sport: str | None = None,
 ) -> tuple[list[GameState], list[str]]:
-    """Read the NFL, NHL, and NBA scoreboards and replace ``path``.
+    """Read the requested scoreboards and replace ``path``.
 
-    ``lines`` are what the slate command prints. The live loop ignores
-    them. A failed replace leaves the previous file. ``fetch`` defaults
-    to the pro scoreboard getter, which refuses a college URL.
+    ``sport`` omitted reads NFL, NHL, and NBA. A sport, including a
+    college sport, reads that scoreboard only. ``lines`` are what the
+    slate command prints. The live loop ignores them and does not pass
+    ``sport``. A failed replace leaves the previous file. ``fetch``
+    defaults to the scoreboard getter.
     """
     getter = _real_fetch if fetch is None else fetch
-    states, lines = _read_slate(date, getter)
+    sports = _SPORTS if sport is None else (sport,)
+    states, lines = _read_slate(date, getter, sports)
     _write_slate(path, states)
     return states, lines
 
 
+def slate_rows(
+    *,
+    date: str | None = None,
+    sport: str,
+    fetch: Fetch | None = None,
+) -> list[dict[str, object]]:
+    """Read one scoreboard and return the page rows.
+
+    ``sport`` is nfl, nhl, nba, ncaaf, ncaah, or ncaab. ``date`` is
+    YYYYMMDD when the caller names a day. The dicts use the same fields
+    as ``render_slate_script``. This does not write a file. ``fetch``
+    defaults to the scoreboard getter.
+    """
+    if sport not in _FEED_SPORTS:
+        raise ValueError("sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab")
+    getter = _real_fetch if fetch is None else fetch
+    states, _lines = _read_slate(date, getter, (sport,))
+    return [_slate_row(state) for state in states]
+
+
 def render_slate_script(states: list[GameState]) -> str:
-    """JavaScript assignment of the pro scoreboard, then a newline.
+    """JavaScript assignment of the scoreboard rows, then a newline.
 
     Fields stay in the order sport, game_id, away, home, status,
     away_score, home_score, prior_home. There is no clock and no
@@ -162,11 +202,11 @@ def render_slate_script(states: list[GameState]) -> str:
 
 
 def _read_slate(
-    date: str | None, fetch: Fetch
+    date: str | None, fetch: Fetch, sports: tuple[str, ...]
 ) -> tuple[list[GameState], list[str]]:
     states: list[GameState] = []
     lines: list[str] = []
-    for sport in _SPORTS:
+    for sport in sports:
         payload = fetch(scoreboard_url(date, sport=sport))
         states.extend(slate_states(payload, sport=sport))
         lines.extend(f"{sport} {line}" for line in slate_lines(payload, sport=sport))
@@ -204,18 +244,18 @@ def _slate_row(state: GameState) -> dict[str, object]:
 
 
 def _real_fetch(url: str) -> Mapping[str, Any]:
-    """GET one pro scoreboard. A college URL is refused before the opener."""
+    """GET one followed scoreboard. An unknown URL is refused first."""
     return fetch_json(url, sport=_sport_of(url))
 
 
 def _sport_of(url: str) -> str:
-    for sport in _SPORTS:
+    for sport in _FEED_SPORTS:
         root = scoreboard_url(sport=sport)
         if url == root or url.startswith(f"{root}?"):
             return sport
     raise ValueError(
-        "ESPN URL is not an nfl, nhl, or nba scoreboard. "
-        "This command fetches nfl, nhl, and nba games only."
+        "ESPN URL is not a followed scoreboard. "
+        "This command fetches nfl, nhl, nba, ncaaf, ncaah, and ncaab games only."
     )
 
 

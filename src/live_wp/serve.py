@@ -2,12 +2,17 @@
 
 The document root is the repo, so ``/index.html`` loads
 ``assets/colors``, ``assets/logos``, the page files at the root, and the
-scripts under ``replays/``. It does not estimate win probability and it
-does not forward a request anywhere else. The page loads a replay script
-that render-widget already wrote.
+scripts under ``replays/``. It does not estimate win probability.
+The page loads a replay script already written under ``replays/``.
 
-The one extra route is POST /follow from this machine. A good body is
-written to ``follow.json``. Every other path is still a static file.
+POST /follow from this machine writes ``follow.json``.
+GET /slate?sport=...&date=YYYYMMDD from this machine reads one
+scoreboard and returns those games as JSON. The sport is nfl, nhl,
+nba, ncaaf, ncaah, or ncaab.
+GET /replay?sport=...&game_id=...&date=YYYYMMDD from this machine
+follows that game and returns a temporary replay script. A game that
+has not started, or that has no snapshots, returns 204. Every other
+path is still a static file.
 """
 
 from __future__ import annotations
@@ -16,17 +21,23 @@ import ipaddress
 import json
 import sys
 import traceback
+from datetime import datetime
 from functools import partial
 from http import HTTPStatus
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Callable
 
+from live_wp.follow import FollowError
+from live_wp.live import replay_script
+from live_wp.slate import slate_rows
+
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_PORT = 8765
 _HOST = "127.0.0.1"
 _FOLLOW_NAME = "follow.json"
 _FOLLOW_SPORTS = ("nfl", "nhl", "nba")
+_SLATE_SPORTS = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
 _MAX_FOLLOW_BYTES = 4096
 
 
@@ -55,6 +66,31 @@ class _Handler(SimpleHTTPRequestHandler):
         except Exception:
             self._fail()
 
+    def do_GET(self) -> None:
+        """Scoreboard, temporary replay, or a file under the repository root."""
+        path = _request_path(self.path)
+        if path == "/slate":
+            self._serve_slate()
+            return
+        if path == "/replay":
+            self._serve_replay()
+            return
+        super().do_GET()
+
+    def send_head(self):
+        """Keep /slate and /replay out of the file lookup."""
+        path = _request_path(self.path)
+        if path == "/slate" or path == "/replay":
+            if self.command != "GET":
+                self.send_error(HTTPStatus.NOT_FOUND, "Not Found")
+                return None
+            if path == "/slate":
+                self._serve_slate()
+            else:
+                self._serve_replay()
+            return None
+        return super().send_head()
+
     def do_POST(self) -> None:
         """Write follow.json for one local POST /follow. Other paths stay files."""
         if _request_path(self.path) != "/follow":
@@ -82,6 +118,68 @@ class _Handler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.close_connection = True
 
+    def _serve_slate(self) -> None:
+        """JSON rows for one local sport and day. A bad query does not fetch."""
+        peer = self.client_address[0] if self.client_address else ""
+        if not _request_from_localhost(str(peer), self.headers.get("Host", "")):
+            self.send_error(HTTPStatus.FORBIDDEN)
+            return
+        try:
+            sport, day = _slate_query(self.path)
+        except ValueError:
+            self.send_error(HTTPStatus.BAD_REQUEST)
+            return
+        fetch = getattr(self.server, "slate_fetch", None)
+        try:
+            rows = slate_rows(date=day, sport=sport, fetch=fetch)
+        except (FollowError, ValueError, TypeError, OSError):
+            self.send_error(HTTPStatus.BAD_GATEWAY)
+            return
+        body = json.dumps(rows).encode("utf-8")
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Connection", "close")
+        self.end_headers()
+        self.wfile.write(body)
+        self.close_connection = True
+
+    def _serve_replay(self) -> None:
+        """Temporary replay for one local game. No snapshots is an empty success."""
+        peer = self.client_address[0] if self.client_address else ""
+        if not _request_from_localhost(str(peer), self.headers.get("Host", "")):
+            self.send_error(HTTPStatus.FORBIDDEN)
+            return
+        try:
+            sport, game_id, day = _replay_query(self.path)
+        except ValueError:
+            self.send_error(HTTPStatus.BAD_REQUEST)
+            return
+        fetch = getattr(self.server, "replay_fetch", None)
+        try:
+            script = replay_script(sport, game_id, date=day, fetch=fetch)
+        except (FollowError, ValueError, TypeError, OSError):
+            self.send_error(HTTPStatus.BAD_GATEWAY)
+            return
+        if not script:
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.send_header("Content-Length", "0")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("Connection", "close")
+            self.end_headers()
+            self.close_connection = True
+            return
+        body = script.encode("utf-8")
+        self.send_response(HTTPStatus.OK)
+        self.send_header("Content-Type", "text/javascript; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")
+        self.send_header("Connection", "close")
+        self.end_headers()
+        self.wfile.write(body)
+        self.close_connection = True
+
     def _fail(self) -> None:
         """Print the handler error and answer 500 if no status was sent."""
         traceback.print_exc(file=sys.stderr)
@@ -101,6 +199,10 @@ class _Server(ThreadingHTTPServer):
     # and the client sees a reset instead of this process.
     allow_reuse_address = False
     daemon_threads = True
+    # Replaces the scoreboard read for GET /slate. None uses the real reader.
+    slate_fetch = None
+    # Replaces the replay read for GET /replay. None uses the real reader.
+    replay_fetch = None
 
     def server_bind(self) -> None:
         self.allow_reuse_address = False
@@ -203,8 +305,79 @@ def _parse_port(text: str) -> int:
 
 
 def _request_path(target: str) -> str:
-    """Path only. A query string is not part of the route."""
-    return target.split("?", 1)[0].split("#", 1)[0]
+    """Route path. The query string is not part of it.
+
+    An absolute-form target (``scheme://host/path?query``) reduces to
+    that path. ``/slate/`` is the same route as ``/slate``, so the
+    static handler does not look for a file of that name.
+    """
+    text = target.split("#", 1)[0]
+    before_query = text.split("?", 1)[0]
+    if "://" in before_query:
+        after_scheme = before_query.split("://", 1)[1]
+        slash = after_scheme.find("/")
+        path = after_scheme[slash:] if slash >= 0 else "/"
+    else:
+        path = before_query
+    path = _unquote_path(path)
+    if not path.startswith("/"):
+        path = "/" + path
+    while "//" in path:
+        path = path.replace("//", "/")
+    if len(path) > 1:
+        path = path.rstrip("/")
+    return path or "/"
+
+
+def _query_map(target: str) -> dict[str, str]:
+    """Last value for each query key. ``+`` is a space. The path is ignored."""
+    query = target.split("?", 1)[1].split("#", 1)[0] if "?" in target else ""
+    found: dict[str, str] = {}
+    for part in query.split("&"):
+        if not part:
+            continue
+        key, _, value = part.partition("=")
+        found[_query_component(key)] = _query_component(value)
+    return found
+
+
+def _query_component(text: str) -> str:
+    return _unquote_path(text.replace("+", " "))
+
+
+def _slate_query(target: str) -> tuple[str, str]:
+    """sport and YYYYMMDD, or ValueError when the query cannot be read."""
+    params = _query_map(target)
+    sport = params.get("sport", "").strip().lower()
+    day = params.get("date", "").strip()
+    if sport not in _SLATE_SPORTS:
+        raise ValueError("slate sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab")
+    if len(day) != 8 or not day.isdigit():
+        raise ValueError("slate date must be YYYYMMDD")
+    try:
+        datetime.strptime(day, "%Y%m%d")
+    except ValueError as exc:
+        raise ValueError("slate date must be YYYYMMDD") from exc
+    return sport, day
+
+
+def _replay_query(target: str) -> tuple[str, str, str]:
+    """sport, event id, and YYYYMMDD, or ValueError when the query cannot be read."""
+    params = _query_map(target)
+    sport = params.get("sport", "").strip().lower()
+    game_id = params.get("game_id", "").strip()
+    day = params.get("date", "").strip()
+    if sport not in _SLATE_SPORTS:
+        raise ValueError("replay sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab")
+    if not game_id.isdigit():
+        raise ValueError("replay game_id must be an event id")
+    if len(day) != 8 or not day.isdigit():
+        raise ValueError("replay date must be YYYYMMDD")
+    try:
+        datetime.strptime(day, "%Y%m%d")
+    except ValueError as exc:
+        raise ValueError("replay date must be YYYYMMDD") from exc
+    return sport, game_id, day
 
 
 def _unquote_path(text: str) -> str:

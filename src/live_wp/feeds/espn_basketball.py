@@ -100,6 +100,23 @@ def require_nba_payload(payload: Mapping[str, Any]) -> None:
         )
 
 
+def require_ncaab_payload(payload: Mapping[str, Any]) -> None:
+    """Raise unless this payload is confirmed college basketball. This does not fetch."""
+    if not isinstance(payload, Mapping):
+        raise TypeError("ESPN payload must be an object")
+    sport = classify_basketball(payload)
+    if sport == "nba":
+        raise ValueError(
+            "ESPN payload is nba, not college basketball (ncaab). "
+            "This adapter maps college basketball games only."
+        )
+    if sport != "ncaab":
+        raise ValueError(
+            "ESPN payload is not college basketball. "
+            "The league could not be confirmed as ncaab."
+        )
+
+
 def scoreboard_event_to_state(
     event: Mapping[str, Any],
     *,

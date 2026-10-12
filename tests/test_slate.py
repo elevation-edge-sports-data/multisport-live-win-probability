@@ -14,9 +14,11 @@ from live_wp.follow import scoreboard_url, slate_lines, slate_states
 from live_wp.slate import (
     DEFAULT_OUT,
     _real_fetch,
+    _sport_of,
     parse_slate_args,
     render_slate_script,
     run_slate,
+    slate_rows,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -53,13 +55,36 @@ _LEAGUES = {
         "abbreviation": "NBA",
         "name": "National Basketball Association",
     },
+    "ncaaf": {
+        "id": "23",
+        "uid": "s:20~l:23",
+        "slug": "college-football",
+        "abbreviation": "NCAAF",
+        "name": "NCAA Football",
+    },
+    "ncaah": {
+        "id": "91",
+        "uid": "s:70~l:91",
+        "slug": "mens-college-hockey",
+        "abbreviation": "NCAAH",
+        "name": "NCAA Men's Ice Hockey",
+    },
+    "ncaab": {
+        "id": "41",
+        "uid": "s:40~l:41",
+        "slug": "mens-college-basketball",
+        "abbreviation": "NCAAB",
+        "name": "NCAA Men's Basketball",
+    },
 }
-_COLLEGE_URL = (
-    "https://site.api.espn.com/apis/site/v2/sports/football/"
-    "college-football/scoreboard"
-)
-
-
+_SERIES = {
+    "nfl": ("20", "28"),
+    "nhl": ("70", "90"),
+    "nba": ("40", "46"),
+    "ncaaf": ("20", "23"),
+    "ncaah": ("70", "91"),
+    "ncaab": ("40", "41"),
+}
 @pytest.fixture(autouse=True)
 def _block_sockets(monkeypatch: pytest.MonkeyPatch) -> None:
     def blocked(*_args: object, **_kwargs: object) -> None:
@@ -91,8 +116,7 @@ def _event(
     clock: str,
     moneyline: int | None = None,
 ) -> dict:
-    league = "90" if sport == "nhl" else "46"
-    series = "70" if sport == "nhl" else "40"
+    series, league = _SERIES[sport]
     uid = f"s:{series}~l:{league}~e:{event_id}"
     competition: dict = {
         "id": event_id,
@@ -145,7 +169,7 @@ class _Fetch:
 
     def __call__(self, url: str) -> dict:
         self.urls.append(url)
-        for sport in ("nfl", "nhl", "nba"):
+        for sport in self._boards:
             root = scoreboard_url(sport=sport)
             if url == root or url.startswith(root + "?"):
                 return self._boards[sport]
@@ -280,28 +304,92 @@ def test_college_url_is_never_requested(
     _assert_no_college(fetch.urls)
     assert fetch.urls == [scoreboard_url(sport=sport) for sport in ("nfl", "nhl", "nba")]
 
-    def refuse(url: str) -> dict:
-        raise AssertionError(url)
+    assert _sport_of(scoreboard_url(sport="ncaaf")) == "ncaaf"
+    assert _sport_of(scoreboard_url(sport="ncaah")) == "ncaah"
+    assert _sport_of(scoreboard_url(sport="ncaab")) == "ncaab"
+    with pytest.raises(ValueError, match="followed scoreboard"):
+        _real_fetch("https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard")
 
-    for sport in ("ncaaf", "ncaah", "ncaab", "nfl"):
-        code = run_slate(["--sport", sport, "--out", str(out)], fetch=refuse)
+
+def test_requested_college_sport_writes_that_slate(
+    capsys: pytest.CaptureFixture[str], tmp_path: Path
+) -> None:
+    boards = {
+        "ncaaf": _pack(
+            "ncaaf",
+            [
+                _event(
+                    "ncaaf",
+                    "88001",
+                    home="TEX",
+                    away="OU",
+                    home_score="21",
+                    away_score="14",
+                    state="post",
+                    period=4,
+                    clock="0:00",
+                    moneyline=-150,
+                )
+            ],
+        ),
+        "ncaah": _pack(
+            "ncaah",
+            [
+                _event(
+                    "ncaah",
+                    "77",
+                    home="DEN",
+                    away="MICH",
+                    home_score="3",
+                    away_score="2",
+                    state="post",
+                    period=3,
+                    clock="0:00",
+                )
+            ],
+        ),
+        "ncaab": _pack(
+            "ncaab",
+            [
+                _event(
+                    "ncaab",
+                    "401638608",
+                    home="COLO",
+                    away="FLA",
+                    home_score="102",
+                    away_score="100",
+                    state="in",
+                    period=2,
+                    clock="5:00",
+                )
+            ],
+        ),
+    }
+    out = tmp_path / "slate.js"
+    for sport, mark in (
+        ("ncaaf", "college-football/scoreboard"),
+        ("ncaah", "mens-college-hockey/scoreboard"),
+        ("ncaab", "mens-college-basketball/scoreboard"),
+    ):
+        fetch = _Fetch({sport: boards[sport]})
+        code = run_slate(["--sport", sport, "--out", str(out)], fetch=fetch)
         captured = capsys.readouterr()
-        assert code == 2
-        assert captured.out == ""
-        assert "unrecognized argument: --sport" in captured.err
+        assert code == 0
+        assert captured.err == ""
+        assert fetch.urls == [scoreboard_url(sport=sport)]
+        assert mark in fetch.urls[0]
+        assert "summary" not in fetch.urls[0]
+        rows = _rows(out.read_text(encoding="utf-8"))
+        assert [row["sport"] for row in rows] == [sport]
+        assert rows[0]["game_id"] == boards[sport]["events"][0]["id"]
+        assert captured.out.splitlines() == [
+            f"{sport} {line}" for line in slate_lines(boards[sport], sport=sport)
+        ]
 
-    with pytest.raises(ValueError, match="nfl, nhl, and nba"):
-        _real_fetch(_COLLEGE_URL)
-    with pytest.raises(ValueError, match="nfl, nhl, and nba"):
-        _real_fetch(
-            "https://site.api.espn.com/apis/site/v2/sports/hockey/"
-            "mens-college-hockey/scoreboard"
-        )
-    with pytest.raises(ValueError, match="nfl, nhl, and nba"):
-        _real_fetch(
-            "https://site.api.espn.com/apis/site/v2/sports/basketball/"
-            "mens-college-basketball/scoreboard"
-        )
+    refused = run_slate(["--sport", "mlb", "--out", str(out)], fetch=lambda _url: {})
+    usage = capsys.readouterr()
+    assert refused == 2
+    assert "sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab" in usage.err
 
 
 def test_empty_scoreboard_writes_an_empty_array(
@@ -452,3 +540,38 @@ def test_default_out_is_slate_js_and_usage_lists_the_command() -> None:
         "python -m live_wp slate [--date YYYYMMDD] [--interval 15] "
         "[--out slate.js]"
     ) in source
+
+
+def test_slate_rows_reads_one_dated_sport_and_does_not_write(tmp_path: Path) -> None:
+    board = _pack(
+        "ncaaf",
+        [
+            _event(
+                "ncaaf",
+                "88001",
+                home="TEX",
+                away="OU",
+                home_score="21",
+                away_score="14",
+                state="post",
+                period=4,
+                clock="0:00",
+                moneyline=-150,
+            )
+        ],
+    )
+    fetch = _Fetch({"ncaaf": board})
+    rows = slate_rows(date="20260903", sport="ncaaf", fetch=fetch)
+    assert fetch.urls == [scoreboard_url("20260903", sport="ncaaf")]
+    assert "college-football/scoreboard" in fetch.urls[0]
+    assert "dates=20260903" in fetch.urls[0]
+    assert "summary" not in fetch.urls[0]
+    assert rows == _rows(render_slate_script(slate_states(board, sport="ncaaf")))
+    assert list(rows[0]) == list(_FIELDS)
+    assert rows[0]["away"] == "OU"
+    assert rows[0]["home"] == "TEX"
+    assert rows[0]["status"] == "final"
+    assert not (tmp_path / "slate.js").exists()
+    assert not (ROOT / "slate.js.tmp").exists()
+    with pytest.raises(ValueError, match="nfl, nhl, nba, ncaaf, ncaah, or ncaab"):
+        slate_rows(date="20260903", sport="mlb", fetch=lambda _url: {})
