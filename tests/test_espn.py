@@ -10,17 +10,17 @@ from pathlib import Path
 
 import pytest
 
-from mswp import NCAAF_CONFIG, NFL_CONFIG, NHL_CONFIG, compute_wp
+from ms_win_prob import NCAAF_CONFIG, NFL_CONFIG, NHL_CONFIG, compute_win_prob
 
-from live_wp.colors import club_colors, team_color
-from live_wp.feeds.espn import (
+from live_win_prob.colors import club_colors, team_color
+from live_win_prob.feeds.espn import (
     espn_scoreboard_event_to_state,
     espn_summary_to_states,
     require_nfl_payload,
     states_from_espn,
 )
-from live_wp.feeds.espn_basketball import events_from_espn_basketball
-from live_wp.replay import (
+from live_win_prob.feeds.espn_basketball import events_from_espn_basketball
+from live_win_prob.replay import (
     config_for_state,
     dump_replay,
     format_clock,
@@ -137,7 +137,7 @@ def test_summary_maps_scores_clocks_and_a_decided_final():
     assert any(leaders[i] != leaders[i - 1] for i in range(1, len(leaders)))
     final = states[-1]
     assert final.status == "final"
-    assert compute_wp(final, final.prior_home, NFL_CONFIG) == 1.0
+    assert compute_win_prob(final, final.prior_home, NFL_CONFIG) == 1.0
     assert all(state.sport == "nfl" and state.source == "espn" for state in states)
     assert {state.game_id for state in states} == {"9001001"}
     times = [state.as_of for state in states]
@@ -245,7 +245,7 @@ def test_moneyline_becomes_one_prior_and_espn_win_probability_is_ignored():
     assert all(state.prior_home == states[0].prior_home for state in states)
     assert 0.0 < states[0].prior_home < 1.0
     assert states[0].prior_home != 0.91
-    kickoff = compute_wp(states[0], states[0].prior_home, NFL_CONFIG)
+    kickoff = compute_win_prob(states[0], states[0].prior_home, NFL_CONFIG)
     assert kickoff == pytest.approx(0.6, abs=1e-9)
     assert kickoff != 0.91
 
@@ -266,12 +266,12 @@ def test_moneyline_becomes_one_prior_and_espn_win_probability_is_ignored():
         )
     )
     assert nested.prior_home == pytest.approx(0.6)
-    assert compute_wp(nested, nested.prior_home, NFL_CONFIG) == 1.0
+    assert compute_win_prob(nested, nested.prior_home, NFL_CONFIG) == 1.0
 
     away_final = espn_scoreboard_event_to_state(
         _event(state="post", period=4, clock="0:00", home_score="17", away_score="21")
     )
-    assert compute_wp(away_final, away_final.prior_home, NFL_CONFIG) == 0.0
+    assert compute_win_prob(away_final, away_final.prior_home, NFL_CONFIG) == 0.0
 
     no_price = _event()
     assert espn_scoreboard_event_to_state(no_price, prior_home=0.62).prior_home == 0.62
@@ -383,10 +383,10 @@ def test_overtime_uses_the_ten_minute_clock():
     assert score.yardline == 75
     assert states[-1].status == "final"
     assert states[-1].period == 5
-    assert compute_wp(states[-1], states[-1].prior_home, NFL_CONFIG) == 1.0
+    assert compute_win_prob(states[-1], states[-1].prior_home, NFL_CONFIG) == 1.0
 
 
-def test_a_partial_situation_matches_clock_and_score_wp():
+def test_a_partial_situation_matches_clock_and_score_win_prob():
     state = espn_summary_to_states(_summary())[1]
     assert None not in (state.down, state.distance, state.yardline, state.possession)
     bare = replace(
@@ -397,11 +397,11 @@ def test_a_partial_situation_matches_clock_and_score_wp():
         possession=None,
         timeouts=None,
     )
-    bare_wp = compute_wp(bare, bare.prior_home, NFL_CONFIG)
+    bare_win_prob = compute_win_prob(bare, bare.prior_home, NFL_CONFIG)
     for name in ("down", "distance", "yardline", "possession"):
         partial = replace(state, **{name: None})
-        assert compute_wp(partial, partial.prior_home, NFL_CONFIG) == bare_wp
-    assert compute_wp(state, state.prior_home, NFL_CONFIG) != bare_wp
+        assert compute_win_prob(partial, partial.prior_home, NFL_CONFIG) == bare_win_prob
+    assert compute_win_prob(state, state.prior_home, NFL_CONFIG) != bare_win_prob
 
 
 def test_top_level_plays_match_plays_nested_on_drives():
@@ -605,32 +605,30 @@ def test_live_basketball_summary_ends_on_the_current_score():
     assert final_states[-1].home_score == 12 and final_states[-1].away_score == 9
 
 
-def test_jax_at_den_is_the_replay():
-    states = load_replay(ROOT / "examples" / "nfl_jax_den.json")
+def test_nyg_at_den_is_the_replay():
+    states = load_replay(ROOT / "examples" / "nfl_nyg_den.json")
     assert states
     assert {state.sport for state in states} == {"nfl"}
     assert {state.home for state in states} == {"DEN"}
-    assert {state.away for state in states} == {"JAX"}
+    assert {state.away for state in states} == {"NYG"}
+    assert {state.game_id for state in states} == {"401772757"}
     final = states[-1]
     assert final.status == "final"
-    assert final.home_score == 20
-    assert final.away_score == 13
-    assert compute_wp(final, final.prior_home, NFL_CONFIG) == 1.0
+    assert final.home_score == 33
+    assert final.away_score == 32
+    assert final.period == 4
+    assert compute_win_prob(final, final.prior_home, NFL_CONFIG) == 1.0
     assert any(
         state.status == "live" and state.away_score > state.home_score for state in states
     )
     assert final.home_score > final.away_score
-    assert any(
-        state.period == 4 and state.home_score == 13 and state.away_score == 13
-        for state in states
-    )
+    assert all(state.period <= 4 for state in states)
     priors = {state.prior_home for state in states}
     assert len(priors) == 1
     prior = priors.pop()
-    assert 0.0 < prior < 1.0
-    # Home moneyline -142. Not the summary's own winprobability value.
-    assert prior == pytest.approx(142 / 242)
-    assert prior != pytest.approx(0.3593)
+    # Home moneyline -425. Not a copied ESPN winprobability.
+    assert prior == pytest.approx(425 / 525)
+    assert prior != 0.5
     assert len(states) >= 40
     twitch = False
     for earlier, later in zip(states, states[1:]):
@@ -642,14 +640,14 @@ def test_jax_at_den_is_the_replay():
         right = (later.down, later.distance, later.yardline, later.possession)
         if None in left or None in right or left == right:
             continue
-        if compute_wp(earlier, earlier.prior_home, NFL_CONFIG) != compute_wp(
+        if compute_win_prob(earlier, earlier.prior_home, NFL_CONFIG) != compute_win_prob(
             later, later.prior_home, NFL_CONFIG
         ):
             twitch = True
             break
     assert twitch
 
-    script_path = ROOT / "replays" / "nfl" / "jax_den.js"
+    script_path = ROOT / "replays" / "nfl" / "nyg_den.js"
     script = script_path.read_text(encoding="utf-8")
     assert "window.NFL_REPLAY = " in script
     assert "espn" not in script.lower()
@@ -659,10 +657,10 @@ def test_jax_at_den_is_the_replay():
     assert len(frames) == len(states)
     for frame, state in zip(frames, states, strict=True):
         assert frame["home"] == "DEN"
-        assert frame["away"] == "JAX"
+        assert frame["away"] == "NYG"
         assert frame["home_color"] == "#FB4F14"
-        assert frame["away_color"] == "#006778"
-        assert frame["win_prob"] == compute_wp(state, state.prior_home, NFL_CONFIG)
+        assert frame["away_color"] == "#0B2265"
+        assert frame["win_prob"] == compute_win_prob(state, state.prior_home, NFL_CONFIG)
         for name in ("down", "distance", "yardline", "possession"):
             value = getattr(state, name)
             if value is None:
@@ -670,9 +668,13 @@ def test_jax_at_den_is_the_replay():
             else:
                 assert frame[name] == value
         assert frame["home_logo"] == "assets/logos/nfl/DEN.png"
-        assert frame["away_logo"] == "assets/logos/nfl/JAX.png"
+        assert frame["away_logo"] == "assets/logos/nfl/NYG.png"
     assert (ROOT / frames[0]["home_logo"]).is_file()
     assert (ROOT / frames[0]["away_logo"]).is_file()
+    assert frames[-1]["status"] == "final"
+    assert frames[-1]["home_score"] == 33
+    assert frames[-1]["away_score"] == 32
+    assert frames[-1]["win_prob"] == 1.0
 
 
 def test_colo_at_gt_is_the_ncaaf_replay():
@@ -712,7 +714,7 @@ def test_colo_at_gt_is_the_ncaaf_replay():
     assert final.status == "final"
     assert final.home_score == 13
     assert final.away_score == 14
-    assert compute_wp(final, final.prior_home, NCAAF_CONFIG) == 0.0
+    assert compute_win_prob(final, final.prior_home, NCAAF_CONFIG) == 0.0
     assert team_color("GT", "ncaaf") == "#B3A369"
     assert team_color("COLO", "ncaaf") == "#CFB87C"
 
@@ -732,7 +734,7 @@ def test_colo_at_gt_is_the_ncaaf_replay():
         assert frame["away"] == "COLO"
         assert frame["home_color"] == "#B3A369"
         assert frame["away_color"] == "#CFB87C"
-        assert frame["win_prob"] == compute_wp(state, state.prior_home, NCAAF_CONFIG)
+        assert frame["win_prob"] == compute_win_prob(state, state.prior_home, NCAAF_CONFIG)
         assert frame["home_logo"] == "assets/logos/ncaaf/GT.png"
         assert frame["away_logo"] == "assets/logos/ncaaf/COLO.png"
         assert frame["period"] <= 4
@@ -760,7 +762,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
         [
             sys.executable,
             "-m",
-            "live_wp",
+            "live_win_prob",
             "ingest-espn",
             str(SNIPPET),
             str(ingested),
@@ -774,7 +776,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     assert load_replay(ingested) == espn_summary_to_states(_summary())
 
     replayed = subprocess.run(
-        [sys.executable, "-m", "live_wp", "replay", str(SAMPLE)],
+        [sys.executable, "-m", "live_win_prob", "replay", str(SAMPLE)],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -782,7 +784,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     )
     states = load_replay(SAMPLE)
     expected = [
-        format_line(state, compute_wp(state, state.prior_home, NFL_CONFIG))
+        format_line(state, compute_win_prob(state, state.prior_home, NFL_CONFIG))
         for state in states
     ]
     assert replayed.stdout.splitlines() == expected
@@ -790,7 +792,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
 
     rendered = tmp_path / "replay.js"
     subprocess.run(
-        [sys.executable, "-m", "live_wp", "render-widget", str(SAMPLE), str(rendered)],
+        [sys.executable, "-m", "live_win_prob", "render-widget", str(SAMPLE), str(rendered)],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -805,7 +807,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
     frames = json.loads(script[script.index("[") : script.rindex("]") + 1])
     assert list(frames[0]) == list(harbor_frames[0])
     for frame, state in zip(frames, states):
-        assert frame["win_prob"] == compute_wp(state, state.prior_home, NFL_CONFIG)
+        assert frame["win_prob"] == compute_win_prob(state, state.prior_home, NFL_CONFIG)
         if state.down is None:
             assert "down" not in frame
         else:
@@ -826,7 +828,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
 
     harbor_out = tmp_path / "harbor.js"
     subprocess.run(
-        [sys.executable, "-m", "live_wp", "render-widget", str(HARBOR), str(harbor_out)],
+        [sys.executable, "-m", "live_win_prob", "render-widget", str(HARBOR), str(harbor_out)],
         cwd=ROOT,
         check=True,
         capture_output=True,
@@ -844,7 +846,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
         [
             sys.executable,
             "-m",
-            "live_wp",
+            "live_win_prob",
             "ingest-espn",
             str(NCAAF_SNIPPET),
             str(ingested_ncaaf),
@@ -865,7 +867,7 @@ def test_ingest_and_replay_and_render_cli(tmp_path: Path):
         for state in ncaaf_states
         if state.period > 4
     )
-    assert compute_wp(ncaaf_states[-1], ncaaf_states[-1].prior_home, NCAAF_CONFIG) == 1.0
+    assert compute_win_prob(ncaaf_states[-1], ncaaf_states[-1].prior_home, NCAAF_CONFIG) == 1.0
 
 
 def _nhl_summary() -> dict:
@@ -908,8 +910,8 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
         and state.home_score == state.away_score
         and state.status == "live"
     )
-    tied_wp = compute_wp(tied, tied.prior_home, NHL_CONFIG)
-    assert tied_wp not in (0.0, 1.0)
+    tied_win_prob = compute_win_prob(tied, tied.prior_home, NHL_CONFIG)
+    assert tied_win_prob not in (0.0, 1.0)
     overtime = [
         state for state in scoring if state.period == 4 and state.status == "live"
     ]
@@ -921,45 +923,39 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
     assert final.period == 4
     assert final.home_score == 2 and final.away_score == 1
     assert final.seconds_remaining_period == overtime[-1].seconds_remaining_period
-    assert compute_wp(final, final.prior_home, NHL_CONFIG) == 1.0
+    assert compute_win_prob(final, final.prior_home, NHL_CONFIG) == 1.0
     assert all(state.strength is None and state.down is None for state in everything)
 
 
-def test_min_at_col_is_the_nhl_replay():
-    path = ROOT / "examples" / "nhl_col_min_g5.json"
+def test_edm_at_col_is_the_nhl_replay():
+    path = ROOT / "examples" / "nhl_edm_col.json"
     states = load_replay(path)
     assert states
     assert {state.sport for state in states} == {"nhl"}
     assert {state.home for state in states} == {"COL"}
-    assert {state.away for state in states} == {"MIN"}
-    assert {state.game_id for state in states} == {"401871420"}
+    assert {state.away for state in states} == {"EDM"}
+    assert {state.game_id for state in states} == {"401442762"}
     assert states[0].status == "pre"
     assert states[0].home_score == 0 and states[0].away_score == 0
     priors = {state.prior_home for state in states}
     assert len(priors) == 1
     prior = priors.pop()
-    assert prior == pytest.approx(230 / 330)
+    assert prior == pytest.approx(121 / 221)
     assert prior != 0.5
-    assert any(
-        state.status == "live" and state.away_score == 3 and state.home_score in {0, 1}
-        for state in states
-    )
-    overtime = [state for state in states if state.period > 3 and state.status == "live"]
-    assert overtime
+    assert all(state.period <= 3 for state in states)
     final = states[-1]
     assert final.status == "final"
-    assert final.home_score == 4
-    assert final.away_score == 3
-    assert final.period > 3
-    assert compute_wp(final, final.prior_home, NHL_CONFIG) == 1.0
+    assert final.home_score == 8
+    assert final.away_score == 6
+    assert final.period == 3
+    assert compute_win_prob(final, final.prior_home, NHL_CONFIG) == 1.0
     assert any(format_clock(state).startswith("P1 ") for state in states)
-    assert any(format_clock(state).startswith("OT ") for state in states)
+    assert all(not format_clock(state).startswith("OT ") for state in states)
     assert all(not format_clock(state).startswith("Q") for state in states)
     assert team_color("COL", "nhl") == "#6F263D"
-    assert team_color("MIN", "nhl") == "#154734"
-    assert team_color("MIN", "nfl") != team_color("MIN", "nhl")
+    assert team_color("EDM", "nhl") == "#041E42"
 
-    script_path = ROOT / "replays" / "nhl" / "col_min_g5.js"
+    script_path = ROOT / "replays" / "nhl" / "edm_col.js"
     script = script_path.read_text(encoding="utf-8")
     assert "window.NHL_REPLAY = " in script
     lowered = script.lower()
@@ -970,19 +966,18 @@ def test_min_at_col_is_the_nhl_replay():
     assert len(frames) == len(states)
     for frame, state in zip(frames, states, strict=True):
         assert frame["home"] == "COL"
-        assert frame["away"] == "MIN"
+        assert frame["away"] == "EDM"
         assert frame["home_color"] == "#6F263D"
-        assert frame["away_color"] == "#154734"
-        assert frame["win_prob"] == compute_wp(state, state.prior_home, NHL_CONFIG)
+        assert frame["away_color"] == "#041E42"
+        assert frame["win_prob"] == compute_win_prob(state, state.prior_home, NHL_CONFIG)
         assert frame["clock"] == format_clock(state)
         assert frame["home_logo"] == "assets/logos/nhl/COL.png"
-        assert frame["away_logo"] == "assets/logos/nhl/MIN.png"
-        assert "strength" not in frame
+        assert frame["away_logo"] == "assets/logos/nhl/EDM.png"
     assert (ROOT / frames[0]["home_logo"]).is_file()
     assert (ROOT / frames[0]["away_logo"]).is_file()
     assert frames[-1]["status"] == "final"
-    assert frames[-1]["home_score"] == 4
-    assert frames[-1]["away_score"] == 3
+    assert frames[-1]["home_score"] == 8
+    assert frames[-1]["away_score"] == 6
     assert frames[-1]["win_prob"] == 1.0
 
 
@@ -998,7 +993,7 @@ def test_ingest_still_accepts_nfl_ncaaf_and_nhl_snippets(tmp_path: Path) -> None
             [
                 sys.executable,
                 "-m",
-                "live_wp",
+                "live_win_prob",
                 "ingest-espn",
                 str(source),
                 str(dest),
@@ -1034,7 +1029,7 @@ def test_ingest_accepts_nba_and_ncaab_summaries(tmp_path: Path) -> None:
             command = [
                 sys.executable,
                 "-m",
-                "live_wp",
+                "live_win_prob",
                 "ingest-espn",
                 str(source),
                 str(dest),
@@ -1067,7 +1062,7 @@ def test_ingest_accepts_nba_and_ncaab_summaries(tmp_path: Path) -> None:
             assert states[-1].home_score == home_score
             assert states[-1].away_score == away_score
             assert len({state.prior_home for state in states}) == 1
-            assert compute_wp(
+            assert compute_win_prob(
                 states[-1], states[-1].prior_home, config_for_state(states[-1])
             ) == (1.0 if home_score > away_score else 0.0)
         if sport == "nba":
@@ -1100,7 +1095,7 @@ def test_ingest_refuses_a_league_outside_the_five(tmp_path: Path) -> None:
         [
             sys.executable,
             "-m",
-            "live_wp",
+            "live_win_prob",
             "ingest-espn",
             str(source),
             str(tmp_path / "out.json"),
@@ -1147,4 +1142,4 @@ def test_demo_palette_is_sport_specific_and_colorado_gold():
     assert "colors.js" not in script
     assert 'return "assets/colors/"' in script
     assert "../assets/" not in script
-    assert "demo.json" not in (ROOT / "src" / "live_wp" / "colors.py").read_text(encoding="utf-8")
+    assert "demo.json" not in (ROOT / "src" / "live_win_prob" / "colors.py").read_text(encoding="utf-8")

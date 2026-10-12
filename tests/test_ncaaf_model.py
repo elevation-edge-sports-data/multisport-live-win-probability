@@ -2,13 +2,10 @@
 
 from dataclasses import replace
 from datetime import datetime, timezone
-from pathlib import Path
 
 import pytest
 
-from mswp import NCAAF_CONFIG, NcaafModel, GameState, NFL_CONFIG, SportModel, compute_wp
-
-from live_wp.replay import load_replay
+from ms_win_prob import NCAAF_CONFIG, NcaafModel, GameState, NFL_CONFIG, SportModel, compute_win_prob
 
 AS_OF = datetime(2026, 10, 11, 19, 0, tzinfo=timezone.utc)
 
@@ -45,7 +42,7 @@ def test_ncaaf_config_margin_is_sixteen_points():
 
 def test_tipoff_with_prior_0_60_stays_about_0_60():
     state = ncaaf_state(prior_home=0.60, status="pre")
-    assert compute_wp(state, 0.60, NCAAF_CONFIG) == pytest.approx(0.60, abs=1e-9)
+    assert compute_win_prob(state, 0.60, NCAAF_CONFIG) == pytest.approx(0.60, abs=1e-9)
 
 
 def test_tied_end_of_regulation_starts_overtime_and_stays_a_small_favorite():
@@ -58,13 +55,13 @@ def test_tied_end_of_regulation_starts_overtime_and_stays_a_small_favorite():
         away_score=24,
         prior_home=0.60,
     )
-    wp = compute_wp(tied, 0.60, NCAAF_CONFIG)
-    assert wp not in (0.0, 1.0)
-    assert 0.5 < wp < 0.75
+    win_prob = compute_win_prob(tied, 0.60, NCAAF_CONFIG)
+    assert win_prob not in (0.0, 1.0)
+    assert 0.5 < win_prob < 0.75
 
     # The possession stub does not read the unused overtime clock.
     shorter = replace(NCAAF_CONFIG, ot_period_seconds=45)
-    assert compute_wp(tied, 0.60, shorter) == wp
+    assert compute_win_prob(tied, 0.60, shorter) == win_prob
 
     decided = ncaaf_state(
         status="live",
@@ -75,21 +72,7 @@ def test_tied_end_of_regulation_starts_overtime_and_stays_a_small_favorite():
         away_score=24,
         prior_home=0.60,
     )
-    assert compute_wp(decided, 0.60, NCAAF_CONFIG) == 1.0
-
-
-def test_ncaaf_sample_reaches_2ot_without_a_ten_minute_clock():
-    root = Path(__file__).resolve().parents[1]
-    states = load_replay(root / "examples" / "ncaaf_sample.json")
-    extra = [state for state in states if state.period > 4 and state.status == "live"]
-    assert any(state.period == 6 for state in extra)
-    shorter = replace(NCAAF_CONFIG, ot_period_seconds=45)
-    ten_minutes = replace(NCAAF_CONFIG, ot_period_seconds=10 * 60)
-    for state in extra:
-        base = compute_wp(state, state.prior_home, NCAAF_CONFIG)
-        assert compute_wp(state, state.prior_home, shorter) == base
-        assert compute_wp(state, state.prior_home, ten_minutes) == base
-        assert base not in (0.0, 1.0)
+    assert compute_win_prob(decided, 0.60, NCAAF_CONFIG) == 1.0
 
 
 def test_extra_period_clock_is_not_the_process():
@@ -107,8 +90,8 @@ def test_extra_period_clock_is_not_the_process():
         seconds_remaining_total=30,
         prior_home=0.60,
     )
-    assert compute_wp(early, 0.60, NCAAF_CONFIG) == compute_wp(late, 0.60, NCAAF_CONFIG)
-    assert 0.5 < compute_wp(early, 0.60, NCAAF_CONFIG) < 0.75
+    assert compute_win_prob(early, 0.60, NCAAF_CONFIG) == compute_win_prob(late, 0.60, NCAAF_CONFIG)
+    assert 0.5 < compute_win_prob(early, 0.60, NCAAF_CONFIG) < 0.75
 
 
 def test_one_team_already_scored_uses_the_current_score():
@@ -125,9 +108,9 @@ def test_one_team_already_scored_uses_the_current_score():
         yardline=75,
         prior_home=0.60,
     )
-    wp = compute_wp(trailing_on_offense, 0.60, NCAAF_CONFIG)
-    assert 0.0001 <= wp <= 0.9999
-    assert wp != 0.0 and wp != 1.0
+    win_prob = compute_win_prob(trailing_on_offense, 0.60, NCAAF_CONFIG)
+    assert 0.0001 <= win_prob <= 0.9999
+    assert win_prob != 0.0 and win_prob != 1.0
 
     impossible = ncaaf_state(
         status="live",
@@ -139,7 +122,7 @@ def test_one_team_already_scored_uses_the_current_score():
         possession="away",
         prior_home=0.50,
     )
-    assert compute_wp(impossible, 0.50, NCAAF_CONFIG) == 1.0
+    assert compute_win_prob(impossible, 0.50, NCAAF_CONFIG) == 1.0
 
 
 def test_third_extra_period_is_a_two_point_try():
@@ -157,11 +140,11 @@ def test_third_extra_period_is_a_two_point_try():
         seconds_remaining_total=0,
         prior_home=0.60,
     )
-    drive_wp = compute_wp(drive, 0.60, NCAAF_CONFIG)
-    try_wp = compute_wp(tries, 0.60, NCAAF_CONFIG)
-    assert 0.5 < drive_wp < 0.75
-    assert 0.5 < try_wp < 0.75
-    assert drive_wp != try_wp
+    drive_win_prob = compute_win_prob(drive, 0.60, NCAAF_CONFIG)
+    try_win_prob = compute_win_prob(tries, 0.60, NCAAF_CONFIG)
+    assert 0.5 < drive_win_prob < 0.75
+    assert 0.5 < try_win_prob < 0.75
+    assert drive_win_prob != try_win_prob
 
 
 def test_regulation_ignores_a_partial_situation():
@@ -187,19 +170,19 @@ def test_regulation_ignores_a_partial_situation():
         away_score=10,
         prior_home=0.55,
     )
-    bare_wp = compute_wp(bare, 0.55, NCAAF_CONFIG)
+    bare_win_prob = compute_win_prob(bare, 0.55, NCAAF_CONFIG)
     for name in ("down", "distance", "yardline", "possession"):
         partial = replace(full, **{name: None})
-        assert compute_wp(partial, 0.55, NCAAF_CONFIG) == bare_wp
-    assert compute_wp(full, 0.55, NCAAF_CONFIG) != bare_wp
+        assert compute_win_prob(partial, 0.55, NCAAF_CONFIG) == bare_win_prob
+    assert compute_win_prob(full, 0.55, NCAAF_CONFIG) != bare_win_prob
 
 
-def test_ncaaf_model_delegates_to_compute_wp():
+def test_ncaaf_model_delegates_to_compute_win_prob():
     model = NcaafModel()
     assert isinstance(model, SportModel)
     state = ncaaf_state(prior_home=0.60)
     assert model.sport_config() is NCAAF_CONFIG
-    assert model.win_probability(state, 0.60) == compute_wp(state, 0.60, NCAAF_CONFIG)
+    assert model.win_probability(state, 0.60) == compute_win_prob(state, 0.60, NCAAF_CONFIG)
     assert model.sport_config() is not NFL_CONFIG
 
 
@@ -216,4 +199,4 @@ def test_final_home_win_is_one_from_the_score():
         distance=12,
         yardline=40,
     )
-    assert compute_wp(final, 0.57, NCAAF_CONFIG) == 1.0
+    assert compute_win_prob(final, 0.57, NCAAF_CONFIG) == 1.0

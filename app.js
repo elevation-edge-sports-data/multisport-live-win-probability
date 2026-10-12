@@ -1,4 +1,4 @@
-// Displays one rendered replay chosen from window.MSWP_MANIFEST.
+// Displays one rendered replay chosen from window.MS_WIN_PROB_MANIFEST.
 // Each replay was produced by the Python pack for that sport. This file
 // does not estimate win probability. On 127.0.0.1 or localhost it reads
 // replays/live_replay.js and slate.js. A pro slate click on that host POSTs
@@ -6,14 +6,14 @@
 // it also GETs follow.json once. If that pro sport and game_id are
 // on the slate, the page opens that row. A date field on that host
 // requests GET /slate for the active sport and that day, and draws the
-// same slate row. While that dated slate is showing, the season list
-// and archive game buttons stay hidden. A click on that row requests
+// same slate row. While that dated slate is showing, the archive game
+// buttons stay hidden. A click on that row requests
 // GET /replay. When the server returns frames, including a single
 // snapshot, the page draws them on the charts. A game that has not
 // started, or a replay with no frames, keeps the scoreboard card.
 // A live chart on that date asks again every 15 seconds until the game
 // is final or the chart is closed.
-// Clearing the date restores the season list, the archive buttons, and
+// Clearing the date restores the archive buttons and
 // the archive game on the charts. GitHub Pages hides the date field.
 // It is / and does not request follow.json. College does not read it.
 // Club colors for the
@@ -267,7 +267,7 @@
     return labels;
   }
 
-  root.mswpBands = {
+  root.msWinProbBands = {
     QUARTER_SECONDS: QUARTER_SECONDS,
     NFL_OT_SECONDS: NFL_OT_SECONDS,
     HOCKEY_PERIOD_SECONDS: HOCKEY_PERIOD_SECONDS,
@@ -443,7 +443,7 @@
   }
 
   function sportHasColors(sport) {
-    var rows = root.MSWP_COLORS || [];
+    var rows = root.MS_WIN_PROB_COLORS || [];
     var key = String(sport || "").toLowerCase();
     var i;
     for (i = 0; i < rows.length; i++) {
@@ -455,7 +455,7 @@
   function ingestColors(sport, rows) {
     var key = String(sport || "").toLowerCase();
     var next = [];
-    var existing = root.MSWP_COLORS || [];
+    var existing = root.MS_WIN_PROB_COLORS || [];
     var i;
     if (!Array.isArray(rows)) return;
     for (i = 0; i < existing.length; i++) {
@@ -466,11 +466,11 @@
       if (!club.id) continue;
       next.push(club);
     }
-    root.MSWP_COLORS = next;
+    root.MS_WIN_PROB_COLORS = next;
   }
 
   function findClub(sport, name) {
-    var rows = root.MSWP_COLORS || [];
+    var rows = root.MS_WIN_PROB_COLORS || [];
     var key = String(name || "").trim().toUpperCase();
     var i;
     var aliases;
@@ -486,7 +486,7 @@
     return null;
   }
 
-  root.mswpColors = {
+  root.msWinProbColors = {
     ingest: ingestColors,
     normalizeClub: normalizeClub,
     sportHasColors: sportHasColors
@@ -667,7 +667,7 @@
     return record;
   }
 
-  root.mswpAppearance = {
+  root.msWinProbAppearance = {
     normalizeHex: normalizeHex,
     buildSwatches: buildSwatches,
     resolutionOrder: resolutionOrder,
@@ -680,7 +680,7 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V5";
+  var BADGE_TEXT = "V5.2";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
@@ -707,52 +707,6 @@
     return out;
   }
 
-  function compareSeason(a, b) {
-    var left = Number(a);
-    var right = Number(b);
-    if (isFinite(left) && isFinite(right) && String(left) === a && String(right) === b) {
-      if (left < right) return -1;
-      if (left > right) return 1;
-      return 0;
-    }
-    if (a < b) return -1;
-    if (a > b) return 1;
-    return 0;
-  }
-
-  function seasonsForSport(entries, sport) {
-    var seen = {};
-    var out = [];
-    var games = gamesForSport(entries, sport);
-    var i;
-    for (i = 0; i < games.length; i++) {
-      var season = String(games[i].season || "").trim();
-      if (!season || seen[season]) continue;
-      seen[season] = true;
-      out.push(season);
-    }
-    out.sort(compareSeason);
-    return out;
-  }
-
-  function latestSeason(entries, sport) {
-    var seasons = seasonsForSport(entries, sport);
-    if (!seasons.length) return "";
-    return seasons[seasons.length - 1];
-  }
-
-  function gamesForSportSeason(entries, sport, season) {
-    var games = gamesForSport(entries, sport);
-    var wanted = String(season == null ? "" : season).trim();
-    if (!wanted) return games;
-    var out = [];
-    var i;
-    for (i = 0; i < games.length; i++) {
-      if (String(games[i].season || "").trim() === wanted) out.push(games[i]);
-    }
-    return out;
-  }
-
   function bindingName(sport) {
     if (sport === "nfl") return "NFL_REPLAY";
     if (sport === "ncaaf") return "NCAAF_REPLAY";
@@ -771,8 +725,8 @@
     return rows;
   }
 
-  root.MSWP_BADGE = BADGE_TEXT;
-  root.mswpPicker = {
+  root.MS_WIN_PROB_BADGE = BADGE_TEXT;
+  root.msWinProbPicker = {
     gamesForSport: gamesForSport,
     bindingName: bindingName,
     readSportFrames: readSportFrames
@@ -783,10 +737,9 @@
   var badge = document.getElementById("badge");
   if (badge) badge.textContent = BADGE_TEXT;
 
-  var manifest = Array.isArray(root.MSWP_MANIFEST) ? root.MSWP_MANIFEST.slice() : [];
+  var manifest = Array.isArray(root.MS_WIN_PROB_MANIFEST) ? root.MS_WIN_PROB_MANIFEST.slice() : [];
   var frames = [];
   var sportName = "nfl";
-  var seasonName = "";
   var currentFile = "";
   var themeName = "charcoal";
   var awaySwatch = null;
@@ -919,7 +872,7 @@
   }
 
   function storageKey() {
-    return "mswp:" + sportName + ":" + frames[0].away + ":" + frames[0].home;
+    return "ms-win-prob:" + sportName + ":" + frames[0].away + ":" + frames[0].home;
   }
 
   function readAppearance() {
@@ -936,7 +889,7 @@
 
   function writeTheme() {
     try {
-      localStorage.setItem("mswp:theme", themeName);
+      localStorage.setItem("ms-win-prob:theme", themeName);
     } catch (err) {}
   }
 
@@ -1101,7 +1054,7 @@
 
     text("c-clock", clock);
     text("c-score", frame.away + " " + frame.away_score + " – " + frame.home + " " + frame.home_score);
-    text("c-wp", homePct + "%");
+    text("c-win-prob", homePct + "%");
     paintTicker(frame);
     applyLogo("c-home-logo", frame.home_logo);
     applyLogo("c-away-logo", frame.away_logo);
@@ -1375,7 +1328,7 @@
   function readLiveAssignment(source) {
     var box = readAssignment(source);
     if (!box) return null;
-    return describeLive(box.MSWP_LIVE);
+    return describeLive(box.MS_WIN_PROB_LIVE);
   }
 
   function normalizeSlate(rows) {
@@ -1409,8 +1362,8 @@
 
   function readSlateRows(source) {
     var box = readAssignment(source);
-    if (!box || !Array.isArray(box.MSWP_SLATE)) return null;
-    return normalizeSlate(box.MSWP_SLATE);
+    if (!box || !Array.isArray(box.MS_WIN_PROB_SLATE)) return null;
+    return normalizeSlate(box.MS_WIN_PROB_SLATE);
   }
 
   function findSlateRow(gameId) {
@@ -1676,7 +1629,6 @@
     datedSport = sportName;
     datedDate = slateDate;
     renderSlate();
-    renderSeasons();
     renderGames();
   }
 
@@ -1697,7 +1649,6 @@
     datedSport = sportKey;
     datedDate = dateKey;
     renderSlate();
-    renderSeasons();
     renderGames();
     url = "/slate?sport=" + encodeURIComponent(sportKey) +
       "&date=" + encodeURIComponent(dateKey);
@@ -1728,7 +1679,6 @@
       datedSport = sportKey;
       datedDate = dateKey;
       renderSlate();
-      renderSeasons();
       renderGames();
     }).catch(function () {
       noteDatedMissing(serial);
@@ -1743,7 +1693,7 @@
 
   function rememberArchive() {
     if (viewingBoard || !currentFile) return;
-    heldArchive = { sport: sportName, file: currentFile, season: seasonName };
+    heldArchive = { sport: sportName, file: currentFile };
   }
 
   function leaveSlateChart() {
@@ -1764,16 +1714,14 @@
       games = gamesForSport(manifest, sportName);
       for (i = 0; i < games.length; i++) {
         if (games[i].file === held.file) {
-          if (held.season) seasonName = held.season;
           loadGame(games[i]);
           return;
         }
       }
     }
-    games = gamesForSportSeason(manifest, sportName, chooseSeason(sportName));
+    games = gamesForSport(manifest, sportName);
     if (!games.length) {
       renderSlate();
-      renderSeasons();
       renderGames();
       return;
     }
@@ -1960,7 +1908,6 @@
       }
       replaySerial += 1;
       renderSlate();
-      renderSeasons();
       renderGames();
       return;
     }
@@ -2061,7 +2008,7 @@
 
   function clearCharts() {
     clearSvg(document.getElementById("score-chart"));
-    clearSvg(document.getElementById("wp-chart"));
+    clearSvg(document.getElementById("win-prob-chart"));
   }
 
   function showBoardChrome() {
@@ -2194,50 +2141,12 @@
     }
   }
 
-  function chooseSeason(sport) {
-    var seasons = seasonsForSport(manifest, sport);
-    if (!seasonName || seasons.indexOf(seasonName) < 0) {
-      seasonName = seasons.length ? seasons[seasons.length - 1] : "";
-    }
-    return seasonName;
-  }
-
-  function renderSeasons() {
-    var row = document.getElementById("seasons");
-    var level = document.getElementById("season-row");
-    if (!row) return;
-    var seasons = seasonsForSport(manifest, sportName);
-    var selected = chooseSeason(sportName);
-    var i;
-    row.textContent = "";
-    if (datedSlateShowing()) {
-      if (level) level.hidden = true;
-      return;
-    }
-    if (level) level.hidden = seasons.length === 0;
-    for (i = 0; i < seasons.length; i++) {
-      var season = seasons[i];
-      var button = document.createElement("button");
-      var on = season === selected;
-      button.type = "button";
-      button.className = on ? "sport is-selected" : "sport";
-      button.setAttribute("data-season", season);
-      button.setAttribute("aria-pressed", on ? "true" : "false");
-      button.textContent = season;
-      row.appendChild(button);
-    }
-  }
-
   function renderGames() {
     var row = document.getElementById("games");
     var level = document.getElementById("game-row");
-    var sportGames = gamesForSport(manifest, sportName);
-    var season = chooseSeason(sportName);
-    var entries = gamesForSportSeason(manifest, sportName, season);
+    var entries = gamesForSport(manifest, sportName);
     var showSlate = slateRowsForSport(sportName).length > 0;
-    var showArchive = entries.length > 1 ||
-      (showSlate && entries.length === 1) ||
-      (entries.length === 1 && sportGames.length > 1);
+    var showArchive = entries.length > 1 || (showSlate && entries.length === 1);
     var showLive = liveControlVisible();
     var show = !datedSlateShowing() && (showArchive || showLive);
     var i;
@@ -2272,7 +2181,6 @@
   function renderPicker() {
     renderSports();
     renderSlate();
-    renderSeasons();
     renderGames();
   }
 
@@ -2283,7 +2191,6 @@
     boardRow = null;
     showReplayChrome();
     sportName = entry && entry.sport ? entry.sport : sportName;
-    if (entry && entry.season) seasonName = String(entry.season).trim();
     currentFile = entry && entry.file ? entry.file : "";
     frames = rows;
     scrub.max = String(frames.length - 1);
@@ -2384,28 +2291,8 @@
   document.getElementById("sports").addEventListener("click", function (event) {
     var sport = attrFrom(event, "data-sport");
     if (!sport) return;
-    seasonName = latestSeason(manifest, sport);
-    var games = gamesForSportSeason(manifest, sport, seasonName);
+    var games = gamesForSport(manifest, sport);
     if (!games.length) return;
-    followBlocked = true;
-    leaveSlateChart();
-    writeQuery(games[0].sport, games[0].away, games[0].home, false);
-    loadGame(games[0]);
-  });
-
-  document.getElementById("seasons").addEventListener("click", function (event) {
-    var season = attrFrom(event, "data-season");
-    if (!season) return;
-    var games = gamesForSportSeason(manifest, sportName, season);
-    if (!games.length) return;
-    seasonName = season;
-    var i;
-    for (i = 0; i < games.length; i++) {
-      if (games[i].file === currentFile && !viewingLive && !viewingBoard) {
-        renderPicker();
-        return;
-      }
-    }
     followBlocked = true;
     leaveSlateChart();
     writeQuery(games[0].sport, games[0].away, games[0].home, false);
@@ -2734,7 +2621,7 @@
   }
 
   function drawWinProbability(shown, xOf, layout, homeColor, awayColor, muted) {
-    var svg = document.getElementById("wp-chart");
+    var svg = document.getElementById("win-prob-chart");
     clearSvg(svg);
     drawBands(svg, layout, muted);
     var colors = { home: homeColor, away: awayColor, neutral: muted };
@@ -2746,7 +2633,7 @@
       y2: String(mid),
       stroke: muted,
       "stroke-width": "1",
-      "data-series": "wp-rail"
+      "data-series": "win-prob-rail"
     }));
     axisLabel(svg, plot.left - 8, yAtLow(0, 0, 1) + 4, "0", "end");
     axisLabel(svg, plot.left - 8, mid + 4, "50", "end");
@@ -2764,7 +2651,7 @@
         fill: "none",
         stroke: colors[sideOf(points[0].p)],
         "stroke-width": "2",
-        "data-series": "wp-line",
+        "data-series": "win-prob-line",
         "data-tone": sideOf(points[0].p)
       });
     }
@@ -2781,7 +2668,7 @@
             fill: colors[piece.tone],
             "fill-opacity": "0.28",
             stroke: "none",
-            "data-series": "wp-fill",
+            "data-series": "win-prob-fill",
             "data-tone": piece.tone
           }));
         }
@@ -2790,13 +2677,13 @@
           fill: "none",
           stroke: colors[piece.tone],
           "stroke-width": "2",
-          "data-series": "wp-line",
+          "data-series": "win-prob-line",
           "data-tone": piece.tone
         });
       });
     }
     var current = points[points.length - 1];
-    endCap(svg, current.x, yAtLow(current.p, 0, 1), colors[sideOf(current.p)], "wp");
+    endCap(svg, current.x, yAtLow(current.p, 0, 1), colors[sideOf(current.p)], "win-prob");
     var currentFrame = shown[shown.length - 1];
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", formatAwayPercent(currentFrame) + "%");
     drawLegendName(svg, plot.width - plot.right - 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%", "end");
@@ -2907,7 +2794,7 @@
     }
     if (requestedId && hostAllowsLive()) {
       preferId = requestedId;
-      var seededForId = describeLive(root.MSWP_LIVE);
+      var seededForId = describeLive(root.MS_WIN_PROB_LIVE);
       if (seededForId && seededForId.gameId === requestedId) {
         installLive(seededForId);
         preferId = "";
@@ -2917,7 +2804,7 @@
       }
     }
     if (preferLive && !preferId) {
-      var seeded = describeLive(root.MSWP_LIVE);
+      var seeded = describeLive(root.MS_WIN_PROB_LIVE);
       if (seeded) {
         installLive(seeded);
         selectLive(false);

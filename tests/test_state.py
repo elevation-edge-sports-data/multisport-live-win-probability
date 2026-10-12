@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 import pytest
 
-from mswp import DEFAULT_PRIOR_HOME, GameState
+from ms_win_prob import DEFAULT_PRIOR_HOME, GameState
 
 AS_OF = datetime(2026, 9, 21, 18, 0, tzinfo=timezone.utc)
 

@@ -6,17 +6,17 @@ from statistics import NormalDist
 
 import pytest
 
-from mswp import (
+from ms_win_prob import (
     GameState,
     NFLModel,
     NFL_CONFIG,
     NFL_PLAYOFF_CONFIG,
     SportModel,
-    compute_wp,
+    compute_win_prob,
 )
-from mswp.football.model import football_win_probability, team_points_per_second
+from ms_win_prob.football.model import football_win_probability, team_points_per_second
 
-from live_wp.replay import config_for_state, load_replay
+from live_win_prob.replay import config_for_state, load_replay
 
 AS_OF = datetime(2026, 9, 21, 18, 0, tzinfo=timezone.utc)
 
@@ -43,8 +43,8 @@ def nfl_state(**overrides) -> GameState:
 
 def test_tipoff_with_prior_0_60_stays_about_0_60():
     state = nfl_state(prior_home=0.60, status="pre")
-    wp = compute_wp(state, 0.60, NFL_CONFIG)
-    assert wp == pytest.approx(0.60, abs=1e-9)
+    win_prob = compute_win_prob(state, 0.60, NFL_CONFIG)
+    assert win_prob == pytest.approx(0.60, abs=1e-9)
 
 
 def test_home_up_18_with_about_one_minute_in_q4():
@@ -57,8 +57,8 @@ def test_home_up_18_with_about_one_minute_in_q4():
         away_score=9,
         prior_home=0.50,
     )
-    wp = compute_wp(state, 0.50, NFL_CONFIG)
-    assert wp == 0.9999
+    win_prob = compute_win_prob(state, 0.50, NFL_CONFIG)
+    assert win_prob == 0.9999
 
     trailing = nfl_state(
         status="live",
@@ -69,7 +69,7 @@ def test_home_up_18_with_about_one_minute_in_q4():
         away_score=27,
         prior_home=0.50,
     )
-    assert compute_wp(trailing, 0.50, NFL_CONFIG) == 0.0001
+    assert compute_win_prob(trailing, 0.50, NFL_CONFIG) == 0.0001
 
 
 def test_tie_at_0_00_q4_uses_the_ot_path():
@@ -82,9 +82,9 @@ def test_tie_at_0_00_q4_uses_the_ot_path():
         away_score=20,
         prior_home=0.60,
     )
-    wp = compute_wp(tied, 0.60, NFL_CONFIG)
+    win_prob = compute_win_prob(tied, 0.60, NFL_CONFIG)
     # A 0.60 team is a small favorite to start a 10-minute overtime.
-    assert 0.5 < wp < 0.75
+    assert 0.5 < win_prob < 0.75
 
     decided = nfl_state(
         status="live",
@@ -95,7 +95,7 @@ def test_tie_at_0_00_q4_uses_the_ot_path():
         away_score=20,
         prior_home=0.60,
     )
-    assert compute_wp(decided, 0.60, NFL_CONFIG) == 1.0
+    assert compute_win_prob(decided, 0.60, NFL_CONFIG) == 1.0
 
     decided_loss = nfl_state(
         status="live",
@@ -106,7 +106,7 @@ def test_tie_at_0_00_q4_uses_the_ot_path():
         away_score=21,
         prior_home=0.60,
     )
-    assert compute_wp(decided_loss, 0.60, NFL_CONFIG) == 0.0
+    assert compute_win_prob(decided_loss, 0.60, NFL_CONFIG) == 0.0
 
 
 def test_same_state_twice_is_deterministic():
@@ -119,7 +119,7 @@ def test_same_state_twice_is_deterministic():
         away_score=17,
         prior_home=0.47,
     )
-    assert compute_wp(state, 0.47, NFL_CONFIG) == compute_wp(state, 0.47, NFL_CONFIG)
+    assert compute_win_prob(state, 0.47, NFL_CONFIG) == compute_win_prob(state, 0.47, NFL_CONFIG)
 
 
 def test_missing_optional_football_fields_still_returns_a_number():
@@ -138,9 +138,9 @@ def test_missing_optional_football_fields_still_returns_a_number():
     assert state.possession is None
     assert state.timeouts is None
 
-    wp = compute_wp(state, state.prior_home, NFL_CONFIG)
-    assert isinstance(wp, float)
-    assert 0.0001 <= wp <= 0.9999
+    win_prob = compute_win_prob(state, state.prior_home, NFL_CONFIG)
+    assert isinstance(win_prob, float)
+    assert 0.0001 <= win_prob <= 0.9999
 
     timeouts_only = nfl_state(
         status="live",
@@ -152,7 +152,7 @@ def test_missing_optional_football_fields_still_returns_a_number():
         prior_home=0.55,
         timeouts={"home": 3, "away": 2},
     )
-    assert compute_wp(timeouts_only, 0.55, NFL_CONFIG) == wp
+    assert compute_win_prob(timeouts_only, 0.55, NFL_CONFIG) == win_prob
 
     partial = nfl_state(
         status="live",
@@ -167,7 +167,7 @@ def test_missing_optional_football_fields_still_returns_a_number():
         possession="home",
     )
     assert partial.yardline is None
-    assert compute_wp(partial, 0.55, NFL_CONFIG) == wp
+    assert compute_win_prob(partial, 0.55, NFL_CONFIG) == win_prob
 
 
 def _live_situation(**overrides) -> GameState:
@@ -191,23 +191,23 @@ def _live_situation(**overrides) -> GameState:
 def test_missing_any_situation_field_matches_clock_and_score():
     full = _live_situation()
     bare = _live_situation(down=None, distance=None, yardline=None, possession=None)
-    bare_wp = compute_wp(bare, 0.5, NFL_CONFIG)
+    bare_win_prob = compute_win_prob(bare, 0.5, NFL_CONFIG)
     for name in ("down", "distance", "yardline", "possession"):
         partial = _live_situation(**{name: None})
-        assert compute_wp(partial, 0.5, NFL_CONFIG) == bare_wp
-    assert compute_wp(full, 0.5, NFL_CONFIG) != bare_wp
+        assert compute_win_prob(partial, 0.5, NFL_CONFIG) == bare_win_prob
+    assert compute_win_prob(full, 0.5, NFL_CONFIG) != bare_win_prob
 
 
 def test_opponent_ten_is_better_for_the_team_with_the_ball():
     own_ten = _live_situation(yardline=10)
     opponent_ten = _live_situation(yardline=90)
-    assert compute_wp(opponent_ten, 0.5, NFL_CONFIG) > compute_wp(own_ten, 0.5, NFL_CONFIG)
+    assert compute_win_prob(opponent_ten, 0.5, NFL_CONFIG) > compute_win_prob(own_ten, 0.5, NFL_CONFIG)
 
 
 def test_first_and_ten_beats_fourth_and_fifteen():
     first = _live_situation(down=1, distance=10, yardline=45)
     fourth = _live_situation(down=4, distance=15, yardline=45)
-    assert compute_wp(first, 0.5, NFL_CONFIG) > compute_wp(fourth, 0.5, NFL_CONFIG)
+    assert compute_win_prob(first, 0.5, NFL_CONFIG) > compute_win_prob(fourth, 0.5, NFL_CONFIG)
 
 
 def test_decided_game_ignores_situation():
@@ -223,7 +223,7 @@ def test_decided_game_ignores_situation():
         yardline=10,
         possession="away",
     )
-    assert compute_wp(home_win, 0.5, NFL_CONFIG) == 1.0
+    assert compute_win_prob(home_win, 0.5, NFL_CONFIG) == 1.0
     home_loss = nfl_state(
         status="final",
         period=4,
@@ -236,7 +236,7 @@ def test_decided_game_ignores_situation():
         yardline=90,
         possession="home",
     )
-    assert compute_wp(home_loss, 0.5, NFL_CONFIG) == 0.0
+    assert compute_win_prob(home_loss, 0.5, NFL_CONFIG) == 0.0
     clock_win = nfl_state(
         status="live",
         period=4,
@@ -249,12 +249,12 @@ def test_decided_game_ignores_situation():
         yardline=5,
         possession="away",
     )
-    assert compute_wp(clock_win, 0.5, NFL_CONFIG) == 1.0
+    assert compute_win_prob(clock_win, 0.5, NFL_CONFIG) == 1.0
 
 
 def test_situation_is_deterministic():
     state = _live_situation(yardline=72, down=3, distance=6)
-    assert compute_wp(state, 0.5, NFL_CONFIG) == compute_wp(state, 0.5, NFL_CONFIG)
+    assert compute_win_prob(state, 0.5, NFL_CONFIG) == compute_win_prob(state, 0.5, NFL_CONFIG)
 
 
 def test_2025_overtime_does_not_end_on_an_opening_touchdown():
@@ -269,7 +269,7 @@ def test_2025_overtime_does_not_end_on_an_opening_touchdown():
     )
     # Tied at 0:00 of regulation. The first team has not possessed.
     assert tied.possession is None
-    start = compute_wp(tied, 0.60, NFL_CONFIG)
+    start = compute_win_prob(tied, 0.60, NFL_CONFIG)
     assert 0.5 < start < 0.75
 
     # First possession scored a touchdown. The other team has not possessed.
@@ -283,9 +283,9 @@ def test_2025_overtime_does_not_end_on_an_opening_touchdown():
         possession=None,
         prior_home=0.60,
     )
-    opened_wp = compute_wp(opened, 0.60, NFL_CONFIG)
-    assert opened_wp != 1.0
-    assert opened_wp < 0.9999
+    opened_win_prob = compute_win_prob(opened, 0.60, NFL_CONFIG)
+    assert opened_win_prob != 1.0
+    assert opened_win_prob < 0.9999
     assert football_win_probability(opened, 0.60, NFL_CONFIG) != 1.0
 
     safety = nfl_state(
@@ -298,8 +298,8 @@ def test_2025_overtime_does_not_end_on_an_opening_touchdown():
         possession=None,
         prior_home=0.60,
     )
-    assert compute_wp(safety, 0.60, NFL_CONFIG) == 1.0
-    assert compute_wp(opened, 0.60, NFL_PLAYOFF_CONFIG) != 1.0
+    assert compute_win_prob(safety, 0.60, NFL_CONFIG) == 1.0
+    assert compute_win_prob(opened, 0.60, NFL_PLAYOFF_CONFIG) != 1.0
 
 
 def test_regular_season_ot_clock_can_expire_tied():
@@ -312,9 +312,9 @@ def test_regular_season_ot_clock_can_expire_tied():
         away_score=23,
         prior_home=0.60,
     )
-    assert compute_wp(expired, 0.60, NFL_CONFIG) == 0.5
+    assert compute_win_prob(expired, 0.60, NFL_CONFIG) == 0.5
 
-    playoff = compute_wp(expired, 0.60, NFL_PLAYOFF_CONFIG)
+    playoff = compute_win_prob(expired, 0.60, NFL_PLAYOFF_CONFIG)
     assert playoff != 0.5
     assert 0.5 < playoff < 0.75
     assert NFL_PLAYOFF_CONFIG.ot_period_seconds == 15 * 60
@@ -337,12 +337,12 @@ def test_tied_overtime_is_not_more_regulation_scoring():
     mean = (rate_home - rate_away) * NFL_CONFIG.ot_period_seconds
     scale = NFL_CONFIG.ot_period_seconds / NFL_CONFIG.regulation_seconds
     legacy = NormalDist().cdf(mean / (NFL_CONFIG.margin_sd * scale**0.5))
-    assert compute_wp(tied, 0.60, NFL_CONFIG) != pytest.approx(legacy, abs=1e-4)
+    assert compute_win_prob(tied, 0.60, NFL_CONFIG) != pytest.approx(legacy, abs=1e-4)
 
 
 def test_demo_replays_stay_on_regular_season_overtime():
     root = Path(__file__).resolve().parents[1]
-    for name in ("nfl_jax_den.json", "nfl_nyg_den.json"):
+    for name in ("nfl_nyg_den.json",):
         state = load_replay(root / "examples" / name)[0]
         config = config_for_state(state)
         assert config is NFL_CONFIG
@@ -365,9 +365,9 @@ def test_nfl_overtime_still_uses_the_timed_clock():
         seconds_remaining_total=30,
         prior_home=0.60,
     )
-    early_wp = compute_wp(early, 0.60, NFL_CONFIG)
-    late_wp = compute_wp(late, 0.60, NFL_CONFIG)
-    assert 0.5 < late_wp < early_wp < 0.75
+    early_win_prob = compute_win_prob(early, 0.60, NFL_CONFIG)
+    late_win_prob = compute_win_prob(late, 0.60, NFL_CONFIG)
+    assert 0.5 < late_win_prob < early_win_prob < 0.75
 
 
 def test_nfl_model_follows_the_sport_protocol():
@@ -375,4 +375,4 @@ def test_nfl_model_follows_the_sport_protocol():
     assert isinstance(model, SportModel)
     state = nfl_state(prior_home=0.60)
     assert model.sport_config() is NFL_CONFIG
-    assert model.win_probability(state, 0.60) == compute_wp(state, 0.60, NFL_CONFIG)
+    assert model.win_probability(state, 0.60) == compute_win_prob(state, 0.60, NFL_CONFIG)

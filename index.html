@@ -8,13 +8,13 @@
   <script>
     (function () {
       try {
-        var theme = localStorage.getItem("mswp:theme");
+        var theme = localStorage.getItem("ms-win-prob:theme");
         if (theme === "offwhite" || theme === "charcoal") {
           document.documentElement.setAttribute("data-theme", theme);
         } else {
           theme = "charcoal";
         }
-        var saved = JSON.parse(localStorage.getItem("mswp:nfl:NYG:DEN") || "null");
+        var saved = JSON.parse(localStorage.getItem("ms-win-prob:nfl:NYG:DEN") || "null");
         if (!saved) return;
         var slot = saved[theme];
         if (!slot || typeof slot !== "object" || !slot.awaySwatch || !slot.homeSwatch) {
@@ -58,9 +58,6 @@
           <div class="level" id="slate-row" hidden>
             <div class="sports" id="slate" role="group" aria-label="Slate"></div>
           </div>
-          <div class="level" id="season-row" hidden>
-            <div class="sports" id="seasons" role="group" aria-label="Season"></div>
-          </div>
           <div class="level" id="game-row" hidden>
             <div class="sports" id="games" role="group" aria-label="Game"></div>
           </div>
@@ -82,7 +79,7 @@
               <span id="c-score"></span>
               <img class="logo" id="c-home-logo" alt="" hidden>
             </span>
-            <span id="c-wp"></span>
+            <span id="c-win-prob"></span>
           </p>
         </div>
       </article>
@@ -122,7 +119,7 @@
         <svg id="score-chart" viewBox="0 0 640 200" role="img" aria-label="Score"></svg>
       </figure>
       <figure class="chart-card">
-        <svg id="wp-chart" viewBox="0 0 640 200" role="img" aria-label="Win probability"></svg>
+        <svg id="win-prob-chart" viewBox="0 0 640 200" role="img" aria-label="Win probability"></svg>
       </figure>
     </section>
 

@@ -17,10 +17,10 @@ from pathlib import Path
 
 import pytest
 
-from mswp import compute_wp
+from ms_win_prob import compute_win_prob
 
-from live_wp.__main__ import main
-from live_wp.follow import (
+from live_win_prob.__main__ import main
+from live_win_prob.follow import (
     FollowError,
     _with_frozen_prior,
     replay_states,
@@ -28,16 +28,16 @@ from live_wp.follow import (
     slate_states,
     summary_url,
 )
-from live_wp.slate import render_slate_script, slate_rows
-from live_wp.live import (
+from live_win_prob.slate import render_slate_script, slate_rows
+from live_win_prob.live import (
     DEFAULT_FOLLOW,
     DEFAULT_OUT,
     parse_live_args,
     replay_script,
     run_live,
 )
-from live_wp.replay import config_for_state, format_line, render_widget_script
-from live_wp.serve import (
+from live_win_prob.replay import config_for_state, format_line, render_widget_script
+from live_win_prob.serve import (
     _Handler,
     _request_from_localhost,
     _request_path,
@@ -56,7 +56,7 @@ def _block_network(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(socket, "socket", blocked)
     monkeypatch.setattr(socket, "create_connection", blocked)
-    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    monkeypatch.setattr("live_win_prob.follow.urllib.request.urlopen", blocked)
 
 
 def _board() -> dict:
@@ -399,7 +399,7 @@ def test_handler_exception_is_printed_as_500(
     def explode(_self: object) -> None:
         raise RuntimeError("handler failed")
 
-    monkeypatch.setattr("live_wp.serve._Handler.do_GET", explode)
+    monkeypatch.setattr("live_win_prob.serve._Handler.do_GET", explode)
     with _Running() as running:
         server = running.server
         host, port = server.server_address[:2]  # type: ignore[attr-defined]
@@ -731,7 +731,7 @@ def test_get_slate_returns_one_sport_for_the_requested_day(
     def blocked(*_args: object, **_kwargs: object) -> None:
         raise AssertionError("slate route opened a network request")
 
-    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    monkeypatch.setattr("live_win_prob.follow.urllib.request.urlopen", blocked)
     real_before = _real_slate_bytes()
     boards = {
         "nfl": _board(),
@@ -830,7 +830,7 @@ def test_get_slate_returns_one_sport_for_the_requested_day(
     assert all(row for row in expected.values())
     server_reader = _SlateFetch(boards, empty)
     root = tmp_path
-    marker = "window.MSWP_SLATE = [];\n"
+    marker = "window.MS_WIN_PROB_SLATE = [];\n"
     (root / "slate.js").write_text(marker, encoding="utf-8", newline="\n")
     (root / "index.html").write_text(
         "<!DOCTYPE html><title>Multisport live win probability</title>\n",
@@ -856,7 +856,7 @@ def test_get_slate_returns_one_sport_for_the_requested_day(
             assert rows
             assert list(rows[0]) == list(_SLATE_FIELDS)
             text = body.decode("utf-8")
-            assert "window.MSWP_SLATE" not in text
+            assert "window.MS_WIN_PROB_SLATE" not in text
             for forbidden in ("clock", "possession", "win_prob", '"wp"'):
                 assert forbidden not in text
             assert server_reader.urls[before:] == [
@@ -948,12 +948,12 @@ def test_get_slate_returns_one_sport_for_the_requested_day(
 def test_cli_serve_reaches_get_slate_before_the_file_handler(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    """python -m live_wp serve must answer /slate, not a missing file."""
+    """python -m live_win_prob serve must answer /slate, not a missing file."""
 
     def blocked(*_args: object, **_kwargs: object) -> None:
         raise AssertionError("slate route opened a network request")
 
-    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    monkeypatch.setattr("live_win_prob.follow.urllib.request.urlopen", blocked)
     assert _request_path("/slate?sport=ncaaf&date=20261011") == "/slate"
     assert _request_path("/slate/?sport=ncaaf&date=20261011") == "/slate"
     assert (
@@ -1029,8 +1029,8 @@ def test_serve_defaults_to_8765_and_rejects_a_bad_port(
 ) -> None:
     assert parse_serve_args([]) == 8765
     assert parse_serve_args(["--port", "9001"]) == 9001
-    source = (ROOT / "src" / "live_wp" / "serve.py").read_text(encoding="utf-8")
-    assert "compute_wp" not in source
+    source = (ROOT / "src" / "live_win_prob" / "serve.py").read_text(encoding="utf-8")
+    assert "compute_win_prob" not in source
     assert "urlopen" not in source
     assert "urllib" not in source
     assert "espn" not in source.lower()
@@ -1062,7 +1062,7 @@ def test_page_points_at_the_local_replay_and_does_not_fetch() -> None:
     assert "replays/live_replay.js?" in script
     assert "127.0.0.1" in script
     assert "localhost" in script
-    assert "MSWP_LIVE" in script
+    assert "MS_WIN_PROB_LIVE" in script
     assert "XMLHttpRequest" not in script
     assert "WebSocket" not in script
     assert "espn" not in script.lower()
@@ -1150,17 +1150,17 @@ def test_fake_follow_payload_rewrites_the_replay_without_a_socket(
     assert "\r" not in text
     assert text == render_widget_script(expected, live=True)
     assert "window.NFL_REPLAY = " in text
-    assert "window.MSWP_LIVE = window.NFL_REPLAY;" in text
+    assert "window.MS_WIN_PROB_LIVE = window.NFL_REPLAY;" in text
     assert '"sport": "nfl"' in text
     plain = render_widget_script(expected)
-    assert "window.MSWP_LIVE" not in plain
+    assert "window.MS_WIN_PROB_LIVE" not in plain
     assert '"sport":' not in plain
     assert "espn" not in text.lower()
     assert "http://" not in text and "https://" not in text
     assert not out.with_name(out.name + ".tmp").exists()
     lines = [
         format_line(
-            state, compute_wp(state, state.prior_home, config_for_state(state))
+            state, compute_win_prob(state, state.prior_home, config_for_state(state))
         )
         for state in expected
     ]
@@ -1387,13 +1387,13 @@ def test_live_without_game_writes_the_slate_then_switches(
     assert slate.read_text(encoding="utf-8") == updated
     assert '"game_id": "55"' not in scripts["second"]
     assert '"game_id": "77"' not in scripts["first"]
-    assert "window.MSWP_SLATE" not in scripts["second"]
+    assert "window.MS_WIN_PROB_SLATE" not in scripts["second"]
     assert not out.with_name(out.name + ".tmp").exists()
     assert not slate.with_name(slate.name + ".tmp").exists()
     assert _real_slate_bytes() == real_before
     lines = [
         format_line(
-            state, compute_wp(state, state.prior_home, config_for_state(state))
+            state, compute_win_prob(state, state.prior_home, config_for_state(state))
         )
         for state in (state_55, state_77)
     ]
@@ -1449,7 +1449,7 @@ def test_final_follow_keeps_rewriting_the_slate(
     assert '"game_id": "55"' in text
     replay = out.read_text(encoding="utf-8")
     assert '"game_id": "55"' in replay
-    assert "window.MSWP_LIVE" in replay
+    assert "window.MS_WIN_PROB_LIVE" in replay
     assert not slate.with_name(slate.name + ".tmp").exists()
 
 
@@ -1536,7 +1536,7 @@ def test_replay_script_charts_started_games_for_every_sport() -> None:
     script = replay_script("nfl", "9001001", date="20260920", fetch=fetch)
     assert script is not None
     assert "\r" not in script
-    assert "window.MSWP_LIVE" in script
+    assert "window.MS_WIN_PROB_LIVE" in script
     assert script.count('"win_prob"') > 1
     assert '"game_id": "9001001"' in script
     assert urls == [
@@ -1548,7 +1548,7 @@ def test_replay_script_charts_started_games_for_every_sport() -> None:
         called, getter = _replay_fetch(sport, _replay_event(sport, "55", "post"))
         rendered = replay_script(sport, "55", date="20260920", fetch=getter)
         assert rendered is not None
-        assert "window.MSWP_LIVE" in rendered
+        assert "window.MS_WIN_PROB_LIVE" in rendered
         assert f'"sport": "{sport}"' in rendered
         away, home = _REPLAY_SIDES[sport]
         assert f'"away": "{away}"' in rendered
@@ -1608,7 +1608,7 @@ def test_get_replay_returns_a_temporary_script_or_no_content(
     def blocked(*_args: object, **_kwargs: object) -> None:
         raise AssertionError("replay route opened a network request")
 
-    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    monkeypatch.setattr("live_win_prob.follow.urllib.request.urlopen", blocked)
     summary = json.loads(
         (ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json").read_text(
             encoding="utf-8"
@@ -1633,7 +1633,7 @@ def test_get_replay_returns_a_temporary_script_or_no_content(
         assert cache == "no-store"
         script = body.decode("utf-8")
         assert "\r" not in script
-        assert "window.MSWP_LIVE" in script
+        assert "window.MS_WIN_PROB_LIVE" in script
         assert script.count('"win_prob"') > 1
         assert not (tmp_path / "follow.json").exists()
         assert not (tmp_path / "replays" / "live_replay.js").exists()
@@ -1686,7 +1686,7 @@ def test_get_replay_returns_a_temporary_script_or_no_content(
             f"http://{host}:{port}/replay?sport=ncaaf&game_id=880&date=20260920",
         )
         assert status == 200
-        assert b"window.MSWP_LIVE" in body
+        assert b"window.MS_WIN_PROB_LIVE" in body
         assert b'"sport": "ncaaf"' in body
         assert college_urls[0] == scoreboard_url("20260920", sport="ncaaf")
         names = sorted(path.name for path in tmp_path.iterdir())

@@ -1,1 +1,1 @@
-// Local replay written by python -m live_wp live.
+// Local replay written by python -m live_win_prob live.

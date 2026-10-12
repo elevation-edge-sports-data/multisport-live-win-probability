@@ -1,7 +1,7 @@
 // Club palettes for the six demo matchups.
 // Synced from data/colors/demo.json. The page loads this file with no build step.
 (function (root) {
-  root.MSWP_COLORS = [
+  root.MS_WIN_PROB_COLORS = [
   {
     "sport": "nfl",
     "id": "NYG",

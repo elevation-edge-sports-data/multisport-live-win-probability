@@ -9,9 +9,9 @@ from pathlib import Path
 
 import pytest
 
-from live_wp.__main__ import main
-from live_wp.follow import scoreboard_url, slate_lines, slate_states
-from live_wp.slate import (
+from live_win_prob.__main__ import main
+from live_win_prob.follow import scoreboard_url, slate_lines, slate_states
+from live_win_prob.slate import (
     DEFAULT_OUT,
     _real_fetch,
     _sport_of,
@@ -92,7 +92,7 @@ def _block_sockets(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.setattr(socket, "socket", blocked)
     monkeypatch.setattr(socket, "create_connection", blocked)
-    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", blocked)
+    monkeypatch.setattr("live_win_prob.follow.urllib.request.urlopen", blocked)
 
 
 def _nfl_board() -> dict:
@@ -177,7 +177,7 @@ class _Fetch:
 
 
 def _rows(text: str) -> list[dict]:
-    prefix = "window.MSWP_SLATE = "
+    prefix = "window.MS_WIN_PROB_SLATE = "
     assert text.startswith(prefix)
     assert text.endswith(";\n")
     assert "\r" not in text
@@ -402,7 +402,7 @@ def test_empty_scoreboard_writes_an_empty_array(
     assert code == 0
     assert captured.out == ""
     assert captured.err == ""
-    assert out.read_text(encoding="utf-8") == "window.MSWP_SLATE = [];\n"
+    assert out.read_text(encoding="utf-8") == "window.MS_WIN_PROB_SLATE = [];\n"
     assert _rows(out.read_text(encoding="utf-8")) == []
 
 
@@ -444,7 +444,7 @@ def test_interval_under_5_is_rejected(
     captured = capsys.readouterr()
     assert captured.out == ""
     assert "interval must be at least 5 seconds" in captured.err
-    assert "python -m live_wp slate [--date YYYYMMDD] [--interval 15]" in captured.err
+    assert "python -m live_win_prob slate [--date YYYYMMDD] [--interval 15]" in captured.err
     assert not out.exists()
 
     assert run_slate(["--interval", "4.9", "--out", str(out)], fetch=fetch) == 2
@@ -494,7 +494,7 @@ def test_interval_polls_until_ctrl_c(
     assert run_slate(["--interval", "--out", str(out)], fetch=fetch, sleep=sleep) == 0
     assert sleeps == [15.0]
     assert len(fetch.urls) == 3
-    assert out.read_text(encoding="utf-8") == "window.MSWP_SLATE = [];\n"
+    assert out.read_text(encoding="utf-8") == "window.MS_WIN_PROB_SLATE = [];\n"
     assert capsys.readouterr().err == ""
     assert not out.with_name(out.name + ".tmp").exists()
 
@@ -535,9 +535,9 @@ def test_default_out_is_slate_js_and_usage_lists_the_command() -> None:
     assert options.out == DEFAULT_OUT
     assert options.out == ROOT / "slate.js"
     assert options.date is None
-    source = (ROOT / "src" / "live_wp" / "__main__.py").read_text(encoding="utf-8")
+    source = (ROOT / "src" / "live_win_prob" / "__main__.py").read_text(encoding="utf-8")
     assert (
-        "python -m live_wp slate [--date YYYYMMDD] [--interval 15] "
+        "python -m live_win_prob slate [--date YYYYMMDD] [--interval 15] "
         "[--out slate.js]"
     ) in source
 

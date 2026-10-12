@@ -10,23 +10,23 @@ from pathlib import Path
 
 import pytest
 
-from mswp import NFL_CONFIG, NHL_CONFIG, compute_wp
+from ms_win_prob import NFL_CONFIG, NHL_CONFIG, compute_win_prob
 
-from live_wp.__main__ import main
-from live_wp.feeds.espn import (
+from live_win_prob.__main__ import main
+from live_win_prob.feeds.espn import (
     espn_scoreboard_event_to_state,
     espn_summary_to_states,
     states_from_espn,
 )
-from live_wp.feeds.espn_basketball import events_from_espn_basketball
-from live_wp.follow import (
+from live_win_prob.feeds.espn_basketball import events_from_espn_basketball
+from live_win_prob.follow import (
     fetch_json,
     follow_game,
     scoreboard_url,
     summary_url,
 )
-from live_wp.follow import run_follow
-from live_wp.replay import config_for_state, format_line
+from live_win_prob.follow import run_follow
+from live_win_prob.replay import config_for_state, format_line
 
 ROOT = Path(__file__).resolve().parents[1]
 BOARD_PATH = ROOT / "tests" / "fixtures" / "espn_nfl_scoreboard_snippet.json"
@@ -108,7 +108,7 @@ def _line(event: dict, prior: float | None = None) -> str:
         state = replace(state, prior_home=prior)
     assert state.source == "espn"
     assert state.sport == "nfl"
-    return format_line(state, compute_wp(state, state.prior_home, NFL_CONFIG))
+    return format_line(state, compute_win_prob(state, state.prior_home, NFL_CONFIG))
 
 
 class _Fetch:
@@ -132,7 +132,7 @@ def test_list_date_uses_urllib_and_exits(monkeypatch: pytest.MonkeyPatch, capsys
         assert timeout == 20
         return _Response(board, request.full_url)  # type: ignore[attr-defined]
 
-    monkeypatch.setattr("live_wp.follow.urllib.request.urlopen", opener)
+    monkeypatch.setattr("live_win_prob.follow.urllib.request.urlopen", opener)
     assert main(["follow", "--date", "20260920"]) == 0
     captured = capsys.readouterr()
     assert opened == [scoreboard_url("20260920")]
@@ -239,7 +239,7 @@ def test_missing_event_uses_the_summary_once(capsys: pytest.CaptureFixture[str])
     assert final.status == "final"
     assert final.source == "espn"
     assert captured.out.splitlines() == [
-        format_line(final, compute_wp(final, final.prior_home, NFL_CONFIG))
+        format_line(final, compute_win_prob(final, final.prior_home, NFL_CONFIG))
     ]
     assert captured.out.endswith("| 1.000\n")
     assert "0.910" not in captured.out
@@ -431,7 +431,7 @@ def test_follow_nhl_and_nba_parse_saved_payloads(
     assert nhl_captured.err == ""
     assert nhl_captured.out.splitlines() == [
         format_line(
-            nhl_state, compute_wp(nhl_state, nhl_state.prior_home, NHL_CONFIG)
+            nhl_state, compute_win_prob(nhl_state, nhl_state.prior_home, NHL_CONFIG)
         )
     ]
     assert "0.110" not in nhl_captured.out
@@ -459,7 +459,7 @@ def test_follow_nhl_and_nba_parse_saved_payloads(
     assert nba_captured.out.splitlines() == [
         format_line(
             nba_state,
-            compute_wp(nba_state, nba_state.prior_home, config_for_state(nba_state)),
+            compute_win_prob(nba_state, nba_state.prior_home, config_for_state(nba_state)),
         )
     ]
     assert nba_captured.out.endswith("| 0.000\n")
@@ -488,7 +488,7 @@ def test_follow_accepts_college_sports(capsys: pytest.CaptureFixture[str]) -> No
     assert ncaaf_out.out.splitlines() == [
         format_line(
             ncaaf_state,
-            compute_wp(ncaaf_state, ncaaf_state.prior_home, config_for_state(ncaaf_state)),
+            compute_win_prob(ncaaf_state, ncaaf_state.prior_home, config_for_state(ncaaf_state)),
         )
     ]
 
@@ -514,7 +514,7 @@ def test_follow_accepts_college_sports(capsys: pytest.CaptureFixture[str]) -> No
     assert ncaab_out.out.splitlines() == [
         format_line(
             ncaab_state,
-            compute_wp(ncaab_state, ncaab_state.prior_home, config_for_state(ncaab_state)),
+            compute_win_prob(ncaab_state, ncaab_state.prior_home, config_for_state(ncaab_state)),
         )
     ]
 
@@ -629,4 +629,4 @@ def test_network_import_stays_in_the_follow_command() -> None:
         text = path.read_text(encoding="utf-8")
         if "urllib" in text or "urlopen" in text:
             hits.append(path.relative_to(ROOT / "src").as_posix())
-    assert hits == ["live_wp/follow.py"]
+    assert hits == ["live_win_prob/follow.py"]

@@ -1,4 +1,4 @@
-window.MSWP_SLATE = [
+window.MS_WIN_PROB_SLATE = [
   {
     "sport": "ncaaf",
     "game_id": "401856768",

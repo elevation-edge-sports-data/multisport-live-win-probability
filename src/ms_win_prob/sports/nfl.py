@@ -1,0 +1,28 @@
+"""NFL entry point for the football pack.
+
+College football is ``NcaafModel`` beside this module: another config of the
+same pack, not a copy of this file.
+"""
+
+from __future__ import annotations
+
+from ms_win_prob.compute import compute_win_prob
+from ms_win_prob.config import SportConfig
+from ms_win_prob.football.config import NFL_CONFIG
+from ms_win_prob.state import GameState
+
+
+class NFLModel:
+    """Remaining-score NFL model. Down and distance are not required.
+
+    ``sport_config`` is the regular season: 10 minutes, and a tie is
+    allowed. A playoff game passes ``NFL_PLAYOFF_CONFIG`` to ``compute_win_prob``.
+    """
+
+    sport = "nfl"
+
+    def sport_config(self) -> SportConfig:
+        return NFL_CONFIG
+
+    def win_probability(self, state: GameState, prior: float) -> float:
+        return compute_win_prob(state, prior, self.sport_config())
