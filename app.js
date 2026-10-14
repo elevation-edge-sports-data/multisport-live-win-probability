@@ -35,6 +35,10 @@
   var NCAAB_HALF_SECONDS = 1200;
   var NCAAB_OT_SECONDS = 300;
 
+  const API_BASE = (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    ? ""
+    : "https://mswp-api.elevation-edge-sports.workers.dev";
+
   function regulationCount(sport) {
     if (sport === "nhl" || sport === "ncaah") return 3;
     if (sport === "ncaab") return 2;
@@ -1157,11 +1161,8 @@
   }
 
   function hostAllowsLive() {
-    var loc = root.location;
-    if (!loc) return false;
-    if (String(loc.protocol || "") === "file:") return false;
-    var host = String(loc.hostname || "").toLowerCase();
-    return host === "127.0.0.1" || host === "localhost";
+    const h = location.hostname;
+    return h === "127.0.0.1" || h === "localhost" || h.endsWith("github.io");
   }
 
   function clockLabel(frame) {
@@ -1650,7 +1651,7 @@
     datedDate = dateKey;
     renderSlate();
     renderGames();
-    url = "/slate?sport=" + encodeURIComponent(sportKey) +
+    url = API_BASE + "/slate?sport=" + encodeURIComponent(sportKey) +
       "&date=" + encodeURIComponent(dateKey);
     try {
       pending = root.fetch(url, { cache: "no-store" });
@@ -1729,7 +1730,7 @@
   }
 
   function slateReplayUrl(sportKey, gameId, dateKey) {
-    return "/replay?sport=" + encodeURIComponent(sportKey) +
+    return API_BASE + "/replay?sport=" + encodeURIComponent(sportKey) +
       "&game_id=" + encodeURIComponent(gameId) +
       "&date=" + encodeURIComponent(dateKey);
   }
@@ -2586,7 +2587,7 @@
     stepSeries(svg, shown, xOf, scoreMax, "home_score", "home-score", homeColor);
     var currentFrame = shown[shown.length - 1];
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", String(currentFrame.away_score));
-    drawLegendName(svg, plot.width - plot.right - 6, plot.top + 14, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score), "end");
+    drawLegendName(svg, plot.left + 6, plot.top + 28, homeColor, frames[0].home, "legend-home", String(currentFrame.home_score), "start");
   }
 
   function stepSeries(svg, shown, xOf, scoreMax, field, series, color) {
@@ -2686,7 +2687,7 @@
     endCap(svg, current.x, yAtLow(current.p, 0, 1), colors[sideOf(current.p)], "win-prob");
     var currentFrame = shown[shown.length - 1];
     drawLegendName(svg, plot.left + 6, plot.top + 14, awayColor, frames[0].away, "legend-away", formatAwayPercent(currentFrame) + "%");
-    drawLegendName(svg, plot.width - plot.right - 6, plot.height - plot.bottom - 4, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%", "end");
+    drawLegendName(svg, plot.left + 6, plot.top + 28, homeColor, frames[0].home, "legend-home", formatHomePercent(currentFrame) + "%", "start");
   }
 
   var initialTheme = document.documentElement.getAttribute("data-theme");

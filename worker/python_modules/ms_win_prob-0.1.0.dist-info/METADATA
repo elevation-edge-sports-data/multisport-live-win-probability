@@ -1,0 +1,7 @@
+Metadata-Version: 2.4
+Name: ms_win_prob
+Version: 0.1.0
+Summary: Clock-and-score win probability for several sports. Unofficial fan project.
+Requires-Python: >=3.11
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"

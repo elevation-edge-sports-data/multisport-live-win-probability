@@ -1,0 +1,14 @@
+lock-version = "1.0"
+created-by = "uv"
+requires-python = ">=3.14.2"
+
+[[packages]]
+name = "ms-win-prob"
+version = "0.1.0"
+vcs = { type = "git", url = "https://github.com/elevation-edge-sports-data/multisport-live-win-probability.git", commit-id = "efaab26d1bacedd29bd7e163ce9707ab3b589a29" }
+
+[[packages]]
+name = "workers-runtime-sdk"
+version = "1.9.3"
+sdist = { url = "https://files.pythonhosted.org/packages/c9/26/2616d75278d21004c0ea11d104f8f81c5ad94a9aeb6d2f4bf129419d47a5/workers_runtime_sdk-1.9.3.tar.gz", upload-time = 2026-10-06T04:01:19Z, size = 143213, hashes = { sha256 = "f2c043fb8a0385a9e3a2ec80d2f4ac4a742af4f5e69652e4df55714e29deaa2e" } }
+wheels = [{ url = "https://files.pythonhosted.org/packages/aa/06/9472faa56bf7f3925d1128fda0532a9ec8adf3291a6003a4cf9c9d7972d0/workers_runtime_sdk-1.9.3-py3-none-any.whl", upload-time = 2026-10-06T04:01:16Z, size = 39541, hashes = { sha256 = "b3982ef01b824703258bbdd2c65980b8acc64f9dc5797f6b193eaf4f0808860f" } }]

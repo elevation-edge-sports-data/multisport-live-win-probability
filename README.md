@@ -2,7 +2,10 @@
 
 Unofficial fan project. Not affiliated with any sport or league.
 
-Live and archived win probability for NFL, NHL, NBA, NCAAF, NCAAH, and NCAAB, each with its own model.
+Win probability for NFL, NHL, NBA, NCAAF, NCAAH, and NCAAB. 
+
+![Expanded view of an NFL slate, with the score and win-probability charts](screenshot.png)
+
 
 ## Setup
 
@@ -18,4 +21,6 @@ python -m pip install -e ".[dev]"
 python -m live_win_prob serve
 ```
 
-Open the served page. On localhost you can select a date and chart live or completed games. GitHub Pages shows the archive demos.
+The live site is on GitHub Pages. Select any date to load that day’s slate and chart any game (scores and win probability).
+
+For local development, run `python -m live_win_prob serve` and open http://127.0.0.1:8765.
