@@ -17,9 +17,11 @@ from ms_win_prob.compute import LIVE_WIN_PROB_CEIL, LIVE_WIN_PROB_FLOOR, compute
 
 from live_win_prob.calibrate import (
     BUCKETS,
+    ESPN_FIXTURES,
     build_report,
     default_paths,
     format_report,
+    historical_paths,
     summarize,
     time_bucket,
 )
@@ -162,6 +164,47 @@ def test_refused_espn_file_is_skipped_and_recorded():
     ]
     assert report["skipped"][0]["reason"]
     assert [game["path"] for game in report["games"]] == ["examples/nfl_sample.json"]
+
+
+def test_historical_calibration_dir_is_optional(tmp_path: Path):
+    smoke = default_paths(tmp_path)
+    assert smoke == [tmp_path / relative for relative in ESPN_FIXTURES]
+    assert historical_paths(tmp_path) == []
+
+    base = tmp_path / "data" / "calibration"
+    base.mkdir(parents=True)
+    assert historical_paths(tmp_path) == []
+    assert default_paths(tmp_path) == smoke
+
+    replay = base / "nfl" / "2024" / "sample.json"
+    replay.parent.mkdir(parents=True)
+    replay.write_bytes((ROOT / "examples" / "nfl_sample.json").read_bytes())
+    espn = base / "ncaaf" / "snippet.json"
+    espn.parent.mkdir()
+    espn.write_bytes(
+        (ROOT / "tests" / "fixtures" / "espn_ncaaf_summary_snippet.json").read_bytes()
+    )
+    refused = base / "nfl" / "board.json"
+    refused.write_bytes(
+        (ROOT / "tests" / "fixtures" / "espn_nfl_scoreboard_snippet.json").read_bytes()
+    )
+    (base / "notes.txt").write_text("not a calibration file", encoding="utf-8")
+
+    added = historical_paths(tmp_path)
+    assert added == [replay, refused, espn]
+    assert default_paths(tmp_path) == [*smoke, *added]
+
+    report = build_report(added, root=tmp_path)
+    games = {Path(str(game["path"])).name: game for game in report["games"]}
+    assert games["sample.json"]["source"] == "replay"
+    assert games["sample.json"]["sport"] == "nfl"
+    assert games["snippet.json"]["source"] == "ingest-espn"
+    assert games["snippet.json"]["sport"] == "ncaaf"
+    skipped = {Path(str(item["path"])).name: item["reason"] for item in report["skipped"]}
+    assert "board.json" in skipped
+    assert skipped["board.json"]
+    assert "notes.txt" not in skipped
+    assert "notes.txt" not in {Path(str(game["path"])).name for game in report["games"]}
 
 
 def test_default_sources_score_the_listed_espn_fixtures():

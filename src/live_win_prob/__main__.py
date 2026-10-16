@@ -1,4 +1,4 @@
-"""python -m live_win_prob replay|ingest-espn|render-widget|write-manifest|follow|live|slate|serve|calibrate"""
+"""python -m live_win_prob replay|ingest-espn|render-widget|write-manifest|follow|live|slate|serve|calibrate|tune-nfl"""
 
 from __future__ import annotations
 
@@ -9,6 +9,7 @@ from pathlib import Path
 from ms_win_prob import compute_win_prob
 
 from live_win_prob.calibrate import run_calibrate
+from live_win_prob.tune import run_tune_nfl
 from live_win_prob.feeds import states_from_ingest
 from live_win_prob.feeds.espn import DENSITIES
 from live_win_prob.follow import run_follow
@@ -35,6 +36,7 @@ usage: python -m live_win_prob replay <json>
        python -m live_win_prob slate [--date YYYYMMDD] [--interval 15] [--out slate.js] [--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]
        python -m live_win_prob serve [--port 8765]
        python -m live_win_prob calibrate [replay-or-espn.json ...]
+       python -m live_win_prob tune-nfl [--mean MEAN_SCORE_PER_TEAM]
        python -m live_win_prob build-football-demos
        python -m live_win_prob build-hockey-demos
        python -m live_win_prob build-basketball-demos\
@@ -128,6 +130,8 @@ def main(argv: list[str] | None = None) -> int:
         return run_serve(args[1:])
     if args and args[0] == "calibrate":
         return run_calibrate(args[1:])
+    if args and args[0] == "tune-nfl":
+        return run_tune_nfl(args[1:])
     if args and args[0] == "build-football-demos":
         from live_win_prob.build_football_demos import build_football_demos
 

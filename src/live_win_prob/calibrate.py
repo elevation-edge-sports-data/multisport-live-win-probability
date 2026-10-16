@@ -8,12 +8,18 @@ historical backtest.
 Replay lists are read as saved. ESPN objects go through the same path as
 ``python -m live_win_prob ingest-espn``, at scoring density. A file that path
 refuses is skipped and recorded. This module does not fetch.
+
+Optional historical files live under ``data/calibration/{sport}/``
+(``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, ``ncaab``), including
+nested directories. Those files are for historical calibration only.
+A missing or empty directory leaves the smoke-test inputs unchanged.
 """
 
 from __future__ import annotations
 
 import json
 import math
+from collections.abc import Callable
 from pathlib import Path
 
 from ms_win_prob import compute_win_prob
@@ -56,6 +62,7 @@ BUCKET_RULES: dict[str, str] = {
 }
 
 # Listed ESPN fixtures. examples/*.json is added beside these.
+# Historical JSON, when present, is data/calibration/{sport}/ (see historical_paths).
 ESPN_FIXTURES: tuple[str, ...] = (
     "tests/fixtures/espn_nfl_summary_snippet.json",
     "tests/fixtures/espn_nhl_401442762_summary.json",
@@ -81,11 +88,51 @@ def repo_root() -> Path:
 
 
 def default_paths(root: Path | None = None) -> list[Path]:
-    """Every example replay, then the listed ESPN fixtures."""
+    """Smoke-test inputs, then any historical JSON under ``data/calibration/``.
+
+    The smoke-test list is every ``examples/*.json`` replay, then the listed
+    ESPN fixtures. Historical files are appended only when that directory
+    contains JSON. A missing or empty directory leaves the list unchanged.
+    """
     root = repo_root() if root is None else root
     examples = sorted((root / "examples").glob("*.json"))
     fixtures = [root / relative for relative in ESPN_FIXTURES]
-    return [*examples, *fixtures]
+    return [*examples, *fixtures, *historical_paths(root)]
+
+
+def historical_paths(root: Path | None = None) -> list[Path]:
+    """JSON files for historical calibration only.
+
+    Expected layout, optional::
+
+        data/calibration/{sport}/...
+
+    ``sport`` is ``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, or
+    ``ncaab``. Nested directories under ``data/calibration/`` are included.
+    JSON lists are loaded with ``load_replay`` and labeled ``replay``.
+    JSON objects go through ``states_from_ingest`` at scoring density and
+    are labeled ``ingest-espn`` (basketball summaries use that same ingest
+    path). A missing directory, or one with no JSON files, returns nothing.
+    """
+    root = repo_root() if root is None else root
+    base = root / "data" / "calibration"
+    if not base.is_dir():
+        return []
+    return sorted(
+        (path for path in base.rglob("*.json") if path.is_file()),
+        key=lambda path: _historical_sort_key(base, path),
+    )
+
+
+def _historical_sort_key(base: Path, path: Path) -> tuple[int, str]:
+    """Known sports first, in table order, then the relative path."""
+    relative = path.relative_to(base).as_posix()
+    sport = relative.split("/", 1)[0]
+    try:
+        rank = _SPORT_ORDER.index(sport)
+    except ValueError:
+        rank = len(_SPORT_ORDER)
+    return rank, relative
 
 
 def time_bucket(state: GameState, config: SportConfig) -> str:
@@ -151,10 +198,19 @@ def summarize(pairs: list[tuple[float, float]]) -> dict[str, object]:
 
 
 def build_report(
-    paths: list[Path], *, root: Path | None = None
+    paths: list[Path],
+    *,
+    root: Path | None = None,
+    config_for: Callable[[GameState], SportConfig] | None = None,
 ) -> dict[str, object]:
-    """Score each saved game. A refused file is listed under ``skipped``."""
+    """Score each saved game. A refused file is listed under ``skipped``.
+
+    ``config_for`` replaces ``config_for_state`` for this call only. The
+    default still reads the production configs. A caller that passes a
+    copy must not write that copy back to a config module.
+    """
     root = repo_root() if root is None else root
+    chooser = config_for_state if config_for is None else config_for
     games: list[dict[str, object]] = []
     skipped: list[dict[str, str]] = []
     observations: list[tuple[str, str, float, float]] = []
@@ -164,7 +220,7 @@ def build_report(
         if reason is not None:
             skipped.append({"path": label, "reason": reason})
             continue
-        _score_file(label, source, loaded, games, skipped, observations)
+        _score_file(label, source, loaded, games, skipped, observations, chooser)
     return _assemble(paths, root, games, skipped, observations)
 
 
@@ -289,6 +345,7 @@ def _score_file(
     games: list[dict[str, object]],
     skipped: list[dict[str, str]],
     observations: list[tuple[str, str, float, float]],
+    config_for: Callable[[GameState], SportConfig],
 ) -> None:
     grouped: dict[str, list[GameState]] = {}
     order: list[str] = []
@@ -313,7 +370,7 @@ def _score_file(
         scored: list[tuple[str, float]] = []
         try:
             for state in group:
-                config = config_for_state(state)
+                config = config_for(state)
                 predicted = compute_win_prob(state, state.prior_home, config)
                 scored.append((time_bucket(state, config), predicted))
         except (TypeError, ValueError, NotImplementedError) as exc:
