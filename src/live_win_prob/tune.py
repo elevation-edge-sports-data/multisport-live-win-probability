@@ -2,13 +2,16 @@
 
 NFL candidates copy ``SportConfig`` and discard the copy. NBA candidates
 temporarily replace the possession-points binding the basketball model
-reads, then restore it. This module does not edit ``score_dispersion``,
-``mean_score_per_team``, possession points, strength multipliers, or any
-other model source.
+reads, then restore it. NHL candidates temporarily replace the
+``rate_multipliers`` binding the hockey model reads, then restore it.
+This module does not edit ``score_dispersion``, ``mean_score_per_team``,
+possession points, strength multipliers, or any other model source.
 
 NFL search files are ``data/calibration/nfl/``. NBA search files are
-``data/calibration/nba/``. The full calibration input list is scored only
-so each candidate can also report that sport's row.
+``data/calibration/nba/``. NHL search files are ``data/calibration/nhl/``.
+The full calibration input list is scored only for NFL and NBA, so each
+of those candidates can also report that sport's row. NHL scoring stays
+on the historical NHL files.
 
 The default scores every historical file together. ``split=True`` ranks
 on train and also scores a hold-out: game ids are sorted as text, and
@@ -30,6 +33,7 @@ from pathlib import Path
 
 from ms_win_prob.config import SportConfig
 from ms_win_prob.football.config import NFL_CONFIG
+from ms_win_prob.hockey.strength import parse_strength
 from ms_win_prob.state import GameState
 
 from live_win_prob.calibrate import (
@@ -46,6 +50,24 @@ NFL_DISPERSION_GRID: tuple[float, ...] = (2.5, 3.0, 3.5, 4.05, 4.5, 5.0, 6.0)
 
 # A short grid around the production NBA possession value of 1.12.
 NBA_POSSESSION_GRID: tuple[float, ...] = (0.6, 0.8, 1.0, 1.12, 1.3, 1.5, 1.8)
+
+# Literals inside ``rate_multipliers``. The search reads them. It does not
+# assign them back onto ``strength.py``.
+NHL_PER_SKATER = 0.75
+NHL_SHORTHANDED_REDUCTION = 0.30
+NHL_SHORTHANDED_FLOOR = 0.35
+NHL_BOTH_3S = 1.35
+NHL_EMPTY_NET_OWN = 1.10
+NHL_EMPTY_NET_FACTOR = 4.20
+
+# One coefficient at a time. The other production literals stay put.
+NHL_STRENGTH_GRIDS: tuple[tuple[str, tuple[float, ...]], ...] = (
+    ("per_skater", (0.4, 0.6, 0.75, 0.9, 1.1)),
+    ("both_3s", (1.1, 1.35, 1.6)),
+    ("empty_net_factor", (3.0, 4.2, 5.5)),
+)
+
+_STRENGTH_TIE = 1e-12
 
 _LATE_REGULATION = ("1-5 min", "<1 min")
 _METRIC_KEYS = ("n", "mean_win_prob", "home_win_rate", "brier", "log_loss")
@@ -417,6 +439,714 @@ def run_tune_nba(argv: list[str]) -> int:
     write_report(report, root / "artifacts" / "tuning_nba_possession.json")
     overall = _ranking_block(_candidates(report)[0])["overall"]
     return 0 if isinstance(overall, dict) and overall["n"] else 1
+
+
+def historical_nhl_paths(root: Path | None = None) -> list[Path]:
+    """JSON files under ``data/calibration/nhl/``, in historical path order."""
+    root = repo_root() if root is None else root
+    base = (root / "data" / "calibration" / "nhl").resolve()
+    chosen: list[Path] = []
+    for path in historical_paths(root):
+        try:
+            path.resolve().relative_to(base)
+        except ValueError:
+            continue
+        chosen.append(path)
+    return chosen
+
+
+def nhl_strength_settings(
+    *,
+    per_skater: float = NHL_PER_SKATER,
+    shorthanded_reduction: float = NHL_SHORTHANDED_REDUCTION,
+    shorthanded_floor: float = NHL_SHORTHANDED_FLOOR,
+    both_3s: float = NHL_BOTH_3S,
+    empty_net_own: float = NHL_EMPTY_NET_OWN,
+    empty_net_factor: float = NHL_EMPTY_NET_FACTOR,
+) -> dict[str, float]:
+    """Coefficients for one temporary strength evaluation."""
+    return {
+        "per_skater": per_skater,
+        "shorthanded_reduction": shorthanded_reduction,
+        "shorthanded_floor": shorthanded_floor,
+        "both_3s": both_3s,
+        "empty_net_own": empty_net_own,
+        "empty_net_factor": empty_net_factor,
+    }
+
+
+def strength_rate_multipliers(
+    state: GameState,
+    *,
+    per_skater: float = NHL_PER_SKATER,
+    shorthanded_reduction: float = NHL_SHORTHANDED_REDUCTION,
+    shorthanded_floor: float = NHL_SHORTHANDED_FLOOR,
+    both_3s: float = NHL_BOTH_3S,
+    empty_net_own: float = NHL_EMPTY_NET_OWN,
+    empty_net_factor: float = NHL_EMPTY_NET_FACTOR,
+) -> tuple[float, float]:
+    """Same manpower rules as ``strength.rate_multipliers``, with overrides.
+
+    Production defaults match the literals in ``strength.py``. A caller
+    that passes those defaults must agree with that function on the probe
+    states. This function does not write the module.
+    """
+    home_skaters, away_skaters = parse_strength(state.strength)
+    diff = home_skaters - away_skaters
+    home_mult = 1.0
+    away_mult = 1.0
+    if home_skaters <= 3 and away_skaters <= 3 and diff == 0:
+        home_mult = both_3s
+        away_mult = both_3s
+    elif diff > 0:
+        home_mult = 1.0 + per_skater * diff
+        away_mult = max(shorthanded_floor, 1.0 - shorthanded_reduction * diff)
+    elif diff < 0:
+        step = -diff
+        away_mult = 1.0 + per_skater * step
+        home_mult = max(shorthanded_floor, 1.0 - shorthanded_reduction * step)
+    if state.extra_attacker and (home_skaters == 6 or away_skaters == 6):
+        if home_skaters > away_skaters:
+            home_mult *= empty_net_own
+            away_mult *= empty_net_factor
+        elif away_skaters > home_skaters:
+            away_mult *= empty_net_own
+            home_mult *= empty_net_factor
+    return home_mult, away_mult
+
+
+@contextmanager
+def temporary_hockey_strength(
+    *,
+    per_skater: float = NHL_PER_SKATER,
+    shorthanded_reduction: float = NHL_SHORTHANDED_REDUCTION,
+    shorthanded_floor: float = NHL_SHORTHANDED_FLOOR,
+    both_3s: float = NHL_BOTH_3S,
+    empty_net_own: float = NHL_EMPTY_NET_OWN,
+    empty_net_factor: float = NHL_EMPTY_NET_FACTOR,
+):
+    """Point the hockey model at one strength setting, then restore it.
+
+    ``strength.rate_multipliers`` and ``strength.py`` stay as they were.
+    The model module's binding is the one ``hockey_win_probability`` calls.
+    """
+    import ms_win_prob.hockey.model as hockey_model
+    import ms_win_prob.hockey.strength as strength_module
+
+    previous = hockey_model.rate_multipliers
+    strength_fn = strength_module.rate_multipliers
+    source = Path(strength_module.__file__).read_bytes()
+    settings = nhl_strength_settings(
+        per_skater=per_skater,
+        shorthanded_reduction=shorthanded_reduction,
+        shorthanded_floor=shorthanded_floor,
+        both_3s=both_3s,
+        empty_net_own=empty_net_own,
+        empty_net_factor=empty_net_factor,
+    )
+
+    def patched(state: GameState) -> tuple[float, float]:
+        return strength_rate_multipliers(state, **settings)
+
+    hockey_model.rate_multipliers = patched
+    try:
+        yield
+    finally:
+        hockey_model.rate_multipliers = previous
+        if strength_module.rate_multipliers is not strength_fn:
+            raise RuntimeError("strength.rate_multipliers was replaced")
+        if Path(strength_module.__file__).read_bytes() != source:
+            raise RuntimeError("strength.py changed during the strength override")
+
+
+def search_nhl_strength(
+    grids: tuple[tuple[str, tuple[float, ...]], ...] | list[tuple[str, tuple[float, ...]]]
+    | None = None,
+    *,
+    historical: list[Path] | None = None,
+    root: Path | None = None,
+    split: bool = False,
+    three_way: bool = False,
+) -> dict[str, object]:
+    """Rank one-at-a-time strength grids by NHL Brier.
+
+    The default ranks the whole historical file list. ``split=True`` ranks
+    the train games and also scores the hold-out. ``three_way=True`` ranks
+    the train games and also scores validation and hold-out. Only files
+    under ``data/calibration/nhl/`` are scored unless ``historical`` is passed.
+    """
+    root = repo_root() if root is None else root
+    before = _hockey_source_snapshot()
+    _require_strength_formula_matches_production()
+    chosen = NHL_STRENGTH_GRIDS if grids is None else tuple(grids)
+    _require_strength_grids(chosen)
+    historical_files = historical_nhl_paths(root) if historical is None else historical
+    parts = _requested_split(historical_files, split=split, three_way=three_way)
+    production = nhl_strength_settings()
+    coverage = _strength_coverage(historical_files)
+    grid_reports: list[dict[str, object]] = []
+    for name, values in chosen:
+        grid_reports.append(
+            _search_one_strength(
+                name,
+                values,
+                historical_files=historical_files,
+                parts=parts,
+                root=root,
+                production=production,
+            )
+        )
+    _require_hockey_sources_unchanged(before)
+    report: dict[str, object] = {
+        "note": (
+            "Temporary one-at-a-time NHL strength grids. "
+            "The hockey model reads a replacement for rate_multipliers "
+            "during scoring, then the production function is restored. "
+            "strength.py, SportConfig, and the other model constants are "
+            "not modified. Scored files are data/calibration/nhl only."
+        ),
+        "sport": "nhl",
+        "ranked_by": "train overall brier" if parts is not None else "historical overall brier",
+        "tie_break": "closest to the production value, then the smaller value",
+        "production": production,
+        "scored_files": "data/calibration/nhl",
+        "strength_coverage": coverage,
+        "historical_inputs": [_display(path, root) for path in historical_files],
+        "grids": grid_reports,
+    }
+    if parts is not None:
+        report["split"] = _split_record(parts, root)
+    return report
+
+
+def format_nhl_strength_report(report: dict[str, object]) -> str:
+    """Text tables, one coefficient at a time, best train Brier first."""
+    lines = [
+        str(report["note"]),
+        "Search set: data/calibration/nhl. "
+        "Each grid moves one coefficient and holds the others at production.",
+        "Ranked on train Brier. Ties break toward the production value.",
+    ]
+    if "split" in report:
+        split = report["split"]
+        if not isinstance(split, dict):
+            raise TypeError("split must be an object")
+        lines.append(str(split["method"]))
+        lines.append(_split_count_line(split))
+    lines.append("Late regulation (<5 min) joins the 1-5 min and <1 min buckets.")
+    lines.append(_coverage_line(report["strength_coverage"]))
+    lines.append("")
+    grids = report["grids"]
+    if not isinstance(grids, list):
+        raise TypeError("grids must be a list")
+    for grid in grids:
+        if not isinstance(grid, dict):
+            raise TypeError("each grid must be an object")
+        lines.extend(_format_strength_grid(grid, three_way="split" in report and _is_three_way(report)))
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def run_tune_nhl(argv: list[str]) -> int:
+    """Print the NHL strength grids and write ``artifacts/tuning_nhl_strength.json``.
+
+    Returns 0 when the ranked train or historical set scored at least one snapshot.
+    """
+    if argv == []:
+        split, three_way = False, False
+    elif argv == ["--split"]:
+        split, three_way = True, False
+    elif argv == ["--three-way"]:
+        split, three_way = False, True
+    else:
+        print(
+            "usage: python -m live_win_prob tune-nhl [--split | --three-way]",
+            file=sys.stderr,
+        )
+        return 2
+    root = repo_root()
+    if not historical_nhl_paths(root):
+        print("no JSON files under data/calibration/nhl")
+        return 1
+    report = search_nhl_strength(root=root, split=split, three_way=three_way)
+    print(format_nhl_strength_report(report), end="")
+    write_report(report, root / "artifacts" / "tuning_nhl_strength.json")
+    grids = report["grids"]
+    if not isinstance(grids, list) or not grids or not isinstance(grids[0], dict):
+        return 1
+    candidates = grids[0]["candidates"]
+    if not isinstance(candidates, list) or not candidates or not isinstance(candidates[0], dict):
+        return 1
+    overall = _ranking_block(candidates[0])["overall"]
+    return 0 if isinstance(overall, dict) and overall["n"] else 1
+
+
+def _search_one_strength(
+    name: str,
+    values: tuple[float, ...] | list[float],
+    *,
+    historical_files: list[Path],
+    parts: dict[str, object] | None,
+    root: Path,
+    production: dict[str, float],
+) -> dict[str, object]:
+    train_files, validation_files, holdout_files = _split_paths(historical_files, parts)
+    three_way = parts is not None and "validation_paths" in parts
+    candidates: list[dict[str, object]] = []
+    for value in values:
+        settings = dict(production)
+        settings[name] = float(value)
+        with temporary_hockey_strength(**settings):
+            row: dict[str, object] = {
+                "coefficient": name,
+                "value": float(value),
+                **settings,
+            }
+            if parts is None:
+                row["historical"] = _sport_slice(
+                    build_report(train_files, root=root), "nhl"
+                )
+            else:
+                row["train"] = _sport_slice(build_report(train_files, root=root), "nhl")
+                row["holdout"] = _sport_slice(
+                    build_report(holdout_files, root=root), "nhl"
+                )
+                if three_way:
+                    row["validation"] = _sport_slice(
+                        build_report(validation_files, root=root), "nhl"
+                    )
+        candidates.append(row)
+    ranked = sorted(
+        candidates,
+        key=lambda candidate: _strength_brier_key(candidate, production[name]),
+    )
+    for rank, candidate in enumerate(ranked, start=1):
+        candidate["rank"] = rank
+    by_value = {float(candidate["value"]): candidate for candidate in candidates}
+    ordered = [by_value[float(value)] for value in values]
+    ordered_briers = [_overall_brier(candidate) for candidate in ordered]
+    shape = _grid_shape([float(value) for value in values], ordered_briers)
+    best = ranked[0]
+    best_brier = _overall_brier(best)
+    tied = sum(
+        1
+        for candidate in ranked
+        if _briers_tie(_overall_brier(candidate), best_brier)
+    )
+    return {
+        "coefficient": name,
+        "production": production[name],
+        "grid": [float(value) for value in values],
+        "held_at_production": {
+            key: held for key, held in production.items() if key != name
+        },
+        "shape": shape,
+        "tied_for_best": tied,
+        "train_brier_spread": _brier_spread(ordered_briers),
+        "best_train_brier": _strength_reading(best, shape, tied),
+        "candidates": ranked,
+    }
+
+
+def _strength_brier_key(
+    candidate: dict[str, object], production: float
+) -> tuple[float, float, float]:
+    value = float(candidate["value"])
+    brier = _overall_brier(candidate)
+    if not isinstance(brier, (int, float)):
+        return (math.inf, abs(value - production), value)
+    return (float(brier), abs(value - production), value)
+
+
+def _overall_brier(candidate: dict[str, object]) -> float | None:
+    block = _ranking_block(candidate)
+    overall = block["overall"]
+    if not isinstance(overall, dict):
+        return None
+    brier = overall.get("brier")
+    if isinstance(brier, bool) or not isinstance(brier, (int, float)):
+        return None
+    return float(brier)
+
+
+def _briers_tie(left: float | None, right: float | None) -> bool:
+    if left is None or right is None:
+        return left is None and right is None
+    return abs(left - right) <= _STRENGTH_TIE
+
+
+def _brier_spread(briers: list[float | None]) -> float | None:
+    numeric = [brier for brier in briers if isinstance(brier, (int, float))]
+    if len(numeric) != len(briers) or not numeric:
+        return None
+    return max(numeric) - min(numeric)
+
+
+def _grid_shape(values: list[float], briers: list[float | None]) -> str:
+    """Name whether the best train Brier is interior, an edge, or flat."""
+    if not values or any(brier is None for brier in briers):
+        return "unavailable"
+    numeric = [float(brier) for brier in briers if isinstance(brier, (int, float))]
+    best = min(numeric)
+    if max(numeric) - best <= _STRENGTH_TIE:
+        return "flat"
+    winners = [
+        value
+        for value, brier in zip(values, numeric)
+        if abs(brier - best) <= _STRENGTH_TIE
+    ]
+    endpoints = {values[0], values[-1]}
+    if all(value in endpoints for value in winners):
+        return "edge"
+    if len(winners) == 1:
+        return "interior_minimum"
+    return "plateau"
+
+
+def _strength_reading(
+    best: dict[str, object], shape: str, tied: int
+) -> dict[str, object]:
+    reading: dict[str, object] = {
+        "value": best["value"],
+        "shape": shape,
+        "tied_for_best": tied,
+    }
+    for key in ("historical", "train", "validation", "holdout"):
+        if key not in best:
+            continue
+        block = best[key]
+        if not isinstance(block, dict):
+            continue
+        overall = block["overall"]
+        late = block["<5 min"]
+        if not isinstance(overall, dict) or not isinstance(late, dict):
+            continue
+        reading[key] = {
+            "n": overall["n"],
+            "brier": overall["brier"],
+            "log_loss": overall["log_loss"],
+            "<5 min brier": late["brier"],
+        }
+    return reading
+
+
+def _require_strength_grids(
+    grids: tuple[tuple[str, tuple[float, ...]], ...],
+) -> None:
+    allowed = set(nhl_strength_settings())
+    if not grids:
+        raise ValueError("strength search needs at least one grid")
+    for name, values in grids:
+        if name not in allowed:
+            raise ValueError(f"unknown strength coefficient {name!r}")
+        if not values:
+            raise ValueError(f"{name} grid is empty")
+
+
+def _require_strength_formula_matches_production() -> None:
+    import ms_win_prob.hockey.strength as strength_module
+
+    for state in _strength_probe_states():
+        got = strength_rate_multipliers(state)
+        expected = strength_module.rate_multipliers(state)
+        if got != expected:
+            raise RuntimeError(
+                "strength override formula drifted from strength.py for "
+                f"strength={state.strength!r} extra_attacker={state.extra_attacker}: "
+                f"{got} != {expected}"
+            )
+
+
+def _strength_probe_states() -> list[GameState]:
+    """States that exercise each branch of ``rate_multipliers``."""
+    base = {
+        "sport": "nhl",
+        "game_id": "strength-probe",
+        "home": "H",
+        "away": "A",
+        "home_score": 1,
+        "away_score": 1,
+        "period": 3,
+        "seconds_remaining_period": 600,
+        "seconds_remaining_total": 600,
+        "status": "live",
+        "source": "tune",
+        "as_of": datetime(2026, 10, 17, tzinfo=timezone.utc),
+        "prior_home": 0.5,
+    }
+    cases = (
+        (None, None),
+        ("", None),
+        ("5v5", False),
+        ("5v4", False),
+        ("5v3", False),
+        ("4v5", False),
+        ("3v5", False),
+        ("3v3", False),
+        ("4v4", False),
+        ("6v5", False),
+        ("6v5", True),
+        ("5v6", True),
+        ("6v4", True),
+        ("4v6", True),
+        ("6v6", True),
+        ("3v4", False),
+        ("4v3", True),
+    )
+    return [
+        GameState(**base, strength=strength, extra_attacker=extra)
+        for strength, extra in cases
+    ]
+
+
+def _hockey_source_snapshot() -> dict[str, object]:
+    import ms_win_prob.hockey.config as hockey_config
+    import ms_win_prob.hockey.model as hockey_model
+    import ms_win_prob.hockey.strength as strength_module
+
+    return {
+        "rate_multipliers": strength_module.rate_multipliers,
+        "model_rate_multipliers": hockey_model.rate_multipliers,
+        "source": Path(strength_module.__file__).read_bytes(),
+        "config_source": Path(hockey_config.__file__).read_bytes(),
+        "model_source": Path(hockey_model.__file__).read_bytes(),
+        "NHL_CONFIG": hockey_config.NHL_CONFIG,
+        "NHL_REGULAR_CONFIG": hockey_config.NHL_REGULAR_CONFIG,
+        "NCAAH_CONFIG": hockey_config.NCAAH_CONFIG,
+        "mean": hockey_config.NHL_CONFIG.mean_score_per_team,
+        "dispersion": hockey_config.NHL_CONFIG.score_dispersion,
+        "margin_sd": hockey_config.NHL_CONFIG.margin_sd,
+    }
+
+
+def _require_hockey_sources_unchanged(before: dict[str, object]) -> None:
+    after = _hockey_source_snapshot()
+    if after != before:
+        raise RuntimeError("hockey strength source changed during the search")
+
+
+def _strength_coverage(paths: list[Path]) -> dict[str, object]:
+    """Count strength and empty-net fields on the files about to be scored."""
+    snapshots = 0
+    missing_strength = 0
+    missing_extra = 0
+    extra_true = 0
+    labels: dict[str, int] = {}
+    for path in paths:
+        try:
+            payload = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            continue
+        rows = payload if isinstance(payload, list) else []
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            snapshots += 1
+            strength = row.get("strength")
+            if strength in (None, ""):
+                missing_strength += 1
+                label = "<missing>"
+            else:
+                label = str(strength)
+            labels[label] = labels.get(label, 0) + 1
+            extra = row.get("extra_attacker")
+            if extra is None:
+                missing_extra += 1
+            elif extra is True:
+                extra_true += 1
+    return {
+        "snapshots": snapshots,
+        "strength_missing": missing_strength,
+        "extra_attacker_missing": missing_extra,
+        "extra_attacker_true": extra_true,
+        "strength_counts": labels,
+    }
+
+
+def _coverage_line(coverage: object) -> str:
+    if not isinstance(coverage, dict):
+        return "Strength coverage: unavailable."
+    return (
+        "Strength coverage: "
+        f"{coverage['snapshots']} snapshots, "
+        f"{coverage['strength_missing']} missing strength, "
+        f"{coverage['extra_attacker_missing']} missing extra_attacker, "
+        f"{coverage['extra_attacker_true']} empty-net snapshots."
+    )
+
+
+def _is_three_way(report: dict[str, object]) -> bool:
+    split = report.get("split")
+    return isinstance(split, dict) and "validation_game_ids" in split
+
+
+def _split_count_line(split: dict[str, object]) -> str:
+    train_ids = split["train_game_ids"]
+    holdout_ids = split["holdout_game_ids"]
+    validation_ids = split.get("validation_game_ids")
+    train_n = len(train_ids) if isinstance(train_ids, list) else 0
+    holdout_n = len(holdout_ids) if isinstance(holdout_ids, list) else 0
+    if isinstance(validation_ids, list):
+        return (
+            f"Train games: {train_n}. Validation games: {len(validation_ids)}. "
+            f"Hold-out games: {holdout_n}."
+        )
+    return f"Train games: {train_n}. Hold-out games: {holdout_n}."
+
+
+def _format_strength_grid(grid: dict[str, object], *, three_way: bool) -> list[str]:
+    name = str(grid["coefficient"])
+    split_active = "train" in _grid_candidates(grid)[0]
+    if split_active and three_way:
+        headers = (
+            "rank",
+            name,
+            "train_n",
+            "train_brier",
+            "train_log_loss",
+            "train_<5_brier",
+            "validation_n",
+            "validation_brier",
+            "validation_log_loss",
+            "validation_<5_brier",
+            "holdout_n",
+            "holdout_brier",
+            "holdout_log_loss",
+            "holdout_<5_brier",
+        )
+        rows = [
+            _nhl_three_way_line(candidate) for candidate in _grid_candidates(grid)
+        ]
+    elif split_active:
+        headers = (
+            "rank",
+            name,
+            "train_n",
+            "train_brier",
+            "train_log_loss",
+            "train_<5_brier",
+            "holdout_n",
+            "holdout_brier",
+            "holdout_log_loss",
+            "holdout_<5_brier",
+        )
+        rows = [_nhl_split_line(candidate) for candidate in _grid_candidates(grid)]
+    else:
+        headers = (
+            "rank",
+            name,
+            "n",
+            "brier",
+            "log_loss",
+            "<5_brier",
+        )
+        rows = [_nhl_historical_line(candidate) for candidate in _grid_candidates(grid)]
+    return [
+        f"Coefficient: {name}. Production value: {_num(grid['production'])}.",
+        _table(headers, rows),
+        _shape_sentence(grid),
+    ]
+
+
+def _grid_candidates(grid: dict[str, object]) -> list[dict[str, object]]:
+    rows = grid["candidates"]
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise TypeError("candidates must be a list of objects")
+    return rows
+
+
+def _metric_cells(block: object) -> list[str]:
+    if not isinstance(block, dict):
+        raise TypeError("metric block must be an object")
+    overall = block["overall"]
+    late = block["<5 min"]
+    if not isinstance(overall, dict) or not isinstance(late, dict):
+        raise TypeError("overall and <5 min must be objects")
+    return [
+        _num(overall["n"]),
+        _num(overall["brier"]),
+        _num(overall["log_loss"]),
+        _num(late["brier"]),
+    ]
+
+
+def _nhl_three_way_line(candidate: dict[str, object]) -> list[str]:
+    return [
+        str(candidate["rank"]),
+        _num(candidate["value"]),
+        *_metric_cells(candidate["train"]),
+        *_metric_cells(candidate["validation"]),
+        *_metric_cells(candidate["holdout"]),
+    ]
+
+
+def _nhl_split_line(candidate: dict[str, object]) -> list[str]:
+    return [
+        str(candidate["rank"]),
+        _num(candidate["value"]),
+        *_metric_cells(candidate["train"]),
+        *_metric_cells(candidate["holdout"]),
+    ]
+
+
+def _nhl_historical_line(candidate: dict[str, object]) -> list[str]:
+    return [
+        str(candidate["rank"]),
+        _num(candidate["value"]),
+        *_metric_cells(candidate["historical"]),
+    ]
+
+
+def _shape_sentence(grid: dict[str, object]) -> str:
+    reading = grid["best_train_brier"]
+    if not isinstance(reading, dict):
+        raise TypeError("best_train_brier must be an object")
+    shape = str(grid["shape"])
+    value = _num(reading["value"])
+    tied = grid["tied_for_best"]
+    where = _reading_performance(reading)
+    if shape == "flat":
+        kind = (
+            f"Lowest train Brier is {value}, shared by {tied} grid points. "
+            "The grid is flat, so this is neither an interior minimum nor an edge value."
+        )
+    elif shape == "interior_minimum":
+        kind = (
+            f"Lowest train Brier is {value}, an interior minimum. "
+            "It is strictly inside the grid and lower than the other grid points."
+        )
+    elif shape == "edge":
+        kind = (
+            f"Lowest train Brier is {value}, an edge value. "
+            "It sits at an end of the grid."
+        )
+    elif shape == "plateau":
+        kind = (
+            f"Lowest train Brier is {value}, shared by {tied} grid points "
+            "including an interior value. Not a unique interior minimum."
+        )
+    else:
+        kind = f"Lowest train Brier is {value}. Shape: {shape}."
+    return kind + " " + where
+
+
+def _reading_performance(reading: dict[str, object]) -> str:
+    pieces = []
+    for key, label in (
+        ("train", "Train"),
+        ("validation", "Validation"),
+        ("holdout", "Hold-out"),
+        ("historical", "Historical"),
+    ):
+        block = reading.get(key)
+        if not isinstance(block, dict):
+            continue
+        pieces.append(
+            f"{label}: n={_num(block['n'])}, brier={_num(block['brier'])}, "
+            f"log_loss={_num(block['log_loss'])}, "
+            f"<5 min brier={_num(block['<5 min brier'])}."
+        )
+    return " ".join(pieces)
 
 
 def _production_snapshot() -> dict[str, float]:

@@ -891,9 +891,9 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
         if state.period == 1 and state.home_score == 0 and state.away_score == 1
     )
     assert goal.seconds_remaining_period == 20 * 60 - 70
-    assert goal.strength is None
+    assert goal.strength == "5v5"
     assert goal.down is None
-    assert goal.extra_attacker is None
+    assert goal.extra_attacker is False
     assert all(state.seconds_remaining_period != 900 for state in scoring)
     assert any(
         state.period == 2 and state.seconds_remaining_period == 900 for state in situation
@@ -924,7 +924,82 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
     assert final.home_score == 2 and final.away_score == 1
     assert final.seconds_remaining_period == overtime[-1].seconds_remaining_period
     assert compute_win_prob(final, final.prior_home, NHL_CONFIG) == 1.0
-    assert all(state.strength is None and state.down is None for state in everything)
+    assert all(state.down is None for state in everything)
+    assert all(state.strength in (None, "5v5") for state in everything)
+    # The power-play hit names no team, so the side stays unknown.
+    unlabeled = next(
+        state
+        for state in everything
+        if state.seconds_remaining_period == 20 * 60 - 20
+    )
+    assert unlabeled.strength is None
+    assert unlabeled.extra_attacker is None
+
+
+def test_nhl_power_play_and_empty_net_are_kept():
+    """A real summary's penalty and empty-net shot fill strength.
+
+    Plays with neither still load. Missing strength is 5-on-5.
+    """
+    from ms_win_prob.hockey.strength import parse_strength
+
+    from live_win_prob.feeds.espn_hockey import events_from_espn_hockey
+    from live_win_prob.replay import game_state_from_row
+
+    summary = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nhl_401442762_summary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    states = espn_summary_to_states(summary, density="scoring")
+    assert any(
+        state.strength == "5v4" and state.extra_attacker is False and state.status == "live"
+        for state in states
+    )
+    assert any(state.strength == "4v5" and state.status == "live" for state in states)
+    empty = next(state for state in states if state.extra_attacker is True)
+    assert empty.strength == "5v6"
+    assert empty.status == "live"
+    adapted = events_from_espn_hockey(summary)
+    assert any(state.strength == "5v4" for state in adapted)
+    assert any(
+        state.strength == "5v6" and state.extra_attacker is True for state in adapted
+    )
+
+    bare = json.loads(NHL_SNIPPET.read_text(encoding="utf-8"))
+    for play in bare["plays"]:
+        play.pop("strength", None)
+        play.pop("shotInfo", None)
+        play.pop("text", None)
+    bare_states = espn_summary_to_states(bare, density="scoring")
+    assert bare_states
+    assert all(state.strength == "5v5" and state.extra_attacker is False for state in bare_states)
+    nfl_states = espn_summary_to_states(
+        json.loads(SNIPPET.read_text(encoding="utf-8"))
+    )
+    assert all(
+        state.strength is None and state.extra_attacker is None for state in nfl_states
+    )
+
+    row = {
+        "sport": "nhl",
+        "game_id": "1",
+        "home": "COL",
+        "away": "MIN",
+        "home_score": 0,
+        "away_score": 0,
+        "period": 1,
+        "seconds_remaining_period": 1200,
+        "seconds_remaining_total": 3600,
+        "status": "live",
+        "source": "test",
+        "as_of": "2026-10-17T00:00:00Z",
+        "prior_home": 0.5,
+    }
+    loaded = game_state_from_row(row)
+    assert loaded.strength is None
+    assert loaded.extra_attacker is None
+    assert parse_strength(loaded.strength) == (5, 5)
 
 
 def test_edm_at_col_is_the_nhl_replay():

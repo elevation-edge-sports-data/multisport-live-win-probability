@@ -11,6 +11,8 @@
     "seconds_remaining_total": 3600,
     "status": "pre",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T00:00:00Z"
   },
@@ -26,6 +28,8 @@
     "seconds_remaining_total": 3270,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T00:20:23Z"
   },
@@ -41,6 +45,8 @@
     "seconds_remaining_total": 2400,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T00:20:24Z"
   },
@@ -56,6 +62,8 @@
     "seconds_remaining_total": 1200,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "4v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T00:20:25Z"
   },
@@ -71,6 +79,8 @@
     "seconds_remaining_total": 932,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:06:51Z"
   },
@@ -86,6 +96,8 @@
     "seconds_remaining_total": 655,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v4",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:16:50Z"
   },
@@ -101,6 +113,8 @@
     "seconds_remaining_total": 1,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:38:48Z"
   },
@@ -116,6 +130,8 @@
     "seconds_remaining_total": 1200,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:38:49Z"
   },
@@ -131,6 +147,8 @@
     "seconds_remaining_total": 1200,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:38:50Z"
   },
@@ -146,6 +164,8 @@
     "seconds_remaining_total": 1200,
     "status": "live",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:50:02Z"
   },
@@ -161,6 +181,8 @@
     "seconds_remaining_total": 1200,
     "status": "final",
     "prior_home": 0.5652173913043478,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-16T02:50:03Z"
   }

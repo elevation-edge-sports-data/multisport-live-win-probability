@@ -129,6 +129,9 @@ def espn_summary_to_states(
     drive may be unfinished, and the status is still ``in``. Those rows
     are kept. The last snapshot is the current score, period, and clock
     with status ``live``.
+
+    Hockey snapshots record ``strength`` and ``extra_attacker`` when the
+    play-by-play supports them. A summary that does not is still 5-on-5.
     """
     if not isinstance(summary, Mapping):
         raise TypeError("ESPN summary must be an object")
@@ -583,6 +586,7 @@ def _summary_states(
 ) -> list[GameState]:
     home, away, final_home, final_away = _competitors(competition)
     config = _config_for(sport)
+    tracker = _hockey_tracker(sport, home.id, away.id)
     # Live summaries often omit the period clock that a final summary has.
     # A missing clock is filled from the plays. It is not a reason to drop
     # the scoring list.
@@ -606,6 +610,7 @@ def _summary_states(
         spot: Mapping[str, Any] | None = None,
         possessing_id: object | None = None,
         synthetic: bool = False,
+        hockey_situation: tuple[str | None, bool | None] | None = None,
     ) -> None:
         nonlocal previous_as_of
         if synthetic:
@@ -633,6 +638,7 @@ def _summary_states(
             spot=spot,
             possessing_id=possessing_id,
             sport=sport,
+            hockey_situation=hockey_situation,
         )
         # situation density drops only an identical clock, score, and situation.
         # all density keeps every play.
@@ -651,6 +657,7 @@ def _summary_states(
         away_score=0,
         status="pre",
         when=game_date,
+        hockey_situation=None if tracker is None else tracker.at_clock(1, 0),
     )
 
     last_home, last_away = 0, 0
@@ -694,9 +701,14 @@ def _summary_states(
                     status="live",
                     when=when,
                     synthetic=True,
+                    hockey_situation=(
+                        None if tracker is None else tracker.at_clock(quarter, 0)
+                    ),
                 )
         else:
             started.add(period)
+
+        play_situation = tracker.observe(play) if tracker is not None else None
 
         if density == "scoring" and _has_two_minute(period, sport) and period not in two_minute_done:
             previous_clock = last_clock.get(period)
@@ -740,6 +752,7 @@ def _summary_states(
                 when=when,
                 spot=spot if keep_play or score_changed else None,
                 possessing_id=possessing if keep_play or score_changed else None,
+                hockey_situation=play_situation,
             )
         if reported is not None:
             last_home, last_away = reported
@@ -760,6 +773,11 @@ def _summary_states(
                     final_period = states[-1].period
         else:
             final_clock = _parse_clock(status_display)
+        final_situation = None
+        if tracker is not None:
+            length = _period_length(final_period, sport)
+            elapsed = max(0, length - min(final_clock, length))
+            final_situation = tracker.at_clock(final_period, elapsed)
         emit(
             period=final_period,
             period_seconds=final_clock,
@@ -768,6 +786,7 @@ def _summary_states(
             status="final",
             when=game_date,
             synthetic=True,
+            hockey_situation=final_situation,
         )
     elif espn_state == "in":
         # Final games emit a 0:00 whistle. A live game keeps the current
@@ -791,6 +810,11 @@ def _summary_states(
         situation = competition.get("situation")
         spot = situation if isinstance(situation, Mapping) else None
         possessing = spot.get("possession") if spot is not None else None
+        live_situation = None
+        if tracker is not None:
+            length = _period_length(period, sport)
+            elapsed = max(0, length - min(now_clock, length))
+            live_situation = tracker.at_clock(period, elapsed)
         emit(
             period=period,
             period_seconds=now_clock,
@@ -800,6 +824,7 @@ def _summary_states(
             when=_event_as_of(header, competition),
             spot=spot,
             possessing_id=possessing,
+            hockey_situation=live_situation,
         )
     return states
 
@@ -1061,15 +1086,15 @@ def _build(
     spot: Mapping[str, Any] | None,
     possessing_id: object | None,
     sport: str,
+    hockey_situation: tuple[str | None, bool | None] | None = None,
 ) -> GameState:
     period_clock, total_clock = _remaining_pair(period, period_seconds, sport)
-    # Hockey snapshots are clock and score. Strength and extra attacker
-    # are not read yet, and a play has no down or distance.
-    optional = (
-        {}
-        if _is_hockey(sport)
-        else _football_fields(spot, possessing_id, home, away)
-    )
+    # A play has no down or distance. Hockey strength stays unset when the
+    # summary has no penalty, strength label, or empty-net note.
+    if _is_hockey(sport):
+        optional = _hockey_fields(hockey_situation)
+    else:
+        optional = _football_fields(spot, possessing_id, home, away)
     return GameState(
         sport=sport,
         game_id=game_id,
@@ -1086,6 +1111,29 @@ def _build(
         prior_home=prior,
         **optional,
     )
+
+
+def _hockey_tracker(sport: str, home_id: str, away_id: str):
+    """Penalty tracker for hockey summaries. Other sports stay clock and score."""
+    if not _is_hockey(sport):
+        return None
+    from live_win_prob.feeds.espn_hockey import HockeyStrengthTracker
+
+    return HockeyStrengthTracker(home_id, away_id)
+
+
+def _hockey_fields(
+    situation: tuple[str | None, bool | None] | None,
+) -> dict[str, Any]:
+    if situation is None:
+        return {}
+    label, extra = situation
+    fields: dict[str, Any] = {}
+    if label:
+        fields["strength"] = label
+    if extra is not None:
+        fields["extra_attacker"] = extra
+    return fields
 
 
 def _football_fields(

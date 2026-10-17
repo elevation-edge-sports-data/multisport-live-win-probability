@@ -158,7 +158,7 @@ def test_page_filters_games_from_the_manifest_and_keeps_two_views():
     assert "V3.3" not in script
     assert "V3.5" not in script
     assert script.count("V5") == 1
-    assert 'var BADGE_TEXT = "V5.5"' in script
+    assert 'var BADGE_TEXT = "V5.6"' in script
     assert "badge.textContent = BADGE_TEXT" in script
     assert 'src="colors.js"' in html
     assert 'data-theme="charcoal"' in html
@@ -1219,7 +1219,7 @@ console.log(JSON.stringify({
     report = json.loads(completed.stdout)
     hockey = ["P1", "P2", "P3", "OT", "2OT"]
     regulation = ["Q1", "Q2", "Q3", "Q4"]
-    assert report["badge"] == "V5.5"
+    assert report["badge"] == "V5.6"
     assert "NYG" in report["bootScore"] and "DEN" in report["bootScore"]
     assert report["bootClock"] == "FINAL"
     assert report["bootPosition"] == "FINAL"
@@ -3587,7 +3587,7 @@ async function runPoll(page) {
     assert report["idCard"]["winProbNodes"] == 0
     assert report["idCard"]["situation"] == ""
     assert report["idCard"]["calls"] == []
-    assert report["badge"] == "V5.5"
+    assert report["badge"] == "V5.6"
 
     def posts(row):
         return [item for item in row["fetches"] if item["method"] == "POST"]
@@ -3796,8 +3796,8 @@ async function runPoll(page) {
     assert college_query["slatePressed"] == []
     assert gets(college_query) == []
     assert all("follow.json" not in item["url"] for item in college_query["fetches"])
-    assert report["followBadge"] == "V5.5"
-    assert report["badge"] == "V5.5"
+    assert report["followBadge"] == "V5.6"
+    assert report["badge"] == "V5.6"
     assert all("follow.json" not in item["url"] for item in report["pages"]["fetches"])
     assert opened["dateHidden"] is False
     assert opened["dateTouched"] is True

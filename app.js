@@ -684,7 +684,7 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V5.5";
+  var BADGE_TEXT = "V5.6";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);

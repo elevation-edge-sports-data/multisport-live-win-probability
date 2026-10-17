@@ -11,6 +11,8 @@
     "seconds_remaining_total": 3600,
     "status": "pre",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T00:45:00Z"
   },
@@ -26,6 +28,8 @@
     "seconds_remaining_total": 2908,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T01:07:26Z"
   },
@@ -41,6 +45,8 @@
     "seconds_remaining_total": 2454,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "5v4",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T01:25:27Z"
   },
@@ -56,6 +62,8 @@
     "seconds_remaining_total": 2400,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T01:25:28Z"
   },
@@ -71,6 +79,8 @@
     "seconds_remaining_total": 2215,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T01:51:55Z"
   },
@@ -86,6 +96,8 @@
     "seconds_remaining_total": 1426,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "3v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T02:21:46Z"
   },
@@ -101,6 +113,8 @@
     "seconds_remaining_total": 1200,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T02:21:47Z"
   },
@@ -116,6 +130,8 @@
     "seconds_remaining_total": 1003,
     "status": "live",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T02:53:05Z"
   },
@@ -131,6 +147,8 @@
     "seconds_remaining_total": 1003,
     "status": "final",
     "prior_home": 0.5348837209302325,
+    "strength": "5v5",
+    "extra_attacker": false,
     "source": "espn",
     "as_of": "2026-10-14T02:53:06Z"
   }
