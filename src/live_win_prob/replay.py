@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Mapping
@@ -78,7 +79,52 @@ def load_replay(path: Path | str) -> list[GameState]:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     if not isinstance(payload, list) or not payload:
         raise ValueError("replay file must be a non-empty JSON list")
-    return [game_state_from_row(row) for row in payload]
+    return shift_inbound_possession([game_state_from_row(row) for row in payload])
+
+
+def shift_inbound_possession(states: list[GameState]) -> list[GameState]:
+    """Point basketball possession at the team that inbounds next.
+
+    The raw ESPN label on a scoring play is the team that just scored. A
+    run of consecutive makes by that team, such as free throws, keeps the
+    ball with the shooter until the last make. That last snapshot is
+    relabeled as the other team. Non-scoring snapshots and snapshots with
+    no possession stay as stored. Other sports are unchanged.
+    """
+    if not states or states[0].sport not in {"nba", "ncaab"}:
+        return states
+    shifted = list(states)
+    index = 0
+    while index < len(states):
+        scorer = _scoring_team(states, index)
+        if scorer is None or states[index].possession not in {"home", "away"}:
+            index += 1
+            continue
+        end = index
+        while end + 1 < len(states) and _scoring_team(states, end + 1) == scorer:
+            if states[end + 1].possession not in {"home", "away"}:
+                break
+            end += 1
+        other = "away" if scorer == "home" else "home"
+        if shifted[end].possession != other:
+            shifted[end] = replace(states[end], possession=other)
+        index = end + 1
+    return shifted
+
+
+def _scoring_team(states: list[GameState], index: int) -> str | None:
+    """Team whose score rose on this snapshot, when exactly one side did."""
+    if index <= 0:
+        return None
+    previous = states[index - 1]
+    current = states[index]
+    home_delta = current.home_score - previous.home_score
+    away_delta = current.away_score - previous.away_score
+    if home_delta > 0 and away_delta == 0:
+        return "home"
+    if away_delta > 0 and home_delta == 0:
+        return "away"
+    return None
 
 
 def _as_int(row: Mapping[str, object], name: str) -> int:

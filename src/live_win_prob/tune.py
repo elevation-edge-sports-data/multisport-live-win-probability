@@ -13,11 +13,10 @@ The full calibration input list is scored only for NFL and NBA, so each
 of those candidates can also report that sport's row. NHL scoring stays
 on the historical NHL files.
 
-The default scores every historical file together. ``split=True`` ranks
-on train and also scores a hold-out: game ids are sorted as text, and
-every 5th id (positions 5, 10, 15, ...) is hold-out. ``three_way=True``
-uses the same sort and repeating groups of five: positions 1, 2, 3 are
-train, position 4 is validation, and position 5 is hold-out. A file
+The default scores every historical file together. ``three_way=True``
+ranks on train and also scores validation and hold-out. Game ids are
+sorted as text. In each repeating group of five, positions 1, 2, and 3
+are train, position 4 is validation, and position 5 is hold-out. A file
 follows its game id, so snapshots from one game stay together.
 """
 
@@ -48,8 +47,8 @@ from live_win_prob.replay import config_for_state
 # A short grid around the production dispersion of 4.05. Not an exhaustive search.
 NFL_DISPERSION_GRID: tuple[float, ...] = (2.5, 3.0, 3.5, 4.05, 4.5, 5.0, 6.0)
 
-# A short grid around the production NBA possession value of 1.12.
-NBA_POSSESSION_GRID: tuple[float, ...] = (0.6, 0.8, 1.0, 1.12, 1.3, 1.5, 1.8)
+# A short grid around the production NBA possession value of 1.30.
+NBA_POSSESSION_GRID: tuple[float, ...] = (0.8, 1.0, 1.12, 1.2, 1.3, 1.4, 1.5, 1.8)
 
 # Literals inside ``rate_multipliers``. The search reads them. It does not
 # assign them back onto ``strength.py``.
@@ -72,15 +71,9 @@ _STRENGTH_TIE = 1e-12
 _LATE_REGULATION = ("1-5 min", "<1 min")
 _METRIC_KEYS = ("n", "mean_win_prob", "home_win_rate", "brier", "log_loss")
 
-# 1-based positions 5, 10, 15, ... of the sorted game-id list.
+# Repeating groups of five on the sorted game-id list:
+# 1-based positions 1-3 are train, 4 is validation, and 5 is hold-out.
 HOLDOUT_EVERY = 5
-SPLIT_METHOD = (
-    "Sort distinct game_ids as text. Hold out every 5th id "
-    "(1-based positions 5, 10, 15, ...). "
-    "Each file follows its game_id, so every snapshot from a game stays "
-    "in the same set. A file with several ids is hold-out only when all of "
-    "those ids are hold-out ids. Files with no readable game_id stay in train."
-)
 THREE_WAY_METHOD = (
     "Sort distinct game_ids as text. In each repeating group of five, "
     "1-based positions 1, 2, and 3 are train, position 4 is validation, "
@@ -141,13 +134,11 @@ def search_nfl_dispersion(
     historical: list[Path] | None = None,
     full: list[Path] | None = None,
     root: Path | None = None,
-    split: bool = False,
     three_way: bool = False,
 ) -> dict[str, object]:
     """Rank candidates by NFL Brier. Production config stays put.
 
-    The default ranks the whole historical file list. ``split=True`` ranks
-    the train games and also scores the hold-out. ``three_way=True`` ranks
+    The default ranks the whole historical file list. ``three_way=True`` ranks
     the train games and also scores validation and hold-out.
     """
     root = repo_root() if root is None else root
@@ -155,7 +146,7 @@ def search_nfl_dispersion(
     mean = before["mean_score_per_team"] if mean_score_per_team is None else mean_score_per_team
     historical_files = historical_nfl_paths(root) if historical is None else historical
     full_files = default_paths(root) if full is None else full
-    parts = _requested_split(historical_files, split=split, three_way=three_way)
+    parts = _requested_split(historical_files, three_way=three_way)
     train_files, validation_files, holdout_files = _split_paths(historical_files, parts)
     candidates: list[dict[str, object]] = []
     for dispersion in dispersions:
@@ -175,13 +166,12 @@ def search_nfl_dispersion(
             row["historical"] = _nfl_slice(train_report)
         else:
             row["train"] = _nfl_slice(train_report)
+            row["validation"] = _nfl_slice(
+                build_report(validation_files, root=root, config_for=chooser)
+            )
             row["holdout"] = _nfl_slice(
                 build_report(holdout_files, root=root, config_for=chooser)
             )
-            if three_way:
-                row["validation"] = _nfl_slice(
-                    build_report(validation_files, root=root, config_for=chooser)
-                )
         candidates.append(row)
     _require_unchanged(before)
     ranked = sorted(candidates, key=_brier_key)
@@ -254,7 +244,7 @@ def run_tune_nfl(argv: list[str]) -> int:
     Optional ``--mean`` overrides ``mean_score_per_team`` for this run only.
     Returns 0 when the historical NFL set scored at least one snapshot.
     """
-    mean, split, three_way, error = _parse_nfl_args(argv)
+    mean, three_way, error = _parse_nfl_args(argv)
     if error is not None:
         print(error, file=sys.stderr)
         return 2
@@ -263,7 +253,7 @@ def run_tune_nfl(argv: list[str]) -> int:
         print("no JSON files under data/calibration/nfl")
         return 1
     report = search_nfl_dispersion(
-        mean_score_per_team=mean, root=root, split=split, three_way=three_way
+        mean_score_per_team=mean, root=root, three_way=three_way
     )
     print(format_tuning_report(report), end="")
     write_report(report, root / "artifacts" / "tuning_nfl_dispersion.json")
@@ -312,13 +302,11 @@ def search_nba_possession(
     historical: list[Path] | None = None,
     full: list[Path] | None = None,
     root: Path | None = None,
-    split: bool = False,
     three_way: bool = False,
 ) -> dict[str, object]:
     """Rank NBA possession values by Brier. Production value stays put.
 
-    The default ranks the whole historical file list. ``split=True`` ranks
-    the train games and also scores the hold-out. ``three_way=True`` ranks
+    The default ranks the whole historical file list. ``three_way=True`` ranks
     the train games and also scores validation and hold-out.
     """
     import ms_win_prob.basketball.config as basketball_config
@@ -329,7 +317,7 @@ def search_nba_possession(
     model_before = basketball_model.NBA_POSSESSION_POINTS
     historical_files = historical_nba_paths(root) if historical is None else historical
     full_files = default_paths(root) if full is None else full
-    parts = _requested_split(historical_files, split=split, three_way=three_way)
+    parts = _requested_split(historical_files, three_way=three_way)
     train_files, validation_files, holdout_files = _split_paths(historical_files, parts)
     candidates: list[dict[str, object]] = []
     for value in points:
@@ -344,11 +332,12 @@ def search_nba_possession(
                 row["historical"] = _sport_slice(train_report, "nba")
             else:
                 row["train"] = _sport_slice(train_report, "nba")
-                row["holdout"] = _sport_slice(build_report(holdout_files, root=root))
-                if three_way:
-                    row["validation"] = _sport_slice(
-                        build_report(validation_files, root=root)
-                    )
+                row["validation"] = _sport_slice(
+                    build_report(validation_files, root=root), "nba"
+                )
+                row["holdout"] = _sport_slice(
+                    build_report(holdout_files, root=root), "nba"
+                )
         candidates.append(row)
     if basketball_config.NBA_POSSESSION_POINTS != production:
         raise RuntimeError("NBA_POSSESSION_POINTS in basketball config changed")
@@ -419,14 +408,12 @@ def run_tune_nba(argv: list[str]) -> int:
     Returns 0 when the historical NBA set scored at least one snapshot.
     """
     if argv == []:
-        split, three_way = False, False
-    elif argv == ["--split"]:
-        split, three_way = True, False
+        three_way = False
     elif argv == ["--three-way"]:
-        split, three_way = False, True
+        three_way = True
     else:
         print(
-            "usage: python -m live_win_prob tune-nba [--split | --three-way]",
+            "usage: python -m live_win_prob tune-nba [--three-way]",
             file=sys.stderr,
         )
         return 2
@@ -434,7 +421,7 @@ def run_tune_nba(argv: list[str]) -> int:
     if not historical_nba_paths(root):
         print("no JSON files under data/calibration/nba")
         return 1
-    report = search_nba_possession(root=root, split=split, three_way=three_way)
+    report = search_nba_possession(root=root, three_way=three_way)
     print(format_nba_possession_report(report), end="")
     write_report(report, root / "artifacts" / "tuning_nba_possession.json")
     overall = _ranking_block(_candidates(report)[0])["overall"]
@@ -565,13 +552,11 @@ def search_nhl_strength(
     *,
     historical: list[Path] | None = None,
     root: Path | None = None,
-    split: bool = False,
     three_way: bool = False,
 ) -> dict[str, object]:
     """Rank one-at-a-time strength grids by NHL Brier.
 
-    The default ranks the whole historical file list. ``split=True`` ranks
-    the train games and also scores the hold-out. ``three_way=True`` ranks
+    The default ranks the whole historical file list. ``three_way=True`` ranks
     the train games and also scores validation and hold-out. Only files
     under ``data/calibration/nhl/`` are scored unless ``historical`` is passed.
     """
@@ -581,7 +566,7 @@ def search_nhl_strength(
     chosen = NHL_STRENGTH_GRIDS if grids is None else tuple(grids)
     _require_strength_grids(chosen)
     historical_files = historical_nhl_paths(root) if historical is None else historical
-    parts = _requested_split(historical_files, split=split, three_way=three_way)
+    parts = _requested_split(historical_files, three_way=three_way)
     production = nhl_strength_settings()
     coverage = _strength_coverage(historical_files)
     grid_reports: list[dict[str, object]] = []
@@ -642,7 +627,7 @@ def format_nhl_strength_report(report: dict[str, object]) -> str:
     for grid in grids:
         if not isinstance(grid, dict):
             raise TypeError("each grid must be an object")
-        lines.extend(_format_strength_grid(grid, three_way="split" in report and _is_three_way(report)))
+        lines.extend(_format_strength_grid(grid))
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 
@@ -653,14 +638,12 @@ def run_tune_nhl(argv: list[str]) -> int:
     Returns 0 when the ranked train or historical set scored at least one snapshot.
     """
     if argv == []:
-        split, three_way = False, False
-    elif argv == ["--split"]:
-        split, three_way = True, False
+        three_way = False
     elif argv == ["--three-way"]:
-        split, three_way = False, True
+        three_way = True
     else:
         print(
-            "usage: python -m live_win_prob tune-nhl [--split | --three-way]",
+            "usage: python -m live_win_prob tune-nhl [--three-way]",
             file=sys.stderr,
         )
         return 2
@@ -668,7 +651,7 @@ def run_tune_nhl(argv: list[str]) -> int:
     if not historical_nhl_paths(root):
         print("no JSON files under data/calibration/nhl")
         return 1
-    report = search_nhl_strength(root=root, split=split, three_way=three_way)
+    report = search_nhl_strength(root=root, three_way=three_way)
     print(format_nhl_strength_report(report), end="")
     write_report(report, root / "artifacts" / "tuning_nhl_strength.json")
     grids = report["grids"]
@@ -691,7 +674,6 @@ def _search_one_strength(
     production: dict[str, float],
 ) -> dict[str, object]:
     train_files, validation_files, holdout_files = _split_paths(historical_files, parts)
-    three_way = parts is not None and "validation_paths" in parts
     candidates: list[dict[str, object]] = []
     for value in values:
         settings = dict(production)
@@ -708,13 +690,12 @@ def _search_one_strength(
                 )
             else:
                 row["train"] = _sport_slice(build_report(train_files, root=root), "nhl")
+                row["validation"] = _sport_slice(
+                    build_report(validation_files, root=root), "nhl"
+                )
                 row["holdout"] = _sport_slice(
                     build_report(holdout_files, root=root), "nhl"
                 )
-                if three_way:
-                    row["validation"] = _sport_slice(
-                        build_report(validation_files, root=root), "nhl"
-                    )
         candidates.append(row)
     ranked = sorted(
         candidates,
@@ -975,29 +956,22 @@ def _coverage_line(coverage: object) -> str:
     )
 
 
-def _is_three_way(report: dict[str, object]) -> bool:
-    split = report.get("split")
-    return isinstance(split, dict) and "validation_game_ids" in split
-
-
 def _split_count_line(split: dict[str, object]) -> str:
     train_ids = split["train_game_ids"]
+    validation_ids = split["validation_game_ids"]
     holdout_ids = split["holdout_game_ids"]
-    validation_ids = split.get("validation_game_ids")
     train_n = len(train_ids) if isinstance(train_ids, list) else 0
+    validation_n = len(validation_ids) if isinstance(validation_ids, list) else 0
     holdout_n = len(holdout_ids) if isinstance(holdout_ids, list) else 0
-    if isinstance(validation_ids, list):
-        return (
-            f"Train games: {train_n}. Validation games: {len(validation_ids)}. "
-            f"Hold-out games: {holdout_n}."
-        )
-    return f"Train games: {train_n}. Hold-out games: {holdout_n}."
+    return (
+        f"Train games: {train_n}. Validation games: {validation_n}. "
+        f"Hold-out games: {holdout_n}."
+    )
 
 
-def _format_strength_grid(grid: dict[str, object], *, three_way: bool) -> list[str]:
+def _format_strength_grid(grid: dict[str, object]) -> list[str]:
     name = str(grid["coefficient"])
-    split_active = "train" in _grid_candidates(grid)[0]
-    if split_active and three_way:
+    if "train" in _grid_candidates(grid)[0]:
         headers = (
             "rank",
             name,
@@ -1017,20 +991,6 @@ def _format_strength_grid(grid: dict[str, object], *, three_way: bool) -> list[s
         rows = [
             _nhl_three_way_line(candidate) for candidate in _grid_candidates(grid)
         ]
-    elif split_active:
-        headers = (
-            "rank",
-            name,
-            "train_n",
-            "train_brier",
-            "train_log_loss",
-            "train_<5_brier",
-            "holdout_n",
-            "holdout_brier",
-            "holdout_log_loss",
-            "holdout_<5_brier",
-        )
-        rows = [_nhl_split_line(candidate) for candidate in _grid_candidates(grid)]
     else:
         headers = (
             "rank",
@@ -1076,15 +1036,6 @@ def _nhl_three_way_line(candidate: dict[str, object]) -> list[str]:
         _num(candidate["value"]),
         *_metric_cells(candidate["train"]),
         *_metric_cells(candidate["validation"]),
-        *_metric_cells(candidate["holdout"]),
-    ]
-
-
-def _nhl_split_line(candidate: dict[str, object]) -> list[str]:
-    return [
-        str(candidate["rank"]),
-        _num(candidate["value"]),
-        *_metric_cells(candidate["train"]),
         *_metric_cells(candidate["holdout"]),
     ]
 
@@ -1415,17 +1366,16 @@ def _display(path: Path, root: Path) -> str:
 
 
 def split_historical_files(
-    paths: list[Path], *, three_way: bool = False
+    paths: list[Path], *, three_way: bool = True
 ) -> dict[str, object]:
-    """Split historical files by game_id.
+    """Split historical files into train, validation, and hold-out.
 
-    The default is two-way. Game ids are sorted as text, and every 5th id
-    (1-based positions 5, 10, 15, ...) is hold-out. The rest are train.
-
-    ``three_way=True`` uses the same sorted list in repeating groups of
-    five: positions 1, 2, and 3 are train, position 4 is validation, and
-    position 5 is hold-out. Snapshots are not split apart from their game.
+    Game ids are sorted as text. In each repeating group of five,
+    1-based positions 1, 2, and 3 are train, position 4 is validation,
+    and position 5 is hold-out. Snapshots are not split apart from their game.
     """
+    if not three_way:
+        raise ValueError("only the three-way split is supported")
     grouped = [(path, _game_ids_in_file(path)) for path in paths]
     distinct = sorted({game_id for _path, ids in grouped for game_id in ids})
     holdout_ids = {
@@ -1433,53 +1383,45 @@ def split_historical_files(
         for index, game_id in enumerate(distinct)
         if (index + 1) % HOLDOUT_EVERY == 0
     }
-    validation_ids = (
-        {
-            game_id
-            for index, game_id in enumerate(distinct)
-            if (index + 1) % HOLDOUT_EVERY == 4
-        }
-        if three_way
-        else set()
-    )
+    validation_ids = {
+        game_id
+        for index, game_id in enumerate(distinct)
+        if (index + 1) % HOLDOUT_EVERY == 4
+    }
     train_paths: list[Path] = []
     validation_paths: list[Path] = []
     holdout_paths: list[Path] = []
     for path, ids in grouped:
         if ids and all(game_id in holdout_ids for game_id in ids):
             holdout_paths.append(path)
-        elif three_way and ids and all(game_id in validation_ids for game_id in ids):
+        elif ids and all(game_id in validation_ids for game_id in ids):
             validation_paths.append(path)
         else:
             train_paths.append(path)
-    record: dict[str, object] = {
-        "method": THREE_WAY_METHOD if three_way else SPLIT_METHOD,
+    return {
+        "method": THREE_WAY_METHOD,
         "holdout_every": HOLDOUT_EVERY,
         "train_game_ids": [
             game_id
             for game_id in distinct
             if game_id not in holdout_ids and game_id not in validation_ids
         ],
+        "validation_game_ids": [
+            game_id for game_id in distinct if game_id in validation_ids
+        ],
         "holdout_game_ids": [game_id for game_id in distinct if game_id in holdout_ids],
         "train_paths": train_paths,
+        "validation_paths": validation_paths,
         "holdout_paths": holdout_paths,
     }
-    if three_way:
-        record["validation_game_ids"] = [
-            game_id for game_id in distinct if game_id in validation_ids
-        ]
-        record["validation_paths"] = validation_paths
-    return record
 
 
 def _requested_split(
-    paths: list[Path], *, split: bool, three_way: bool
+    paths: list[Path], *, three_way: bool
 ) -> dict[str, object] | None:
-    if split and three_way:
-        raise ValueError("choose split or three_way, not both")
-    if not split and not three_way:
+    if not three_way:
         return None
-    return split_historical_files(paths, three_way=three_way)
+    return split_historical_files(paths, three_way=True)
 
 
 def _split_paths(
@@ -1487,10 +1429,9 @@ def _split_paths(
 ) -> tuple[list[Path], list[Path], list[Path]]:
     if parts is None:
         return historical_files, [], []
-    validation = parts["validation_paths"] if "validation_paths" in parts else []
     return (
         _path_list(parts["train_paths"]),
-        _path_list(validation),
+        _path_list(parts["validation_paths"]),
         _path_list(parts["holdout_paths"]),
     )
 
@@ -1528,21 +1469,19 @@ def _path_list(value: object) -> list[Path]:
 
 
 def _split_record(parts: dict[str, object], root: Path) -> dict[str, object]:
-    record: dict[str, object] = {
+    return {
         "active": True,
         "method": parts["method"],
         "holdout_every": parts["holdout_every"],
         "train_game_ids": parts["train_game_ids"],
+        "validation_game_ids": parts["validation_game_ids"],
         "holdout_game_ids": parts["holdout_game_ids"],
         "train_inputs": [_display(path, root) for path in _path_list(parts["train_paths"])],
+        "validation_inputs": [
+            _display(path, root) for path in _path_list(parts["validation_paths"])
+        ],
         "holdout_inputs": [_display(path, root) for path in _path_list(parts["holdout_paths"])],
     }
-    if "validation_game_ids" in parts:
-        record["validation_game_ids"] = parts["validation_game_ids"]
-        record["validation_inputs"] = [
-            _display(path, root) for path in _path_list(parts["validation_paths"])
-        ]
-    return record
 
 
 def _format_split_report(
@@ -1556,18 +1495,15 @@ def _format_split_report(
     if not isinstance(split, dict):
         raise TypeError("split must be an object")
     train_ids = split["train_game_ids"]
+    validation_ids = split["validation_game_ids"]
     holdout_ids = split["holdout_game_ids"]
-    validation_ids = split.get("validation_game_ids")
     train_n = len(train_ids) if isinstance(train_ids, list) else 0
+    validation_n = len(validation_ids) if isinstance(validation_ids, list) else 0
     holdout_n = len(holdout_ids) if isinstance(holdout_ids, list) else 0
-    three_way = isinstance(validation_ids, list)
-    validation_n = len(validation_ids) if three_way else 0
-    counts = f"Train games: {train_n}. Hold-out games: {holdout_n}."
-    if three_way:
-        counts = (
-            f"Train games: {train_n}. Validation games: {validation_n}. "
-            f"Hold-out games: {holdout_n}."
-        )
+    counts = (
+        f"Train games: {train_n}. Validation games: {validation_n}. "
+        f"Hold-out games: {holdout_n}."
+    )
     headers = (
         "rank",
         value_header,
@@ -1580,16 +1516,6 @@ def _format_split_report(
         "holdout_n",
         "holdout_brier",
         "holdout_log_loss",
-    ) if three_way else (
-        "rank",
-        value_header,
-        "train_n",
-        "train_brier",
-        "train_log_loss",
-        "holdout_n",
-        "holdout_brier",
-        "holdout_log_loss",
-        "holdout_<5_brier",
     )
     lines = [
         str(report["note"]),
@@ -1602,34 +1528,11 @@ def _format_split_report(
             headers,
             [
                 _three_way_candidate_line(candidate, value_key)
-                if three_way
-                else _split_candidate_line(candidate, value_key)
                 for candidate in _candidates(report)
             ],
         ),
     ]
     return "\n".join(lines) + "\n"
-
-
-def _split_candidate_line(candidate: dict[str, object], value_key: str) -> list[str]:
-    train = candidate["train"]
-    holdout = candidate["holdout"]
-    if not isinstance(train, dict) or not isinstance(holdout, dict):
-        raise TypeError("train and holdout must be objects")
-    train_overall = train["overall"]
-    holdout_overall = holdout["overall"]
-    holdout_late = holdout["<5 min"]
-    return [
-        str(candidate["rank"]),
-        _num(candidate[value_key]),
-        _num(train_overall["n"]),
-        _num(train_overall["brier"]),
-        _num(train_overall["log_loss"]),
-        _num(holdout_overall["n"]),
-        _num(holdout_overall["brier"]),
-        _num(holdout_overall["log_loss"]),
-        _num(holdout_late["brier"]),
-    ]
 
 
 def _three_way_candidate_line(candidate: dict[str, object], value_key: str) -> list[str]:
@@ -1653,22 +1556,17 @@ def _three_way_candidate_line(candidate: dict[str, object], value_key: str) -> l
     ]
 
 
-def _parse_nfl_args(argv: list[str]) -> tuple[float | None, bool, bool, str | None]:
+def _parse_nfl_args(argv: list[str]) -> tuple[float | None, bool, str | None]:
     """Parse ``tune-nfl`` flags. No flags leaves the unsplit grid."""
     mean: float | None = None
-    split = False
     three_way = False
     index = 0
     usage = (
         "usage: python -m live_win_prob tune-nfl "
-        "[--split | --three-way] [--mean MEAN_SCORE_PER_TEAM]"
+        "[--three-way] [--mean MEAN_SCORE_PER_TEAM]"
     )
     while index < len(argv):
         arg = argv[index]
-        if arg == "--split":
-            split = True
-            index += 1
-            continue
         if arg == "--three-way":
             three_way = True
             index += 1
@@ -1677,12 +1575,10 @@ def _parse_nfl_args(argv: list[str]) -> tuple[float | None, bool, bool, str | No
             try:
                 mean = float(argv[index + 1])
             except ValueError:
-                return None, False, False, "mean_score_per_team must be a number"
+                return None, False, "mean_score_per_team must be a number"
             if mean <= 0:
-                return None, False, False, "mean_score_per_team must be > 0"
+                return None, False, "mean_score_per_team must be > 0"
             index += 2
             continue
-        return None, False, False, usage
-    if split and three_way:
-        return None, False, False, usage
-    return mean, split, three_way, None
+        return None, False, usage
+    return mean, three_way, None

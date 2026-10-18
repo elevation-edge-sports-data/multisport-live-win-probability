@@ -17,6 +17,7 @@ from live_win_prob.replay import (
     format_line,
     load_replay,
     render_widget_script,
+    shift_inbound_possession,
     team_logo,
 )
 
@@ -187,6 +188,38 @@ def test_team_logo_reads_assets():
     assert team_logo("Red Oak", sport="nfl") is None
     assert (ROOT / "assets" / "logos" / "nfl" / "DEN.png").is_file()
     assert "widget/logos" not in (ROOT / "src" / "live_win_prob" / "replay.py").read_text(encoding="utf-8")
+
+
+def _nba(home_score: int, away_score: int, possession: str | None) -> GameState:
+    return GameState(
+        sport="nba",
+        game_id="1",
+        home="H",
+        away="A",
+        home_score=home_score,
+        away_score=away_score,
+        period=4,
+        seconds_remaining_period=60,
+        seconds_remaining_total=60,
+        status="live",
+        source="test",
+        as_of=datetime(2026, 1, 1, tzinfo=timezone.utc),
+        possession=possession,
+    )
+
+
+def test_inbound_shift_flips_only_the_last_make_of_a_run():
+    states = [
+        _nba(0, 0, None),
+        _nba(2, 0, "home"),
+        _nba(3, 0, "home"),
+        _nba(3, 0, "home"),
+        _nba(3, 2, "away"),
+    ]
+    shifted = shift_inbound_possession(states)
+    assert [state.possession for state in shifted] == [None, "home", "away", "home", "home"]
+    assert shifted[0] is states[0]
+    assert shifted[3] is states[3]
 
 
 def test_harbor_final_is_one():

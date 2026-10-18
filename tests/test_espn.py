@@ -27,6 +27,7 @@ from live_win_prob.replay import (
     format_line,
     load_replay,
     render_widget_script,
+    shift_inbound_possession,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1122,9 +1123,16 @@ def test_ingest_accepts_nba_and_ncaab_summaries(tmp_path: Path) -> None:
         scoring = load_replay(scoring_path)
         situation = load_replay(situation_path)
         everything = load_replay(all_path)
-        assert scoring == events_from_espn_basketball(payload, density="scoring")
-        assert situation == events_from_espn_basketball(payload, density="situation")
-        assert everything == events_from_espn_basketball(payload, density="all")
+        # Stored labels are the scoring team. Loading points them at the inbound team.
+        assert scoring == shift_inbound_possession(
+            events_from_espn_basketball(payload, density="scoring")
+        )
+        assert situation == shift_inbound_possession(
+            events_from_espn_basketball(payload, density="situation")
+        )
+        assert everything == shift_inbound_possession(
+            events_from_espn_basketball(payload, density="all")
+        )
         assert len(scoring) < len(situation) < len(everything)
         for states in (scoring, situation, everything):
             assert {state.sport for state in states} == {sport}

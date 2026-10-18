@@ -36,9 +36,9 @@ usage: python -m live_win_prob replay <json>
        python -m live_win_prob slate [--date YYYYMMDD] [--interval 15] [--out slate.js] [--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]
        python -m live_win_prob serve [--port 8765]
        python -m live_win_prob calibrate [replay-or-espn.json ...]
-       python -m live_win_prob tune-nfl [--split | --three-way] [--mean MEAN_SCORE_PER_TEAM]
-       python -m live_win_prob tune-nba [--split | --three-way]
-       python -m live_win_prob tune-nhl [--split | --three-way]
+       python -m live_win_prob tune-nfl [--three-way] [--mean MEAN_SCORE_PER_TEAM]
+       python -m live_win_prob tune-nba [--three-way]
+       python -m live_win_prob tune-nhl [--three-way]
        python -m live_win_prob build-football-demos
        python -m live_win_prob build-hockey-demos
        python -m live_win_prob build-basketball-demos\

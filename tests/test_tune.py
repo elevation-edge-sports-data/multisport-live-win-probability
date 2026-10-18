@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import inspect
 import json
 from pathlib import Path
+
+import pytest
 
 import ms_win_prob.basketball.config as basketball_config
 import ms_win_prob.basketball.model as basketball_model
@@ -11,6 +14,8 @@ from ms_win_prob.football.config import NFL_CONFIG
 
 import ms_win_prob.hockey.model as hockey_model
 import ms_win_prob.hockey.strength as strength_module
+import live_win_prob.tune as tune
+from live_win_prob.__main__ import main
 from live_win_prob.tune import (
     nfl_config_for,
     search_nba_possession,
@@ -87,8 +92,8 @@ def test_nba_possession_search_restores_the_production_constant():
     before_model = basketball_model.NBA_POSSESSION_POINTS
     sample = ROOT / "examples" / "nba_den_lal.json"
     report = search_nba_possession((0.6, 1.8), historical=[sample], full=[sample], root=ROOT)
-    assert basketball_config.NBA_POSSESSION_POINTS == before_config == 1.12
-    assert basketball_model.NBA_POSSESSION_POINTS == before_model == 1.12
+    assert basketball_config.NBA_POSSESSION_POINTS == before_config == 1.30
+    assert basketball_model.NBA_POSSESSION_POINTS == before_model == 1.30
     candidates = report["candidates"]
     briers = [row["historical"]["overall"]["brier"] for row in candidates]
     assert briers == sorted(briers)
@@ -101,7 +106,7 @@ def test_nba_possession_search_restores_the_production_constant():
     assert "train" not in candidates[0]
 
 
-def test_split_holds_out_every_fifth_sorted_game_id(tmp_path: Path):
+def test_default_split_is_three_way_and_rejects_two_way(tmp_path: Path):
     paths = []
     for game_id in ("10", "06", "01", "03", "08", "02", "09", "04", "07", "05"):
         path = tmp_path / f"{game_id}_A_at_B.json"
@@ -110,14 +115,106 @@ def test_split_holds_out_every_fifth_sorted_game_id(tmp_path: Path):
             encoding="utf-8",
         )
         paths.append(path)
-    split = split_historical_files(list(reversed(paths)))
-    assert split["holdout_game_ids"] == ["05", "10"]
-    assert split["train_game_ids"] == ["01", "02", "03", "04", "06", "07", "08", "09"]
-    holdout_names = {path.name for path in split["holdout_paths"]}
-    train_names = {path.name for path in split["train_paths"]}
-    assert holdout_names == {"05_A_at_B.json", "10_A_at_B.json"}
-    assert train_names.isdisjoint(holdout_names)
-    assert len(train_names) + len(holdout_names) == 10
+    default = split_historical_files(list(reversed(paths)))
+    explicit = split_historical_files(paths, three_way=True)
+    assert default["train_game_ids"] == explicit["train_game_ids"] == [
+        "01",
+        "02",
+        "03",
+        "06",
+        "07",
+        "08",
+    ]
+    assert default["validation_game_ids"] == explicit["validation_game_ids"] == ["04", "09"]
+    assert default["holdout_game_ids"] == explicit["holdout_game_ids"] == ["05", "10"]
+    with pytest.raises(ValueError, match="only the three-way split is supported"):
+        split_historical_files(paths, three_way=False)
+
+
+def test_search_signatures_accept_three_way_and_reject_split():
+    for fn in (search_nfl_dispersion, search_nba_possession, search_nhl_strength):
+        params = inspect.signature(fn).parameters
+        assert "three_way" in params
+        assert params["three_way"].default is False
+        assert "split" not in params
+    with pytest.raises(TypeError):
+        search_nfl_dispersion(split=True)
+    with pytest.raises(TypeError):
+        search_nba_possession(split=True)
+    with pytest.raises(TypeError):
+        search_nhl_strength(split=True)
+
+
+def test_nfl_three_way_search_scores_train_validation_and_holdout():
+    before = NFL_CONFIG.score_dispersion
+    report = search_nfl_dispersion(
+        (4.05,),
+        historical=[NFL_SAMPLE],
+        full=[NFL_SAMPLE],
+        root=ROOT,
+        three_way=True,
+    )
+    assert NFL_CONFIG.score_dispersion == before == 4.05
+    assert report["ranked_by"] == "train overall brier"
+    split = report["split"]
+    assert split["train_game_ids"] == ["nfl-sample-001"]
+    assert split["validation_game_ids"] == []
+    assert split["holdout_game_ids"] == []
+    row = report["candidates"][0]
+    assert "historical" not in row
+    assert row["train"]["overall"]["n"] == row["full_set"]["overall"]["n"]
+    assert row["train"]["overall"]["n"] > 0
+    assert row["validation"]["overall"]["n"] == 0
+    assert row["holdout"]["overall"]["n"] == 0
+
+
+def test_tune_cli_passes_three_way_and_rejects_split(monkeypatch, capsys):
+    calls: list[tuple[str, dict[str, object]]] = []
+
+    def fake_nfl(**kwargs):
+        calls.append(("nfl", kwargs))
+        return {"candidates": [{"train": {"overall": {"n": 1}}}]}
+
+    def fake_nba(**kwargs):
+        calls.append(("nba", kwargs))
+        return {"candidates": [{"train": {"overall": {"n": 1}}}]}
+
+    def fake_nhl(**kwargs):
+        calls.append(("nhl", kwargs))
+        return {"grids": [{"candidates": [{"train": {"overall": {"n": 1}}}]}]}
+
+    monkeypatch.setattr(tune, "search_nfl_dispersion", fake_nfl)
+    monkeypatch.setattr(tune, "search_nba_possession", fake_nba)
+    monkeypatch.setattr(tune, "search_nhl_strength", fake_nhl)
+    monkeypatch.setattr(tune, "write_report", lambda report, path: None)
+    monkeypatch.setattr(tune, "format_tuning_report", lambda report: "")
+    monkeypatch.setattr(tune, "format_nba_possession_report", lambda report: "")
+    monkeypatch.setattr(tune, "format_nhl_strength_report", lambda report: "")
+    monkeypatch.setattr(tune, "historical_nfl_paths", lambda root=None: [Path("nfl.json")])
+    monkeypatch.setattr(tune, "historical_nba_paths", lambda root=None: [Path("nba.json")])
+    monkeypatch.setattr(tune, "historical_nhl_paths", lambda root=None: [Path("nhl.json")])
+
+    assert main(["tune-nfl"]) == 0
+    assert main(["tune-nfl", "--three-way", "--mean", "21"]) == 0
+    assert main(["tune-nba", "--three-way"]) == 0
+    assert main(["tune-nhl", "--three-way"]) == 0
+    assert [name for name, _kwargs in calls] == ["nfl", "nfl", "nba", "nhl"]
+    assert calls[0][1]["three_way"] is False
+    assert calls[0][1]["mean_score_per_team"] is None
+    assert calls[1][1]["three_way"] is True
+    assert calls[1][1]["mean_score_per_team"] == 21.0
+    assert calls[2][1]["three_way"] is True
+    assert calls[3][1]["three_way"] is True
+    assert all("split" not in kwargs for _name, kwargs in calls)
+
+    assert main(["tune-nfl", "--split"]) == 2
+    assert main(["tune-nba", "--split"]) == 2
+    assert main(["tune-nhl", "--split"]) == 2
+    assert main(["tune-nba", "--three-way", "--split"]) == 2
+    err = capsys.readouterr().err
+    assert "--three-way" in err
+    assert "--split" not in err
+    assert len(calls) == 4
 
 
 def test_strength_override_matches_production_and_restores():
