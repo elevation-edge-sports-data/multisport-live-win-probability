@@ -62,6 +62,12 @@ def events_from_espn_hockey(
         elapsed = min(max(elapsed, 0), period_len)
         typ = str((raw.get("type") or {}).get("text") or "")
         strength, extra = tracker.observe(raw)
+        pen_rem = None
+        pen_side = None
+        box_period, box_elapsed = _period_elapsed(raw)
+        active_penalty = tracker.shortest_active(box_period, box_elapsed)
+        if active_penalty is not None:
+            pen_rem, pen_side = active_penalty
         period_left = period_len - elapsed
         if period <= 3:
             total_left = (3 - period) * period_len + period_left
@@ -93,6 +99,8 @@ def events_from_espn_hockey(
                 prior_home=prior,
                 strength=strength,
                 extra_attacker=extra,
+                penalty_remaining=pen_rem,
+                penalty_side=pen_side,
             )
         )
     return states
@@ -203,6 +211,14 @@ class HockeyStrengthTracker:
         self._commit()
         home, away = self._counts(period, max(elapsed, 0))
         return f"{home}v{away}", False
+
+    def shortest_active(self, period: int, elapsed: int) -> tuple[int, str] | None:
+        """Seconds left and side of the active penalty that expires first."""
+        active = [box for box in self._boxes if box.active(period, elapsed)]
+        if not active:
+            return None
+        box = min(active, key=lambda item: item.remaining(period, elapsed))
+        return box.remaining(period, elapsed), box.side
 
     def _continues_batch(self, play: Mapping[str, Any]) -> bool:
         if not self._pending:

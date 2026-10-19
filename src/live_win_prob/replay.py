@@ -162,6 +162,13 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
         if not isinstance(extra, bool):
             raise TypeError("extra_attacker must be a bool")
         optional["extra_attacker"] = extra
+    if "penalty_remaining" in row and row["penalty_remaining"] is not None:
+        optional["penalty_remaining"] = _as_int(row, "penalty_remaining")
+    if row.get("penalty_side") not in (None, ""):
+        side = str(row["penalty_side"])
+        if side not in {"home", "away"}:
+            raise ValueError("penalty_side must be home or away")
+        optional["penalty_side"] = side
     if "timeouts" in row and row["timeouts"] is not None:
         optional["timeouts"] = _timeout_map(row["timeouts"])
     return GameState(
@@ -230,6 +237,10 @@ def state_to_row(state: GameState) -> dict[str, object]:
         row["strength"] = state.strength
     if state.extra_attacker is not None:
         row["extra_attacker"] = state.extra_attacker
+    if state.penalty_remaining is not None:
+        row["penalty_remaining"] = state.penalty_remaining
+    if state.penalty_side is not None:
+        row["penalty_side"] = state.penalty_side
     row["source"] = state.source
     row["as_of"] = as_of
     return row

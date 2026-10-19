@@ -611,6 +611,7 @@ def _summary_states(
         possessing_id: object | None = None,
         synthetic: bool = False,
         hockey_situation: tuple[str | None, bool | None] | None = None,
+        penalty: tuple[int | None, str | None] | None = None,
     ) -> None:
         nonlocal previous_as_of
         if synthetic:
@@ -639,6 +640,7 @@ def _summary_states(
             possessing_id=possessing_id,
             sport=sport,
             hockey_situation=hockey_situation,
+            penalty=penalty,
         )
         # situation density drops only an identical clock, score, and situation.
         # all density keeps every play.
@@ -650,6 +652,7 @@ def _summary_states(
         states.append(state)
 
     # Q1 kickoff is the pre snapshot. Later periods get their own start.
+    opening = None if tracker is None else tracker.at_clock(1, 0)
     emit(
         period=1,
         period_seconds=config.period_seconds,
@@ -657,7 +660,8 @@ def _summary_states(
         away_score=0,
         status="pre",
         when=game_date,
-        hockey_situation=None if tracker is None else tracker.at_clock(1, 0),
+        hockey_situation=opening,
+        penalty=None if tracker is None else _active_penalty(tracker, 1, 0),
     )
 
     last_home, last_away = 0, 0
@@ -671,6 +675,11 @@ def _summary_states(
         if density == "all"
         else _plays(summary, sport)
     )
+    period_elapsed = None
+    if tracker is not None:
+        from live_win_prob.feeds.espn_hockey import _period_elapsed
+
+        period_elapsed = _period_elapsed
 
     for play in plays:
         reported = _play_scores(play)
@@ -704,11 +713,19 @@ def _summary_states(
                     hockey_situation=(
                         None if tracker is None else tracker.at_clock(quarter, 0)
                     ),
+                    penalty=(
+                        None if tracker is None else _active_penalty(tracker, quarter, 0)
+                    ),
                 )
         else:
             started.add(period)
 
-        play_situation = tracker.observe(play) if tracker is not None else None
+        play_situation = None
+        play_penalty = None
+        if tracker is not None and period_elapsed is not None:
+            play_situation = tracker.observe(play)
+            box_period, box_elapsed = period_elapsed(play)
+            play_penalty = _active_penalty(tracker, box_period, box_elapsed)
 
         if density == "scoring" and _has_two_minute(period, sport) and period not in two_minute_done:
             previous_clock = last_clock.get(period)
@@ -753,6 +770,7 @@ def _summary_states(
                 spot=spot if keep_play or score_changed else None,
                 possessing_id=possessing if keep_play or score_changed else None,
                 hockey_situation=play_situation,
+                penalty=play_penalty,
             )
         if reported is not None:
             last_home, last_away = reported
@@ -774,10 +792,12 @@ def _summary_states(
         else:
             final_clock = _parse_clock(status_display)
         final_situation = None
+        final_penalty = None
         if tracker is not None:
             length = _period_length(final_period, sport)
             elapsed = max(0, length - min(final_clock, length))
             final_situation = tracker.at_clock(final_period, elapsed)
+            final_penalty = _active_penalty(tracker, final_period, elapsed)
         emit(
             period=final_period,
             period_seconds=final_clock,
@@ -787,6 +807,7 @@ def _summary_states(
             when=game_date,
             synthetic=True,
             hockey_situation=final_situation,
+            penalty=final_penalty,
         )
     elif espn_state == "in":
         # Final games emit a 0:00 whistle. A live game keeps the current
@@ -811,10 +832,12 @@ def _summary_states(
         spot = situation if isinstance(situation, Mapping) else None
         possessing = spot.get("possession") if spot is not None else None
         live_situation = None
+        live_penalty = None
         if tracker is not None:
             length = _period_length(period, sport)
             elapsed = max(0, length - min(now_clock, length))
             live_situation = tracker.at_clock(period, elapsed)
+            live_penalty = _active_penalty(tracker, period, elapsed)
         emit(
             period=period,
             period_seconds=now_clock,
@@ -825,6 +848,7 @@ def _summary_states(
             spot=spot,
             possessing_id=possessing,
             hockey_situation=live_situation,
+            penalty=live_penalty,
         )
     return states
 
@@ -1087,12 +1111,13 @@ def _build(
     possessing_id: object | None,
     sport: str,
     hockey_situation: tuple[str | None, bool | None] | None = None,
+    penalty: tuple[int | None, str | None] | None = None,
 ) -> GameState:
     period_clock, total_clock = _remaining_pair(period, period_seconds, sport)
     # A play has no down or distance. Hockey strength stays unset when the
     # summary has no penalty, strength label, or empty-net note.
     if _is_hockey(sport):
-        optional = _hockey_fields(hockey_situation)
+        optional = _hockey_fields(hockey_situation, penalty)
     else:
         optional = _football_fields(spot, possessing_id, home, away)
     return GameState(
@@ -1122,17 +1147,33 @@ def _hockey_tracker(sport: str, home_id: str, away_id: str):
     return HockeyStrengthTracker(home_id, away_id)
 
 
+def _active_penalty(tracker: Any, period: int, elapsed: int) -> tuple[int | None, str | None]:
+    """Shortest active minor at this clock, or no penalty."""
+    found = tracker.shortest_active(period, elapsed)
+    if found is None:
+        return None, None
+    return found
+
+
 def _hockey_fields(
     situation: tuple[str | None, bool | None] | None,
+    penalty: tuple[int | None, str | None] | None = None,
 ) -> dict[str, Any]:
-    if situation is None:
+    if situation is None and penalty is None:
         return {}
-    label, extra = situation
     fields: dict[str, Any] = {}
-    if label:
-        fields["strength"] = label
-    if extra is not None:
-        fields["extra_attacker"] = extra
+    if situation is not None:
+        label, extra = situation
+        if label:
+            fields["strength"] = label
+        if extra is not None:
+            fields["extra_attacker"] = extra
+    if penalty is not None:
+        remaining, side = penalty
+        if remaining is not None:
+            fields["penalty_remaining"] = remaining
+        if side:
+            fields["penalty_side"] = side
     return fields
 
 

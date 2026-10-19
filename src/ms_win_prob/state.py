@@ -59,6 +59,8 @@ class GameState:
     timeouts: Mapping[str, int] | None = None
     strength: str | None = None
     extra_attacker: bool | None = None
+    penalty_remaining: int | None = None
+    penalty_side: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.sport, str) or not self.sport:
