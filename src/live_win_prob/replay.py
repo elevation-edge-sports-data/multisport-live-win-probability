@@ -149,6 +149,12 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
     if not isinstance(as_of, str):
         raise TypeError("as_of must be an ISO-8601 string")
     prior = row["prior_home"] if "prior_home" in row else DEFAULT_PRIOR_HOME
+    if "prior_source" in row and row["prior_source"] is not None:
+        prior_source = row["prior_source"]
+        if not isinstance(prior_source, str) or not prior_source:
+            raise TypeError("prior_source must be a string")
+    else:
+        prior_source = "default"
     optional: dict[str, object] = {}
     for name in ("down", "distance", "yardline"):
         if name in row and row[name] is not None:
@@ -185,6 +191,7 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
         source=str(row["source"]),
         as_of=datetime.fromisoformat(as_of.replace("Z", "+00:00")),
         prior_home=float(prior),  # type: ignore[arg-type]
+        prior_source=prior_source,
         **optional,  # type: ignore[arg-type]
     )
 
@@ -219,6 +226,7 @@ def state_to_row(state: GameState) -> dict[str, object]:
         "seconds_remaining_total": state.seconds_remaining_total,
         "status": state.status,
         "prior_home": state.prior_home,
+        "prior_source": state.prior_source,
     }
     if state.possession is not None:
         row["possession"] = state.possession
@@ -454,6 +462,7 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
             "seconds_remaining_period": state.seconds_remaining_period,
             "seconds_remaining_total": state.seconds_remaining_total,
             "prior_home": state.prior_home,
+            "prior_source": state.prior_source,
             "game_id": state.game_id,
             "elapsed_seconds": elapsed_game_seconds(state),
         }

@@ -8,9 +8,11 @@ NCAAB summaries are ingested through the basketball adapter instead of this
 module, so calls here still refuse them. Any other league is refused.
 
 A home American moneyline, when present, is converted once into
-``prior_home`` and reused on every snapshot. ESPN's own win-probability
-field is never copied onto a snapshot and is never returned as the
-win probability.
+``prior_home`` and reused on every snapshot. NFL, NHL, and NBA fall
+back to the static Elo snapshot when that price is absent, then to a
+caller-supplied prior, then to 0.5. ``prior_source`` records which
+step was used. ESPN's own win-probability field is never copied onto
+a snapshot and is never returned as the win probability.
 """
 
 from __future__ import annotations
@@ -30,6 +32,8 @@ from ms_win_prob import (
     GameState,
 )
 from ms_win_prob.config import SportConfig
+
+from live_win_prob.priors import elo_prior_home
 
 # League ids on ESPN uids: NFL is l:28, college football is l:23, NHL is l:90.
 # Men's college hockey is l:91.
@@ -58,8 +62,8 @@ def espn_scoreboard_event_to_state(
 ) -> GameState:
     """One snapshot for a scoreboard event.
 
-    ``prior_home`` is used only when the event has no home moneyline.
-    Otherwise the moneyline is converted once.
+    Resolution order is the home moneyline, then the static Elo prior
+    for nfl, nhl, and nba, then ``prior_home``, then 0.5.
     """
     if not isinstance(event, Mapping):
         raise TypeError("ESPN scoreboard event must be an object")
@@ -81,6 +85,9 @@ def espn_scoreboard_event_to_state(
     situation = competition.get("situation")
     spot = situation if isinstance(situation, Mapping) else None
     possessing = spot.get("possession") if spot is not None else None
+    prior, prior_source = _resolve_prior(
+        event, prior_home, sport=sport, home=home.name, away=away.name
+    )
     return _build(
         game_id=_event_id(event, competition),
         home=home,
@@ -90,7 +97,8 @@ def espn_scoreboard_event_to_state(
         period=period,
         period_seconds=period_seconds,
         status=_OUR_STATUS[espn_state],
-        prior=_resolve_prior(event, prior_home),
+        prior=prior,
+        prior_source=prior_source,
         as_of=_event_as_of(event, competition),
         spot=spot,
         possessing_id=possessing,
@@ -593,7 +601,9 @@ def _summary_states(
     espn_state, status_period, status_display = _status_parts(
         _status_block(competition, header), sport, allow_partial=True
     )
-    prior = _resolve_prior(summary, prior_home)
+    prior, prior_source = _resolve_prior(
+        summary, prior_home, sport=sport, home=home.name, away=away.name
+    )
     game_id = _event_id(header, competition)
     game_date = _game_date(header, competition)
     states: list[GameState] = []
@@ -635,6 +645,7 @@ def _summary_states(
             period_seconds=period_seconds,
             status=status,
             prior=prior,
+            prior_source=prior_source,
             as_of=stamped,
             spot=spot,
             possessing_id=possessing_id,
@@ -1106,6 +1117,7 @@ def _build(
     period_seconds: int,
     status: str,
     prior: float,
+    prior_source: str,
     as_of: datetime,
     spot: Mapping[str, Any] | None,
     possessing_id: object | None,
@@ -1134,6 +1146,7 @@ def _build(
         source="espn",
         as_of=as_of,
         prior_home=prior,
+        prior_source=prior_source,
         **optional,
     )
 
@@ -1419,13 +1432,29 @@ def _remaining_pair(period: int, period_seconds: int, sport: str) -> tuple[int, 
     return remaining, remaining
 
 
-def _resolve_prior(payload: Mapping[str, Any], prior_home: float | None) -> float:
+def _resolve_prior(
+    payload: Mapping[str, Any],
+    prior_home: float | None,
+    *,
+    sport: str,
+    home: str,
+    away: str,
+) -> tuple[float, str]:
+    """Home prior and the step that produced it.
+
+    Order is the home American moneyline, then ``elo_prior_home`` for
+    nfl, nhl, and nba, then ``prior_home`` when the caller supplied one,
+    then 0.5.
+    """
     odds = _home_american_odds(payload)
     if odds is not None:
-        return _american_implied(odds)
+        return _american_implied(odds), "moneyline"
+    elo = elo_prior_home(sport, home, away)
+    if isinstance(elo, float):
+        return elo, "elo"
     if prior_home is not None:
-        return float(prior_home)
-    return DEFAULT_PRIOR_HOME
+        return float(prior_home), "passed"
+    return DEFAULT_PRIOR_HOME, "default"
 
 
 def _american_implied(odds: int) -> float:

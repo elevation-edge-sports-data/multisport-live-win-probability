@@ -14,8 +14,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
-from live_win_prob.feeds.espn import home_moneyline_prior
-from ms_win_prob import DEFAULT_PRIOR_HOME, GameState
+from live_win_prob.feeds.espn import _resolve_prior
+from ms_win_prob import GameState
 from ms_win_prob.hockey.config import NHL_CONFIG
 
 
@@ -40,9 +40,9 @@ def events_from_espn_hockey(
     competition = competitions[0]
     home, away, home_id, away_id = _teams(competition)
     game_id = str(header.get("id") or "unknown")
-    prior = home_moneyline_prior(payload)
-    if prior is None:
-        prior = prior_home if prior_home is not None else DEFAULT_PRIOR_HOME
+    prior, prior_source = _resolve_prior(
+        payload, prior_home, sport="nhl", home=home, away=away
+    )
     plays = payload.get("plays")
     if not isinstance(plays, list) or not plays:
         raise ValueError("ESPN hockey summary has no plays")
@@ -97,6 +97,7 @@ def events_from_espn_hockey(
                 source="espn-summary",
                 as_of=as_of,
                 prior_home=prior,
+                prior_source=prior_source,
                 strength=strength,
                 extra_attacker=extra,
                 penalty_remaining=pen_rem,

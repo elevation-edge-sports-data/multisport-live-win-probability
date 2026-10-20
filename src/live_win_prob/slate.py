@@ -192,9 +192,9 @@ def render_slate_script(states: list[GameState]) -> str:
     """JavaScript assignment of the scoreboard rows, then a newline.
 
     Fields stay in the order sport, game_id, away, home, status,
-    away_score, home_score, prior_home. There is no clock and no
-    situation. ``prior_home`` is the moneyline already on the state,
-    or 0.5 when that payload had none.
+    away_score, home_score, prior_home, prior_source. There is no clock
+    and no situation. ``prior_home`` is the resolved pregame prior.
+    ``prior_source`` is moneyline, elo, passed, or default.
     """
     rows = [_slate_row(state) for state in states]
     body = json.dumps(rows, indent=2)
@@ -240,6 +240,7 @@ def _slate_row(state: GameState) -> dict[str, object]:
         "away_score": state.away_score,
         "home_score": state.home_score,
         "prior_home": state.prior_home,
+        "prior_source": state.prior_source,
     }
 
 

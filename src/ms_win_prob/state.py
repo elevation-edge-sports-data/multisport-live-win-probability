@@ -52,6 +52,7 @@ class GameState:
     source: str
     as_of: datetime
     prior_home: float = DEFAULT_PRIOR_HOME
+    prior_source: str = "default"
     possession: str | None = None
     down: int | None = None
     distance: int | None = None
@@ -97,6 +98,8 @@ class GameState:
         prior = float(self.prior_home)
         if prior != prior or not 0.0 < prior < 1.0:
             raise ValueError("prior_home must be in (0, 1)")
+        if not isinstance(self.prior_source, str) or not self.prior_source:
+            raise ValueError("prior_source is required")
 
         object.__setattr__(self, "home_score", home_score)
         object.__setattr__(self, "away_score", away_score)

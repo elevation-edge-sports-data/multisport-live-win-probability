@@ -25,6 +25,7 @@ def test_down_is_optional_and_prior_defaults_to_half():
         as_of=AS_OF,
     )
     assert state.prior_home == DEFAULT_PRIOR_HOME == 0.5
+    assert state.prior_source == "default"
     assert state.down is None
     assert state.distance is None
     assert state.yardline is None

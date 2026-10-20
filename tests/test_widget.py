@@ -158,7 +158,7 @@ def test_page_filters_games_from_the_manifest_and_keeps_two_views():
     assert "V3.3" not in script
     assert "V3.5" not in script
     assert script.count("V5") == 1
-    assert 'var BADGE_TEXT = "V5.6"' in script
+    assert 'var BADGE_TEXT = "V5.9"' in script
     assert "badge.textContent = BADGE_TEXT" in script
     assert 'src="colors.js"' in html
     assert 'data-theme="charcoal"' in html
@@ -1219,7 +1219,7 @@ console.log(JSON.stringify({
     report = json.loads(completed.stdout)
     hockey = ["P1", "P2", "P3", "OT", "2OT"]
     regulation = ["Q1", "Q2", "Q3", "Q4"]
-    assert report["badge"] == "V5.6"
+    assert report["badge"] == "V5.9"
     assert "NYG" in report["bootScore"] and "DEN" in report["bootScore"]
     assert report["bootClock"] == "FINAL"
     assert report["bootPosition"] == "FINAL"
@@ -2705,7 +2705,7 @@ async function flush() {
 
 const slateRows = [
   { sport: "nfl", game_id: "401", away: "NYG", home: "DEN", status: "live", away_score: 3, home_score: 7, prior_home: 0.58 },
-  { sport: "nfl", game_id: "402", away: "KC", home: "BUF", status: "final", away_score: 17, home_score: 14, prior_home: 0.62 },
+  { sport: "nfl", game_id: "402", away: "KC", home: "BUF", status: "final", away_score: 17, home_score: 14, prior_home: 0.62, prior_source: "moneyline" },
   { sport: "nfl", game_id: "403", away: "LV", home: "PHI", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 },
   { sport: "nfl", game_id: "404", away: "SEA", home: "SF", status: "stale", away_score: 2, home_score: 1, prior_home: 0.41 },
   { sport: "nba", game_id: "555", away: "BOS", home: "NYK", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 },
@@ -3142,7 +3142,7 @@ async function runPoll(page) {
   const collegeQuerySnap = snap(collegeQuery);
 
   const datedNfl = [
-    { sport: "nfl", game_id: "701", away: "JAX", home: "DEN", status: "final", away_score: 13, home_score: 20, prior_home: 0.81 },
+    { sport: "nfl", game_id: "701", away: "JAX", home: "DEN", status: "final", away_score: 13, home_score: 20, prior_home: 0.81, prior_source: "elo" },
     { sport: "nfl", game_id: "702", away: "NYJ", home: "NE", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 }
   ];
   const datedNcaaf = [
@@ -3249,7 +3249,7 @@ async function runPoll(page) {
     return "window." + binding + " = " + JSON.stringify(rows) + ";\nwindow.MS_WIN_PROB_LIVE = window." + binding + ";\n";
   }
   const chartNfl = [
-    { sport: "nfl", game_id: "701", away: "JAX", home: "DEN", status: "final", away_score: 13, home_score: 20, prior_home: 0.81 },
+    { sport: "nfl", game_id: "701", away: "JAX", home: "DEN", status: "final", away_score: 13, home_score: 20, prior_home: 0.81, prior_source: "elo" },
     { sport: "nfl", game_id: "702", away: "NYJ", home: "NE", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 }
   ];
   const chartCollege = [
@@ -3515,7 +3515,7 @@ async function runPoll(page) {
     assert card["home"] == "BUF"
     assert card["boardScore"] == "17-14"
     assert card["status"] == "final"
-    assert card["prior"] == "Pregame BUF 62.00%"
+    assert card["prior"] == "Pregame BUF 62.00% (moneyline)"
     assert card["scoreNodes"] == 0
     assert card["winProbNodes"] == 0
     assert card["situation"] == ""
@@ -3587,7 +3587,7 @@ async function runPoll(page) {
     assert report["idCard"]["winProbNodes"] == 0
     assert report["idCard"]["situation"] == ""
     assert report["idCard"]["calls"] == []
-    assert report["badge"] == "V5.6"
+    assert report["badge"] == "V5.9"
 
     def posts(row):
         return [item for item in row["fetches"] if item["method"] == "POST"]
@@ -3796,8 +3796,8 @@ async function runPoll(page) {
     assert college_query["slatePressed"] == []
     assert gets(college_query) == []
     assert all("follow.json" not in item["url"] for item in college_query["fetches"])
-    assert report["followBadge"] == "V5.6"
-    assert report["badge"] == "V5.6"
+    assert report["followBadge"] == "V5.9"
+    assert report["badge"] == "V5.9"
     assert all("follow.json" not in item["url"] for item in report["pages"]["fetches"])
     assert opened["dateHidden"] is False
     assert opened["dateTouched"] is True
@@ -3836,7 +3836,7 @@ async function runPoll(page) {
     assert dated_card["home"] == "DEN"
     assert dated_card["boardScore"] == "13-20"
     assert dated_card["status"] == "final"
-    assert dated_card["prior"] == "Pregame DEN 81.00%"
+    assert dated_card["prior"] == "Pregame DEN 81.00% (elo)"
     assert dated_card["slatePressed"] == ["701"]
     assert dated_card["gameHidden"] is True
     assert dated_card["archive"] == []
@@ -3862,7 +3862,7 @@ async function runPoll(page) {
     assert dated_college["home"] == "GT"
     assert dated_college["boardScore"] == "7-10"
     assert dated_college["status"] == "live"
-    assert dated_college["prior"] == "Pregame COLO 56.00%"
+    assert dated_college["prior"] == "Pregame COLO 56.00% (default)"
     assert posts(dated_college) == posts(dated_card)
     assert slate_gets(dated_college)[-1] == {
         "url": "/slate?sport=ncaaf&date=20260920",

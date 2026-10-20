@@ -594,6 +594,7 @@ _SLATE_FIELDS = (
     "away_score",
     "home_score",
     "prior_home",
+    "prior_source",
 )
 
 

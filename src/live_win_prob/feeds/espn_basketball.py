@@ -11,8 +11,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
-from live_win_prob.feeds.espn import DENSITIES, home_moneyline_prior
-from ms_win_prob import DEFAULT_PRIOR_HOME, GameState
+from live_win_prob.feeds.espn import DENSITIES, _resolve_prior
+from ms_win_prob import GameState
 from ms_win_prob.basketball.config import NCAAB_CONFIG, NBA_CONFIG
 from ms_win_prob.config import SportConfig
 
@@ -153,9 +153,9 @@ def scoreboard_event_to_state(
         period = config.regulation_periods if espn_state == "post" else 1
     period_left = _status_clock(status_block, config, espn_state, period)
     total_left = _total_remaining(period, period_left, config)
-    prior = home_moneyline_prior(event)
-    if prior is None:
-        prior = prior_home if prior_home is not None else DEFAULT_PRIOR_HOME
+    prior, prior_source = _resolve_prior(
+        event, prior_home, sport=sport, home=home, away=away
+    )
     game_id = str(event.get("id") or competition.get("id") or "unknown")
     return GameState(
         sport=sport,
@@ -171,6 +171,7 @@ def scoreboard_event_to_state(
         source="espn",
         as_of=_event_as_of(event, competition),
         prior_home=prior,
+        prior_source=prior_source,
         possession=_situation_possession(competition, home_id, away_id),
     )
 
@@ -213,9 +214,9 @@ def events_from_espn_basketball(
         raise ValueError("ESPN basketball competition is invalid")
     home, away, home_id, away_id = _teams(competition)
     game_id = str(header.get("id") or competition.get("id") or "unknown")
-    prior = home_moneyline_prior(payload)
-    if prior is None:
-        prior = prior_home if prior_home is not None else DEFAULT_PRIOR_HOME
+    prior, prior_source = _resolve_prior(
+        payload, prior_home, sport=sport, home=home, away=away
+    )
     espn_state = _espn_progress(competition)
     plays = _basketball_plays(payload)
     if not plays:
@@ -265,18 +266,25 @@ def events_from_espn_basketball(
                 source="espn-summary",
                 as_of=as_of,
                 prior_home=prior,
+                prior_source=prior_source,
                 possession=possession,
             )
         )
     if states and (states[0].home_score != 0 or states[0].away_score != 0):
         states.insert(
             0,
-            _opening_state(sport, game_id, home, away, prior, config, as_of),
+            _opening_state(
+                sport, game_id, home, away, prior, prior_source, config, as_of
+            ),
         )
     if not states:
         if espn_state != "in":
             raise ValueError("ESPN basketball summary produced no snapshots")
-        states = [_opening_state(sport, game_id, home, away, prior, config, as_of)]
+        states = [
+            _opening_state(
+                sport, game_id, home, away, prior, prior_source, config, as_of
+            )
+        ]
     if density != "all":
         states = _select_density(states, density)
     if espn_state == "in":
@@ -291,6 +299,7 @@ def events_from_espn_basketball(
             home_id=home_id,
             away_id=away_id,
             prior=prior,
+            prior_source=prior_source,
             as_of=as_of,
         )
     return states
@@ -343,6 +352,7 @@ def _opening_state(
     home: str,
     away: str,
     prior: float,
+    prior_source: str,
     config: SportConfig,
     as_of: datetime,
 ) -> GameState:
@@ -361,6 +371,7 @@ def _opening_state(
         source="espn-summary",
         as_of=as_of,
         prior_home=prior,
+        prior_source=prior_source,
     )
 
 
@@ -376,6 +387,7 @@ def _with_live_tail(
     home_id: str,
     away_id: str,
     prior: float,
+    prior_source: str,
     as_of: datetime,
 ) -> list[GameState]:
     """Make the last frame the current header, with status ``live``.
@@ -415,10 +427,16 @@ def _with_live_tail(
         source="espn-summary",
         as_of=as_of,
         prior_home=prior,
+        prior_source=prior_source,
         possession=_situation_possession(competition, home_id, away_id),
     )
     if not states:
-        return [_opening_state(sport, game_id, home, away, prior, config, as_of), tail]
+        return [
+            _opening_state(
+                sport, game_id, home, away, prior, prior_source, config, as_of
+            ),
+            tail,
+        ]
     last = states[-1]
     if (
         last.status == "live"

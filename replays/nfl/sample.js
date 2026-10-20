@@ -13,6 +13,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 900,
     "seconds_remaining_total": 3600,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 0
   },
@@ -28,6 +29,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 564,
     "seconds_remaining_total": 3264,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 336
   },
@@ -43,6 +45,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 662,
     "seconds_remaining_total": 2462,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 1138
   },
@@ -58,6 +61,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 256,
     "seconds_remaining_total": 2056,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 1544
   },
@@ -73,6 +77,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 765,
     "seconds_remaining_total": 1665,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 1935
   },
@@ -88,6 +93,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 330,
     "seconds_remaining_total": 1230,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 2370
   },
@@ -103,6 +109,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 485,
     "seconds_remaining_total": 485,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 3115
   },
@@ -118,6 +125,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 202,
     "seconds_remaining_total": 202,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 3398
   },
@@ -133,6 +141,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 65,
     "seconds_remaining_total": 65,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 3535
   },
@@ -148,6 +157,7 @@ window.NFL_REPLAY = [
     "seconds_remaining_period": 0,
     "seconds_remaining_total": 0,
     "prior_home": 0.58,
+    "prior_source": "default",
     "game_id": "nfl-sample-001",
     "elapsed_seconds": 3600
   }

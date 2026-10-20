@@ -684,7 +684,7 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V5.6";
+  var BADGE_TEXT = "V5.9";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
@@ -800,20 +800,22 @@
 
   var plot = { width: 640, height: 200, left: 44, right: 16, top: 16, bottom: 28 };
 
-  function formatPriorText(prior, away, home) {
+  function formatPriorText(prior, away, home, source) {
     var pregame = Number(prior);
     if (!isFinite(pregame)) pregame = 0.5;
     var pregameHome = pregame > 0.5;
     var pregameName = pregameHome ? home : away;
     var pregamePct = (pregameHome ? pregame : 1 - pregame) * 100;
-    return "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "%";
+    var label = source || "default";
+    return "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "% (" + label + ")";
   }
 
   function writePrior() {
     document.getElementById("prior").textContent = formatPriorText(
       frames[0].prior_home,
       frames[0].away,
-      frames[0].home
+      frames[0].home,
+      frames[0].prior_source
     );
   }
 
@@ -1347,6 +1349,9 @@
       if (SPORT_ORDER.indexOf(sport) < 0) continue;
       if (!gameId || !away || !home) continue;
       if (!isFinite(prior)) prior = 0.5;
+      var priorSource = row.prior_source == null || row.prior_source === ""
+        ? "default"
+        : String(row.prior_source);
       out.push({
         sport: sport,
         gameId: gameId,
@@ -1355,7 +1360,8 @@
         status: status,
         awayScore: row.away_score,
         homeScore: row.home_score,
-        priorHome: prior
+        priorHome: prior,
+        priorSource: priorSource
       });
     }
     return out;
@@ -2026,7 +2032,7 @@
   }
 
   function paintBoard(row) {
-    var prior = formatPriorText(row.priorHome, row.away, row.home);
+    var prior = formatPriorText(row.priorHome, row.away, row.home, row.priorSource);
     text("board-away", row.away);
     text("board-home", row.home);
     text("board-score", String(row.awayScore) + "-" + String(row.homeScore));
