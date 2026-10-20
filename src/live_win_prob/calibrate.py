@@ -83,6 +83,8 @@ ESPN_FIXTURES: tuple[str, ...] = (
 )
 
 _SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
+# Full-season tuning and validation for these three. College stays unfiltered.
+_PRO_SEASON_SPORTS = ("nfl", "nhl", "nba")
 
 _METRIC_HEADERS = (
     "n",
@@ -133,6 +135,70 @@ def historical_paths(root: Path | None = None) -> list[Path]:
         (path for path in base.rglob("*.json") if path.is_file()),
         key=lambda path: _historical_sort_key(base, path),
     )
+
+
+def moneyline_snapshots(directory: Path | str) -> list[GameState]:
+    """Load a calibration directory and keep moneyline snapshots.
+
+    ``directory`` is a folder such as ``data/calibration`` or
+    ``data/calibration/nfl``. Nested JSON is included, in the same order
+    as ``historical_paths``. Replay lists go through ``load_replay``.
+    ESPN objects go through ``states_from_ingest`` at scoring density.
+    A file that path refuses is skipped. A snapshot is kept only when
+    ``prior_source`` is exactly ``moneyline``. A missing ``prior_source``
+    is loaded as ``default`` and left out. The files on disk are not
+    changed. A missing directory, or one with no JSON, returns nothing.
+    """
+    base = Path(directory)
+    if not base.is_dir():
+        return []
+    kept: list[GameState] = []
+    for path in sorted(
+        (path for path in base.rglob("*.json") if path.is_file()),
+        key=lambda path: _historical_sort_key(base, path),
+    ):
+        loaded, _source, reason = _load_path(path)
+        if reason is not None:
+            continue
+        kept.extend(state for state in loaded if state.prior_source == "moneyline")
+    return kept
+
+
+def pro_season_sport(path: Path, root: Path) -> str | None:
+    """``nfl``, ``nhl``, or ``nba`` when ``path`` is in that season directory.
+
+    College files under ``data/calibration/{ncaaf,ncaah,ncaab}`` return
+    nothing, as do examples and fixtures outside ``data/calibration``.
+    """
+    base = (root / "data" / "calibration").resolve()
+    try:
+        relative = path.resolve().relative_to(base)
+    except ValueError:
+        return None
+    sport = relative.parts[0] if relative.parts else ""
+    if sport in _PRO_SEASON_SPORTS:
+        return sport
+    return None
+
+
+def file_has_moneyline_prior(path: Path) -> bool:
+    """True when a calibration file has a snapshot labeled ``moneyline``.
+
+    Replay lists are checked on the stored ``prior_source``. A missing
+    field is not moneyline. ESPN objects use the same ingest path as
+    scoring. The file is not written.
+    """
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return False
+    if isinstance(payload, list):
+        return any(
+            isinstance(row, dict) and row.get("prior_source") == "moneyline"
+            for row in payload
+        )
+    loaded, _source, reason = _load_path(path)
+    return reason is None and any(state.prior_source == "moneyline" for state in loaded)
 
 
 def _historical_sort_key(base: Path, path: Path) -> tuple[int, str]:
@@ -219,6 +285,10 @@ def build_report(
     ``config_for`` replaces ``config_for_state`` for this call only. The
     default still reads the production configs. A caller that passes a
     copy must not write that copy back to a config module.
+
+    A file under ``data/calibration/nfl``, ``nhl``, or ``nba`` contributes
+    only snapshots whose ``prior_source`` is exactly ``moneyline``. College
+    files and files outside those directories are scored as saved.
     """
     root = repo_root() if root is None else root
     chooser = config_for_state if config_for is None else config_for
@@ -231,6 +301,10 @@ def build_report(
         if reason is not None:
             skipped.append({"path": label, "reason": reason})
             continue
+        if pro_season_sport(path, root) is not None:
+            loaded = [state for state in loaded if state.prior_source == "moneyline"]
+            if not loaded:
+                continue
         _score_file(label, source, loaded, games, skipped, observations, chooser)
     return _assemble(paths, root, games, skipped, observations)
 

@@ -26,5 +26,7 @@ NCAAB_CONFIG = SportConfig(
     tie_after_ot=False,
 )
 
-NBA_POSSESSION_POINTS = 1.30
+# 1.40 won the moneyline possession grid: 1015 games, 127222 snapshots,
+# Brier 0.139094. The previous production value was 1.30.
+NBA_POSSESSION_POINTS = 1.40
 NCAAB_POSSESSION_POINTS = 1.04

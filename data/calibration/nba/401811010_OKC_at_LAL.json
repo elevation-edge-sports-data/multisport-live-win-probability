@@ -11,9 +11,10 @@
     "seconds_remaining_total": 2880,
     "status": "pre",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:40:39Z"
   },
   {
     "sport": "nba",
@@ -27,9 +28,10 @@
     "seconds_remaining_total": 2822,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:41:34Z"
   },
   {
     "sport": "nba",
@@ -43,9 +45,10 @@
     "seconds_remaining_total": 2788,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:42:08Z"
   },
   {
     "sport": "nba",
@@ -59,9 +62,10 @@
     "seconds_remaining_total": 2762,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:42:34Z"
   },
   {
     "sport": "nba",
@@ -75,9 +79,10 @@
     "seconds_remaining_total": 2747,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:42:48Z"
   },
   {
     "sport": "nba",
@@ -91,9 +96,10 @@
     "seconds_remaining_total": 2733,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:43:02Z"
   },
   {
     "sport": "nba",
@@ -107,9 +113,10 @@
     "seconds_remaining_total": 2704,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:46:37Z"
   },
   {
     "sport": "nba",
@@ -123,9 +130,10 @@
     "seconds_remaining_total": 2692,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:46:50Z"
   },
   {
     "sport": "nba",
@@ -139,9 +147,10 @@
     "seconds_remaining_total": 2673,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:47:10Z"
   },
   {
     "sport": "nba",
@@ -155,9 +164,10 @@
     "seconds_remaining_total": 2629,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:48:45Z"
   },
   {
     "sport": "nba",
@@ -171,9 +181,10 @@
     "seconds_remaining_total": 2602,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:49:18Z"
   },
   {
     "sport": "nba",
@@ -187,9 +198,10 @@
     "seconds_remaining_total": 2584,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:49:36Z"
   },
   {
     "sport": "nba",
@@ -203,9 +215,10 @@
     "seconds_remaining_total": 2565,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:50:19Z"
   },
   {
     "sport": "nba",
@@ -219,9 +232,10 @@
     "seconds_remaining_total": 2552,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:50:32Z"
   },
   {
     "sport": "nba",
@@ -235,9 +249,10 @@
     "seconds_remaining_total": 2515,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:51:25Z"
   },
   {
     "sport": "nba",
@@ -251,9 +266,10 @@
     "seconds_remaining_total": 2451,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:52:28Z"
   },
   {
     "sport": "nba",
@@ -267,9 +283,10 @@
     "seconds_remaining_total": 2425,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:53:58Z"
   },
   {
     "sport": "nba",
@@ -283,9 +300,10 @@
     "seconds_remaining_total": 2413,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:54:10Z"
   },
   {
     "sport": "nba",
@@ -299,9 +317,10 @@
     "seconds_remaining_total": 2399,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:54:25Z"
   },
   {
     "sport": "nba",
@@ -315,9 +334,10 @@
     "seconds_remaining_total": 2377,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:54:46Z"
   },
   {
     "sport": "nba",
@@ -331,9 +351,10 @@
     "seconds_remaining_total": 2355,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:59:19Z"
   },
   {
     "sport": "nba",
@@ -347,9 +368,10 @@
     "seconds_remaining_total": 2355,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:59:35Z"
   },
   {
     "sport": "nba",
@@ -363,9 +385,10 @@
     "seconds_remaining_total": 2343,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T02:59:47Z"
   },
   {
     "sport": "nba",
@@ -379,9 +402,10 @@
     "seconds_remaining_total": 2312,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:00:19Z"
   },
   {
     "sport": "nba",
@@ -395,9 +419,10 @@
     "seconds_remaining_total": 2284,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:00:45Z"
   },
   {
     "sport": "nba",
@@ -411,9 +436,10 @@
     "seconds_remaining_total": 2256,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:01:14Z"
   },
   {
     "sport": "nba",
@@ -427,9 +453,10 @@
     "seconds_remaining_total": 2224,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:01:47Z"
   },
   {
     "sport": "nba",
@@ -443,9 +470,10 @@
     "seconds_remaining_total": 2213,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:01:58Z"
   },
   {
     "sport": "nba",
@@ -459,9 +487,10 @@
     "seconds_remaining_total": 2160,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:08:14Z"
   },
   {
     "sport": "nba",
@@ -475,9 +504,10 @@
     "seconds_remaining_total": 2121,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:12:32Z"
   },
   {
     "sport": "nba",
@@ -491,9 +521,10 @@
     "seconds_remaining_total": 2076,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:13:46Z"
   },
   {
     "sport": "nba",
@@ -507,9 +538,10 @@
     "seconds_remaining_total": 2076,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:14:09Z"
   },
   {
     "sport": "nba",
@@ -523,9 +555,10 @@
     "seconds_remaining_total": 2060,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:14:28Z"
   },
   {
     "sport": "nba",
@@ -539,9 +572,10 @@
     "seconds_remaining_total": 2034,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:14:53Z"
   },
   {
     "sport": "nba",
@@ -555,9 +589,10 @@
     "seconds_remaining_total": 2004,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:15:23Z"
   },
   {
     "sport": "nba",
@@ -571,9 +606,10 @@
     "seconds_remaining_total": 1951,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:16:40Z"
   },
   {
     "sport": "nba",
@@ -587,9 +623,10 @@
     "seconds_remaining_total": 1939,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:17:37Z"
   },
   {
     "sport": "nba",
@@ -603,9 +640,10 @@
     "seconds_remaining_total": 1939,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:17:57Z"
   },
   {
     "sport": "nba",
@@ -619,9 +657,10 @@
     "seconds_remaining_total": 1928,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:18:10Z"
   },
   {
     "sport": "nba",
@@ -635,9 +674,10 @@
     "seconds_remaining_total": 1913,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:18:26Z"
   },
   {
     "sport": "nba",
@@ -651,9 +691,10 @@
     "seconds_remaining_total": 1886,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:18:53Z"
   },
   {
     "sport": "nba",
@@ -667,9 +708,10 @@
     "seconds_remaining_total": 1876,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:22:17Z"
   },
   {
     "sport": "nba",
@@ -683,9 +725,10 @@
     "seconds_remaining_total": 1854,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:22:38Z"
   },
   {
     "sport": "nba",
@@ -699,9 +742,10 @@
     "seconds_remaining_total": 1823,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:23:38Z"
   },
   {
     "sport": "nba",
@@ -715,9 +759,10 @@
     "seconds_remaining_total": 1823,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:23:52Z"
   },
   {
     "sport": "nba",
@@ -731,9 +776,10 @@
     "seconds_remaining_total": 1802,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:24:15Z"
   },
   {
     "sport": "nba",
@@ -747,9 +793,10 @@
     "seconds_remaining_total": 1725,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:26:31Z"
   },
   {
     "sport": "nba",
@@ -763,9 +810,10 @@
     "seconds_remaining_total": 1725,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:26:55Z"
   },
   {
     "sport": "nba",
@@ -779,9 +827,10 @@
     "seconds_remaining_total": 1681,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:31:24Z"
   },
   {
     "sport": "nba",
@@ -795,9 +844,10 @@
     "seconds_remaining_total": 1662,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:31:43Z"
   },
   {
     "sport": "nba",
@@ -811,9 +861,10 @@
     "seconds_remaining_total": 1636,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:33:02Z"
   },
   {
     "sport": "nba",
@@ -827,9 +878,10 @@
     "seconds_remaining_total": 1636,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:33:22Z"
   },
   {
     "sport": "nba",
@@ -843,9 +895,10 @@
     "seconds_remaining_total": 1596,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:34:04Z"
   },
   {
     "sport": "nba",
@@ -859,9 +912,10 @@
     "seconds_remaining_total": 1573,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:34:27Z"
   },
   {
     "sport": "nba",
@@ -875,9 +929,10 @@
     "seconds_remaining_total": 1533,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:37:14Z"
   },
   {
     "sport": "nba",
@@ -891,9 +946,10 @@
     "seconds_remaining_total": 1494,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:38:06Z"
   },
   {
     "sport": "nba",
@@ -907,9 +963,10 @@
     "seconds_remaining_total": 1465,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:39:39Z"
   },
   {
     "sport": "nba",
@@ -923,9 +980,10 @@
     "seconds_remaining_total": 1440,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:55:16Z"
   },
   {
     "sport": "nba",
@@ -939,9 +997,10 @@
     "seconds_remaining_total": 1400,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:56:21Z"
   },
   {
     "sport": "nba",
@@ -955,9 +1014,10 @@
     "seconds_remaining_total": 1367,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:57:26Z"
   },
   {
     "sport": "nba",
@@ -971,9 +1031,10 @@
     "seconds_remaining_total": 1352,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:57:57Z"
   },
   {
     "sport": "nba",
@@ -987,9 +1048,10 @@
     "seconds_remaining_total": 1285,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T03:59:05Z"
   },
   {
     "sport": "nba",
@@ -1003,9 +1065,10 @@
     "seconds_remaining_total": 1244,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:03:03Z"
   },
   {
     "sport": "nba",
@@ -1019,9 +1082,10 @@
     "seconds_remaining_total": 1194,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:04:53Z"
   },
   {
     "sport": "nba",
@@ -1035,9 +1099,10 @@
     "seconds_remaining_total": 1136,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:05:53Z"
   },
   {
     "sport": "nba",
@@ -1051,9 +1116,10 @@
     "seconds_remaining_total": 1087,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:06:46Z"
   },
   {
     "sport": "nba",
@@ -1067,9 +1133,10 @@
     "seconds_remaining_total": 1087,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:07:27Z"
   },
   {
     "sport": "nba",
@@ -1083,9 +1150,10 @@
     "seconds_remaining_total": 1071,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:08:14Z"
   },
   {
     "sport": "nba",
@@ -1099,9 +1167,10 @@
     "seconds_remaining_total": 1041,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:10:28Z"
   },
   {
     "sport": "nba",
@@ -1115,9 +1184,10 @@
     "seconds_remaining_total": 1022,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:10:49Z"
   },
   {
     "sport": "nba",
@@ -1131,9 +1201,10 @@
     "seconds_remaining_total": 1004,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:14:04Z"
   },
   {
     "sport": "nba",
@@ -1147,9 +1218,10 @@
     "seconds_remaining_total": 980,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:14:27Z"
   },
   {
     "sport": "nba",
@@ -1163,9 +1235,10 @@
     "seconds_remaining_total": 934,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:15:54Z"
   },
   {
     "sport": "nba",
@@ -1179,9 +1252,10 @@
     "seconds_remaining_total": 897,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:16:40Z"
   },
   {
     "sport": "nba",
@@ -1195,9 +1269,10 @@
     "seconds_remaining_total": 874,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:17:02Z"
   },
   {
     "sport": "nba",
@@ -1211,9 +1286,10 @@
     "seconds_remaining_total": 843,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:17:33Z"
   },
   {
     "sport": "nba",
@@ -1227,9 +1303,10 @@
     "seconds_remaining_total": 815,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:18:01Z"
   },
   {
     "sport": "nba",
@@ -1243,9 +1320,10 @@
     "seconds_remaining_total": 777,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:19:32Z"
   },
   {
     "sport": "nba",
@@ -1259,9 +1337,10 @@
     "seconds_remaining_total": 759,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:20:16Z"
   },
   {
     "sport": "nba",
@@ -1275,9 +1354,10 @@
     "seconds_remaining_total": 720,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:23:42Z"
   },
   {
     "sport": "nba",
@@ -1291,9 +1371,10 @@
     "seconds_remaining_total": 642,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:25:18Z"
   },
   {
     "sport": "nba",
@@ -1307,9 +1388,10 @@
     "seconds_remaining_total": 581,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:26:38Z"
   },
   {
     "sport": "nba",
@@ -1323,9 +1405,10 @@
     "seconds_remaining_total": 549,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:27:34Z"
   },
   {
     "sport": "nba",
@@ -1339,9 +1422,10 @@
     "seconds_remaining_total": 489,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:28:50Z"
   },
   {
     "sport": "nba",
@@ -1355,9 +1439,10 @@
     "seconds_remaining_total": 463,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:29:15Z"
   },
   {
     "sport": "nba",
@@ -1371,9 +1456,10 @@
     "seconds_remaining_total": 448,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:30:00Z"
   },
   {
     "sport": "nba",
@@ -1387,9 +1473,10 @@
     "seconds_remaining_total": 448,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:30:16Z"
   },
   {
     "sport": "nba",
@@ -1403,9 +1490,10 @@
     "seconds_remaining_total": 402,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:31:43Z"
   },
   {
     "sport": "nba",
@@ -1419,9 +1507,10 @@
     "seconds_remaining_total": 391,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:31:54Z"
   },
   {
     "sport": "nba",
@@ -1435,9 +1524,10 @@
     "seconds_remaining_total": 373,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:32:13Z"
   },
   {
     "sport": "nba",
@@ -1451,9 +1541,10 @@
     "seconds_remaining_total": 360,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:32:25Z"
   },
   {
     "sport": "nba",
@@ -1467,9 +1558,10 @@
     "seconds_remaining_total": 345,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:35:59Z"
   },
   {
     "sport": "nba",
@@ -1483,9 +1575,10 @@
     "seconds_remaining_total": 332,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:36:24Z"
   },
   {
     "sport": "nba",
@@ -1499,9 +1592,10 @@
     "seconds_remaining_total": 312,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:36:44Z"
   },
   {
     "sport": "nba",
@@ -1515,9 +1609,10 @@
     "seconds_remaining_total": 298,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:37:00Z"
   },
   {
     "sport": "nba",
@@ -1531,9 +1626,10 @@
     "seconds_remaining_total": 283,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:37:22Z"
   },
   {
     "sport": "nba",
@@ -1547,9 +1643,10 @@
     "seconds_remaining_total": 265,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:37:40Z"
   },
   {
     "sport": "nba",
@@ -1563,9 +1660,10 @@
     "seconds_remaining_total": 237,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:38:08Z"
   },
   {
     "sport": "nba",
@@ -1579,9 +1677,10 @@
     "seconds_remaining_total": 224,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:38:20Z"
   },
   {
     "sport": "nba",
@@ -1595,9 +1694,10 @@
     "seconds_remaining_total": 201,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:39:19Z"
   },
   {
     "sport": "nba",
@@ -1611,9 +1711,10 @@
     "seconds_remaining_total": 180,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:40:18Z"
   },
   {
     "sport": "nba",
@@ -1627,9 +1728,10 @@
     "seconds_remaining_total": 124,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:44:55Z"
   },
   {
     "sport": "nba",
@@ -1643,9 +1745,10 @@
     "seconds_remaining_total": 114,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:45:28Z"
   },
   {
     "sport": "nba",
@@ -1659,9 +1762,10 @@
     "seconds_remaining_total": 114,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:45:41Z"
   },
   {
     "sport": "nba",
@@ -1675,9 +1779,10 @@
     "seconds_remaining_total": 83,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:46:42Z"
   },
   {
     "sport": "nba",
@@ -1691,9 +1796,10 @@
     "seconds_remaining_total": 53,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:47:32Z"
   },
   {
     "sport": "nba",
@@ -1707,9 +1813,10 @@
     "seconds_remaining_total": 3,
     "status": "live",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:48:22Z"
   },
   {
     "sport": "nba",
@@ -1723,7 +1830,8 @@
     "seconds_remaining_total": 0,
     "status": "final",
     "prior_home": 0.08333333333333333,
+    "prior_source": "moneyline",
     "source": "espn-summary",
-    "as_of": "2024-04-01T00:00:00Z"
+    "as_of": "2026-04-08T04:48:29Z"
   }
 ]

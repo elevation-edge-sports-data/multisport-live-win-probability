@@ -23,11 +23,16 @@ from live_win_prob.calibrate import (
     format_nfl_split_report,
     format_report,
     historical_paths,
+    moneyline_snapshots,
     run_calibrate,
     summarize,
     time_bucket,
 )
-from live_win_prob.tune import report_nfl_production_split, split_historical_files
+from live_win_prob.tune import (
+    historical_nfl_paths,
+    report_nfl_production_split,
+    split_historical_files,
+)
 from live_win_prob.feeds.espn_basketball import events_from_espn_basketball
 from live_win_prob.__main__ import main
 from live_win_prob.replay import config_for_state, load_replay
@@ -182,6 +187,10 @@ def test_historical_calibration_dir_is_optional(tmp_path: Path):
     replay = base / "nfl" / "2024" / "sample.json"
     replay.parent.mkdir(parents=True)
     replay.write_bytes((ROOT / "examples" / "nfl_sample.json").read_bytes())
+    stamped = json.loads(replay.read_text(encoding="utf-8"))
+    for row in stamped:
+        row["prior_source"] = "moneyline"
+    replay.write_bytes(json.dumps(stamped).encode("utf-8"))
     espn = base / "ncaaf" / "snippet.json"
     espn.parent.mkdir()
     espn.write_bytes(
@@ -208,6 +217,76 @@ def test_historical_calibration_dir_is_optional(tmp_path: Path):
     assert skipped["board.json"]
     assert "notes.txt" not in skipped
     assert "notes.txt" not in {Path(str(game["path"])).name for game in report["games"]}
+
+
+def _prior_row(
+    game_id: str,
+    *,
+    prior_source: str | None,
+    prior_home: float = 0.62,
+) -> dict[str, object]:
+    row: dict[str, object] = {
+        "sport": "nfl",
+        "game_id": game_id,
+        "home": "H",
+        "away": "A",
+        "home_score": 0,
+        "away_score": 0,
+        "period": 1,
+        "seconds_remaining_period": 900,
+        "seconds_remaining_total": 3600,
+        "status": "pre",
+        "prior_home": prior_home,
+        "source": "test",
+        "as_of": "2025-09-07T17:00:00Z",
+    }
+    if prior_source is not None:
+        row["prior_source"] = prior_source
+    return row
+
+
+def test_moneyline_snapshots_keep_only_an_exact_moneyline_prior(tmp_path: Path):
+    base = tmp_path / "data" / "calibration"
+    files = {
+        base / "nba" / "000_money.json": [_prior_row("nba-ml", prior_source="moneyline")],
+        base / "nfl" / "aaa_elo.json": [_prior_row("nfl-elo", prior_source="elo")],
+        base / "nfl" / "mid_default.json": [_prior_row("nfl-default", prior_source=None)],
+        base / "nfl" / "mid_mixed.json": [
+            _prior_row("nfl-mixed", prior_source="elo", prior_home=0.41),
+            _prior_row("nfl-mixed", prior_source="moneyline", prior_home=0.73),
+        ],
+        base / "nfl" / "zzz_money.json": [
+            _prior_row("nfl-ml", prior_source="moneyline", prior_home=0.81),
+            _prior_row("nfl-ml", prior_source="moneyline", prior_home=0.81),
+        ],
+        base / "nfl" / "empty.json": [],
+        base / "nhl" / "half.json": [
+            _prior_row("nhl-half", prior_source="moneyline", prior_home=0.5)
+        ],
+        base / "ncaaf" / "case.json": [_prior_row("case", prior_source="Moneyline")],
+    }
+    before: dict[Path, bytes] = {}
+    for path, payload in files.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(json.dumps(payload).encode("utf-8"))
+        before[path] = path.read_bytes()
+    (base / "nfl" / "notes.txt").write_bytes(b"leave me")
+
+    assert moneyline_snapshots(tmp_path / "missing") == []
+    loaded = moneyline_snapshots(base)
+    assert [(state.game_id, state.prior_home) for state in loaded] == [
+        ("nfl-mixed", 0.73),
+        ("nfl-ml", 0.81),
+        ("nfl-ml", 0.81),
+        ("nhl-half", 0.5),
+        ("nba-ml", 0.62),
+    ]
+    assert {state.prior_source for state in loaded} == {"moneyline"}
+    nfl_only = moneyline_snapshots(base / "nfl")
+    assert [state.game_id for state in nfl_only] == ["nfl-mixed", "nfl-ml", "nfl-ml"]
+    for path, payload in before.items():
+        assert path.read_bytes() == payload
+    assert (base / "nfl" / "notes.txt").read_bytes() == b"leave me"
 
 
 def test_default_sources_score_the_listed_espn_fixtures():
@@ -333,11 +412,17 @@ def test_calibrate_command_runs_on_sample_replays_without_network(monkeypatch):
     assert {game["sport"] for game in report["games"]} == {"nfl", "nhl"}
 
 
-def _mini_nfl(game_id: str, *, home_wins: bool) -> list[dict[str, object]]:
+def _mini_nfl(
+    game_id: str,
+    *,
+    home_wins: bool,
+    prior_source: str | None = "moneyline",
+    sport: str = "nfl",
+) -> list[dict[str, object]]:
     final_home = 7 if home_wins else 0
     final_away = 0 if home_wins else 7
-    shared = {
-        "sport": "nfl",
+    shared: dict[str, object] = {
+        "sport": sport,
         "game_id": game_id,
         "home": "H",
         "away": "A",
@@ -345,6 +430,8 @@ def _mini_nfl(game_id: str, *, home_wins: bool) -> list[dict[str, object]]:
         "as_of": "2025-09-07T17:00:00Z",
         "prior_home": 0.5,
     }
+    if prior_source is not None:
+        shared["prior_source"] = prior_source
     return [
         {
             **shared,
@@ -378,13 +465,43 @@ def test_nfl_production_split_matches_tune_and_keeps_config(tmp_path: Path):
         ("03", True),
     ):
         path = directory / f"{game_id}_A_at_H.json"
-        path.write_text(json.dumps(_mini_nfl(game_id, home_wins=home_wins)), encoding="utf-8")
+        payload = _mini_nfl(game_id, home_wins=home_wins)
+        if game_id == "01":
+            payload.append(
+                {
+                    **payload[0],
+                    "prior_source": "elo",
+                    "prior_home": 0.2,
+                    "status": "live",
+                    "seconds_remaining_total": 1000,
+                }
+            )
+        path.write_bytes(json.dumps(payload).encode("utf-8"))
+    elo_only = directory / "00_elo.json"
+    elo_only.write_bytes(
+        json.dumps(_mini_nfl("00", home_wins=True, prior_source="elo")).encode("utf-8")
+    )
+    unlabeled = directory / "99_plain.json"
+    unlabeled.write_bytes(
+        json.dumps(_mini_nfl("99", home_wins=True, prior_source=None)).encode("utf-8")
+    )
+    college = tmp_path / "data" / "calibration" / "ncaaf" / "college.json"
+    college.parent.mkdir(parents=True)
+    college.write_bytes(
+        json.dumps(
+            _mini_nfl("college", home_wins=True, prior_source=None, sport="ncaaf")
+        ).encode("utf-8")
+    )
+    saved = {path: path.read_bytes() for path in directory.glob("*.json")}
+    saved[college] = college.read_bytes()
     before = (
         NFL_CONFIG.score_dispersion,
         NFL_CONFIG.mean_score_per_team,
         NFL_CONFIG.margin_sd,
     )
     report = report_nfl_production_split(tmp_path)
+    for path, payload in saved.items():
+        assert path.read_bytes() == payload
     assert (
         NFL_CONFIG.score_dispersion,
         NFL_CONFIG.mean_score_per_team,
@@ -395,12 +512,24 @@ def test_nfl_production_split_matches_tune_and_keeps_config(tmp_path: Path):
         "mean_score_per_team": before[1],
         "margin_sd": before[2],
     }
-    paths = sorted(directory.glob("*.json"))
-    expected = split_historical_files(paths, three_way=True)
+    chosen = historical_nfl_paths(tmp_path)
+    assert {path.name for path in chosen} == {
+        "01_A_at_H.json",
+        "02_A_at_H.json",
+        "03_A_at_H.json",
+        "04_A_at_H.json",
+        "05_A_at_H.json",
+    }
+    expected = split_historical_files(chosen, three_way=True)
     split = report["split"]
     assert split["train_game_ids"] == expected["train_game_ids"] == ["01", "02", "03"]
     assert split["validation_game_ids"] == expected["validation_game_ids"] == ["04"]
     assert split["holdout_game_ids"] == expected["holdout_game_ids"] == ["05"]
+    college_report = build_report([college, elo_only], root=tmp_path)
+    assert {game["game_id"]: game["n"] for game in college_report["games"]} == {
+        "college": 2
+    }
+    assert college_report["skipped"] == []
     assert report["overall"]["overall"]["n"] == 10
     assert report["train"]["overall"]["n"] == 6
     assert report["validation"]["overall"]["n"] == 2

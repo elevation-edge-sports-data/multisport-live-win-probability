@@ -11,6 +11,7 @@
     "seconds_remaining_total": 2880,
     "status": "pre",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:12:34Z"
@@ -27,6 +28,7 @@
     "seconds_remaining_total": 2857,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:12:54Z"
@@ -43,6 +45,7 @@
     "seconds_remaining_total": 2838,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:13:12Z"
@@ -59,6 +62,7 @@
     "seconds_remaining_total": 2794,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:14:14Z"
@@ -75,6 +79,7 @@
     "seconds_remaining_total": 2764,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:14:44Z"
@@ -91,6 +96,7 @@
     "seconds_remaining_total": 2713,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:15:35Z"
@@ -107,6 +113,7 @@
     "seconds_remaining_total": 2661,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:16:45Z"
@@ -123,6 +130,7 @@
     "seconds_remaining_total": 2649,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:16:56Z"
@@ -139,6 +147,7 @@
     "seconds_remaining_total": 2629,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:17:18Z"
@@ -155,6 +164,7 @@
     "seconds_remaining_total": 2612,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:20:55Z"
@@ -171,6 +181,7 @@
     "seconds_remaining_total": 2600,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:21:07Z"
@@ -187,6 +198,7 @@
     "seconds_remaining_total": 2567,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:22:05Z"
@@ -203,6 +215,7 @@
     "seconds_remaining_total": 2543,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:22:49Z"
@@ -219,6 +232,7 @@
     "seconds_remaining_total": 2526,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:23:06Z"
@@ -235,6 +249,7 @@
     "seconds_remaining_total": 2511,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:26:52Z"
@@ -251,6 +266,7 @@
     "seconds_remaining_total": 2464,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:28:06Z"
@@ -267,6 +283,7 @@
     "seconds_remaining_total": 2464,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:28:31Z"
@@ -283,6 +300,7 @@
     "seconds_remaining_total": 2376,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:31:10Z"
@@ -299,6 +317,7 @@
     "seconds_remaining_total": 2366,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:31:21Z"
@@ -315,6 +334,7 @@
     "seconds_remaining_total": 2343,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:31:43Z"
@@ -331,6 +351,7 @@
     "seconds_remaining_total": 2302,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:32:24Z"
@@ -347,6 +368,7 @@
     "seconds_remaining_total": 2249,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:33:44Z"
@@ -363,6 +385,7 @@
     "seconds_remaining_total": 2210,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:34:37Z"
@@ -379,6 +402,7 @@
     "seconds_remaining_total": 2162,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:35:32Z"
@@ -395,6 +419,7 @@
     "seconds_remaining_total": 2160,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:37:17Z"
@@ -411,6 +436,7 @@
     "seconds_remaining_total": 2136,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:39:44Z"
@@ -427,6 +453,7 @@
     "seconds_remaining_total": 2108,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:40:11Z"
@@ -443,6 +470,7 @@
     "seconds_remaining_total": 2079,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:40:41Z"
@@ -459,6 +487,7 @@
     "seconds_remaining_total": 2058,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:41:25Z"
@@ -475,6 +504,7 @@
     "seconds_remaining_total": 1999,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:42:24Z"
@@ -491,6 +521,7 @@
     "seconds_remaining_total": 1927,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:47:23Z"
@@ -507,6 +538,7 @@
     "seconds_remaining_total": 1915,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:47:36Z"
@@ -523,6 +555,7 @@
     "seconds_remaining_total": 1872,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:48:40Z"
@@ -539,6 +572,7 @@
     "seconds_remaining_total": 1850,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:49:46Z"
@@ -555,6 +589,7 @@
     "seconds_remaining_total": 1850,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:50:08Z"
@@ -571,6 +606,7 @@
     "seconds_remaining_total": 1824,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:50:38Z"
@@ -587,6 +623,7 @@
     "seconds_remaining_total": 1814,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:50:47Z"
@@ -603,6 +640,7 @@
     "seconds_remaining_total": 1788,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:51:13Z"
@@ -619,6 +657,7 @@
     "seconds_remaining_total": 1773,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:51:42Z"
@@ -635,6 +674,7 @@
     "seconds_remaining_total": 1744,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:52:10Z"
@@ -651,6 +691,7 @@
     "seconds_remaining_total": 1721,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:52:34Z"
@@ -667,6 +708,7 @@
     "seconds_remaining_total": 1702,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:52:53Z"
@@ -683,6 +725,7 @@
     "seconds_remaining_total": 1680,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:53:15Z"
@@ -699,6 +742,7 @@
     "seconds_remaining_total": 1594,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:58:55Z"
@@ -715,6 +759,7 @@
     "seconds_remaining_total": 1574,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T03:59:41Z"
@@ -731,6 +776,7 @@
     "seconds_remaining_total": 1574,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:00:05Z"
@@ -747,6 +793,7 @@
     "seconds_remaining_total": 1520,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:01:03Z"
@@ -763,6 +810,7 @@
     "seconds_remaining_total": 1513,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:01:10Z"
@@ -779,6 +827,7 @@
     "seconds_remaining_total": 1485,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:01:58Z"
@@ -795,6 +844,7 @@
     "seconds_remaining_total": 1476,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:02:17Z"
@@ -811,6 +861,7 @@
     "seconds_remaining_total": 1440,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:18:39Z"
@@ -827,6 +878,7 @@
     "seconds_remaining_total": 1339,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:22:24Z"
@@ -843,6 +895,7 @@
     "seconds_remaining_total": 1339,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:22:25Z"
@@ -859,6 +912,7 @@
     "seconds_remaining_total": 1304,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:23:17Z"
@@ -875,6 +929,7 @@
     "seconds_remaining_total": 1288,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:24:13Z"
@@ -891,6 +946,7 @@
     "seconds_remaining_total": 1241,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:26:12Z"
@@ -907,6 +963,7 @@
     "seconds_remaining_total": 1241,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:26:13Z"
@@ -923,6 +980,7 @@
     "seconds_remaining_total": 1204,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:27:34Z"
@@ -939,6 +997,7 @@
     "seconds_remaining_total": 1172,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:28:10Z"
@@ -955,6 +1014,7 @@
     "seconds_remaining_total": 1125,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:33:05Z"
@@ -971,6 +1031,7 @@
     "seconds_remaining_total": 1071,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:35:01Z"
@@ -987,6 +1048,7 @@
     "seconds_remaining_total": 995,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:36:41Z"
@@ -1003,6 +1065,7 @@
     "seconds_remaining_total": 984,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:36:52Z"
@@ -1019,6 +1082,7 @@
     "seconds_remaining_total": 965,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:37:11Z"
@@ -1035,6 +1099,7 @@
     "seconds_remaining_total": 942,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:38:02Z"
@@ -1051,6 +1116,7 @@
     "seconds_remaining_total": 908,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:38:36Z"
@@ -1067,6 +1133,7 @@
     "seconds_remaining_total": 875,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:39:08Z"
@@ -1083,6 +1150,7 @@
     "seconds_remaining_total": 854,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:43:12Z"
@@ -1099,6 +1167,7 @@
     "seconds_remaining_total": 854,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:43:25Z"
@@ -1115,6 +1184,7 @@
     "seconds_remaining_total": 841,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:43:42Z"
@@ -1131,6 +1201,7 @@
     "seconds_remaining_total": 821,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:44:54Z"
@@ -1147,6 +1218,7 @@
     "seconds_remaining_total": 783,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:45:57Z"
@@ -1163,6 +1235,7 @@
     "seconds_remaining_total": 741,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:47:17Z"
@@ -1179,6 +1252,7 @@
     "seconds_remaining_total": 741,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:47:54Z"
@@ -1195,6 +1269,7 @@
     "seconds_remaining_total": 721,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:48:16Z"
@@ -1211,6 +1286,7 @@
     "seconds_remaining_total": 720,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:51:23Z"
@@ -1227,6 +1303,7 @@
     "seconds_remaining_total": 698,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:52:24Z"
@@ -1243,6 +1320,7 @@
     "seconds_remaining_total": 656,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:53:06Z"
@@ -1259,6 +1337,7 @@
     "seconds_remaining_total": 611,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:54:22Z"
@@ -1275,6 +1354,7 @@
     "seconds_remaining_total": 556,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:58:51Z"
@@ -1291,6 +1371,7 @@
     "seconds_remaining_total": 537,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:59:10Z"
@@ -1307,6 +1388,7 @@
     "seconds_remaining_total": 517,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T04:59:29Z"
@@ -1323,6 +1405,7 @@
     "seconds_remaining_total": 494,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:00:26Z"
@@ -1339,6 +1422,7 @@
     "seconds_remaining_total": 494,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:00:48Z"
@@ -1355,6 +1439,7 @@
     "seconds_remaining_total": 440,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:01:43Z"
@@ -1371,6 +1456,7 @@
     "seconds_remaining_total": 424,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:02:34Z"
@@ -1387,6 +1473,7 @@
     "seconds_remaining_total": 323,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:05:31Z"
@@ -1403,6 +1490,7 @@
     "seconds_remaining_total": 257,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:12:28Z"
@@ -1419,6 +1507,7 @@
     "seconds_remaining_total": 235,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "home",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:12:51Z"
@@ -1435,6 +1524,7 @@
     "seconds_remaining_total": 183,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:14:39Z"
@@ -1451,6 +1541,7 @@
     "seconds_remaining_total": 183,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:15:04Z"
@@ -1467,6 +1558,7 @@
     "seconds_remaining_total": 138,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:16:24Z"
@@ -1483,6 +1575,7 @@
     "seconds_remaining_total": 55,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:20:29Z"
@@ -1499,6 +1592,7 @@
     "seconds_remaining_total": 28,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:20:59Z"
@@ -1515,6 +1609,7 @@
     "seconds_remaining_total": 0,
     "status": "live",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "possession": "away",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:23:23Z"
@@ -1531,6 +1626,7 @@
     "seconds_remaining_total": 0,
     "status": "final",
     "prior_home": 0.6855345911949685,
+    "prior_source": "moneyline",
     "source": "espn-summary",
     "as_of": "2026-02-06T05:23:52Z"
   }

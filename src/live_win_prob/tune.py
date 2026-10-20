@@ -9,9 +9,11 @@ possession points, strength multipliers, or any other model source.
 
 NFL search files are ``data/calibration/nfl/``. NBA search files are
 ``data/calibration/nba/``. NHL search files are ``data/calibration/nhl/``.
-The full calibration input list is scored only for NFL and NBA, so each
-of those candidates can also report that sport's row. NHL scoring stays
-on the historical NHL files.
+Full-season tuning and validation score a snapshot from those directories
+only when ``prior_source`` is exactly ``moneyline``. College files are
+not filtered. The full calibration input list is scored only for NFL and
+NBA, so each of those candidates can also report that sport's row. NHL
+scoring stays on the historical NHL files.
 
 The default scores every historical file together. ``three_way=True``
 ranks on train and also scores validation and hold-out. Game ids are
@@ -41,7 +43,9 @@ from live_win_prob.calibrate import (
     NFL_SPLIT_NOTE,
     build_report,
     default_paths,
+    file_has_moneyline_prior,
     historical_paths,
+    pro_season_sport,
     repo_root,
     split_section,
     write_report,
@@ -52,17 +56,17 @@ from live_win_prob.replay import config_for_state
 # is visible. Not an exhaustive search.
 NFL_DISPERSION_GRID: tuple[float, ...] = (2.5, 3.0, 3.5, 4.05, 4.5, 5.0, 6.0, 7.0, 8.0)
 
-# A short grid around the production NBA possession value of 1.30.
+# A short grid around the production NBA possession value of 1.40.
 NBA_POSSESSION_GRID: tuple[float, ...] = (0.8, 1.0, 1.12, 1.2, 1.3, 1.4, 1.5, 1.8)
 
 # Literals inside ``rate_multipliers``. The search reads them. It does not
 # assign them back onto ``strength.py``.
-NHL_PER_SKATER = 0.75
+NHL_PER_SKATER = 0.40
 NHL_SHORTHANDED_REDUCTION = 0.30
 NHL_SHORTHANDED_FLOOR = 0.35
-NHL_BOTH_3S = 1.35
+NHL_BOTH_3S = 1.60
 NHL_EMPTY_NET_OWN = 1.10
-NHL_EMPTY_NET_FACTOR = 4.20
+NHL_EMPTY_NET_FACTOR = 5.50
 
 # One coefficient at a time. The other production literals stay put.
 NHL_STRENGTH_GRIDS: tuple[tuple[str, tuple[float, ...]], ...] = (
@@ -119,17 +123,13 @@ def nfl_config_for(
 
 
 def historical_nfl_paths(root: Path | None = None) -> list[Path]:
-    """JSON files under ``data/calibration/nfl/``, in historical path order."""
-    root = repo_root() if root is None else root
-    base = (root / "data" / "calibration" / "nfl").resolve()
-    chosen: list[Path] = []
-    for path in historical_paths(root):
-        try:
-            path.resolve().relative_to(base)
-        except ValueError:
-            continue
-        chosen.append(path)
-    return chosen
+    """Moneyline JSON files under ``data/calibration/nfl/``.
+
+    Order matches ``historical_paths``. A file is included when at least
+    one snapshot has ``prior_source`` exactly ``moneyline``. Scoring drops
+    any other snapshot in that file. Files on disk are not changed.
+    """
+    return _moneyline_season_paths("nfl", root)
 
 
 def search_nfl_dispersion(
@@ -143,8 +143,10 @@ def search_nfl_dispersion(
 ) -> dict[str, object]:
     """Rank candidates by NFL Brier. Production config stays put.
 
-    The default ranks the whole historical file list. ``three_way=True`` ranks
-    the train games and also scores validation and hold-out.
+    The default ranks moneyline games under ``data/calibration/nfl``.
+    ``three_way=True`` ranks the train games and also scores validation
+    and hold-out. A file in that directory contributes a snapshot only
+    when ``prior_source`` is exactly ``moneyline``.
     """
     root = repo_root() if root is None else root
     before = _production_snapshot()
@@ -258,7 +260,7 @@ def run_tune_nfl(argv: list[str]) -> int:
         return 2
     root = repo_root()
     if not historical_nfl_paths(root):
-        print("no JSON files under data/calibration/nfl")
+        print("no moneyline JSON files under data/calibration/nfl")
         return 1
     report = search_nfl_dispersion(
         mean_score_per_team=mean, root=root, three_way=three_way
@@ -270,17 +272,13 @@ def run_tune_nfl(argv: list[str]) -> int:
 
 
 def historical_nba_paths(root: Path | None = None) -> list[Path]:
-    """JSON files under ``data/calibration/nba/``, in historical path order."""
-    root = repo_root() if root is None else root
-    base = (root / "data" / "calibration" / "nba").resolve()
-    chosen: list[Path] = []
-    for path in historical_paths(root):
-        try:
-            path.resolve().relative_to(base)
-        except ValueError:
-            continue
-        chosen.append(path)
-    return chosen
+    """Moneyline JSON files under ``data/calibration/nba/``.
+
+    Order matches ``historical_paths``. A file is included when at least
+    one snapshot has ``prior_source`` exactly ``moneyline``. Scoring drops
+    any other snapshot in that file. Files on disk are not changed.
+    """
+    return _moneyline_season_paths("nba", root)
 
 
 @contextmanager
@@ -314,8 +312,10 @@ def search_nba_possession(
 ) -> dict[str, object]:
     """Rank NBA possession values by Brier. Production value stays put.
 
-    The default ranks the whole historical file list. ``three_way=True`` ranks
-    the train games and also scores validation and hold-out.
+    The default ranks moneyline games under ``data/calibration/nba``.
+    ``three_way=True`` ranks the train games and also scores validation
+    and hold-out. A file in that directory contributes a snapshot only
+    when ``prior_source`` is exactly ``moneyline``.
     """
     import ms_win_prob.basketball.config as basketball_config
     import ms_win_prob.basketball.model as basketball_model
@@ -427,7 +427,7 @@ def run_tune_nba(argv: list[str]) -> int:
         return 2
     root = repo_root()
     if not historical_nba_paths(root):
-        print("no JSON files under data/calibration/nba")
+        print("no moneyline JSON files under data/calibration/nba")
         return 1
     report = search_nba_possession(root=root, three_way=three_way)
     print(format_nba_possession_report(report), end="")
@@ -437,16 +437,27 @@ def run_tune_nba(argv: list[str]) -> int:
 
 
 def historical_nhl_paths(root: Path | None = None) -> list[Path]:
-    """JSON files under ``data/calibration/nhl/``, in historical path order."""
+    """Moneyline JSON files under ``data/calibration/nhl/``.
+
+    Order matches ``historical_paths``. A file is included when at least
+    one snapshot has ``prior_source`` exactly ``moneyline``. Scoring drops
+    any other snapshot in that file. Files on disk are not changed.
+    """
+    return _moneyline_season_paths("nhl", root)
+
+
+def _moneyline_season_paths(sport: str, root: Path | None) -> list[Path]:
+    """Pro-season calibration files that contain a moneyline snapshot."""
     root = repo_root() if root is None else root
-    base = (root / "data" / "calibration" / "nhl").resolve()
+    base = (root / "data" / "calibration" / sport).resolve()
     chosen: list[Path] = []
     for path in historical_paths(root):
         try:
             path.resolve().relative_to(base)
         except ValueError:
             continue
-        chosen.append(path)
+        if file_has_moneyline_prior(path):
+            chosen.append(path)
     return chosen
 
 
@@ -564,9 +575,11 @@ def search_nhl_strength(
 ) -> dict[str, object]:
     """Rank one-at-a-time strength grids by NHL Brier.
 
-    The default ranks the whole historical file list. ``three_way=True`` ranks
-    the train games and also scores validation and hold-out. Only files
-    under ``data/calibration/nhl/`` are scored unless ``historical`` is passed.
+    The default ranks moneyline games under ``data/calibration/nhl``.
+    ``three_way=True`` ranks the train games and also scores validation
+    and hold-out. Only files under that directory are scored unless
+    ``historical`` is passed. A file in that directory contributes a
+    snapshot only when ``prior_source`` is exactly ``moneyline``.
     """
     root = repo_root() if root is None else root
     before = _hockey_source_snapshot()
@@ -576,7 +589,7 @@ def search_nhl_strength(
     historical_files = historical_nhl_paths(root) if historical is None else historical
     parts = _requested_split(historical_files, three_way=three_way)
     production = nhl_strength_settings()
-    coverage = _strength_coverage(historical_files)
+    coverage = _strength_coverage(historical_files, root)
     grid_reports: list[dict[str, object]] = []
     for name, values in chosen:
         grid_reports.append(
@@ -657,7 +670,7 @@ def run_tune_nhl(argv: list[str]) -> int:
         return 2
     root = repo_root()
     if not historical_nhl_paths(root):
-        print("no JSON files under data/calibration/nhl")
+        print("no moneyline JSON files under data/calibration/nhl")
         return 1
     report = search_nhl_strength(root=root, three_way=three_way)
     print(format_nhl_strength_report(report), end="")
@@ -914,8 +927,12 @@ def _require_hockey_sources_unchanged(before: dict[str, object]) -> None:
         raise RuntimeError("hockey strength source changed during the search")
 
 
-def _strength_coverage(paths: list[Path]) -> dict[str, object]:
-    """Count strength and empty-net fields on the files about to be scored."""
+def _strength_coverage(paths: list[Path], root: Path) -> dict[str, object]:
+    """Count strength and empty-net fields on the snapshots about to be scored.
+
+    Files under ``data/calibration/nhl`` count a row only when its
+    ``prior_source`` is exactly ``moneyline``. Other files count every row.
+    """
     snapshots = 0
     missing_strength = 0
     missing_extra = 0
@@ -927,8 +944,11 @@ def _strength_coverage(paths: list[Path]) -> dict[str, object]:
         except (OSError, UnicodeError, json.JSONDecodeError):
             continue
         rows = payload if isinstance(payload, list) else []
+        limit = pro_season_sport(path, root) is not None
         for row in rows:
             if not isinstance(row, dict):
+                continue
+            if limit and row.get("prior_source") != "moneyline":
                 continue
             snapshots += 1
             strength = row.get("strength")
@@ -1485,11 +1505,12 @@ def _path_list(value: object) -> list[Path]:
 
 
 def report_nfl_production_split(root: Path | None = None) -> dict[str, object]:
-    """Score ``data/calibration/nfl`` at the current production NFL config.
+    """Score moneyline ``data/calibration/nfl`` games at the production config.
 
     Train, validation, and hold-out are the same three-way game-id split
-    ``tune-nfl --three-way`` uses. This does not search a grid and does not
-    modify ``NFL_CONFIG``. ``calibrate --nfl-split`` prints this report.
+    ``tune-nfl --three-way`` uses. Only snapshots with ``prior_source``
+    exactly ``moneyline`` are scored. This does not search a grid and does
+    not modify ``NFL_CONFIG``. ``calibrate --nfl-split`` prints this report.
     """
     root = repo_root() if root is None else root
     before = _production_snapshot()

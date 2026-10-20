@@ -3,6 +3,10 @@
 
 """Pull completed games into ``data/calibration/{sport}/``.
 
+The previous mixed ``data/calibration/nba/`` and ``data/calibration/nhl/``
+sets were replaced by the moneyline-only re-fetch. Loaders that read those
+directories now see only snapshots labeled ``prior_source`` ``moneyline``.
+
 The scoreboard and summary readers live in ``live_win_prob.follow``. NFL and
 NHL snapshots come from ``states_from_espn``. NBA summaries are refused by
 that function, so they use the basketball summary path and then replace the

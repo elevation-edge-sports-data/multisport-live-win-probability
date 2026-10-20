@@ -106,8 +106,8 @@ def test_nba_possession_search_restores_the_production_constant():
     before_model = basketball_model.NBA_POSSESSION_POINTS
     sample = ROOT / "examples" / "nba_den_lal.json"
     report = search_nba_possession((0.6, 1.8), historical=[sample], full=[sample], root=ROOT)
-    assert basketball_config.NBA_POSSESSION_POINTS == before_config == 1.30
-    assert basketball_model.NBA_POSSESSION_POINTS == before_model == 1.30
+    assert basketball_config.NBA_POSSESSION_POINTS == before_config == 1.40
+    assert basketball_model.NBA_POSSESSION_POINTS == before_model == 1.40
     candidates = report["candidates"]
     briers = [row["historical"]["overall"]["brier"] for row in candidates]
     assert briers == sorted(briers)
