@@ -13,12 +13,17 @@ Optional historical files live under ``data/calibration/{sport}/``
 (``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, ``ncaab``), including
 nested directories. Those files are for historical calibration only.
 A missing or empty directory leaves the smoke-test inputs unchanged.
+
+``python -m live_win_prob calibrate --nfl-split`` scores only
+``data/calibration/nfl`` at the production NFL config. Train, validation,
+and hold-out use the same three-way game-id split as ``tune-nfl --three-way``.
 """
 
 from __future__ import annotations
 
 import json
 import math
+import sys
 from collections.abc import Callable
 from pathlib import Path
 
@@ -38,6 +43,12 @@ NOTE = (
     "Smoke table on the fixtures we have, not a historical backtest. "
     "The fixture count is too small to retune margin_sd, possession points, "
     "or strength multipliers."
+)
+
+NFL_SPLIT_NOTE = (
+    "Production NFL_CONFIG on data/calibration/nfl. "
+    "Train, validation, and hold-out use the same three-way game_id split "
+    "as tune-nfl --three-way. SportConfig was not modified."
 )
 
 # Same default as ``ingest-espn``. Replay files are not thinned to this density.
@@ -291,13 +302,126 @@ def write_report(report: dict[str, object], dest: Path) -> None:
     dest.write_text(text, encoding="utf-8", newline="\n")
 
 
+def split_section(report: dict[str, object]) -> dict[str, object]:
+    """One scored path list: overall metrics, time buckets, games, and skips.
+
+    Metric keys match ``summarize``: ``n``, ``mean_predicted_home_win_prob``,
+    ``home_win_rate``, ``brier``, and ``log_loss``.
+    """
+    return {
+        "inputs": report["inputs"],
+        "games": report["games"],
+        "skipped": report["skipped"],
+        "overall": report["overall"],
+        "by_bucket": [
+            {
+                "bucket": row["bucket"],
+                "n": row["n"],
+                "mean_predicted_home_win_prob": row["mean_predicted_home_win_prob"],
+                "home_win_rate": row["home_win_rate"],
+                "brier": row["brier"],
+                "log_loss": row["log_loss"],
+            }
+            for row in _report_rows(report, "by_bucket")
+        ],
+    }
+
+
+def format_nfl_split_report(report: dict[str, object]) -> str:
+    """Text table for the production NFL train, validation, and hold-out report."""
+    production = report["production"]
+    split = report["split"]
+    if not isinstance(production, dict) or not isinstance(split, dict):
+        raise TypeError("production and split must be objects")
+    train_ids = split["train_game_ids"]
+    validation_ids = split["validation_game_ids"]
+    holdout_ids = split["holdout_game_ids"]
+    lines = [
+        str(report["note"]),
+        "",
+        (
+            f"score_dispersion {production['score_dispersion']}  "
+            f"mean_score_per_team {production['mean_score_per_team']}  "
+            f"margin_sd {production['margin_sd']}"
+        ),
+        str(split["method"]),
+        (
+            f"Train games: {len(train_ids) if isinstance(train_ids, list) else 0}. "
+            f"Validation games: {len(validation_ids) if isinstance(validation_ids, list) else 0}. "
+            f"Hold-out games: {len(holdout_ids) if isinstance(holdout_ids, list) else 0}."
+        ),
+        "",
+    ]
+    for key, title in (
+        ("overall", "Overall"),
+        ("train", "Train"),
+        ("validation", "Validation"),
+        ("holdout", "Hold-out"),
+    ):
+        section = report[key]
+        if not isinstance(section, dict):
+            raise TypeError(f"{key} must be an object")
+        lines.append(title)
+        lines.extend(
+            _table(
+                ("slice", *_METRIC_HEADERS),
+                [_metric_line((title,), section["overall"])],
+            )
+        )
+        lines.append("")
+        lines.append(f"{title} by time bucket")
+        lines.extend(
+            _table(
+                ("bucket", *_METRIC_HEADERS),
+                [
+                    _metric_line((str(row["bucket"]),), row)
+                    for row in _report_rows(section, "by_bucket")
+                ],
+            )
+        )
+        skipped = section["skipped"]
+        if isinstance(skipped, list) and skipped:
+            lines.append("")
+            lines.append(f"{title} skipped")
+            lines.extend(
+                _table(
+                    ("path", "reason"),
+                    [
+                        [str(item["path"]), str(item["reason"])]
+                        for item in skipped
+                        if isinstance(item, dict)
+                    ],
+                )
+            )
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def run_calibrate(argv: list[str]) -> int:
     """Print the table and write ``artifacts/calibration.json``.
 
     With no paths, score ``examples/*.json`` and the listed ESPN fixtures.
+    ``--nfl-split`` scores ``data/calibration/nfl`` at the production NFL
+    config and writes ``artifacts/nfl_baseline_calibration.json`` instead.
     Returns 0 when at least one snapshot was scored.
     """
     root = repo_root()
+    if argv and argv[0] == "--nfl-split":
+        if argv != ["--nfl-split"]:
+            print(
+                "usage: python -m live_win_prob calibrate "
+                "[--nfl-split] [replay-or-espn.json ...]",
+                file=sys.stderr,
+            )
+            return 2
+        from live_win_prob.tune import report_nfl_production_split
+
+        report = report_nfl_production_split(root)
+        print(format_nfl_split_report(report), end="")
+        write_report(report, root / "artifacts" / "nfl_baseline_calibration.json")
+        section = report["overall"]
+        overall = section["overall"] if isinstance(section, dict) else None
+        return 0 if isinstance(overall, dict) and overall["n"] else 1
     paths = [Path(arg) for arg in argv] if argv else default_paths(root)
     report = build_report(paths, root=root)
     print(format_report(report), end="")

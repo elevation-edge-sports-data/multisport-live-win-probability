@@ -17,6 +17,7 @@ import ms_win_prob.hockey.strength as strength_module
 import live_win_prob.tune as tune
 from live_win_prob.__main__ import main
 from live_win_prob.tune import (
+    _brier_key,
     nfl_config_for,
     search_nba_possession,
     search_nfl_dispersion,
@@ -67,6 +68,19 @@ def test_nfl_override_copies_config_and_leaves_production_values():
     ) == before
 
 
+def test_dispersion_tie_breaks_toward_production():
+    production = NFL_CONFIG.score_dispersion
+    tied = {"overall": {"brier": 0.2}}
+    near = {"score_dispersion": production, "train": tied}
+    low = {"score_dispersion": production - 2, "train": {"overall": {"brier": 0.2}}}
+    high = {"score_dispersion": production + 2, "train": {"overall": {"brier": 0.2}}}
+    assert _brier_key(near) < _brier_key(low)
+    assert _brier_key(near) < _brier_key(high)
+    closer_low = {"score_dispersion": production - 1, "historical": {"overall": {"brier": 0.2}}}
+    closer_high = {"score_dispersion": production + 1, "historical": {"overall": {"brier": 0.2}}}
+    assert _brier_key(closer_low) < _brier_key(closer_high)
+
+
 def test_dispersion_search_ranks_historical_brier_and_keeps_production_config():
     before = NFL_CONFIG.score_dispersion
     report = search_nfl_dispersion(
@@ -75,7 +89,7 @@ def test_dispersion_search_ranks_historical_brier_and_keeps_production_config():
         full=[NFL_SAMPLE],
         root=ROOT,
     )
-    assert NFL_CONFIG.score_dispersion == before == 4.05
+    assert NFL_CONFIG.score_dispersion == before == 8.0
     candidates = report["candidates"]
     briers = [row["historical"]["overall"]["brier"] for row in candidates]
     assert briers == sorted(briers)
@@ -154,7 +168,7 @@ def test_nfl_three_way_search_scores_train_validation_and_holdout():
         root=ROOT,
         three_way=True,
     )
-    assert NFL_CONFIG.score_dispersion == before == 4.05
+    assert NFL_CONFIG.score_dispersion == before == 8.0
     assert report["ranked_by"] == "train overall brier"
     split = report["split"]
     assert split["train_game_ids"] == ["nfl-sample-001"]

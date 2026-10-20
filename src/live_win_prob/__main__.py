@@ -35,7 +35,7 @@ usage: python -m live_win_prob replay <json>
        python -m live_win_prob live [--game ESPN_EVENT_ID] [--sport nfl|nhl|nba] [--interval 15] [--out replays/live_replay.js]
        python -m live_win_prob slate [--date YYYYMMDD] [--interval 15] [--out slate.js] [--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]
        python -m live_win_prob serve [--port 8765]
-       python -m live_win_prob calibrate [replay-or-espn.json ...]
+       python -m live_win_prob calibrate [--nfl-split] [replay-or-espn.json ...]
        python -m live_win_prob tune-nfl [--three-way] [--mean MEAN_SCORE_PER_TEAM]
        python -m live_win_prob tune-nba [--three-way]
        python -m live_win_prob tune-nhl [--three-way]

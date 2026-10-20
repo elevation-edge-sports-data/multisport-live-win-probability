@@ -36,16 +36,21 @@ from ms_win_prob.hockey.strength import parse_strength
 from ms_win_prob.state import GameState
 
 from live_win_prob.calibrate import (
+    BUCKET_RULES,
+    BUCKETS,
+    NFL_SPLIT_NOTE,
     build_report,
     default_paths,
     historical_paths,
     repo_root,
+    split_section,
     write_report,
 )
 from live_win_prob.replay import config_for_state
 
-# A short grid around the production dispersion of 4.05. Not an exhaustive search.
-NFL_DISPERSION_GRID: tuple[float, ...] = (2.5, 3.0, 3.5, 4.05, 4.5, 5.0, 6.0)
+# Short grid. 7 and 8 sit past the old right edge of 6 so a minimum there
+# is visible. Not an exhaustive search.
+NFL_DISPERSION_GRID: tuple[float, ...] = (2.5, 3.0, 3.5, 4.05, 4.5, 5.0, 6.0, 7.0, 8.0)
 
 # A short grid around the production NBA possession value of 1.30.
 NBA_POSSESSION_GRID: tuple[float, ...] = (0.8, 1.0, 1.12, 1.2, 1.3, 1.4, 1.5, 1.8)
@@ -184,6 +189,9 @@ def search_nfl_dispersion(
         ),
         "sport": "nfl",
         "ranked_by": "train overall brier" if parts is not None else "historical overall brier",
+        "tie_break": (
+            "closest to production score_dispersion, then the smaller dispersion"
+        ),
         "production": before,
         "mean_score_per_team": mean,
         "grid": list(dispersions),
@@ -1210,16 +1218,22 @@ def _combine(rows: list[dict[str, object]]) -> dict[str, object]:
     }
 
 
-def _brier_key(candidate: dict[str, object]) -> tuple[float, float]:
+def _dispersion_tie(dispersion: float) -> tuple[float, float]:
+    """Distance to production dispersion, then the smaller dispersion."""
+    return (abs(dispersion - NFL_CONFIG.score_dispersion), dispersion)
+
+
+def _brier_key(candidate: dict[str, object]) -> tuple[float, float, float]:
     block = _ranking_block(candidate)
     dispersion = float(candidate["score_dispersion"])
+    distance, smaller = _dispersion_tie(dispersion)
     if not isinstance(block, dict):
-        return (math.inf, dispersion)
+        return (math.inf, distance, smaller)
     overall = block["overall"]
     brier = overall["brier"] if isinstance(overall, dict) else None
     if not isinstance(brier, (int, float)):
-        return (math.inf, dispersion)
-    return (float(brier), dispersion)
+        return (math.inf, distance, smaller)
+    return (float(brier), distance, smaller)
 
 
 def _best(ranked: list[dict[str, object]], section: str) -> dict[str, object] | None:
@@ -1231,10 +1245,12 @@ def _best(ranked: list[dict[str, object]], section: str) -> dict[str, object] | 
         metrics = block[section]
         if not isinstance(metrics, dict) or not isinstance(metrics.get("brier"), (int, float)):
             continue
-        scored.append((float(metrics["brier"]), float(candidate["score_dispersion"]), candidate))
+        dispersion = float(candidate["score_dispersion"])
+        distance, smaller = _dispersion_tie(dispersion)
+        scored.append((float(metrics["brier"]), distance, smaller, candidate))
     if not scored:
         return None
-    _brier, _dispersion, winner = min(scored)
+    _brier, _distance, _dispersion, winner = min(scored)
     metrics = _ranking_block(winner)[section]
     return {
         "score_dispersion": winner["score_dispersion"],
@@ -1466,6 +1482,38 @@ def _path_list(value: object) -> list[Path]:
     if not isinstance(value, list) or any(not isinstance(path, Path) for path in value):
         raise TypeError("split paths must be a list of paths")
     return value
+
+
+def report_nfl_production_split(root: Path | None = None) -> dict[str, object]:
+    """Score ``data/calibration/nfl`` at the current production NFL config.
+
+    Train, validation, and hold-out are the same three-way game-id split
+    ``tune-nfl --three-way`` uses. This does not search a grid and does not
+    modify ``NFL_CONFIG``. ``calibrate --nfl-split`` prints this report.
+    """
+    root = repo_root() if root is None else root
+    before = _production_snapshot()
+    paths = historical_nfl_paths(root)
+    parts = split_historical_files(paths, three_way=True)
+    groups = {
+        "overall": paths,
+        "train": _path_list(parts["train_paths"]),
+        "validation": _path_list(parts["validation_paths"]),
+        "holdout": _path_list(parts["holdout_paths"]),
+    }
+    sections = {
+        name: split_section(build_report(group, root=root))
+        for name, group in groups.items()
+    }
+    _require_unchanged(before)
+    return {
+        "note": NFL_SPLIT_NOTE,
+        "sport": "nfl",
+        "production": before,
+        "buckets": [{"name": name, "rule": BUCKET_RULES[name]} for name in BUCKETS],
+        "split": _split_record(parts, root),
+        **sections,
+    }
 
 
 def _split_record(parts: dict[str, object], root: Path) -> dict[str, object]:

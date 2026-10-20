@@ -20,11 +20,14 @@ from live_win_prob.calibrate import (
     ESPN_FIXTURES,
     build_report,
     default_paths,
+    format_nfl_split_report,
     format_report,
     historical_paths,
+    run_calibrate,
     summarize,
     time_bucket,
 )
+from live_win_prob.tune import report_nfl_production_split, split_historical_files
 from live_win_prob.feeds.espn_basketball import events_from_espn_basketball
 from live_win_prob.__main__ import main
 from live_win_prob.replay import config_for_state, load_replay
@@ -328,6 +331,95 @@ def test_calibrate_command_runs_on_sample_replays_without_network(monkeypatch):
     ]
     assert report["skipped"] == []
     assert {game["sport"] for game in report["games"]} == {"nfl", "nhl"}
+
+
+def _mini_nfl(game_id: str, *, home_wins: bool) -> list[dict[str, object]]:
+    final_home = 7 if home_wins else 0
+    final_away = 0 if home_wins else 7
+    shared = {
+        "sport": "nfl",
+        "game_id": game_id,
+        "home": "H",
+        "away": "A",
+        "source": "test",
+        "as_of": "2025-09-07T17:00:00Z",
+        "prior_home": 0.5,
+    }
+    return [
+        {
+            **shared,
+            "home_score": 0,
+            "away_score": 0,
+            "period": 1,
+            "seconds_remaining_period": 15 * 60,
+            "seconds_remaining_total": 60 * 60,
+            "status": "pre",
+        },
+        {
+            **shared,
+            "home_score": final_home,
+            "away_score": final_away,
+            "period": 4,
+            "seconds_remaining_period": 0,
+            "seconds_remaining_total": 0,
+            "status": "final",
+        },
+    ]
+
+
+def test_nfl_production_split_matches_tune_and_keeps_config(tmp_path: Path):
+    directory = tmp_path / "data" / "calibration" / "nfl"
+    directory.mkdir(parents=True)
+    for game_id, home_wins in (
+        ("05", False),
+        ("01", True),
+        ("04", True),
+        ("02", False),
+        ("03", True),
+    ):
+        path = directory / f"{game_id}_A_at_H.json"
+        path.write_text(json.dumps(_mini_nfl(game_id, home_wins=home_wins)), encoding="utf-8")
+    before = (
+        NFL_CONFIG.score_dispersion,
+        NFL_CONFIG.mean_score_per_team,
+        NFL_CONFIG.margin_sd,
+    )
+    report = report_nfl_production_split(tmp_path)
+    assert (
+        NFL_CONFIG.score_dispersion,
+        NFL_CONFIG.mean_score_per_team,
+        NFL_CONFIG.margin_sd,
+    ) == before
+    assert report["production"] == {
+        "score_dispersion": before[0],
+        "mean_score_per_team": before[1],
+        "margin_sd": before[2],
+    }
+    paths = sorted(directory.glob("*.json"))
+    expected = split_historical_files(paths, three_way=True)
+    split = report["split"]
+    assert split["train_game_ids"] == expected["train_game_ids"] == ["01", "02", "03"]
+    assert split["validation_game_ids"] == expected["validation_game_ids"] == ["04"]
+    assert split["holdout_game_ids"] == expected["holdout_game_ids"] == ["05"]
+    assert report["overall"]["overall"]["n"] == 10
+    assert report["train"]["overall"]["n"] == 6
+    assert report["validation"]["overall"]["n"] == 2
+    assert report["holdout"]["overall"]["n"] == 2
+    assert report["train"]["overall"]["home_win_rate"] == pytest.approx(2 / 3)
+    assert report["validation"]["overall"]["home_win_rate"] == 1.0
+    assert report["holdout"]["overall"]["home_win_rate"] == 0.0
+    buckets = [row["bucket"] for row in report["overall"]["by_bucket"]]
+    assert buckets == list(BUCKETS)
+    text = format_nfl_split_report(report)
+    assert "Train games: 3" in text
+    assert "Validation games: 1" in text
+    assert "Hold-out games: 1" in text
+    assert "SportConfig was not modified" in text
+
+
+def test_calibrate_nfl_split_flag_rejects_extra_paths(capsys):
+    assert run_calibrate(["--nfl-split", "examples/nfl_sample.json"]) == 2
+    assert "--nfl-split" in capsys.readouterr().err
 
 
 def test_readme_documents_the_command_and_the_limit():
