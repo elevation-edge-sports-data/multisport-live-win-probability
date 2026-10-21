@@ -30,13 +30,14 @@ def ncaaf_state(**overrides) -> GameState:
     return GameState(**fields)
 
 
-def test_ncaaf_config_margin_is_sixteen_points():
+def test_ncaaf_config_margin_sd():
     assert NCAAF_CONFIG.sport == "ncaaf"
     assert NCAAF_CONFIG.family == "football"
     assert NCAAF_CONFIG.regulation_periods == 4
     assert NCAAF_CONFIG.period_seconds == 15 * 60
     assert NCAAF_CONFIG.mean_score_per_team == 27.0
-    assert NCAAF_CONFIG.margin_sd == pytest.approx(16.0)
+    assert NCAAF_CONFIG.score_dispersion == 12.0
+    assert NCAAF_CONFIG.margin_sd == pytest.approx((2 * 12 * 27) ** 0.5)
     assert NCAAF_CONFIG.tie_after_ot is False
 
 

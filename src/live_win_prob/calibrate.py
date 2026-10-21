@@ -17,6 +17,9 @@ A missing or empty directory leaves the smoke-test inputs unchanged.
 ``python -m live_win_prob calibrate --nfl-split`` scores only
 ``data/calibration/nfl`` at the production NFL config. Train, validation,
 and hold-out use the same three-way game-id split as ``tune-nfl --three-way``.
+``python -m live_win_prob calibrate --split SPORT`` is that same report for
+``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, or ``ncaab``.
+``--nfl-split`` remains the NFL-only form.
 """
 
 from __future__ import annotations
@@ -83,8 +86,13 @@ ESPN_FIXTURES: tuple[str, ...] = (
 )
 
 _SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
-# Full-season tuning and validation for these three. College stays unfiltered.
-_PRO_SEASON_SPORTS = ("nfl", "nhl", "nba")
+# College calibration directories are treated the same as the pro ones:
+# moneyline-only filtering and the three-way game-id split.
+_PRO_SEASON_SPORTS = _SPORT_ORDER
+# espn_win_probability is the college fallback from the collector. It is
+# ESPN's model at the first play, not a market close, and is scored like
+# moneyline. Pro directories do not use this label.
+_SEASON_PRIOR_SOURCES = frozenset({"moneyline", "espn_win_probability"})
 
 _METRIC_HEADERS = (
     "n",
@@ -165,10 +173,11 @@ def moneyline_snapshots(directory: Path | str) -> list[GameState]:
 
 
 def pro_season_sport(path: Path, root: Path) -> str | None:
-    """``nfl``, ``nhl``, or ``nba`` when ``path`` is in that season directory.
+    """Season sport when ``path`` is under ``data/calibration/{sport}/``.
 
-    College files under ``data/calibration/{ncaaf,ncaah,ncaab}`` return
-    nothing, as do examples and fixtures outside ``data/calibration``.
+    ``sport`` is ``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, or
+    ``ncaab``. Examples and fixtures outside ``data/calibration`` return
+    nothing.
     """
     base = (root / "data" / "calibration").resolve()
     try:
@@ -194,11 +203,13 @@ def file_has_moneyline_prior(path: Path) -> bool:
         return False
     if isinstance(payload, list):
         return any(
-            isinstance(row, dict) and row.get("prior_source") == "moneyline"
+            isinstance(row, dict) and row.get("prior_source") in _SEASON_PRIOR_SOURCES
             for row in payload
         )
     loaded, _source, reason = _load_path(path)
-    return reason is None and any(state.prior_source == "moneyline" for state in loaded)
+    return reason is None and any(
+        state.prior_source in _SEASON_PRIOR_SOURCES for state in loaded
+    )
 
 
 def _historical_sort_key(base: Path, path: Path) -> tuple[int, str]:
@@ -286,9 +297,10 @@ def build_report(
     default still reads the production configs. A caller that passes a
     copy must not write that copy back to a config module.
 
-    A file under ``data/calibration/nfl``, ``nhl``, or ``nba`` contributes
-    only snapshots whose ``prior_source`` is exactly ``moneyline``. College
-    files and files outside those directories are scored as saved.
+    A file under ``data/calibration/{nfl,nhl,nba,ncaaf,ncaah,ncaab}``
+    contributes only snapshots whose ``prior_source`` is ``moneyline`` or
+    ``espn_win_probability``. Files outside those directories are scored
+    as saved.
     """
     root = repo_root() if root is None else root
     chooser = config_for_state if config_for is None else config_for
@@ -302,7 +314,11 @@ def build_report(
             skipped.append({"path": label, "reason": reason})
             continue
         if pro_season_sport(path, root) is not None:
-            loaded = [state for state in loaded if state.prior_source == "moneyline"]
+            loaded = [
+                state
+                for state in loaded
+                if state.prior_source in _SEASON_PRIOR_SOURCES
+            ]
             if not loaded:
                 continue
         _score_file(label, source, loaded, games, skipped, observations, chooser)
@@ -477,6 +493,7 @@ def run_calibrate(argv: list[str]) -> int:
     With no paths, score ``examples/*.json`` and the listed ESPN fixtures.
     ``--nfl-split`` scores ``data/calibration/nfl`` at the production NFL
     config and writes ``artifacts/nfl_baseline_calibration.json`` instead.
+    ``--split SPORT`` writes ``artifacts/{sport}_baseline_calibration.json``.
     Returns 0 when at least one snapshot was scored.
     """
     root = repo_root()
@@ -493,6 +510,30 @@ def run_calibrate(argv: list[str]) -> int:
         report = report_nfl_production_split(root)
         print(format_nfl_split_report(report), end="")
         write_report(report, root / "artifacts" / "nfl_baseline_calibration.json")
+        section = report["overall"]
+        overall = section["overall"] if isinstance(section, dict) else None
+        return 0 if isinstance(overall, dict) and overall["n"] else 1
+    if argv and argv[0] == "--split":
+        if len(argv) != 2 or argv[1] not in _SPORT_ORDER:
+            print(
+                "usage: python -m live_win_prob calibrate "
+                "--split nfl|nhl|nba|ncaaf|ncaah|ncaab",
+                file=sys.stderr,
+            )
+            return 2
+        sport = argv[1]
+        if sport == "nfl":
+            from live_win_prob.tune import report_nfl_production_split
+
+            report = report_nfl_production_split(root)
+            dest_name = "nfl_baseline_calibration.json"
+        else:
+            from live_win_prob.tune import report_production_split
+
+            report = report_production_split(sport, root)
+            dest_name = f"{sport}_baseline_calibration.json"
+        print(format_nfl_split_report(report), end="")
+        write_report(report, root / "artifacts" / dest_name)
         section = report["overall"]
         overall = section["overall"] if isinstance(section, dict) else None
         return 0 if isinstance(overall, dict) and overall["n"] else 1

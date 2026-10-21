@@ -36,8 +36,8 @@ NFL_PLAYOFF_CONFIG = SportConfig(
     tie_after_ot=False,
 )
 
-# 27 points per team. Dispersion 256/54 makes a full-game margin standard
-# deviation of 16: 2 * (256/54) * 27 = 16**2.
+# 27 points per team. Dispersion 12.0 makes a full-game margin standard
+# deviation of sqrt(2 * 12 * 27) ≈ 25.5.
 # ``ot_period_seconds`` is only here because SportConfig requires a positive
 # length. College overtime is not that clock. The model does not read it.
 NCAAF_CONFIG = SportConfig(
@@ -46,7 +46,7 @@ NCAAF_CONFIG = SportConfig(
     regulation_periods=4,
     period_seconds=15 * 60,
     mean_score_per_team=27.0,
-    score_dispersion=256 / 54,
+    score_dispersion=12.0,
     ot_period_seconds=10 * 60,
     tie_after_ot=False,
 )

@@ -526,9 +526,7 @@ def test_nfl_production_split_matches_tune_and_keeps_config(tmp_path: Path):
     assert split["validation_game_ids"] == expected["validation_game_ids"] == ["04"]
     assert split["holdout_game_ids"] == expected["holdout_game_ids"] == ["05"]
     college_report = build_report([college, elo_only], root=tmp_path)
-    assert {game["game_id"]: game["n"] for game in college_report["games"]} == {
-        "college": 2
-    }
+    assert college_report["games"] == []
     assert college_report["skipped"] == []
     assert report["overall"]["overall"]["n"] == 10
     assert report["train"]["overall"]["n"] == 6

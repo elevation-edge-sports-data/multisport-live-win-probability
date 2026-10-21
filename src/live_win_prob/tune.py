@@ -9,11 +9,16 @@ possession points, strength multipliers, or any other model source.
 
 NFL search files are ``data/calibration/nfl/``. NBA search files are
 ``data/calibration/nba/``. NHL search files are ``data/calibration/nhl/``.
-Full-season tuning and validation score a snapshot from those directories
-only when ``prior_source`` is exactly ``moneyline``. College files are
-not filtered. The full calibration input list is scored only for NFL and
-NBA, so each of those candidates can also report that sport's row. NHL
-scoring stays on the historical NHL files.
+Full-season tuning and validation score a snapshot from those directories,
+and from ``data/calibration/{ncaaf,ncaah,ncaab}/`` when those files are
+scored, only when ``prior_source`` is exactly ``moneyline``. College
+calibration directories use the same moneyline filter and three-way split
+as the pro directories. The full calibration input list is scored only for
+NFL and NBA, so each of those candidates can also report that sport's row.
+NHL scoring stays on the historical NHL files.
+``tune-ncaaf`` and ``tune-ncaah`` copy that sport's SportConfig and grid
+``score_dispersion``. ``tune-ncaah`` does not grid strength coefficients.
+``tune-ncaab`` temporarily replaces the NCAAB possession binding only.
 
 The default scores every historical file together. ``three_way=True``
 ranks on train and also scores validation and hold-out. Game ids are
@@ -33,7 +38,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from ms_win_prob.config import SportConfig
-from ms_win_prob.football.config import NFL_CONFIG
+from ms_win_prob.football.config import NCAAF_CONFIG, NFL_CONFIG
+from ms_win_prob.hockey.config import NCAAH_CONFIG
 from ms_win_prob.hockey.strength import parse_strength
 from ms_win_prob.state import GameState
 
@@ -58,6 +64,17 @@ NFL_DISPERSION_GRID: tuple[float, ...] = (2.5, 3.0, 3.5, 4.05, 4.5, 5.0, 6.0, 7.
 
 # A short grid around the production NBA possession value of 1.40.
 NBA_POSSESSION_GRID: tuple[float, ...] = (0.8, 1.0, 1.12, 1.2, 1.3, 1.4, 1.5, 1.8)
+
+# Production NCAAF dispersion is 12.0 (margin SD about 25.5 at mean 27).
+# 12.0 won the previous grid and the curve was still falling, so this pass
+# keeps 8.0, 10.0, and 12.0 and adds higher values.
+NCAAF_DISPERSION_GRID: tuple[float, ...] = (8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0)
+
+# Short grid around production NCAAB possession points, 1.04.
+NCAAB_POSSESSION_GRID: tuple[float, ...] = (0.6, 0.8, 0.9, 1.0, 1.04, 1.12, 1.2, 1.4)
+
+# 1.0 is the production NCAAH Poisson dispersion. Strength coefficients stay put.
+NCAAH_DISPERSION_GRID: tuple[float, ...] = (0.7, 0.85, 1.0, 1.15, 1.3, 1.5)
 
 # Literals inside ``rate_multipliers``. The search reads them. It does not
 # assign them back onto ``strength.py``.
@@ -446,8 +463,42 @@ def historical_nhl_paths(root: Path | None = None) -> list[Path]:
     return _moneyline_season_paths("nhl", root)
 
 
+def historical_ncaaf_paths(root: Path | None = None) -> list[Path]:
+    """Moneyline JSON files under ``data/calibration/ncaaf/``."""
+    return _moneyline_season_paths("ncaaf", root)
+
+
+def historical_ncaah_paths(root: Path | None = None) -> list[Path]:
+    """Moneyline JSON files under ``data/calibration/ncaah/``."""
+    return _moneyline_season_paths("ncaah", root)
+
+
+def historical_ncaab_paths(root: Path | None = None) -> list[Path]:
+    """Moneyline JSON files under ``data/calibration/ncaab/``."""
+    return _moneyline_season_paths("ncaab", root)
+
+
+def historical_moneyline_paths(sport: str, root: Path | None = None) -> list[Path]:
+    """Moneyline JSON for one of the six season directories."""
+    readers = {
+        "nfl": historical_nfl_paths,
+        "nhl": historical_nhl_paths,
+        "nba": historical_nba_paths,
+        "ncaaf": historical_ncaaf_paths,
+        "ncaah": historical_ncaah_paths,
+        "ncaab": historical_ncaab_paths,
+    }
+    try:
+        reader = readers[sport]
+    except KeyError:
+        raise ValueError(
+            "sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab"
+        ) from None
+    return reader(root)
+
+
 def _moneyline_season_paths(sport: str, root: Path | None) -> list[Path]:
-    """Pro-season calibration files that contain a moneyline snapshot."""
+    """Season calibration files that contain a moneyline snapshot."""
     root = repo_root() if root is None else root
     base = (root / "data" / "calibration" / sport).resolve()
     chosen: list[Path] = []
@@ -930,8 +981,9 @@ def _require_hockey_sources_unchanged(before: dict[str, object]) -> None:
 def _strength_coverage(paths: list[Path], root: Path) -> dict[str, object]:
     """Count strength and empty-net fields on the snapshots about to be scored.
 
-    Files under ``data/calibration/nhl`` count a row only when its
-    ``prior_source`` is exactly ``moneyline``. Other files count every row.
+    Files under a ``data/calibration/{sport}`` season directory count a row
+    only when its ``prior_source`` is exactly ``moneyline``. Other files
+    count every row.
     """
     snapshots = 0
     missing_strength = 0
@@ -1133,6 +1185,16 @@ def _production_snapshot() -> dict[str, float]:
         "score_dispersion": NFL_CONFIG.score_dispersion,
         "mean_score_per_team": NFL_CONFIG.mean_score_per_team,
         "margin_sd": NFL_CONFIG.margin_sd,
+    }
+
+
+def _sport_config_snapshot(sport: str) -> dict[str, float]:
+    """Production dispersion, mean, and margin SD for one sport."""
+    config = config_for_state(replace(_probe_state(), sport=sport))
+    return {
+        "score_dispersion": config.score_dispersion,
+        "mean_score_per_team": config.mean_score_per_team,
+        "margin_sd": config.margin_sd,
     }
 
 
@@ -1504,17 +1566,20 @@ def _path_list(value: object) -> list[Path]:
     return value
 
 
-def report_nfl_production_split(root: Path | None = None) -> dict[str, object]:
-    """Score moneyline ``data/calibration/nfl`` games at the production config.
+def report_production_split(sport: str, root: Path | None = None) -> dict[str, object]:
+    """Score one moneyline season directory at that sport's production config.
 
-    Train, validation, and hold-out are the same three-way game-id split
-    ``tune-nfl --three-way`` uses. Only snapshots with ``prior_source``
-    exactly ``moneyline`` are scored. This does not search a grid and does
-    not modify ``NFL_CONFIG``. ``calibrate --nfl-split`` prints this report.
+    Train, validation, and hold-out use ``split_historical_files``. Only
+    snapshots with ``prior_source`` exactly ``moneyline`` are scored. No
+    grid is searched and no SportConfig is written. ``calibrate --split``
+    prints this report. ``calibrate --nfl-split`` is the ``nfl`` call.
+    College directories use the same filter and split as the pro ones.
     """
+    if sport not in ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"):
+        raise ValueError("sport must be nfl, nhl, nba, ncaaf, ncaah, or ncaab")
     root = repo_root() if root is None else root
-    before = _production_snapshot()
-    paths = historical_nfl_paths(root)
+    before = _production_snapshot() if sport == "nfl" else _sport_config_snapshot(sport)
+    paths = historical_moneyline_paths(sport, root)
     parts = split_historical_files(paths, three_way=True)
     groups = {
         "overall": paths,
@@ -1526,15 +1591,36 @@ def report_nfl_production_split(root: Path | None = None) -> dict[str, object]:
         name: split_section(build_report(group, root=root))
         for name, group in groups.items()
     }
-    _require_unchanged(before)
+    if sport == "nfl":
+        _require_unchanged(before)
+        note = NFL_SPLIT_NOTE
+    else:
+        if _sport_config_snapshot(sport) != before:
+            raise RuntimeError(f"{sport} SportConfig changed during the split report")
+        note = (
+            f"Production config on data/calibration/{sport}. "
+            "Train, validation, and hold-out use the same three-way game_id split "
+            "as tune-nfl --three-way. SportConfig was not modified."
+        )
     return {
-        "note": NFL_SPLIT_NOTE,
-        "sport": "nfl",
+        "note": note,
+        "sport": sport,
         "production": before,
         "buckets": [{"name": name, "rule": BUCKET_RULES[name]} for name in BUCKETS],
         "split": _split_record(parts, root),
         **sections,
     }
+
+
+def report_nfl_production_split(root: Path | None = None) -> dict[str, object]:
+    """Score moneyline ``data/calibration/nfl`` games at the production config.
+
+    Train, validation, and hold-out are the same three-way game-id split
+    ``tune-nfl --three-way`` uses. Only snapshots with ``prior_source``
+    exactly ``moneyline`` are scored. This does not search a grid and does
+    not modify ``NFL_CONFIG``. ``calibrate --nfl-split`` prints this report.
+    """
+    return report_production_split("nfl", root)
 
 
 def _split_record(parts: dict[str, object], root: Path) -> dict[str, object]:
@@ -1651,3 +1737,476 @@ def _parse_nfl_args(argv: list[str]) -> tuple[float | None, bool, str | None]:
             continue
         return None, False, usage
     return mean, three_way, None
+
+
+def _sport_dispersion_config_for(
+    sport: str,
+    production: SportConfig,
+    score_dispersion: float,
+    mean_score_per_team: float,
+):
+    """Copy ``production`` for ``sport`` only. Other sports stay on ``config_for_state``."""
+
+    def config_for(state: GameState) -> SportConfig:
+        config = config_for_state(state)
+        if state.sport != sport:
+            return config
+        return replace(
+            config,
+            score_dispersion=score_dispersion,
+            mean_score_per_team=mean_score_per_team,
+        )
+
+    return config_for
+
+
+def _sport_production_snapshot(production: SportConfig) -> dict[str, float]:
+    return {
+        "score_dispersion": production.score_dispersion,
+        "mean_score_per_team": production.mean_score_per_team,
+        "margin_sd": production.margin_sd,
+    }
+
+
+def _dispersion_rank_key(
+    candidate: dict[str, object],
+    production_dispersion: float,
+) -> tuple[float, float, float]:
+    block = _ranking_block(candidate)
+    dispersion = float(candidate["score_dispersion"])
+    distance = abs(dispersion - production_dispersion)
+    overall = block["overall"]
+    brier = overall["brier"] if isinstance(overall, dict) else None
+    if not isinstance(brier, (int, float)):
+        return (math.inf, distance, dispersion)
+    return (float(brier), distance, dispersion)
+
+
+def _best_sport_dispersion(
+    ranked: list[dict[str, object]],
+    section: str,
+    production_dispersion: float,
+) -> dict[str, object] | None:
+    scored: list[tuple[float, float, float, dict[str, object]]] = []
+    for candidate in ranked:
+        block = _ranking_block(candidate)
+        metrics = block[section]
+        if not isinstance(metrics, dict) or not isinstance(metrics.get("brier"), (int, float)):
+            continue
+        dispersion = float(candidate["score_dispersion"])
+        scored.append(
+            (
+                float(metrics["brier"]),
+                abs(dispersion - production_dispersion),
+                dispersion,
+                candidate,
+            )
+        )
+    if not scored:
+        return None
+    _brier, _distance, _dispersion, winner = min(scored)
+    metrics = _ranking_block(winner)[section]
+    return {
+        "score_dispersion": winner["score_dispersion"],
+        "mean_score_per_team": winner["mean_score_per_team"],
+        "margin_sd": winner["margin_sd"],
+        **metrics,
+    }
+
+
+def search_sport_dispersion(
+    sport: str,
+    production: SportConfig,
+    dispersions: tuple[float, ...] | list[float],
+    *,
+    historical_files: list[Path],
+    mean_score_per_team: float | None = None,
+    full: list[Path] | None = None,
+    root: Path | None = None,
+    three_way: bool = False,
+) -> dict[str, object]:
+    """Rank dispersion copies of ``production``. The config object is not replaced."""
+    root = repo_root() if root is None else root
+    before = _sport_production_snapshot(production)
+    mean = before["mean_score_per_team"] if mean_score_per_team is None else mean_score_per_team
+    full_files = default_paths(root) if full is None else full
+    parts = _requested_split(historical_files, three_way=three_way)
+    train_files, validation_files, holdout_files = _split_paths(historical_files, parts)
+    candidates: list[dict[str, object]] = []
+    for dispersion in dispersions:
+        chooser = _sport_dispersion_config_for(sport, production, dispersion, mean)
+        sample = chooser(replace(_probe_state(), sport=sport))
+        if sample is production:
+            raise RuntimeError(f"{sport} override returned the production config")
+        train_report = build_report(train_files, root=root, config_for=chooser)
+        full_report = build_report(full_files, root=root, config_for=chooser)
+        row: dict[str, object] = {
+            "score_dispersion": dispersion,
+            "mean_score_per_team": mean,
+            "margin_sd": sample.margin_sd,
+            "full_set": _sport_slice(full_report, sport),
+        }
+        if parts is None:
+            row["historical"] = _sport_slice(train_report, sport)
+        else:
+            row["train"] = _sport_slice(train_report, sport)
+            row["validation"] = _sport_slice(
+                build_report(validation_files, root=root, config_for=chooser),
+                sport,
+            )
+            row["holdout"] = _sport_slice(
+                build_report(holdout_files, root=root, config_for=chooser),
+                sport,
+            )
+        candidates.append(row)
+    if _sport_production_snapshot(production) != before:
+        raise RuntimeError(f"{sport} SportConfig changed during the dispersion search")
+    ranked = sorted(
+        candidates,
+        key=lambda candidate: _dispersion_rank_key(candidate, before["score_dispersion"]),
+    )
+    for rank, candidate in enumerate(ranked, start=1):
+        candidate["rank"] = rank
+    report: dict[str, object] = {
+        "note": (
+            f"Temporary {sport} score_dispersion grid. "
+            "Production SportConfig values are not modified."
+        ),
+        "sport": sport,
+        "ranked_by": "train overall brier" if parts is not None else "historical overall brier",
+        "tie_break": "closest to production score_dispersion, then the smaller dispersion",
+        "production": before,
+        "mean_score_per_team": mean,
+        "grid": list(dispersions),
+        "historical_inputs": [_display(path, root) for path in historical_files],
+        "full_set_inputs": [_display(path, root) for path in full_files],
+        "best_overall_brier": _best_sport_dispersion(
+            ranked, "overall", before["score_dispersion"]
+        ),
+        "best_under_5_min_brier": _best_sport_dispersion(
+            ranked, "<5 min", before["score_dispersion"]
+        ),
+        "candidates": ranked,
+    }
+    if parts is not None:
+        report["split"] = _split_record(parts, root)
+    return report
+
+
+def _format_dispersion_report(report: dict[str, object], sport: str) -> str:
+    directory = f"data/calibration/{sport}"
+    if "split" in report:
+        return _format_split_report(
+            report,
+            value_header="dispersion",
+            value_key="score_dispersion",
+            search_line=(
+                f"Search set: {directory}, split by game_id. "
+                f"Ranked on train. full_brier is the {sport} row of the full "
+                "calibration input list."
+            ),
+        )
+    lines = [
+        str(report["note"]),
+        f"Search set: {directory}. "
+        f"full_brier is the {sport} row of the full calibration input list.",
+        "Late regulation (<5 min) joins the 1-5 min and <1 min buckets.",
+        "",
+        _table(
+            (
+                "rank",
+                "dispersion",
+                "margin_sd",
+                "n",
+                "mean_win_prob",
+                "home_win_rate",
+                "brier",
+                "log_loss",
+                "<5 brier",
+                "<5 log_loss",
+                "ot_brier",
+                "full_brier",
+            ),
+            [_candidate_line(candidate) for candidate in _candidates(report)],
+        ),
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def _parse_dispersion_tune_args(
+    argv: list[str],
+    usage: str,
+) -> tuple[float | None, bool, str | None]:
+    """Parse ``[--three-way] [--mean MEAN]``. ``_parse_nfl_args`` stays the NFL parser."""
+    mean: float | None = None
+    three_way = False
+    index = 0
+    while index < len(argv):
+        arg = argv[index]
+        if arg == "--three-way":
+            three_way = True
+            index += 1
+            continue
+        if arg == "--mean" and index + 1 < len(argv):
+            try:
+                mean = float(argv[index + 1])
+            except ValueError:
+                return None, False, "mean_score_per_team must be a number"
+            if mean <= 0:
+                return None, False, "mean_score_per_team must be > 0"
+            index += 2
+            continue
+        return None, False, usage
+    return mean, three_way, None
+
+
+def search_ncaaf_dispersion(
+    dispersions: tuple[float, ...] | list[float] = NCAAF_DISPERSION_GRID,
+    *,
+    mean_score_per_team: float | None = None,
+    historical: list[Path] | None = None,
+    full: list[Path] | None = None,
+    root: Path | None = None,
+    three_way: bool = False,
+) -> dict[str, object]:
+    root = repo_root() if root is None else root
+    files = historical_ncaaf_paths(root) if historical is None else historical
+    return search_sport_dispersion(
+        "ncaaf",
+        NCAAF_CONFIG,
+        dispersions,
+        historical_files=files,
+        mean_score_per_team=mean_score_per_team,
+        full=full,
+        root=root,
+        three_way=three_way,
+    )
+
+
+def run_tune_ncaaf(argv: list[str]) -> int:
+    """Print the NCAAF dispersion grid and write ``artifacts/tuning_ncaaf_dispersion.json``."""
+    usage = (
+        "usage: python -m live_win_prob tune-ncaaf "
+        "[--three-way] [--mean MEAN_SCORE_PER_TEAM]"
+    )
+    mean, three_way, error = _parse_dispersion_tune_args(argv, usage)
+    if error is not None:
+        print(error, file=sys.stderr)
+        return 2
+    root = repo_root()
+    if not historical_ncaaf_paths(root):
+        print("no moneyline JSON files under data/calibration/ncaaf")
+        return 1
+    report = search_ncaaf_dispersion(
+        mean_score_per_team=mean, root=root, three_way=three_way
+    )
+    print(_format_dispersion_report(report, "ncaaf"), end="")
+    write_report(report, root / "artifacts" / "tuning_ncaaf_dispersion.json")
+    overall = _ranking_block(_candidates(report)[0])["overall"]
+    return 0 if isinstance(overall, dict) and overall["n"] else 1
+
+
+def search_ncaah_dispersion(
+    dispersions: tuple[float, ...] | list[float] = NCAAH_DISPERSION_GRID,
+    *,
+    mean_score_per_team: float | None = None,
+    historical: list[Path] | None = None,
+    full: list[Path] | None = None,
+    root: Path | None = None,
+    three_way: bool = False,
+) -> dict[str, object]:
+    root = repo_root() if root is None else root
+    files = historical_ncaah_paths(root) if historical is None else historical
+    return search_sport_dispersion(
+        "ncaah",
+        NCAAH_CONFIG,
+        dispersions,
+        historical_files=files,
+        mean_score_per_team=mean_score_per_team,
+        full=full,
+        root=root,
+        three_way=three_way,
+    )
+
+
+def run_tune_ncaah(argv: list[str]) -> int:
+    """Print the NCAAH dispersion grid and write ``artifacts/tuning_ncaah_dispersion.json``.
+
+    This does not grid strength coefficients and does not call
+    ``temporary_hockey_strength``.
+    """
+    usage = (
+        "usage: python -m live_win_prob tune-ncaah "
+        "[--three-way] [--mean MEAN_SCORE_PER_TEAM]"
+    )
+    mean, three_way, error = _parse_dispersion_tune_args(argv, usage)
+    if error is not None:
+        print(error, file=sys.stderr)
+        return 2
+    root = repo_root()
+    if not historical_ncaah_paths(root):
+        print("no moneyline JSON files under data/calibration/ncaah")
+        return 1
+    report = search_ncaah_dispersion(
+        mean_score_per_team=mean, root=root, three_way=three_way
+    )
+    print(_format_dispersion_report(report, "ncaah"), end="")
+    write_report(report, root / "artifacts" / "tuning_ncaah_dispersion.json")
+    overall = _ranking_block(_candidates(report)[0])["overall"]
+    return 0 if isinstance(overall, dict) and overall["n"] else 1
+
+
+@contextmanager
+def temporary_ncaab_possession_points(points: float):
+    """Point the basketball model at an NCAAB possession value, then restore it.
+
+    ``NCAAB_POSSESSION_POINTS`` in ``basketball/config.py`` is not assigned.
+    ``NBA_POSSESSION_POINTS`` is not assigned.
+    """
+    import ms_win_prob.basketball.config as basketball_config
+    import ms_win_prob.basketball.model as basketball_model
+
+    config_value = basketball_config.NCAAB_POSSESSION_POINTS
+    nba_config = basketball_config.NBA_POSSESSION_POINTS
+    previous = basketball_model.NCAAB_POSSESSION_POINTS
+    nba_model = basketball_model.NBA_POSSESSION_POINTS
+    basketball_model.NCAAB_POSSESSION_POINTS = points
+    try:
+        yield
+    finally:
+        basketball_model.NCAAB_POSSESSION_POINTS = previous
+        if basketball_config.NCAAB_POSSESSION_POINTS != config_value:
+            raise RuntimeError("NCAAB_POSSESSION_POINTS in basketball config changed")
+        if basketball_config.NBA_POSSESSION_POINTS != nba_config:
+            raise RuntimeError("NBA_POSSESSION_POINTS in basketball config changed")
+        if basketball_model.NBA_POSSESSION_POINTS != nba_model:
+            raise RuntimeError("NBA possession points changed during the NCAAB search")
+
+
+def search_ncaab_possession(
+    points: tuple[float, ...] | list[float] = NCAAB_POSSESSION_GRID,
+    *,
+    historical: list[Path] | None = None,
+    full: list[Path] | None = None,
+    root: Path | None = None,
+    three_way: bool = False,
+) -> dict[str, object]:
+    """Rank NCAAB possession values by Brier. Production value stays put."""
+    import ms_win_prob.basketball.config as basketball_config
+    import ms_win_prob.basketball.model as basketball_model
+
+    root = repo_root() if root is None else root
+    production = basketball_config.NCAAB_POSSESSION_POINTS
+    model_before = basketball_model.NCAAB_POSSESSION_POINTS
+    nba_before = basketball_model.NBA_POSSESSION_POINTS
+    historical_files = historical_ncaab_paths(root) if historical is None else historical
+    full_files = default_paths(root) if full is None else full
+    parts = _requested_split(historical_files, three_way=three_way)
+    train_files, validation_files, holdout_files = _split_paths(historical_files, parts)
+    candidates: list[dict[str, object]] = []
+    for value in points:
+        with temporary_ncaab_possession_points(value):
+            train_report = build_report(train_files, root=root)
+            full_report = build_report(full_files, root=root)
+            row: dict[str, object] = {
+                "possession_points": value,
+                "full_set": _sport_slice(full_report, "ncaab"),
+            }
+            if parts is None:
+                row["historical"] = _sport_slice(train_report, "ncaab")
+            else:
+                row["train"] = _sport_slice(train_report, "ncaab")
+                row["validation"] = _sport_slice(
+                    build_report(validation_files, root=root),
+                    "ncaab",
+                )
+                row["holdout"] = _sport_slice(
+                    build_report(holdout_files, root=root),
+                    "ncaab",
+                )
+        candidates.append(row)
+    if basketball_config.NCAAB_POSSESSION_POINTS != production:
+        raise RuntimeError("NCAAB_POSSESSION_POINTS in basketball config changed")
+    if basketball_model.NCAAB_POSSESSION_POINTS != model_before:
+        raise RuntimeError("NCAAB possession points were not restored")
+    if basketball_model.NBA_POSSESSION_POINTS != nba_before:
+        raise RuntimeError("NBA possession points changed during the NCAAB search")
+    ranked = sorted(candidates, key=_possession_brier_key)
+    for rank, candidate in enumerate(ranked, start=1):
+        candidate["rank"] = rank
+    report: dict[str, object] = {
+        "note": (
+            "Temporary NCAAB possession-points grid. "
+            "Production NCAAB_POSSESSION_POINTS is not modified."
+        ),
+        "sport": "ncaab",
+        "ranked_by": "train overall brier" if parts is not None else "historical overall brier",
+        "production_possession_points": production,
+        "grid": list(points),
+        "historical_inputs": [_display(path, root) for path in historical_files],
+        "full_set_inputs": [_display(path, root) for path in full_files],
+        "best_overall_brier": _best_possession(ranked, "overall"),
+        "best_under_5_min_brier": _best_possession(ranked, "<5 min"),
+        "candidates": ranked,
+    }
+    if parts is not None:
+        report["split"] = _split_record(parts, root)
+    return report
+
+
+def format_ncaab_possession_report(report: dict[str, object]) -> str:
+    if "split" in report:
+        return _format_split_report(
+            report,
+            value_header="possession",
+            value_key="possession_points",
+            search_line=(
+                "Search set: data/calibration/ncaab, split by game_id. "
+                "Ranked on train. full_brier is the NCAAB row of the full "
+                "calibration input list."
+            ),
+        )
+    lines = [
+        str(report["note"]),
+        "Search set: data/calibration/ncaab. "
+        "full_brier is the NCAAB row of the full calibration input list.",
+        "Late regulation (<5 min) joins the 1-5 min and <1 min buckets.",
+        "",
+        _table(
+            (
+                "rank",
+                "possession",
+                "n",
+                "home_win_rate",
+                "brier",
+                "log_loss",
+                "<5 brier",
+                "full_brier",
+            ),
+            [_nba_candidate_line(candidate) for candidate in _candidates(report)],
+        ),
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def run_tune_ncaab(argv: list[str]) -> int:
+    """Print the NCAAB possession grid and write ``artifacts/tuning_ncaab_possession.json``."""
+    if argv == []:
+        three_way = False
+    elif argv == ["--three-way"]:
+        three_way = True
+    else:
+        print(
+            "usage: python -m live_win_prob tune-ncaab [--three-way]",
+            file=sys.stderr,
+        )
+        return 2
+    root = repo_root()
+    if not historical_ncaab_paths(root):
+        print("no moneyline JSON files under data/calibration/ncaab")
+        return 1
+    report = search_ncaab_possession(root=root, three_way=three_way)
+    print(format_ncaab_possession_report(report), end="")
+    write_report(report, root / "artifacts" / "tuning_ncaab_possession.json")
+    overall = _ranking_block(_candidates(report)[0])["overall"]
+    return 0 if isinstance(overall, dict) and overall["n"] else 1
