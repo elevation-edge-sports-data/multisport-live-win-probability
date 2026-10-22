@@ -28,6 +28,9 @@ _PACKS: dict[str, PackFn] = {
     "basketball": basketball_win_probability,
 }
 
+# A moneyline already prices home advantage. These priors do not.
+_SITE_ADJUSTED_PRIOR_SOURCES = frozenset({"elo", "passed", "default"})
+
 
 def _decided_win_prob(state: GameState, sport_config: SportConfig) -> float | None:
     """1.0 or 0.0 from the score when the winner is fixed.
@@ -91,15 +94,27 @@ def _ncaaf_extra_period_decided(
     return None
 
 
-def prior_for_site(state: GameState, prior: float, sport_config: SportConfig) -> float:
+def prior_for_site(
+    state: GameState,
+    prior: float,
+    sport_config: SportConfig,
+    prior_source: str,
+) -> float:
     """Prior the sport model should see after the site adjustment.
 
     ``home_advantage`` is a full-game expected margin in the sport's score
     units. It is added in that margin space, then converted back to a
-    probability. A neutral site skips the adjustment. A zero advantage
-    leaves ``prior`` unchanged, including its exact float.
+    probability, only when ``prior_source`` is ``elo``, ``passed``, or
+    ``default``. A ``moneyline`` prior already includes the market's home
+    advantage, so it is returned unchanged. A neutral site skips the
+    adjustment. A zero advantage leaves ``prior`` unchanged, including its
+    exact float.
     """
-    if state.neutral or sport_config.home_advantage == 0.0:
+    if (
+        state.neutral
+        or sport_config.home_advantage == 0.0
+        or prior_source not in _SITE_ADJUSTED_PRIOR_SOURCES
+    ):
         return prior
     if not math.isfinite(prior) or not 0.0 < prior < 1.0:
         raise ValueError("prior must be in (0, 1)")
@@ -116,8 +131,11 @@ def compute_win_prob(state: GameState, prior: float, sport_config: SportConfig) 
     """Home win probability.
 
     Live and calibration both enter here. When the site is not neutral,
-    ``sport_config.home_advantage`` is applied to ``prior`` before the
-    sport model runs. A neutral site skips that adjustment.
+    ``sport_config.home_advantage`` is applied to an ``elo``, ``passed``,
+    or ``default`` prior before the sport model runs. A moneyline prior
+    already includes home advantage, so it is left unchanged. A neutral
+    site skips that adjustment. The source passed through is
+    ``state.prior_source``.
 
     Live values are clipped to ``[0.0001, 0.9999]``. A decided home win is
     ``1.0`` and a decided home loss is ``0.0``, with no clip. ``prior`` is
@@ -138,7 +156,8 @@ def compute_win_prob(state: GameState, prior: float, sport_config: SportConfig) 
             f"no win-probability pack for family {sport_config.family!r}"
         ) from exc
 
-    raw = pack(state, prior_for_site(state, prior, sport_config), sport_config)
+    adjusted = prior_for_site(state, prior, sport_config, state.prior_source)
+    raw = pack(state, adjusted, sport_config)
     if not math.isfinite(raw):
         raise ValueError("win probability was not finite")
     decided = _decided_win_prob(state, sport_config)

@@ -19,6 +19,7 @@ from ms_win_prob import (
     compute_win_prob,
 )
 from ms_win_prob.basketball.config import NBA_CONFIG, NCAAB_CONFIG
+from ms_win_prob.compute import prior_for_site
 
 AS_OF = datetime(2026, 9, 21, 18, 0, tzinfo=timezone.utc)
 
@@ -191,6 +192,53 @@ def test_non_neutral_receives_home_advantage_and_neutral_does_not():
     )
     assert compute_win_prob(decided, 0.6, NCAAF_CONFIG) == 1.0
     assert compute_win_prob(replace(decided, neutral=True), 0.6, NCAAF_CONFIG) == 1.0
+
+
+def test_moneyline_prior_skips_the_site_adjustment():
+    """Moneyline prices already include home advantage."""
+    prior = 0.6
+    config = NFL_CONFIG
+    home = GameState(
+        sport=config.sport,
+        game_id="site-source",
+        home="H",
+        away="A",
+        home_score=0,
+        away_score=0,
+        period=1,
+        seconds_remaining_period=config.period_seconds,
+        seconds_remaining_total=config.regulation_seconds,
+        status="live",
+        source="test",
+        as_of=AS_OF,
+        prior_home=prior,
+        prior_source="moneyline",
+    )
+    assert home.neutral is False
+    assert config.home_advantage != 0.0
+    assert prior_for_site(home, prior, config, home.prior_source) == prior
+    assert compute_win_prob(home, prior, config) == compute_win_prob(
+        replace(home, neutral=True), prior, config
+    )
+
+    boosted = _margin_prior(prior, config)
+    assert boosted != prior
+    for source in ("elo", "default", "passed"):
+        marked = replace(home, prior_source=source)
+        adjusted = prior_for_site(marked, prior, config, marked.prior_source)
+        assert adjusted == boosted
+        assert compute_win_prob(marked, prior, config) == pytest.approx(
+            compute_win_prob(replace(marked, neutral=True), boosted, config),
+            abs=1e-12,
+        )
+
+    neutral = replace(home, neutral=True)
+    for source in ("moneyline", "elo", "passed", "default"):
+        marked = replace(neutral, prior_source=source)
+        assert prior_for_site(marked, prior, config, marked.prior_source) == prior
+
+    flat = replace(config, home_advantage=0.0)
+    assert prior_for_site(replace(home, prior_source="elo"), prior, flat, "elo") == prior
 
 
 def test_status_must_be_a_known_value():
