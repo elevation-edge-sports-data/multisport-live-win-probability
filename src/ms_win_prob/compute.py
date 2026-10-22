@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 from collections.abc import Callable
+from statistics import NormalDist
 
 from ms_win_prob.config import SportConfig
 from ms_win_prob.basketball.model import basketball_win_probability
@@ -16,6 +17,8 @@ from ms_win_prob.state import GameState
 # and not tied) is 1.0 or 0.0.
 LIVE_WIN_PROB_FLOOR = 0.0001
 LIVE_WIN_PROB_CEIL = 0.9999
+
+_NORMAL = NormalDist()
 
 PackFn = Callable[[GameState, float, SportConfig], float]
 
@@ -88,8 +91,33 @@ def _ncaaf_extra_period_decided(
     return None
 
 
+def prior_for_site(state: GameState, prior: float, sport_config: SportConfig) -> float:
+    """Prior the sport model should see after the site adjustment.
+
+    ``home_advantage`` is a full-game expected margin in the sport's score
+    units. It is added in that margin space, then converted back to a
+    probability. A neutral site skips the adjustment. A zero advantage
+    leaves ``prior`` unchanged, including its exact float.
+    """
+    if state.neutral or sport_config.home_advantage == 0.0:
+        return prior
+    if not math.isfinite(prior) or not 0.0 < prior < 1.0:
+        raise ValueError("prior must be in (0, 1)")
+    z = _NORMAL.inv_cdf(prior) + sport_config.home_advantage / sport_config.margin_sd
+    adjusted = _NORMAL.cdf(z)
+    if adjusted <= 0.0:
+        return math.nextafter(0.0, 1.0)
+    if adjusted >= 1.0:
+        return math.nextafter(1.0, 0.0)
+    return adjusted
+
+
 def compute_win_prob(state: GameState, prior: float, sport_config: SportConfig) -> float:
     """Home win probability.
+
+    Live and calibration both enter here. When the site is not neutral,
+    ``sport_config.home_advantage`` is applied to ``prior`` before the
+    sport model runs. A neutral site skips that adjustment.
 
     Live values are clipped to ``[0.0001, 0.9999]``. A decided home win is
     ``1.0`` and a decided home loss is ``0.0``, with no clip. ``prior`` is
@@ -110,7 +138,7 @@ def compute_win_prob(state: GameState, prior: float, sport_config: SportConfig) 
             f"no win-probability pack for family {sport_config.family!r}"
         ) from exc
 
-    raw = pack(state, prior, sport_config)
+    raw = pack(state, prior_for_site(state, prior, sport_config), sport_config)
     if not math.isfinite(raw):
         raise ValueError("win probability was not finite")
     decided = _decided_win_prob(state, sport_config)

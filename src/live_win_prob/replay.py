@@ -156,6 +156,11 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
     else:
         prior_source = "default"
     optional: dict[str, object] = {}
+    if "neutral" in row and row["neutral"] is not None:
+        neutral = row["neutral"]
+        if not isinstance(neutral, bool):
+            raise TypeError("neutral must be a bool")
+        optional["neutral"] = neutral
     for name in ("down", "distance", "yardline"):
         if name in row and row[name] is not None:
             optional[name] = _as_int(row, name)
@@ -208,7 +213,10 @@ def _timeout_map(raw: object) -> dict[str, int]:
 
 
 def state_to_row(state: GameState) -> dict[str, object]:
-    """JSON object for one snapshot. Absent football fields are omitted."""
+    """JSON object for one snapshot. Absent football fields are omitted.
+
+    A false ``neutral`` flag is omitted so older files keep the same shape.
+    """
     if state.as_of.tzinfo is None:
         as_of = state.as_of.replace(microsecond=0).isoformat(timespec="seconds")
     else:
@@ -228,6 +236,8 @@ def state_to_row(state: GameState) -> dict[str, object]:
         "prior_home": state.prior_home,
         "prior_source": state.prior_source,
     }
+    if state.neutral:
+        row["neutral"] = True
     if state.possession is not None:
         row["possession"] = state.possession
     if state.down is not None:

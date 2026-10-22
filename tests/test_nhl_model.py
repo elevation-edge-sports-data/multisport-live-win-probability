@@ -54,13 +54,13 @@ def test_nhl_config_is_playoff_sudden_death():
     assert NHL_CONFIG.tie_after_ot is False
 
 
-def test_puck_drop_prior_0_60_stays_about_0_60():
-    state = nhl_state(prior_home=0.60, status="pre")
+def test_neutral_puck_drop_prior_0_60_stays_about_0_60():
+    state = nhl_state(prior_home=0.60, status="pre", neutral=True)
     win_prob = compute_win_prob(state, 0.60, NHL_CONFIG)
     assert win_prob == pytest.approx(0.60, abs=0.02)
     assert win_prob > 0.5
 
-    even = nhl_state(prior_home=0.50, status="pre")
+    even = nhl_state(prior_home=0.50, status="pre", neutral=True)
     assert compute_win_prob(even, 0.50, NHL_CONFIG) == pytest.approx(0.5, abs=1e-9)
 
 
@@ -233,6 +233,7 @@ def test_scoreless_playoff_ot_is_not_a_shootout():
         home_score=2,
         away_score=2,
         prior_home=0.60,
+        neutral=True,
     )
     live = nhl_state(
         status="live",
@@ -242,6 +243,7 @@ def test_scoreless_playoff_ot_is_not_a_shootout():
         home_score=2,
         away_score=2,
         prior_home=0.60,
+        neutral=True,
     )
     game = compute_win_prob(end, 0.60, NHL_CONFIG)
     assert game != pytest.approx(0.5)

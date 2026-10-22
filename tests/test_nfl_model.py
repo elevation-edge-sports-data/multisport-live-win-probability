@@ -41,8 +41,8 @@ def nfl_state(**overrides) -> GameState:
     return GameState(**fields)
 
 
-def test_tipoff_with_prior_0_60_stays_about_0_60():
-    state = nfl_state(prior_home=0.60, status="pre")
+def test_neutral_tipoff_with_prior_0_60_stays_about_0_60():
+    state = nfl_state(prior_home=0.60, status="pre", neutral=True)
     win_prob = compute_win_prob(state, 0.60, NFL_CONFIG)
     assert win_prob == pytest.approx(0.60, abs=1e-9)
 

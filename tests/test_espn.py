@@ -246,7 +246,9 @@ def test_moneyline_becomes_one_prior_and_espn_win_probability_is_ignored():
     assert all(state.prior_home == states[0].prior_home for state in states)
     assert 0.0 < states[0].prior_home < 1.0
     assert states[0].prior_home != 0.91
-    kickoff = compute_win_prob(states[0], states[0].prior_home, NFL_CONFIG)
+    kickoff = compute_win_prob(
+        replace(states[0], neutral=True), states[0].prior_home, NFL_CONFIG
+    )
     assert kickoff == pytest.approx(0.6, abs=1e-9)
     assert kickoff != 0.91
 

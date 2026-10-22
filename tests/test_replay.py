@@ -5,9 +5,13 @@ from __future__ import annotations
 import json
 import subprocess
 import sys
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 
+import pytest
+
+from ms_win_prob import NCAAF_CONFIG
 from ms_win_prob import NFL_CONFIG as nfl_config
 from ms_win_prob import GameState, compute_win_prob
 
@@ -15,9 +19,11 @@ from live_win_prob.replay import (
     elapsed_game_seconds,
     format_clock,
     format_line,
+    game_state_from_row,
     load_replay,
     render_widget_script,
     shift_inbound_possession,
+    state_to_row,
     team_logo,
 )
 
@@ -220,6 +226,56 @@ def test_inbound_shift_flips_only_the_last_make_of_a_run():
     assert [state.possession for state in shifted] == [None, "home", "away", "home", "home"]
     assert shifted[0] is states[0]
     assert shifted[3] is states[3]
+
+
+def test_live_script_boosts_a_home_site_and_skips_neutral():
+    home = GameState(
+        sport="ncaaf",
+        game_id="live-site",
+        home="GT",
+        away="COLO",
+        home_score=0,
+        away_score=0,
+        period=1,
+        seconds_remaining_period=NCAAF_CONFIG.period_seconds,
+        seconds_remaining_total=NCAAF_CONFIG.regulation_seconds,
+        status="live",
+        source="test",
+        as_of=datetime(2026, 9, 5, 16, 0, tzinfo=timezone.utc),
+        prior_home=0.55,
+    )
+    neutral = replace(home, neutral=True)
+    home_frame = _script_frames(render_widget_script([home], live=True))[0]
+    neutral_frame = _script_frames(render_widget_script([neutral], live=True))[0]
+    assert home_frame["win_prob"] == compute_win_prob(home, home.prior_home, NCAAF_CONFIG)
+    assert neutral_frame["win_prob"] == compute_win_prob(
+        neutral, neutral.prior_home, NCAAF_CONFIG
+    )
+    assert home_frame["win_prob"] > neutral_frame["win_prob"]
+    assert neutral_frame["win_prob"] == pytest.approx(0.55, abs=1e-9)
+
+
+def test_missing_neutral_loads_false_and_true_round_trips():
+    states = load_replay(FIXTURE)
+    assert all(state.neutral is False for state in states)
+    bare = state_to_row(states[0])
+    assert "neutral" not in bare
+    assert game_state_from_row(bare).neutral is False
+    absent = dict(bare)
+    del absent["prior_source"]
+    assert game_state_from_row(absent).neutral is False
+    explicit = dict(bare)
+    explicit["neutral"] = False
+    assert game_state_from_row(explicit).neutral is False
+    explicit["neutral"] = None
+    assert game_state_from_row(explicit).neutral is False
+    explicit["neutral"] = True
+    restored = game_state_from_row(explicit)
+    assert restored.neutral is True
+    assert state_to_row(restored)["neutral"] is True
+    explicit["neutral"] = 1
+    with pytest.raises(TypeError):
+        game_state_from_row(explicit)
 
 
 def test_harbor_final_is_one():

@@ -21,6 +21,8 @@ NFL_CONFIG = SportConfig(
     score_dispersion=8.0,
     ot_period_seconds=10 * 60,
     tie_after_ot=True,
+    # Placeholder, not fitted. Points of full-game margin.
+    home_advantage=1.5,
 )
 
 # Same 2025 possession rule as the regular season. Playoff overtime is
@@ -34,6 +36,7 @@ NFL_PLAYOFF_CONFIG = SportConfig(
     score_dispersion=4.05,
     ot_period_seconds=15 * 60,
     tie_after_ot=False,
+    home_advantage=0.0,
 )
 
 # 27 points per team. Dispersion 12.0 makes a full-game margin standard
@@ -49,4 +52,6 @@ NCAAF_CONFIG = SportConfig(
     score_dispersion=12.0,
     ot_period_seconds=10 * 60,
     tie_after_ot=False,
+    # Placeholder, not fitted. Points of full-game margin.
+    home_advantage=2.5,
 )

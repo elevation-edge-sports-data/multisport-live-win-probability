@@ -20,6 +20,8 @@ NHL_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
+    # Placeholder, not fitted. Goals of full-game margin.
+    home_advantage=0.13,
 )
 
 # Regular season: one 5:00 period, then a shootout if it is still tied.
@@ -35,6 +37,7 @@ NHL_REGULAR_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=5 * 60,
     tie_after_ot=True,
+    home_advantage=0.0,
 )
 
 NCAAH_CONFIG = SportConfig(
@@ -46,4 +49,6 @@ NCAAH_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
+    # Placeholder, not fitted. Goals of full-game margin.
+    home_advantage=0.15,
 )

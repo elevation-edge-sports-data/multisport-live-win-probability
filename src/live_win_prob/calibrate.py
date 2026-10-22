@@ -595,6 +595,10 @@ def _score_file(
         grouped[state.game_id].append(state)
     for game_id in order:
         group = grouped[game_id]
+        # Neutral-site games are excluded from all calibration.
+        to_score = [state for state in group if not state.neutral]
+        if not to_score:
+            continue
         finals = [state for state in group if state.status == "final"]
         if not finals:
             skipped.append(
@@ -608,7 +612,7 @@ def _score_file(
         outcome = home_result(final)
         scored: list[tuple[str, float]] = []
         try:
-            for state in group:
+            for state in to_score:
                 config = config_for(state)
                 predicted = compute_win_prob(state, state.prior_home, config)
                 scored.append((time_bucket(state, config), predicted))

@@ -13,6 +13,8 @@ NBA_CONFIG = SportConfig(
     score_dispersion=1.05,
     ot_period_seconds=5 * 60,
     tie_after_ot=False,
+    # Placeholder, not fitted. Points of full-game margin.
+    home_advantage=1.7,
 )
 
 NCAAB_CONFIG = SportConfig(
@@ -24,6 +26,8 @@ NCAAB_CONFIG = SportConfig(
     score_dispersion=1.05,
     ot_period_seconds=5 * 60,
     tie_after_ot=False,
+    # Placeholder, not fitted. Points of full-game margin.
+    home_advantage=3.0,
 )
 
 # 1.40 won the moneyline possession grid: 1015 games, 127222 snapshots,

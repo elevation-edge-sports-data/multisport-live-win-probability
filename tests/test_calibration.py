@@ -7,6 +7,7 @@ import math
 import socket
 import subprocess
 import sys
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -35,7 +36,12 @@ from live_win_prob.tune import (
 )
 from live_win_prob.feeds.espn_basketball import events_from_espn_basketball
 from live_win_prob.__main__ import main
-from live_win_prob.replay import config_for_state, load_replay
+from live_win_prob.replay import (
+    config_for_state,
+    game_state_from_row,
+    load_replay,
+    state_to_row,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 NFL_SAMPLE = ROOT / "examples" / "nfl_sample.json"
@@ -282,6 +288,7 @@ def test_moneyline_snapshots_keep_only_an_exact_moneyline_prior(tmp_path: Path):
         ("nba-ml", 0.62),
     ]
     assert {state.prior_source for state in loaded} == {"moneyline"}
+    assert all(state.neutral is False for state in loaded)
     nfl_only = moneyline_snapshots(base / "nfl")
     assert [state.game_id for state in nfl_only] == ["nfl-mixed", "nfl-ml", "nfl-ml"]
     for path, payload in before.items():
@@ -547,6 +554,92 @@ def test_nfl_production_split_matches_tune_and_keeps_config(tmp_path: Path):
 def test_calibrate_nfl_split_flag_rejects_extra_paths(capsys):
     assert run_calibrate(["--nfl-split", "examples/nfl_sample.json"]) == 2
     assert "--nfl-split" in capsys.readouterr().err
+
+
+def test_calibration_json_without_neutral_loads_false():
+    base = ROOT / "data" / "calibration"
+    seen = 0
+    for sport in ("nfl", "nhl", "nba", "ncaaf", "ncaab"):
+        path = next((base / sport).glob("*.json"))
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        assert isinstance(payload, list) and payload
+        assert all("neutral" not in row for row in payload[:3])
+        state = game_state_from_row(payload[0])
+        assert state.sport == sport
+        assert state.neutral is False
+        seen += 1
+    assert seen == 5
+    states = load_replay(base / "ncaaf" / "401752665_ALA_at_FSU.json")
+    assert states
+    assert all(state.neutral is False for state in states)
+
+
+def test_calibration_excludes_neutral_snapshots(tmp_path: Path):
+    opening = GameState(
+        sport="ncaaf",
+        game_id="site",
+        home="GT",
+        away="COLO",
+        home_score=7,
+        away_score=7,
+        period=2,
+        seconds_remaining_period=400,
+        seconds_remaining_total=400 + 2 * 900,
+        status="live",
+        source="test",
+        as_of=AS_OF,
+        prior_home=0.55,
+    )
+    final = replace(
+        opening,
+        status="final",
+        period=4,
+        seconds_remaining_period=0,
+        seconds_remaining_total=0,
+        home_score=24,
+        away_score=17,
+        as_of=datetime(2026, 9, 21, 21, 0, tzinfo=timezone.utc),
+    )
+
+    def _write(name: str, states: list[GameState]) -> Path:
+        path = tmp_path / name
+        path.write_text(
+            json.dumps([state_to_row(state) for state in states]),
+            encoding="utf-8",
+            newline="\n",
+        )
+        return path
+
+    home_states = [opening, final]
+    neutral_states = [replace(opening, neutral=True), replace(final, neutral=True)]
+    mixed_states = [replace(opening, neutral=True), final]
+    neutral_final = [opening, replace(final, neutral=True)]
+    home_report = build_report([_write("home.json", home_states)], root=tmp_path)
+    neutral_report = build_report(
+        [_write("neutral.json", neutral_states)], root=tmp_path
+    )
+    mixed_report = build_report([_write("mixed.json", mixed_states)], root=tmp_path)
+    final_report = build_report(
+        [_write("neutral_final.json", neutral_final)], root=tmp_path
+    )
+
+    assert home_report["skipped"] == []
+    assert home_report["games"][0]["n"] == 2
+    assert neutral_report["skipped"] == []
+    assert neutral_report["games"] == []
+    assert neutral_report["overall"]["n"] == 0
+    assert neutral_report["overall"]["mean_predicted_home_win_prob"] is None
+    config = config_for_state(final)
+    assert mixed_report["skipped"] == []
+    assert mixed_report["games"][0]["n"] == 1
+    assert mixed_report["overall"]["mean_predicted_home_win_prob"] == pytest.approx(
+        compute_win_prob(final, final.prior_home, config)
+    )
+    assert final_report["skipped"] == []
+    assert final_report["games"][0]["n"] == 1
+    assert final_report["overall"]["mean_predicted_home_win_prob"] == pytest.approx(
+        compute_win_prob(opening, opening.prior_home, config)
+    )
 
 
 def test_readme_documents_the_command_and_the_limit():

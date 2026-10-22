@@ -41,8 +41,8 @@ def test_ncaaf_config_margin_sd():
     assert NCAAF_CONFIG.tie_after_ot is False
 
 
-def test_tipoff_with_prior_0_60_stays_about_0_60():
-    state = ncaaf_state(prior_home=0.60, status="pre")
+def test_neutral_tipoff_with_prior_0_60_stays_about_0_60():
+    state = ncaaf_state(prior_home=0.60, status="pre", neutral=True)
     assert compute_win_prob(state, 0.60, NCAAF_CONFIG) == pytest.approx(0.60, abs=1e-9)
 
 
