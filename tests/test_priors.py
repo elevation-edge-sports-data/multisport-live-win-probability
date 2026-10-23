@@ -20,16 +20,29 @@ from live_win_prob.feeds.espn_hockey import events_from_espn_hockey
 from live_win_prob.priors import elo_prior_home, load_snapshot
 from live_win_prob.replay import game_state_from_row, render_widget_script, state_to_row
 from live_win_prob.slate import render_slate_script
+from ms_win_prob.basketball.config import NBA_CONFIG
+from ms_win_prob.football.config import NFL_CONFIG
+from ms_win_prob.hockey.config import NHL_CONFIG
 
 ROOT = Path(__file__).resolve().parents[1]
 SNIPPET = ROOT / "tests" / "fixtures" / "espn_nfl_summary_snippet.json"
 
 
+def _win_prob(home_elo: float, away_elo: float) -> float:
+    return 1.0 / (1.0 + 10.0 ** ((away_elo - home_elo) / 400.0))
+
+
 def _expected(sport: str, home: str, away: str) -> float:
+    """Home win probability after one snapshot home-advantage add."""
     block = load_snapshot()["sports"][sport]
     home_elo = float(block["teams"][home]) + float(block["home_advantage"])
     away_elo = float(block["teams"][away])
-    return 1.0 / (1.0 + 10.0 ** ((away_elo - home_elo) / 400.0))
+    return _win_prob(home_elo, away_elo)
+
+
+def _ratings_only(sport: str, home: str, away: str) -> float:
+    block = load_snapshot()["sports"][sport]
+    return _win_prob(float(block["teams"][home]), float(block["teams"][away]))
 
 
 def _board(
@@ -170,9 +183,13 @@ def _nfl_summary(*, home: str, away: str, drop_odds: bool) -> dict:
 
 def test_snapshot_home_advantage_is_applied_with_no_extra_boost() -> None:
     snapshot = load_snapshot()
-    assert snapshot["sports"]["nfl"]["home_advantage"] == 0.0
-    assert snapshot["sports"]["nhl"]["home_advantage"] == 0.0
-    assert snapshot["sports"]["nba"]["home_advantage"] == 0.0
+    assert snapshot["sports"]["nhl"]["home_advantage"] == 25.0
+    assert snapshot["sports"]["nfl"]["home_advantage"] == 35.0
+    assert snapshot["sports"]["nba"]["home_advantage"] == 45.0
+    # SportConfig stays 0 so prior_for_site does not add a second boost.
+    assert NHL_CONFIG.home_advantage == 0.0
+    assert NFL_CONFIG.home_advantage == 0.0
+    assert NBA_CONFIG.home_advantage == 0.0
     assert load_snapshot() is snapshot
     for sport, home, away in (
         ("nfl", "DEN", "NYG"),
@@ -181,6 +198,7 @@ def test_snapshot_home_advantage_is_applied_with_no_extra_boost() -> None:
     ):
         found = elo_prior_home(sport, home, away)
         assert found == pytest.approx(_expected(sport, home, away))
+        assert found != pytest.approx(_ratings_only(sport, home, away))
         assert found != pytest.approx(0.5)
     assert elo_prior_home("NFL", "DEN", "NYG") == pytest.approx(_expected("nfl", "DEN", "NYG"))
 
