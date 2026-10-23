@@ -111,11 +111,11 @@ def test_home_advantage_placeholders():
         tie_after_ot=False,
     )
     assert bare.home_advantage == 0.0
-    assert NFL_CONFIG.home_advantage == 1.5
+    assert NFL_CONFIG.home_advantage == 0.0
     assert NFL_PLAYOFF_CONFIG.home_advantage == 0.0
-    assert NHL_CONFIG.home_advantage == 0.13
+    assert NHL_CONFIG.home_advantage == 0.0
     assert NHL_REGULAR_CONFIG.home_advantage == 0.0
-    assert NBA_CONFIG.home_advantage == 1.7
+    assert NBA_CONFIG.home_advantage == 0.0
     assert NCAAF_CONFIG.home_advantage == 2.5
     assert NCAAB_CONFIG.home_advantage == 3.0
     assert NCAAH_CONFIG.home_advantage == 0.15
@@ -197,7 +197,7 @@ def test_non_neutral_receives_home_advantage_and_neutral_does_not():
 def test_moneyline_prior_skips_the_site_adjustment():
     """Moneyline prices already include home advantage."""
     prior = 0.6
-    config = NFL_CONFIG
+    config = NCAAF_CONFIG
     home = GameState(
         sport=config.sport,
         game_id="site-source",

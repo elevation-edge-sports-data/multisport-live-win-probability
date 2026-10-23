@@ -20,8 +20,9 @@ NHL_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
-    # Placeholder, not fitted. Goals of full-game margin.
-    home_advantage=0.13,
+    # Zeroed so the Elo snapshot home_advantage is the only home-advantage
+    # source for non-moneyline priors (avoids double-counting).
+    home_advantage=0.0,
 )
 
 # Regular season: one 5:00 period, then a shootout if it is still tied.
