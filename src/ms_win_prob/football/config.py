@@ -53,6 +53,8 @@ NCAAF_CONFIG = SportConfig(
     score_dispersion=12.0,
     ot_period_seconds=10 * 60,
     tie_after_ot=False,
-    # Placeholder, not fitted. Points of full-game margin.
-    home_advantage=2.5,
+    # Zeroed. Placeholder, not fitted. Points of full-game margin.
+    # No Elo snapshot exists for college, and existing calibration
+    # priors already embed site.
+    home_advantage=0.0,
 )

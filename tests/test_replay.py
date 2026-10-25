@@ -228,7 +228,7 @@ def test_inbound_shift_flips_only_the_last_make_of_a_run():
     assert shifted[3] is states[3]
 
 
-def test_live_script_boosts_a_home_site_and_skips_neutral():
+def test_live_script_does_not_boost_a_home_site_when_advantage_is_zero():
     home = GameState(
         sport="ncaaf",
         game_id="live-site",
@@ -251,7 +251,8 @@ def test_live_script_boosts_a_home_site_and_skips_neutral():
     assert neutral_frame["win_prob"] == compute_win_prob(
         neutral, neutral.prior_home, NCAAF_CONFIG
     )
-    assert home_frame["win_prob"] > neutral_frame["win_prob"]
+    assert NCAAF_CONFIG.home_advantage == 0.0
+    assert home_frame["win_prob"] == neutral_frame["win_prob"]
     assert neutral_frame["win_prob"] == pytest.approx(0.55, abs=1e-9)
 
 

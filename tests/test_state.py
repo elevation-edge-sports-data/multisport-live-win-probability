@@ -116,9 +116,9 @@ def test_home_advantage_placeholders():
     assert NHL_CONFIG.home_advantage == 0.0
     assert NHL_REGULAR_CONFIG.home_advantage == 0.0
     assert NBA_CONFIG.home_advantage == 0.0
-    assert NCAAF_CONFIG.home_advantage == 2.5
-    assert NCAAB_CONFIG.home_advantage == 3.0
-    assert NCAAH_CONFIG.home_advantage == 0.15
+    assert NCAAF_CONFIG.home_advantage == 0.0
+    assert NCAAB_CONFIG.home_advantage == 0.0
+    assert NCAAH_CONFIG.home_advantage == 0.0
     with pytest.raises(TypeError):
         replace(NFL_CONFIG, home_advantage=True)
     with pytest.raises(ValueError):
@@ -133,7 +133,11 @@ def _margin_prior(prior: float, config) -> float:
 
 
 def test_non_neutral_receives_home_advantage_and_neutral_does_not():
-    for config in (NCAAF_CONFIG, NCAAH_CONFIG, NCAAB_CONFIG):
+    # Production college configs are zero. The copy carries the edge.
+    edges = {"ncaaf": 2.5, "ncaah": 0.15, "ncaab": 3.0}
+    for base in (NCAAF_CONFIG, NCAAH_CONFIG, NCAAB_CONFIG):
+        assert base.home_advantage == 0.0
+        config = replace(base, home_advantage=edges[base.sport])
         home = GameState(
             sport=config.sport,
             game_id="site",
@@ -197,7 +201,7 @@ def test_non_neutral_receives_home_advantage_and_neutral_does_not():
 def test_moneyline_prior_skips_the_site_adjustment():
     """Moneyline prices already include home advantage."""
     prior = 0.6
-    config = NCAAF_CONFIG
+    config = replace(NCAAF_CONFIG, home_advantage=2.5)
     home = GameState(
         sport=config.sport,
         game_id="site-source",

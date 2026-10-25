@@ -50,6 +50,8 @@ NCAAH_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
-    # Placeholder, not fitted. Goals of full-game margin.
-    home_advantage=0.15,
+    # Zeroed. Placeholder, not fitted. Goals of full-game margin.
+    # No Elo snapshot exists for college, and existing calibration
+    # priors already embed site.
+    home_advantage=0.0,
 )
