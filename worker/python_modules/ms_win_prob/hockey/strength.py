@@ -25,21 +25,24 @@ def rate_multipliers(state: GameState) -> tuple[float, float]:
     diff = home_skaters - away_skaters
     home_mult = 1.0
     away_mult = 1.0
+    # Moneyline strength grids, 1016 games and 10871 snapshots.
+    # per_skater 0.40 (Brier 0.153491), both_3s 1.60, empty_net_factor 5.50.
+    # The previous production values were 0.75, 1.35, and 4.20.
     if home_skaters <= 3 and away_skaters <= 3 and diff == 0:
-        home_mult = 1.35
-        away_mult = 1.35
+        home_mult = 1.60
+        away_mult = 1.60
     elif diff > 0:
-        home_mult = 1.0 + 0.75 * diff
+        home_mult = 1.0 + 0.40 * diff
         away_mult = max(0.35, 1.0 - 0.30 * diff)
     elif diff < 0:
         step = -diff
-        away_mult = 1.0 + 0.75 * step
+        away_mult = 1.0 + 0.40 * step
         home_mult = max(0.35, 1.0 - 0.30 * step)
     if state.extra_attacker and (home_skaters == 6 or away_skaters == 6):
         if home_skaters > away_skaters:
             home_mult *= 1.10
-            away_mult *= 4.20
+            away_mult *= 5.50
         elif away_skaters > home_skaters:
             away_mult *= 1.10
-            home_mult *= 4.20
+            home_mult *= 5.50
     return home_mult, away_mult

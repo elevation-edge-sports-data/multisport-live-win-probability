@@ -57,3 +57,17 @@ def elo_prior_home(sport: str, home: str, away: str) -> float | None:
     if prior != prior or not 0.0 < prior < 1.0:
         return None
     return prior
+
+
+def comparison_elo_home(
+    sport: str, home: str, away: str, prior_source: str
+) -> float | None:
+    """Elo home probability to show beside a moneyline, or None.
+
+    Only a ``moneyline`` prior is compared. The result is
+    ``elo_prior_home`` and is not the prior passed to the win-probability
+    model. College sports and unknown clubs return None.
+    """
+    if prior_source != "moneyline":
+        return None
+    return elo_prior_home(sport, home, away)

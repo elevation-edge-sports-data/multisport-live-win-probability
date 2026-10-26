@@ -8,12 +8,26 @@ historical backtest.
 Replay lists are read as saved. ESPN objects go through the same path as
 ``python -m live_win_prob ingest-espn``, at scoring density. A file that path
 refuses is skipped and recorded. This module does not fetch.
+
+Optional historical files live under ``data/calibration/{sport}/``
+(``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, ``ncaab``), including
+nested directories. Those files are for historical calibration only.
+A missing or empty directory leaves the smoke-test inputs unchanged.
+
+``python -m live_win_prob calibrate --nfl-split`` scores only
+``data/calibration/nfl`` at the production NFL config. Train, validation,
+and hold-out use the same three-way game-id split as ``tune-nfl --three-way``.
+``python -m live_win_prob calibrate --split SPORT`` is that same report for
+``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, or ``ncaab``.
+``--nfl-split`` remains the NFL-only form.
 """
 
 from __future__ import annotations
 
 import json
 import math
+import sys
+from collections.abc import Callable
 from pathlib import Path
 
 from ms_win_prob import compute_win_prob
@@ -32,6 +46,12 @@ NOTE = (
     "Smoke table on the fixtures we have, not a historical backtest. "
     "The fixture count is too small to retune margin_sd, possession points, "
     "or strength multipliers."
+)
+
+NFL_SPLIT_NOTE = (
+    "Production NFL_CONFIG on data/calibration/nfl. "
+    "Train, validation, and hold-out use the same three-way game_id split "
+    "as tune-nfl --three-way. SportConfig was not modified."
 )
 
 # Same default as ``ingest-espn``. Replay files are not thinned to this density.
@@ -56,6 +76,7 @@ BUCKET_RULES: dict[str, str] = {
 }
 
 # Listed ESPN fixtures. examples/*.json is added beside these.
+# Historical JSON, when present, is data/calibration/{sport}/ (see historical_paths).
 ESPN_FIXTURES: tuple[str, ...] = (
     "tests/fixtures/espn_nfl_summary_snippet.json",
     "tests/fixtures/espn_nhl_401442762_summary.json",
@@ -65,6 +86,13 @@ ESPN_FIXTURES: tuple[str, ...] = (
 )
 
 _SPORT_ORDER = ("nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab")
+# College calibration directories are treated the same as the pro ones:
+# moneyline-only filtering and the three-way game-id split.
+_PRO_SEASON_SPORTS = _SPORT_ORDER
+# espn_win_probability is the college fallback from the collector. It is
+# ESPN's model at the first play, not a market close, and is scored like
+# moneyline. Pro directories do not use this label.
+_SEASON_PRIOR_SOURCES = frozenset({"moneyline", "espn_win_probability"})
 
 _METRIC_HEADERS = (
     "n",
@@ -81,11 +109,118 @@ def repo_root() -> Path:
 
 
 def default_paths(root: Path | None = None) -> list[Path]:
-    """Every example replay, then the listed ESPN fixtures."""
+    """Smoke-test inputs, then any historical JSON under ``data/calibration/``.
+
+    The smoke-test list is every ``examples/*.json`` replay, then the listed
+    ESPN fixtures. Historical files are appended only when that directory
+    contains JSON. A missing or empty directory leaves the list unchanged.
+    """
     root = repo_root() if root is None else root
     examples = sorted((root / "examples").glob("*.json"))
     fixtures = [root / relative for relative in ESPN_FIXTURES]
-    return [*examples, *fixtures]
+    return [*examples, *fixtures, *historical_paths(root)]
+
+
+def historical_paths(root: Path | None = None) -> list[Path]:
+    """JSON files for historical calibration only.
+
+    Expected layout, optional::
+
+        data/calibration/{sport}/...
+
+    ``sport`` is ``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, or
+    ``ncaab``. Nested directories under ``data/calibration/`` are included.
+    JSON lists are loaded with ``load_replay`` and labeled ``replay``.
+    JSON objects go through ``states_from_ingest`` at scoring density and
+    are labeled ``ingest-espn`` (basketball summaries use that same ingest
+    path). A missing directory, or one with no JSON files, returns nothing.
+    """
+    root = repo_root() if root is None else root
+    base = root / "data" / "calibration"
+    if not base.is_dir():
+        return []
+    return sorted(
+        (path for path in base.rglob("*.json") if path.is_file()),
+        key=lambda path: _historical_sort_key(base, path),
+    )
+
+
+def moneyline_snapshots(directory: Path | str) -> list[GameState]:
+    """Load a calibration directory and keep moneyline snapshots.
+
+    ``directory`` is a folder such as ``data/calibration`` or
+    ``data/calibration/nfl``. Nested JSON is included, in the same order
+    as ``historical_paths``. Replay lists go through ``load_replay``.
+    ESPN objects go through ``states_from_ingest`` at scoring density.
+    A file that path refuses is skipped. A snapshot is kept only when
+    ``prior_source`` is exactly ``moneyline``. A missing ``prior_source``
+    is loaded as ``default`` and left out. The files on disk are not
+    changed. A missing directory, or one with no JSON, returns nothing.
+    """
+    base = Path(directory)
+    if not base.is_dir():
+        return []
+    kept: list[GameState] = []
+    for path in sorted(
+        (path for path in base.rglob("*.json") if path.is_file()),
+        key=lambda path: _historical_sort_key(base, path),
+    ):
+        loaded, _source, reason = _load_path(path)
+        if reason is not None:
+            continue
+        kept.extend(state for state in loaded if state.prior_source == "moneyline")
+    return kept
+
+
+def pro_season_sport(path: Path, root: Path) -> str | None:
+    """Season sport when ``path`` is under ``data/calibration/{sport}/``.
+
+    ``sport`` is ``nfl``, ``nhl``, ``nba``, ``ncaaf``, ``ncaah``, or
+    ``ncaab``. Examples and fixtures outside ``data/calibration`` return
+    nothing.
+    """
+    base = (root / "data" / "calibration").resolve()
+    try:
+        relative = path.resolve().relative_to(base)
+    except ValueError:
+        return None
+    sport = relative.parts[0] if relative.parts else ""
+    if sport in _PRO_SEASON_SPORTS:
+        return sport
+    return None
+
+
+def file_has_moneyline_prior(path: Path) -> bool:
+    """True when a calibration file has a snapshot labeled ``moneyline``.
+
+    Replay lists are checked on the stored ``prior_source``. A missing
+    field is not moneyline. ESPN objects use the same ingest path as
+    scoring. The file is not written.
+    """
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return False
+    if isinstance(payload, list):
+        return any(
+            isinstance(row, dict) and row.get("prior_source") in _SEASON_PRIOR_SOURCES
+            for row in payload
+        )
+    loaded, _source, reason = _load_path(path)
+    return reason is None and any(
+        state.prior_source in _SEASON_PRIOR_SOURCES for state in loaded
+    )
+
+
+def _historical_sort_key(base: Path, path: Path) -> tuple[int, str]:
+    """Known sports first, in table order, then the relative path."""
+    relative = path.relative_to(base).as_posix()
+    sport = relative.split("/", 1)[0]
+    try:
+        rank = _SPORT_ORDER.index(sport)
+    except ValueError:
+        rank = len(_SPORT_ORDER)
+    return rank, relative
 
 
 def time_bucket(state: GameState, config: SportConfig) -> str:
@@ -151,10 +286,24 @@ def summarize(pairs: list[tuple[float, float]]) -> dict[str, object]:
 
 
 def build_report(
-    paths: list[Path], *, root: Path | None = None
+    paths: list[Path],
+    *,
+    root: Path | None = None,
+    config_for: Callable[[GameState], SportConfig] | None = None,
 ) -> dict[str, object]:
-    """Score each saved game. A refused file is listed under ``skipped``."""
+    """Score each saved game. A refused file is listed under ``skipped``.
+
+    ``config_for`` replaces ``config_for_state`` for this call only. The
+    default still reads the production configs. A caller that passes a
+    copy must not write that copy back to a config module.
+
+    A file under ``data/calibration/{nfl,nhl,nba,ncaaf,ncaah,ncaab}``
+    contributes only snapshots whose ``prior_source`` is ``moneyline`` or
+    ``espn_win_probability``. Files outside those directories are scored
+    as saved.
+    """
     root = repo_root() if root is None else root
+    chooser = config_for_state if config_for is None else config_for
     games: list[dict[str, object]] = []
     skipped: list[dict[str, str]] = []
     observations: list[tuple[str, str, float, float]] = []
@@ -164,7 +313,15 @@ def build_report(
         if reason is not None:
             skipped.append({"path": label, "reason": reason})
             continue
-        _score_file(label, source, loaded, games, skipped, observations)
+        if pro_season_sport(path, root) is not None:
+            loaded = [
+                state
+                for state in loaded
+                if state.prior_source in _SEASON_PRIOR_SOURCES
+            ]
+            if not loaded:
+                continue
+        _score_file(label, source, loaded, games, skipped, observations, chooser)
     return _assemble(paths, root, games, skipped, observations)
 
 
@@ -235,13 +392,151 @@ def write_report(report: dict[str, object], dest: Path) -> None:
     dest.write_text(text, encoding="utf-8", newline="\n")
 
 
+def split_section(report: dict[str, object]) -> dict[str, object]:
+    """One scored path list: overall metrics, time buckets, games, and skips.
+
+    Metric keys match ``summarize``: ``n``, ``mean_predicted_home_win_prob``,
+    ``home_win_rate``, ``brier``, and ``log_loss``.
+    """
+    return {
+        "inputs": report["inputs"],
+        "games": report["games"],
+        "skipped": report["skipped"],
+        "overall": report["overall"],
+        "by_bucket": [
+            {
+                "bucket": row["bucket"],
+                "n": row["n"],
+                "mean_predicted_home_win_prob": row["mean_predicted_home_win_prob"],
+                "home_win_rate": row["home_win_rate"],
+                "brier": row["brier"],
+                "log_loss": row["log_loss"],
+            }
+            for row in _report_rows(report, "by_bucket")
+        ],
+    }
+
+
+def format_nfl_split_report(report: dict[str, object]) -> str:
+    """Text table for the production NFL train, validation, and hold-out report."""
+    production = report["production"]
+    split = report["split"]
+    if not isinstance(production, dict) or not isinstance(split, dict):
+        raise TypeError("production and split must be objects")
+    train_ids = split["train_game_ids"]
+    validation_ids = split["validation_game_ids"]
+    holdout_ids = split["holdout_game_ids"]
+    lines = [
+        str(report["note"]),
+        "",
+        (
+            f"score_dispersion {production['score_dispersion']}  "
+            f"mean_score_per_team {production['mean_score_per_team']}  "
+            f"margin_sd {production['margin_sd']}"
+        ),
+        str(split["method"]),
+        (
+            f"Train games: {len(train_ids) if isinstance(train_ids, list) else 0}. "
+            f"Validation games: {len(validation_ids) if isinstance(validation_ids, list) else 0}. "
+            f"Hold-out games: {len(holdout_ids) if isinstance(holdout_ids, list) else 0}."
+        ),
+        "",
+    ]
+    for key, title in (
+        ("overall", "Overall"),
+        ("train", "Train"),
+        ("validation", "Validation"),
+        ("holdout", "Hold-out"),
+    ):
+        section = report[key]
+        if not isinstance(section, dict):
+            raise TypeError(f"{key} must be an object")
+        lines.append(title)
+        lines.extend(
+            _table(
+                ("slice", *_METRIC_HEADERS),
+                [_metric_line((title,), section["overall"])],
+            )
+        )
+        lines.append("")
+        lines.append(f"{title} by time bucket")
+        lines.extend(
+            _table(
+                ("bucket", *_METRIC_HEADERS),
+                [
+                    _metric_line((str(row["bucket"]),), row)
+                    for row in _report_rows(section, "by_bucket")
+                ],
+            )
+        )
+        skipped = section["skipped"]
+        if isinstance(skipped, list) and skipped:
+            lines.append("")
+            lines.append(f"{title} skipped")
+            lines.extend(
+                _table(
+                    ("path", "reason"),
+                    [
+                        [str(item["path"]), str(item["reason"])]
+                        for item in skipped
+                        if isinstance(item, dict)
+                    ],
+                )
+            )
+        lines.append("")
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def run_calibrate(argv: list[str]) -> int:
     """Print the table and write ``artifacts/calibration.json``.
 
     With no paths, score ``examples/*.json`` and the listed ESPN fixtures.
+    ``--nfl-split`` scores ``data/calibration/nfl`` at the production NFL
+    config and writes ``artifacts/nfl_baseline_calibration.json`` instead.
+    ``--split SPORT`` writes ``artifacts/{sport}_baseline_calibration.json``.
     Returns 0 when at least one snapshot was scored.
     """
     root = repo_root()
+    if argv and argv[0] == "--nfl-split":
+        if argv != ["--nfl-split"]:
+            print(
+                "usage: python -m live_win_prob calibrate "
+                "[--nfl-split] [replay-or-espn.json ...]",
+                file=sys.stderr,
+            )
+            return 2
+        from live_win_prob.tune import report_nfl_production_split
+
+        report = report_nfl_production_split(root)
+        print(format_nfl_split_report(report), end="")
+        write_report(report, root / "artifacts" / "nfl_baseline_calibration.json")
+        section = report["overall"]
+        overall = section["overall"] if isinstance(section, dict) else None
+        return 0 if isinstance(overall, dict) and overall["n"] else 1
+    if argv and argv[0] == "--split":
+        if len(argv) != 2 or argv[1] not in _SPORT_ORDER:
+            print(
+                "usage: python -m live_win_prob calibrate "
+                "--split nfl|nhl|nba|ncaaf|ncaah|ncaab",
+                file=sys.stderr,
+            )
+            return 2
+        sport = argv[1]
+        if sport == "nfl":
+            from live_win_prob.tune import report_nfl_production_split
+
+            report = report_nfl_production_split(root)
+            dest_name = "nfl_baseline_calibration.json"
+        else:
+            from live_win_prob.tune import report_production_split
+
+            report = report_production_split(sport, root)
+            dest_name = f"{sport}_baseline_calibration.json"
+        print(format_nfl_split_report(report), end="")
+        write_report(report, root / "artifacts" / dest_name)
+        section = report["overall"]
+        overall = section["overall"] if isinstance(section, dict) else None
+        return 0 if isinstance(overall, dict) and overall["n"] else 1
     paths = [Path(arg) for arg in argv] if argv else default_paths(root)
     report = build_report(paths, root=root)
     print(format_report(report), end="")
@@ -289,6 +584,7 @@ def _score_file(
     games: list[dict[str, object]],
     skipped: list[dict[str, str]],
     observations: list[tuple[str, str, float, float]],
+    config_for: Callable[[GameState], SportConfig],
 ) -> None:
     grouped: dict[str, list[GameState]] = {}
     order: list[str] = []
@@ -299,6 +595,10 @@ def _score_file(
         grouped[state.game_id].append(state)
     for game_id in order:
         group = grouped[game_id]
+        # Neutral-site games are excluded from all calibration.
+        to_score = [state for state in group if not state.neutral]
+        if not to_score:
+            continue
         finals = [state for state in group if state.status == "final"]
         if not finals:
             skipped.append(
@@ -312,8 +612,8 @@ def _score_file(
         outcome = home_result(final)
         scored: list[tuple[str, float]] = []
         try:
-            for state in group:
-                config = config_for_state(state)
+            for state in to_score:
+                config = config_for(state)
                 predicted = compute_win_prob(state, state.prior_home, config)
                 scored.append((time_bucket(state, config), predicted))
         except (TypeError, ValueError, NotImplementedError) as exc:

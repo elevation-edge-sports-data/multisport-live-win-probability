@@ -28,6 +28,7 @@ from live_win_prob.follow import (
     slate_states,
     summary_url,
 )
+from live_win_prob.priors import elo_prior_home
 from live_win_prob.slate import render_slate_script, slate_rows
 from live_win_prob.live import (
     DEFAULT_FOLLOW,
@@ -855,7 +856,19 @@ def test_get_slate_returns_one_sport_for_the_requested_day(
             rows = json.loads(body)
             assert rows == expected[sport]
             assert rows
-            assert list(rows[0]) == list(_SLATE_FIELDS)
+            keys = list(rows[0])
+            if keys[-1:] == ["elo_home"]:
+                assert sport == "nhl"
+                keys = keys[:-1]
+            else:
+                assert sport != "nhl"
+            assert keys == list(_SLATE_FIELDS)
+            if sport == "nhl":
+                assert rows[0]["prior_source"] == "moneyline"
+                assert rows[0]["elo_home"] == pytest.approx(
+                    elo_prior_home("nhl", "COL", "MIN")
+                )
+                assert rows[0]["prior_home"] != pytest.approx(rows[0]["elo_home"])
             text = body.decode("utf-8")
             assert "window.MS_WIN_PROB_SLATE" not in text
             for forbidden in ("clock", "possession", "win_prob", '"wp"'):

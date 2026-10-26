@@ -6,8 +6,9 @@ from ms_win_prob.config import SportConfig
 
 # v0 league anchors, not a fitted rating and not an Elo k-factor.
 # 22.5 points per team is a recent regular-season scoring level.
-# Dispersion 4.05 makes a full-game margin standard deviation of 13.5 points:
-# 2 * 4.05 * 22.5 = 13.5^2.
+# Dispersion 8.0 makes a full-game margin standard deviation of sqrt(360)
+# ≈ 18.97: 2 * 8.0 * 22.5 = 360. Chosen 2026-10-20 on data/calibration/nfl
+# (335 games, three-way split). Hold-out Brier 0.1548 versus 0.1612 at 4.05.
 # Regular-season overtime changed in 2025. It is one 10-minute period.
 # Each team still gets a possession if the first team scores a touchdown.
 # The clock can expire in a tie, including on the first possession.
@@ -17,9 +18,12 @@ NFL_CONFIG = SportConfig(
     regulation_periods=4,
     period_seconds=15 * 60,
     mean_score_per_team=22.5,
-    score_dispersion=4.05,
+    score_dispersion=8.0,
     ot_period_seconds=10 * 60,
     tie_after_ot=True,
+    # Zeroed so the Elo snapshot home_advantage is the only home-advantage
+    # source for non-moneyline priors (avoids double-counting).
+    home_advantage=0.0,
 )
 
 # Same 2025 possession rule as the regular season. Playoff overtime is
@@ -33,10 +37,11 @@ NFL_PLAYOFF_CONFIG = SportConfig(
     score_dispersion=4.05,
     ot_period_seconds=15 * 60,
     tie_after_ot=False,
+    home_advantage=0.0,
 )
 
-# 27 points per team. Dispersion 256/54 makes a full-game margin standard
-# deviation of 16: 2 * (256/54) * 27 = 16**2.
+# 27 points per team. Dispersion 12.0 makes a full-game margin standard
+# deviation of sqrt(2 * 12 * 27) ≈ 25.5.
 # ``ot_period_seconds`` is only here because SportConfig requires a positive
 # length. College overtime is not that clock. The model does not read it.
 NCAAF_CONFIG = SportConfig(
@@ -45,7 +50,11 @@ NCAAF_CONFIG = SportConfig(
     regulation_periods=4,
     period_seconds=15 * 60,
     mean_score_per_team=27.0,
-    score_dispersion=256 / 54,
+    score_dispersion=12.0,
     ot_period_seconds=10 * 60,
     tie_after_ot=False,
+    # Zeroed. Placeholder, not fitted. Points of full-game margin.
+    # No Elo snapshot exists for college, and existing calibration
+    # priors already embed site.
+    home_advantage=0.0,
 )

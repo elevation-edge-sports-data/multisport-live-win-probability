@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import re
+from dataclasses import replace
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Mapping
@@ -27,6 +28,7 @@ from ms_win_prob.basketball.config import NBA_CONFIG, NCAAB_CONFIG
 from ms_win_prob.config import SportConfig
 
 from live_win_prob.colors import team_color
+from live_win_prob.priors import comparison_elo_home
 
 # Marks live under assets/logos. The path is relative to the repo root page.
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -78,7 +80,52 @@ def load_replay(path: Path | str) -> list[GameState]:
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     if not isinstance(payload, list) or not payload:
         raise ValueError("replay file must be a non-empty JSON list")
-    return [game_state_from_row(row) for row in payload]
+    return shift_inbound_possession([game_state_from_row(row) for row in payload])
+
+
+def shift_inbound_possession(states: list[GameState]) -> list[GameState]:
+    """Point basketball possession at the team that inbounds next.
+
+    The raw ESPN label on a scoring play is the team that just scored. A
+    run of consecutive makes by that team, such as free throws, keeps the
+    ball with the shooter until the last make. That last snapshot is
+    relabeled as the other team. Non-scoring snapshots and snapshots with
+    no possession stay as stored. Other sports are unchanged.
+    """
+    if not states or states[0].sport not in {"nba", "ncaab"}:
+        return states
+    shifted = list(states)
+    index = 0
+    while index < len(states):
+        scorer = _scoring_team(states, index)
+        if scorer is None or states[index].possession not in {"home", "away"}:
+            index += 1
+            continue
+        end = index
+        while end + 1 < len(states) and _scoring_team(states, end + 1) == scorer:
+            if states[end + 1].possession not in {"home", "away"}:
+                break
+            end += 1
+        other = "away" if scorer == "home" else "home"
+        if shifted[end].possession != other:
+            shifted[end] = replace(states[end], possession=other)
+        index = end + 1
+    return shifted
+
+
+def _scoring_team(states: list[GameState], index: int) -> str | None:
+    """Team whose score rose on this snapshot, when exactly one side did."""
+    if index <= 0:
+        return None
+    previous = states[index - 1]
+    current = states[index]
+    home_delta = current.home_score - previous.home_score
+    away_delta = current.away_score - previous.away_score
+    if home_delta > 0 and away_delta == 0:
+        return "home"
+    if away_delta > 0 and home_delta == 0:
+        return "away"
+    return None
 
 
 def _as_int(row: Mapping[str, object], name: str) -> int:
@@ -103,7 +150,18 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
     if not isinstance(as_of, str):
         raise TypeError("as_of must be an ISO-8601 string")
     prior = row["prior_home"] if "prior_home" in row else DEFAULT_PRIOR_HOME
+    if "prior_source" in row and row["prior_source"] is not None:
+        prior_source = row["prior_source"]
+        if not isinstance(prior_source, str) or not prior_source:
+            raise TypeError("prior_source must be a string")
+    else:
+        prior_source = "default"
     optional: dict[str, object] = {}
+    if "neutral" in row and row["neutral"] is not None:
+        neutral = row["neutral"]
+        if not isinstance(neutral, bool):
+            raise TypeError("neutral must be a bool")
+        optional["neutral"] = neutral
     for name in ("down", "distance", "yardline"):
         if name in row and row[name] is not None:
             optional[name] = _as_int(row, name)
@@ -116,6 +174,13 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
         if not isinstance(extra, bool):
             raise TypeError("extra_attacker must be a bool")
         optional["extra_attacker"] = extra
+    if "penalty_remaining" in row and row["penalty_remaining"] is not None:
+        optional["penalty_remaining"] = _as_int(row, "penalty_remaining")
+    if row.get("penalty_side") not in (None, ""):
+        side = str(row["penalty_side"])
+        if side not in {"home", "away"}:
+            raise ValueError("penalty_side must be home or away")
+        optional["penalty_side"] = side
     if "timeouts" in row and row["timeouts"] is not None:
         optional["timeouts"] = _timeout_map(row["timeouts"])
     return GameState(
@@ -132,6 +197,7 @@ def game_state_from_row(row: Mapping[str, object]) -> GameState:
         source=str(row["source"]),
         as_of=datetime.fromisoformat(as_of.replace("Z", "+00:00")),
         prior_home=float(prior),  # type: ignore[arg-type]
+        prior_source=prior_source,
         **optional,  # type: ignore[arg-type]
     )
 
@@ -148,7 +214,10 @@ def _timeout_map(raw: object) -> dict[str, int]:
 
 
 def state_to_row(state: GameState) -> dict[str, object]:
-    """JSON object for one snapshot. Absent football fields are omitted."""
+    """JSON object for one snapshot. Absent football fields are omitted.
+
+    A false ``neutral`` flag is omitted so older files keep the same shape.
+    """
     if state.as_of.tzinfo is None:
         as_of = state.as_of.replace(microsecond=0).isoformat(timespec="seconds")
     else:
@@ -166,7 +235,10 @@ def state_to_row(state: GameState) -> dict[str, object]:
         "seconds_remaining_total": state.seconds_remaining_total,
         "status": state.status,
         "prior_home": state.prior_home,
+        "prior_source": state.prior_source,
     }
+    if state.neutral:
+        row["neutral"] = True
     if state.possession is not None:
         row["possession"] = state.possession
     if state.down is not None:
@@ -184,6 +256,10 @@ def state_to_row(state: GameState) -> dict[str, object]:
         row["strength"] = state.strength
     if state.extra_attacker is not None:
         row["extra_attacker"] = state.extra_attacker
+    if state.penalty_remaining is not None:
+        row["penalty_remaining"] = state.penalty_remaining
+    if state.penalty_side is not None:
+        row["penalty_side"] = state.penalty_side
     row["source"] = state.source
     row["as_of"] = as_of
     return row
@@ -365,7 +441,9 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
     Possession, down, distance, yard line, timeouts, strength, and extra
     attacker are copied only when that snapshot set them. Timeouts stay a
     mapping of team abbreviation to int. ``home`` and ``away`` keys are
-    written as the snapshot's abbreviations, away then home.
+    written as the snapshot's abbreviations, away then home. A moneyline
+    frame also includes ``elo_home`` when the snapshot has both clubs.
+    Win probability still uses ``prior_home``.
     """
     if not states:
         raise ValueError("replay file must be a non-empty JSON list")
@@ -397,9 +475,15 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
             "seconds_remaining_period": state.seconds_remaining_period,
             "seconds_remaining_total": state.seconds_remaining_total,
             "prior_home": state.prior_home,
+            "prior_source": state.prior_source,
             "game_id": state.game_id,
             "elapsed_seconds": elapsed_game_seconds(state),
         }
+        elo_home = comparison_elo_home(
+            state.sport, state.home, state.away, state.prior_source
+        )
+        if elo_home is not None:
+            frame["elo_home"] = elo_home
         if live:
             frame = {"sport": config.sport, **frame}
         frame.update(_situation_fields(state))

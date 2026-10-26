@@ -19,6 +19,11 @@ class SportConfig:
     regulation score is ``score_dispersion * mean_score_per_team``. The rate
     gap between the two teams comes from the pregame prior, not from a rating
     update.
+
+    ``home_advantage`` is a full-game expected margin (home score minus away
+    score) in the sport's score units, points or goals. Zero is no site
+    edge. ``compute_win_prob`` adds it to the pregame prior when the
+    snapshot is not neutral, then runs the model. A neutral site skips it.
     """
 
     sport: str
@@ -29,6 +34,8 @@ class SportConfig:
     score_dispersion: float
     ot_period_seconds: int
     tie_after_ot: bool
+    # Full-game expected margin, home minus away, in score units (points or goals).
+    home_advantage: float = 0.0
 
     def __post_init__(self) -> None:
         if not self.sport or not self.family:
@@ -39,6 +46,14 @@ class SportConfig:
             raise ValueError("period lengths must be > 0")
         if self.mean_score_per_team <= 0 or self.score_dispersion <= 0:
             raise ValueError("scoring rate and dispersion must be > 0")
+        if isinstance(self.home_advantage, bool) or not isinstance(
+            self.home_advantage, (int, float)
+        ):
+            raise TypeError("home_advantage must be a float")
+        advantage = float(self.home_advantage)
+        if not math.isfinite(advantage):
+            raise ValueError("home_advantage must be finite")
+        object.__setattr__(self, "home_advantage", advantage)
 
     @property
     def regulation_seconds(self) -> int:

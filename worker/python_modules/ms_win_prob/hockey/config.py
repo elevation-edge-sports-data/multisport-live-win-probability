@@ -20,6 +20,9 @@ NHL_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
+    # Zeroed so the Elo snapshot home_advantage is the only home-advantage
+    # source for non-moneyline priors (avoids double-counting).
+    home_advantage=0.0,
 )
 
 # Regular season: one 5:00 period, then a shootout if it is still tied.
@@ -35,6 +38,7 @@ NHL_REGULAR_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=5 * 60,
     tie_after_ot=True,
+    home_advantage=0.0,
 )
 
 NCAAH_CONFIG = SportConfig(
@@ -46,4 +50,8 @@ NCAAH_CONFIG = SportConfig(
     score_dispersion=1.0,
     ot_period_seconds=20 * 60,
     tie_after_ot=False,
+    # Zeroed. Placeholder, not fitted. Goals of full-game margin.
+    # No Elo snapshot exists for college, and existing calibration
+    # priors already embed site.
+    home_advantage=0.0,
 )

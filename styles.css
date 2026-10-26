@@ -537,6 +537,15 @@ button:focus-visible, input:focus-visible {
 
 .prior { margin-top: 1rem; }
 
+.pregame-source {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.pregame-source:empty { display: none; }
+
 footer {
   margin-top: 0.4rem;
   max-width: 36rem;

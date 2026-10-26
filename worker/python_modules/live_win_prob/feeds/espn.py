@@ -8,9 +8,11 @@ NCAAB summaries are ingested through the basketball adapter instead of this
 module, so calls here still refuse them. Any other league is refused.
 
 A home American moneyline, when present, is converted once into
-``prior_home`` and reused on every snapshot. ESPN's own win-probability
-field is never copied onto a snapshot and is never returned as the
-win probability.
+``prior_home`` and reused on every snapshot. NFL, NHL, and NBA fall
+back to the static Elo snapshot when that price is absent, then to a
+caller-supplied prior, then to 0.5. ``prior_source`` records which
+step was used. ESPN's own win-probability field is never copied onto
+a snapshot and is never returned as the win probability.
 """
 
 from __future__ import annotations
@@ -30,6 +32,8 @@ from ms_win_prob import (
     GameState,
 )
 from ms_win_prob.config import SportConfig
+
+from live_win_prob.priors import elo_prior_home
 
 # League ids on ESPN uids: NFL is l:28, college football is l:23, NHL is l:90.
 # Men's college hockey is l:91.
@@ -58,8 +62,8 @@ def espn_scoreboard_event_to_state(
 ) -> GameState:
     """One snapshot for a scoreboard event.
 
-    ``prior_home`` is used only when the event has no home moneyline.
-    Otherwise the moneyline is converted once.
+    Resolution order is the home moneyline, then the static Elo prior
+    for nfl, nhl, and nba, then ``prior_home``, then 0.5.
     """
     if not isinstance(event, Mapping):
         raise TypeError("ESPN scoreboard event must be an object")
@@ -81,6 +85,9 @@ def espn_scoreboard_event_to_state(
     situation = competition.get("situation")
     spot = situation if isinstance(situation, Mapping) else None
     possessing = spot.get("possession") if spot is not None else None
+    prior, prior_source = _resolve_prior(
+        event, prior_home, sport=sport, home=home.name, away=away.name
+    )
     return _build(
         game_id=_event_id(event, competition),
         home=home,
@@ -90,7 +97,8 @@ def espn_scoreboard_event_to_state(
         period=period,
         period_seconds=period_seconds,
         status=_OUR_STATUS[espn_state],
-        prior=_resolve_prior(event, prior_home),
+        prior=prior,
+        prior_source=prior_source,
         as_of=_event_as_of(event, competition),
         spot=spot,
         possessing_id=possessing,
@@ -129,6 +137,9 @@ def espn_summary_to_states(
     drive may be unfinished, and the status is still ``in``. Those rows
     are kept. The last snapshot is the current score, period, and clock
     with status ``live``.
+
+    Hockey snapshots record ``strength`` and ``extra_attacker`` when the
+    play-by-play supports them. A summary that does not is still 5-on-5.
     """
     if not isinstance(summary, Mapping):
         raise TypeError("ESPN summary must be an object")
@@ -583,13 +594,16 @@ def _summary_states(
 ) -> list[GameState]:
     home, away, final_home, final_away = _competitors(competition)
     config = _config_for(sport)
+    tracker = _hockey_tracker(sport, home.id, away.id)
     # Live summaries often omit the period clock that a final summary has.
     # A missing clock is filled from the plays. It is not a reason to drop
     # the scoring list.
     espn_state, status_period, status_display = _status_parts(
         _status_block(competition, header), sport, allow_partial=True
     )
-    prior = _resolve_prior(summary, prior_home)
+    prior, prior_source = _resolve_prior(
+        summary, prior_home, sport=sport, home=home.name, away=away.name
+    )
     game_id = _event_id(header, competition)
     game_date = _game_date(header, competition)
     states: list[GameState] = []
@@ -606,6 +620,8 @@ def _summary_states(
         spot: Mapping[str, Any] | None = None,
         possessing_id: object | None = None,
         synthetic: bool = False,
+        hockey_situation: tuple[str | None, bool | None] | None = None,
+        penalty: tuple[int | None, str | None] | None = None,
     ) -> None:
         nonlocal previous_as_of
         if synthetic:
@@ -629,10 +645,13 @@ def _summary_states(
             period_seconds=period_seconds,
             status=status,
             prior=prior,
+            prior_source=prior_source,
             as_of=stamped,
             spot=spot,
             possessing_id=possessing_id,
             sport=sport,
+            hockey_situation=hockey_situation,
+            penalty=penalty,
         )
         # situation density drops only an identical clock, score, and situation.
         # all density keeps every play.
@@ -644,6 +663,7 @@ def _summary_states(
         states.append(state)
 
     # Q1 kickoff is the pre snapshot. Later periods get their own start.
+    opening = None if tracker is None else tracker.at_clock(1, 0)
     emit(
         period=1,
         period_seconds=config.period_seconds,
@@ -651,6 +671,8 @@ def _summary_states(
         away_score=0,
         status="pre",
         when=game_date,
+        hockey_situation=opening,
+        penalty=None if tracker is None else _active_penalty(tracker, 1, 0),
     )
 
     last_home, last_away = 0, 0
@@ -664,6 +686,11 @@ def _summary_states(
         if density == "all"
         else _plays(summary, sport)
     )
+    period_elapsed = None
+    if tracker is not None:
+        from live_win_prob.feeds.espn_hockey import _period_elapsed
+
+        period_elapsed = _period_elapsed
 
     for play in plays:
         reported = _play_scores(play)
@@ -694,9 +721,22 @@ def _summary_states(
                     status="live",
                     when=when,
                     synthetic=True,
+                    hockey_situation=(
+                        None if tracker is None else tracker.at_clock(quarter, 0)
+                    ),
+                    penalty=(
+                        None if tracker is None else _active_penalty(tracker, quarter, 0)
+                    ),
                 )
         else:
             started.add(period)
+
+        play_situation = None
+        play_penalty = None
+        if tracker is not None and period_elapsed is not None:
+            play_situation = tracker.observe(play)
+            box_period, box_elapsed = period_elapsed(play)
+            play_penalty = _active_penalty(tracker, box_period, box_elapsed)
 
         if density == "scoring" and _has_two_minute(period, sport) and period not in two_minute_done:
             previous_clock = last_clock.get(period)
@@ -740,6 +780,8 @@ def _summary_states(
                 when=when,
                 spot=spot if keep_play or score_changed else None,
                 possessing_id=possessing if keep_play or score_changed else None,
+                hockey_situation=play_situation,
+                penalty=play_penalty,
             )
         if reported is not None:
             last_home, last_away = reported
@@ -760,6 +802,13 @@ def _summary_states(
                     final_period = states[-1].period
         else:
             final_clock = _parse_clock(status_display)
+        final_situation = None
+        final_penalty = None
+        if tracker is not None:
+            length = _period_length(final_period, sport)
+            elapsed = max(0, length - min(final_clock, length))
+            final_situation = tracker.at_clock(final_period, elapsed)
+            final_penalty = _active_penalty(tracker, final_period, elapsed)
         emit(
             period=final_period,
             period_seconds=final_clock,
@@ -768,6 +817,8 @@ def _summary_states(
             status="final",
             when=game_date,
             synthetic=True,
+            hockey_situation=final_situation,
+            penalty=final_penalty,
         )
     elif espn_state == "in":
         # Final games emit a 0:00 whistle. A live game keeps the current
@@ -791,6 +842,13 @@ def _summary_states(
         situation = competition.get("situation")
         spot = situation if isinstance(situation, Mapping) else None
         possessing = spot.get("possession") if spot is not None else None
+        live_situation = None
+        live_penalty = None
+        if tracker is not None:
+            length = _period_length(period, sport)
+            elapsed = max(0, length - min(now_clock, length))
+            live_situation = tracker.at_clock(period, elapsed)
+            live_penalty = _active_penalty(tracker, period, elapsed)
         emit(
             period=period,
             period_seconds=now_clock,
@@ -800,6 +858,8 @@ def _summary_states(
             when=_event_as_of(header, competition),
             spot=spot,
             possessing_id=possessing,
+            hockey_situation=live_situation,
+            penalty=live_penalty,
         )
     return states
 
@@ -1057,19 +1117,21 @@ def _build(
     period_seconds: int,
     status: str,
     prior: float,
+    prior_source: str,
     as_of: datetime,
     spot: Mapping[str, Any] | None,
     possessing_id: object | None,
     sport: str,
+    hockey_situation: tuple[str | None, bool | None] | None = None,
+    penalty: tuple[int | None, str | None] | None = None,
 ) -> GameState:
     period_clock, total_clock = _remaining_pair(period, period_seconds, sport)
-    # Hockey snapshots are clock and score. Strength and extra attacker
-    # are not read yet, and a play has no down or distance.
-    optional = (
-        {}
-        if _is_hockey(sport)
-        else _football_fields(spot, possessing_id, home, away)
-    )
+    # A play has no down or distance. Hockey strength stays unset when the
+    # summary has no penalty, strength label, or empty-net note.
+    if _is_hockey(sport):
+        optional = _hockey_fields(hockey_situation, penalty)
+    else:
+        optional = _football_fields(spot, possessing_id, home, away)
     return GameState(
         sport=sport,
         game_id=game_id,
@@ -1084,8 +1146,48 @@ def _build(
         source="espn",
         as_of=as_of,
         prior_home=prior,
+        prior_source=prior_source,
         **optional,
     )
+
+
+def _hockey_tracker(sport: str, home_id: str, away_id: str):
+    """Penalty tracker for hockey summaries. Other sports stay clock and score."""
+    if not _is_hockey(sport):
+        return None
+    from live_win_prob.feeds.espn_hockey import HockeyStrengthTracker
+
+    return HockeyStrengthTracker(home_id, away_id)
+
+
+def _active_penalty(tracker: Any, period: int, elapsed: int) -> tuple[int | None, str | None]:
+    """Shortest active minor at this clock, or no penalty."""
+    found = tracker.shortest_active(period, elapsed)
+    if found is None:
+        return None, None
+    return found
+
+
+def _hockey_fields(
+    situation: tuple[str | None, bool | None] | None,
+    penalty: tuple[int | None, str | None] | None = None,
+) -> dict[str, Any]:
+    if situation is None and penalty is None:
+        return {}
+    fields: dict[str, Any] = {}
+    if situation is not None:
+        label, extra = situation
+        if label:
+            fields["strength"] = label
+        if extra is not None:
+            fields["extra_attacker"] = extra
+    if penalty is not None:
+        remaining, side = penalty
+        if remaining is not None:
+            fields["penalty_remaining"] = remaining
+        if side:
+            fields["penalty_side"] = side
+    return fields
 
 
 def _football_fields(
@@ -1330,13 +1432,29 @@ def _remaining_pair(period: int, period_seconds: int, sport: str) -> tuple[int, 
     return remaining, remaining
 
 
-def _resolve_prior(payload: Mapping[str, Any], prior_home: float | None) -> float:
+def _resolve_prior(
+    payload: Mapping[str, Any],
+    prior_home: float | None,
+    *,
+    sport: str,
+    home: str,
+    away: str,
+) -> tuple[float, str]:
+    """Home prior and the step that produced it.
+
+    Order is the home American moneyline, then ``elo_prior_home`` for
+    nfl, nhl, and nba, then ``prior_home`` when the caller supplied one,
+    then 0.5.
+    """
     odds = _home_american_odds(payload)
     if odds is not None:
-        return _american_implied(odds)
+        return _american_implied(odds), "moneyline"
+    elo = elo_prior_home(sport, home, away)
+    if isinstance(elo, float):
+        return elo, "elo"
     if prior_home is not None:
-        return float(prior_home)
-    return DEFAULT_PRIOR_HOME
+        return float(prior_home), "passed"
+    return DEFAULT_PRIOR_HOME, "default"
 
 
 def _american_implied(odds: int) -> float:

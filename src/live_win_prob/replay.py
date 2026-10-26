@@ -28,6 +28,7 @@ from ms_win_prob.basketball.config import NBA_CONFIG, NCAAB_CONFIG
 from ms_win_prob.config import SportConfig
 
 from live_win_prob.colors import team_color
+from live_win_prob.priors import comparison_elo_home
 
 # Marks live under assets/logos. The path is relative to the repo root page.
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -440,7 +441,9 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
     Possession, down, distance, yard line, timeouts, strength, and extra
     attacker are copied only when that snapshot set them. Timeouts stay a
     mapping of team abbreviation to int. ``home`` and ``away`` keys are
-    written as the snapshot's abbreviations, away then home.
+    written as the snapshot's abbreviations, away then home. A moneyline
+    frame also includes ``elo_home`` when the snapshot has both clubs.
+    Win probability still uses ``prior_home``.
     """
     if not states:
         raise ValueError("replay file must be a non-empty JSON list")
@@ -476,6 +479,11 @@ def render_widget_script(states: list[GameState], *, live: bool = False) -> str:
             "game_id": state.game_id,
             "elapsed_seconds": elapsed_game_seconds(state),
         }
+        elo_home = comparison_elo_home(
+            state.sport, state.home, state.away, state.prior_source
+        )
+        if elo_home is not None:
+            frame["elo_home"] = elo_home
         if live:
             frame = {"sport": config.sport, **frame}
         frame.update(_situation_fields(state))

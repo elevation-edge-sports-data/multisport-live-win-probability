@@ -17,9 +17,10 @@ from live_win_prob.feeds.espn_basketball import (
     scoreboard_event_to_state,
 )
 from live_win_prob.feeds.espn_hockey import events_from_espn_hockey
-from live_win_prob.priors import elo_prior_home, load_snapshot
+from live_win_prob.priors import comparison_elo_home, elo_prior_home, load_snapshot
 from live_win_prob.replay import game_state_from_row, render_widget_script, state_to_row
 from live_win_prob.slate import render_slate_script
+from ms_win_prob import compute_win_prob
 from ms_win_prob.basketball.config import NBA_CONFIG
 from ms_win_prob.football.config import NFL_CONFIG
 from ms_win_prob.hockey.config import NHL_CONFIG
@@ -393,5 +394,65 @@ def test_prior_source_is_in_the_serialized_json() -> None:
 
     script = render_widget_script([state])
     assert '"prior_source": "elo"' in script
+    assert '"elo_home"' not in script
     slate = render_slate_script([state])
     assert '"prior_source": "elo"' in slate
+    assert '"elo_home"' not in slate
+
+
+def _script_rows(script: str) -> list[dict]:
+    payload = script[script.index("[") : script.rindex("]") + 1]
+    rows = json.loads(payload)
+    assert isinstance(rows, list)
+    return rows
+
+
+def test_moneyline_row_keeps_the_market_and_records_elo() -> None:
+    state = espn_scoreboard_event_to_state(
+        _board(
+            sport="nfl",
+            league_id="28",
+            series="20",
+            home="DEN",
+            away="NYG",
+            moneyline=-150,
+        )
+    )
+    elo = elo_prior_home("nfl", "DEN", "NYG")
+    assert elo is not None
+    assert comparison_elo_home("nfl", "DEN", "NYG", "moneyline") == pytest.approx(elo)
+    assert comparison_elo_home("nfl", "DEN", "NYG", "elo") is None
+    assert state.prior_source == "moneyline"
+    assert state.prior_home == pytest.approx(0.6)
+    assert state.prior_home != pytest.approx(elo)
+
+    slate = _script_rows(render_slate_script([state]))
+    assert slate[0]["prior_home"] == pytest.approx(state.prior_home)
+    assert slate[0]["prior_source"] == "moneyline"
+    assert slate[0]["elo_home"] == pytest.approx(elo)
+    assert list(slate[0]).index("elo_home") == list(slate[0]).index("prior_source") + 1
+
+    frames = _script_rows(render_widget_script([state]))
+    assert frames[0]["prior_home"] == pytest.approx(0.6)
+    assert frames[0]["prior_source"] == "moneyline"
+    assert frames[0]["elo_home"] == pytest.approx(elo)
+    assert frames[0]["win_prob"] == pytest.approx(
+        compute_win_prob(state, state.prior_home, NFL_CONFIG)
+    )
+    assert frames[0]["win_prob"] != pytest.approx(
+        compute_win_prob(state, elo, NFL_CONFIG)
+    )
+
+    college = espn_scoreboard_event_to_state(
+        _board(
+            sport="ncaaf",
+            league_id="23",
+            series="20",
+            home="DEN",
+            away="NYG",
+            moneyline=-150,
+        )
+    )
+    college_rows = _script_rows(render_slate_script([college]))
+    assert college.prior_source == "moneyline"
+    assert "elo_home" not in college_rows[0]

@@ -190,6 +190,16 @@ def test_page_filters_games_from_the_manifest_and_keeps_two_views():
     assert "Pregame home " not in script
     assert "Pregame " in script
     assert "pregame > 0.5" in script
+    assert 'id="pregame-source"' in html
+    assert html.index('id="e-home-score"') < html.index('id="pregame-source"') < html.index('id="charts"')
+    assert ".pregame-source" in css
+    assert "function formatPriorCaption" in script
+    assert "function americanFromProb" in script
+    assert "Elo prior" in script
+    assert "market price" in script
+    assert "function formatMarketModel" in script
+    assert "Model (Elo)" in script
+    assert "edge " in script
     assert 'id="score-chart"' in html
     assert 'id="win-prob-chart"' in html
     assert ".charts { display: none; }" in css
@@ -2705,7 +2715,7 @@ async function flush() {
 
 const slateRows = [
   { sport: "nfl", game_id: "401", away: "NYG", home: "DEN", status: "live", away_score: 3, home_score: 7, prior_home: 0.58 },
-  { sport: "nfl", game_id: "402", away: "KC", home: "BUF", status: "final", away_score: 17, home_score: 14, prior_home: 0.62, prior_source: "moneyline" },
+  { sport: "nfl", game_id: "402", away: "KC", home: "BUF", status: "final", away_score: 17, home_score: 14, prior_home: 0.62, prior_source: "moneyline", elo_home: 0.54 },
   { sport: "nfl", game_id: "403", away: "LV", home: "PHI", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 },
   { sport: "nfl", game_id: "404", away: "SEA", home: "SF", status: "stale", away_score: 2, home_score: 1, prior_home: 0.41 },
   { sport: "nba", game_id: "555", away: "BOS", home: "NYK", status: "pre", away_score: 0, home_score: 0, prior_home: 0.5 },
@@ -2909,6 +2919,7 @@ function snap(page) {
     boardScore: doc.getElementById("board-score").textContent,
     status: doc.getElementById("board-status").textContent,
     prior: doc.getElementById("board-prior").textContent,
+    pregameSource: doc.getElementById("pregame-source").textContent,
     slateHidden: doc.getElementById("slate-row").hidden === true,
     dateHidden: doc.getElementById("slate-date-row").hidden === true,
     dateTouched: doc.getElementById("slate-date-row").dateTouched === true,
@@ -3223,7 +3234,7 @@ async function runPoll(page) {
   await flush();
   const offHostAfter = snap(offHost);
 
-  function replayScript(sport, gameId, away, home, awayScore, homeScore) {
+  function replayScript(sport, gameId, away, home, awayScore, homeScore, priorHome, priorSource) {
     const binding = {
       nfl: "NFL_REPLAY",
       nhl: "NHL_REPLAY",
@@ -3232,18 +3243,20 @@ async function runPoll(page) {
       ncaah: "NCAAH_REPLAY",
       ncaab: "NCAAB_REPLAY"
     }[sport];
+    const prior = priorHome == null ? 0.61 : priorHome;
+    const source = priorSource || "default";
     const rows = [
       {
         sport: sport, clock: "Q1 15:00", win_prob: 0.61, home: home, away: away,
         home_score: 0, away_score: 0, status: "pre", period: 1,
         seconds_remaining_period: 900, seconds_remaining_total: 3600,
-        prior_home: 0.61, game_id: gameId, elapsed_seconds: 0
+        prior_home: prior, prior_source: source, game_id: gameId, elapsed_seconds: 0
       },
       {
         sport: sport, clock: "FINAL", win_prob: 1, home: home, away: away,
         home_score: homeScore, away_score: awayScore, status: "final", period: 4,
         seconds_remaining_period: 0, seconds_remaining_total: 0,
-        prior_home: 0.61, game_id: gameId, elapsed_seconds: 3600
+        prior_home: prior, prior_source: source, game_id: gameId, elapsed_seconds: 3600
       }
     ];
     return "window." + binding + " = " + JSON.stringify(rows) + ";\nwindow.MS_WIN_PROB_LIVE = window." + binding + ";\n";
@@ -3263,9 +3276,9 @@ async function runPoll(page) {
       http(200, JSON.stringify(chartCollege))
     ],
     replay: [
-      http(200, replayScript("nfl", "701", "JAX", "DEN", 6, 44)),
+      http(200, replayScript("nfl", "701", "JAX", "DEN", 6, 44, 0.81, "elo")),
       http(204, ""),
-      http(200, replayScript("ncaaf", "880", "COLO", "GT", 9, 2))
+      http(200, replayScript("ncaaf", "880", "COLO", "GT", 9, 2, 0.44, "default"))
     ]
   });
   await flush();
@@ -3516,6 +3529,7 @@ async function runPoll(page) {
     assert card["boardScore"] == "17-14"
     assert card["status"] == "final"
     assert card["prior"] == "Pregame BUF 62.00% (moneyline)"
+    assert card["pregameSource"] == "Moneyline prior · Market: 62% · Model (Elo): 54% · edge +8"
     assert card["scoreNodes"] == 0
     assert card["winProbNodes"] == 0
     assert card["situation"] == ""
@@ -3837,6 +3851,7 @@ async function runPoll(page) {
     assert dated_card["boardScore"] == "13-20"
     assert dated_card["status"] == "final"
     assert dated_card["prior"] == "Pregame DEN 81.00% (elo)"
+    assert dated_card["pregameSource"] == "Elo prior · home DEN 81.00% · about -426"
     assert dated_card["slatePressed"] == ["701"]
     assert dated_card["gameHidden"] is True
     assert dated_card["archive"] == []
@@ -3863,6 +3878,7 @@ async function runPoll(page) {
     assert dated_college["boardScore"] == "7-10"
     assert dated_college["status"] == "live"
     assert dated_college["prior"] == "Pregame COLO 56.00% (default)"
+    assert dated_college["pregameSource"] == "Default prior · home GT 44.00%"
     assert posts(dated_college) == posts(dated_card)
     assert slate_gets(dated_college)[-1] == {
         "url": "/slate?sport=ncaaf&date=20260920",
@@ -3937,6 +3953,7 @@ async function runPoll(page) {
     assert charted_nfl["scoreNodes"] > 0
     assert charted_nfl["winProbNodes"] > 0
     assert "JAX 6" in charted_nfl["score"] and "DEN 44" in charted_nfl["score"]
+    assert charted_nfl["pregameSource"] == "Elo prior · home DEN 81.00% · about -426"
     assert charted_nfl["clock"] == "FINAL"
     assert charted_nfl["slatePressed"] == ["701"]
     assert charted_nfl["gameHidden"] is True
@@ -3978,6 +3995,7 @@ async function runPoll(page) {
     assert charted_college["scoreNodes"] > 0
     assert charted_college["winProbNodes"] > 0
     assert "COLO 9" in charted_college["score"] and "GT 2" in charted_college["score"]
+    assert charted_college["pregameSource"] == "Default prior · home GT 44.00%"
     assert charted_college["slatePressed"] == ["880"]
     assert charted_college["gameHidden"] is True
     assert posts(charted_college) == []

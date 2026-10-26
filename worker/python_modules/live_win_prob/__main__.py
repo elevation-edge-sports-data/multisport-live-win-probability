@@ -1,4 +1,4 @@
-"""python -m live_win_prob replay|ingest-espn|render-widget|write-manifest|follow|live|slate|serve|calibrate"""
+"""python -m live_win_prob replay|ingest-espn|render-widget|write-manifest|follow|live|slate|serve|calibrate|tune-nfl|tune-nba|tune-nhl|tune-ncaaf|tune-ncaab|tune-ncaah"""
 
 from __future__ import annotations
 
@@ -9,6 +9,14 @@ from pathlib import Path
 from ms_win_prob import compute_win_prob
 
 from live_win_prob.calibrate import run_calibrate
+from live_win_prob.tune import (
+    run_tune_nba,
+    run_tune_ncaab,
+    run_tune_ncaaf,
+    run_tune_ncaah,
+    run_tune_nfl,
+    run_tune_nhl,
+)
 from live_win_prob.feeds import states_from_ingest
 from live_win_prob.feeds.espn import DENSITIES
 from live_win_prob.follow import run_follow
@@ -34,7 +42,13 @@ usage: python -m live_win_prob replay <json>
        python -m live_win_prob live [--game ESPN_EVENT_ID] [--sport nfl|nhl|nba] [--interval 15] [--out replays/live_replay.js]
        python -m live_win_prob slate [--date YYYYMMDD] [--interval 15] [--out slate.js] [--sport nfl|nhl|nba|ncaaf|ncaah|ncaab]
        python -m live_win_prob serve [--port 8765]
-       python -m live_win_prob calibrate [replay-or-espn.json ...]
+       python -m live_win_prob calibrate [--nfl-split | --split nfl|nhl|nba|ncaaf|ncaah|ncaab] [replay-or-espn.json ...]
+       python -m live_win_prob tune-nfl [--three-way] [--mean MEAN_SCORE_PER_TEAM]
+       python -m live_win_prob tune-nba [--three-way]
+       python -m live_win_prob tune-nhl [--three-way]
+       python -m live_win_prob tune-ncaaf [--three-way] [--mean MEAN_SCORE_PER_TEAM]
+       python -m live_win_prob tune-ncaab [--three-way]
+       python -m live_win_prob tune-ncaah [--three-way] [--mean MEAN_SCORE_PER_TEAM]
        python -m live_win_prob build-football-demos
        python -m live_win_prob build-hockey-demos
        python -m live_win_prob build-basketball-demos\
@@ -128,6 +142,18 @@ def main(argv: list[str] | None = None) -> int:
         return run_serve(args[1:])
     if args and args[0] == "calibrate":
         return run_calibrate(args[1:])
+    if args and args[0] == "tune-nfl":
+        return run_tune_nfl(args[1:])
+    if args and args[0] == "tune-nba":
+        return run_tune_nba(args[1:])
+    if args and args[0] == "tune-nhl":
+        return run_tune_nhl(args[1:])
+    if args and args[0] == "tune-ncaaf":
+        return run_tune_ncaaf(args[1:])
+    if args and args[0] == "tune-ncaab":
+        return run_tune_ncaab(args[1:])
+    if args and args[0] == "tune-ncaah":
+        return run_tune_ncaah(args[1:])
     if args and args[0] == "build-football-demos":
         from live_win_prob.build_football_demos import build_football_demos
 

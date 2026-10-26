@@ -409,6 +409,7 @@ def follow_game(
     The scoreboard is preferred. A missing id falls back to that event's
     summary. A line is printed only when the clock, score, period, status,
     or situation changes. ``prior_home`` stays on the first moneyline seen.
+    A later payload cannot replace that frozen price with Elo.
     ``sport`` defaults to nfl. ``on_change`` runs after each printed line
     with that snapshot. When ``stop`` returns true, the loop returns 0
     before the next fetch. ``before_poll``, when set, runs after that
@@ -465,15 +466,18 @@ def _with_frozen_prior(
 ) -> tuple[GameState, float | None]:
     """Keep the first home moneyline. Later prices do not move it.
 
-    Payloads with no moneyline leave the frozen value unset and the snapshot
-    uses 0.5 until one appears.
+    A payload with no moneyline leaves the frozen value unset. The snapshot
+    then uses the Elo prior for nfl, nhl, and nba when both clubs are in
+    the snapshot, and 0.5 otherwise, until a moneyline appears.
     """
     implied = home_moneyline_prior(payload)
     if frozen is None and implied is not None:
         frozen = implied
     state = _current_state(payload, frozen, sport)
-    if frozen is not None and state.prior_home != frozen:
-        state = replace(state, prior_home=frozen)
+    if frozen is not None and (
+        state.prior_home != frozen or state.prior_source != "moneyline"
+    ):
+        state = replace(state, prior_home=frozen, prior_source="moneyline")
     return state, frozen
 
 
@@ -664,7 +668,9 @@ def _chart_states(payload: Mapping[str, Any], sport: str) -> list[GameState]:
     if prior is None:
         return states
     return [
-        state if state.prior_home == prior else replace(state, prior_home=prior)
+        state
+        if state.prior_home == prior and state.prior_source == "moneyline"
+        else replace(state, prior_home=prior, prior_source="moneyline")
         for state in states
     ]
 

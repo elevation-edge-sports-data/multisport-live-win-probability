@@ -810,12 +810,66 @@
     return "Pregame " + pregameName + " " + pregamePct.toFixed(2) + "% (" + label + ")";
   }
 
+  // Display only. Converts the stored home probability to an American price.
+  function americanFromProb(prob) {
+    var p = Number(prob);
+    if (!(p > 0 && p < 1)) return "";
+    if (p > 0.5) return String(-Math.round((100 * p) / (1 - p)));
+    return "+" + String(Math.round((100 * (1 - p)) / p));
+  }
+
+  // Display only. Market minus Elo, in rounded percentage points.
+  function formatMarketModel(market, elo) {
+    var marketProb = Number(market);
+    var eloProb = Number(elo);
+    if (!(marketProb > 0 && marketProb < 1)) return "";
+    if (!(eloProb > 0 && eloProb < 1)) return "";
+    var marketPoints = Math.round(marketProb * 100);
+    var eloPoints = Math.round(eloProb * 100);
+    var line = "Market: " + marketPoints + "% · Model (Elo): " + eloPoints + "%";
+    var gap = marketPoints - eloPoints;
+    if (Math.abs(gap) >= 5) {
+      line += " · edge " + (gap > 0 ? "+" : "") + String(gap);
+    }
+    return line;
+  }
+
+  // Display only. Does not change the stored prior or the win-probability series.
+  function formatPriorCaption(prior, home, source, eloHome) {
+    var p = Number(prior);
+    if (!isFinite(p)) p = 0.5;
+    var pct = (p * 100).toFixed(2);
+    var src = source || "default";
+    var name = home ? String(home) : "home";
+    var body = "home " + name + " " + pct + "%";
+    if (src === "elo") return "Elo prior · " + body + " · about " + americanFromProb(p);
+    if (src === "moneyline") {
+      var compare = formatMarketModel(p, eloHome);
+      if (compare) return "Moneyline prior · " + compare;
+      return "Moneyline prior · market price · " + body;
+    }
+    if (src === "passed") return "Passed prior · " + body;
+    return "Default prior · " + body;
+  }
+
+  function writePriorCaption(prior, home, source, eloHome) {
+    var node = document.getElementById("pregame-source");
+    if (!node) return;
+    node.textContent = formatPriorCaption(prior, home, source, eloHome);
+  }
+
   function writePrior() {
     document.getElementById("prior").textContent = formatPriorText(
       frames[0].prior_home,
       frames[0].away,
       frames[0].home,
       frames[0].prior_source
+    );
+    writePriorCaption(
+      frames[0].prior_home,
+      frames[0].home,
+      frames[0].prior_source,
+      frames[0].elo_home
     );
   }
 
@@ -1352,6 +1406,8 @@
       var priorSource = row.prior_source == null || row.prior_source === ""
         ? "default"
         : String(row.prior_source);
+      var eloHome = Number(row.elo_home);
+      if (!(eloHome > 0 && eloHome < 1)) eloHome = null;
       out.push({
         sport: sport,
         gameId: gameId,
@@ -1361,7 +1417,8 @@
         awayScore: row.away_score,
         homeScore: row.home_score,
         priorHome: prior,
-        priorSource: priorSource
+        priorSource: priorSource,
+        eloHome: eloHome
       });
     }
     return out;
@@ -1789,6 +1846,7 @@
     var wasOnLast = frames.length > 0 && index === frames.length - 1;
     frames = rows;
     scrub.max = String(frames.length - 1);
+    writePrior();
     if (wasOnLast) show(frames.length - 1);
     else {
       if (index > frames.length - 1) index = frames.length - 1;
@@ -2039,6 +2097,7 @@
     text("board-status", row.status);
     text("board-prior", prior);
     text("prior", prior);
+    writePriorCaption(row.priorHome, row.home, row.priorSource, row.eloHome);
   }
 
   function showBoard(row, fromClick) {

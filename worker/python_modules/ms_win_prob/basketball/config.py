@@ -13,6 +13,9 @@ NBA_CONFIG = SportConfig(
     score_dispersion=1.05,
     ot_period_seconds=5 * 60,
     tie_after_ot=False,
+    # Zeroed so the Elo snapshot home_advantage is the only home-advantage
+    # source for non-moneyline priors (avoids double-counting).
+    home_advantage=0.0,
 )
 
 NCAAB_CONFIG = SportConfig(
@@ -24,7 +27,13 @@ NCAAB_CONFIG = SportConfig(
     score_dispersion=1.05,
     ot_period_seconds=5 * 60,
     tie_after_ot=False,
+    # Zeroed. Placeholder, not fitted. Points of full-game margin.
+    # No Elo snapshot exists for college, and existing calibration
+    # priors already embed site.
+    home_advantage=0.0,
 )
 
-NBA_POSSESSION_POINTS = 1.30
+# 1.40 won the moneyline possession grid: 1015 games, 127222 snapshots,
+# Brier 0.139094. The previous production value was 1.30.
+NBA_POSSESSION_POINTS = 1.40
 NCAAB_POSSESSION_POINTS = 1.04

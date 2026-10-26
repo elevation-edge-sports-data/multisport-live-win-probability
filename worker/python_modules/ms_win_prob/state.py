@@ -37,6 +37,9 @@ class GameState:
     complete state. The football model reads down, distance, yard line, and
     possession only when all four are present. Timeouts are not read. The
     hockey model does not read strength or extra attacker.
+
+    ``neutral`` is true at a neutral site. It defaults to false. A neutral
+    site does not receive the sport's home-advantage adjustment.
     """
 
     sport: str
@@ -52,6 +55,8 @@ class GameState:
     source: str
     as_of: datetime
     prior_home: float = DEFAULT_PRIOR_HOME
+    prior_source: str = "default"
+    neutral: bool = False
     possession: str | None = None
     down: int | None = None
     distance: int | None = None
@@ -59,6 +64,8 @@ class GameState:
     timeouts: Mapping[str, int] | None = None
     strength: str | None = None
     extra_attacker: bool | None = None
+    penalty_remaining: int | None = None
+    penalty_side: str | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.sport, str) or not self.sport:
@@ -95,6 +102,10 @@ class GameState:
         prior = float(self.prior_home)
         if prior != prior or not 0.0 < prior < 1.0:
             raise ValueError("prior_home must be in (0, 1)")
+        if not isinstance(self.prior_source, str) or not self.prior_source:
+            raise ValueError("prior_source is required")
+        if not isinstance(self.neutral, bool):
+            raise TypeError("neutral must be a bool")
 
         object.__setattr__(self, "home_score", home_score)
         object.__setattr__(self, "away_score", away_score)

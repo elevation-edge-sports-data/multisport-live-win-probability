@@ -11,6 +11,7 @@ import pytest
 
 from live_win_prob.__main__ import main
 from live_win_prob.follow import scoreboard_url, slate_lines, slate_states
+from live_win_prob.priors import elo_prior_home
 from live_win_prob.slate import (
     DEFAULT_OUT,
     _real_fetch,
@@ -177,6 +178,13 @@ class _Fetch:
         raise AssertionError(url)
 
 
+def _core_fields(row: dict) -> list[str]:
+    keys = list(row)
+    if keys[-1:] == ["elo_home"]:
+        keys.pop()
+    return keys
+
+
 def _rows(text: str) -> list[dict]:
     prefix = "window.MS_WIN_PROB_SLATE = "
     assert text.startswith(prefix)
@@ -274,7 +282,13 @@ def test_three_sports_one_pass(
     assert captured.out.splitlines() == expected_lines
     assert captured.out.endswith("\n")
     rows = _rows(text)
-    assert [list(row) for row in rows] == [list(_FIELDS)] * len(states)
+    assert [_core_fields(row) for row in rows] == [list(_FIELDS)] * len(states)
+    nhl_row = next(row for row in rows if row["game_id"] == "77")
+    assert nhl_row["prior_source"] == "moneyline"
+    assert nhl_row["elo_home"] == pytest.approx(elo_prior_home("nhl", "COL", "MIN"))
+    assert nhl_row["prior_home"] != pytest.approx(nhl_row["elo_home"])
+    assert "elo_home" not in rows[0]
+    assert "elo_home" not in next(row for row in rows if row["sport"] == "nba")
     assert [row["sport"] for row in rows] == [state.sport for state in states]
     assert [row["status"] for row in rows] == [state.status for state in states]
     assert set(row["status"] for row in rows) >= {"pre", "live", "final"}

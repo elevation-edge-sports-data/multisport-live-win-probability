@@ -41,6 +41,7 @@ from live_win_prob.follow import (
     slate_lines,
     slate_states,
 )
+from live_win_prob.priors import comparison_elo_home
 
 DEFAULT_OUT = Path(__file__).resolve().parents[2] / "slate.js"
 _DEFAULT_INTERVAL = 15.0
@@ -194,7 +195,9 @@ def render_slate_script(states: list[GameState]) -> str:
     Fields stay in the order sport, game_id, away, home, status,
     away_score, home_score, prior_home, prior_source. There is no clock
     and no situation. ``prior_home`` is the resolved pregame prior.
-    ``prior_source`` is moneyline, elo, passed, or default.
+    ``prior_source`` is moneyline, elo, passed, or default. A moneyline
+    row also includes ``elo_home`` when the Elo snapshot has both clubs.
+    That value is not the prior used for win probability.
     """
     rows = [_slate_row(state) for state in states]
     body = json.dumps(rows, indent=2)
@@ -231,7 +234,7 @@ def _write_slate(path: Path, states: list[GameState]) -> None:
 
 
 def _slate_row(state: GameState) -> dict[str, object]:
-    return {
+    row = {
         "sport": state.sport,
         "game_id": state.game_id,
         "away": state.away,
@@ -242,6 +245,12 @@ def _slate_row(state: GameState) -> dict[str, object]:
         "prior_home": state.prior_home,
         "prior_source": state.prior_source,
     }
+    elo_home = comparison_elo_home(
+        state.sport, state.home, state.away, state.prior_source
+    )
+    if elo_home is not None:
+        row["elo_home"] = elo_home
+    return row
 
 
 def _real_fetch(url: str) -> Mapping[str, Any]:
