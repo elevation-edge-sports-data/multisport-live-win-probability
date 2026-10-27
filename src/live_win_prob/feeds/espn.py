@@ -756,6 +756,9 @@ def _summary_states(
                 two_minute_done.add(period)
 
         score_changed = reported is not None and reported != (entered_home, entered_away)
+        # Period End and End of Game are in the feed. Scoring density must
+        # keep them or the chart stops at the last goal.
+        whistle = _is_hockey(sport) and _is_hockey_whistle(play)
         if _is_hockey(sport):
             minute_key = (period, _nhl_elapsed_minute(period, clock))
             fresh_minute = minute_key not in seen_minutes
@@ -763,14 +766,14 @@ def _summary_states(
             # No down or distance. A situation event changes the score,
             # the period, or the clock. Clock events are one per minute.
             keep_play = density == "all" or (
-                density == "situation" and (score_changed or fresh_minute)
+                density == "situation" and (score_changed or fresh_minute or whistle)
             )
         else:
             keep_play = density == "all" or (
                 density == "situation"
                 and _situation_complete(spot, possessing, home, away)
             )
-        if keep_play or (density == "scoring" and score_changed):
+        if keep_play or (density == "scoring" and (score_changed or whistle)):
             emit(
                 period=period,
                 period_seconds=clock,
@@ -789,14 +792,21 @@ def _summary_states(
 
     if espn_state == "post":
         # A finished summary often omits period and displayClock.
-        final_period = status_period or (
-            max(started) if started else config.regulation_periods
-        )
+        played = max(started) if started else config.regulation_periods
+        # Do not move the whistle into a period the plays never reached.
+        if status_period is None or status_period > played:
+            final_period = played
+        else:
+            final_period = status_period
+        if final_period < played:
+            final_period = played
         if status_display is None:
             final_clock = 0
-            if _is_hockey(sport) and states:
+            overtime = final_period > config.regulation_periods
+            if _is_hockey(sport) and overtime and states:
                 # The status clock is blank after an overtime goal. Keep
-                # the last play's remaining time instead of jumping to 0:00.
+                # the last play's remaining time instead of stretching the
+                # overtime pane to 0:00. Regulation still ends at 0:00.
                 final_clock = states[-1].seconds_remaining_period
                 if status_period is None:
                     final_period = states[-1].period
@@ -1034,6 +1044,23 @@ def _play_scores(play: Mapping[str, Any]) -> tuple[int, int] | None:
     except (TypeError, ValueError):
         # One unreadable total must not drop the rest of a live summary.
         return None
+
+
+def _play_type_text(play: Mapping[str, Any]) -> str:
+    raw = play.get("type")
+    if isinstance(raw, Mapping):
+        return str(raw.get("text") or "")
+    return str(raw or "")
+
+
+def _is_hockey_whistle(play: Mapping[str, Any]) -> bool:
+    """Period end or final whistle. These plays are not scoring changes."""
+    return _play_type_text(play) in {
+        "Period End",
+        "End of Period",
+        "End of Game",
+        "Game End",
+    }
 
 
 def _is_marked_scoring(play: Mapping[str, Any]) -> bool:

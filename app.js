@@ -20,8 +20,9 @@
 // selected sport are assets/colors/{sport}.json, one file per league,
 // keyed by sport and id. id is the logo filename stem. Logos on a frame
 // are assets/logos/{sport}/{abbr}.png and applyLogo uses that string as-is.
-// The page query selects a manifest game (sport and game=away-home).
-// live=1 selects Live on this host when that file has frames.
+// The page query selects a sport. Bare ?sport= runs that sport's opener.
+// game=demo is that sport's archive default. game=away-home is one
+// manifest replay. live=1 selects Live on this host when that file has frames.
 // id= selects a slate event on this host. A query string wins over the file.
 
 (function (root) {
@@ -684,9 +685,20 @@
     inkFor: inkFor
   };
 
-  var BADGE_TEXT = "V5.9";
+  var BADGE_TEXT = "v5";
   var SPORT_ORDER = ["nfl", "nhl", "nba", "ncaaf", "ncaah", "ncaab"];
   var PRO_SPORTS = SPORT_ORDER.slice(0, 3);
+  // Most recent designated-team game, counted from today, that already
+  // has a moneyline and an Elo probability. Otherwise the sport's
+  // previous default.
+  var DESIGNATED_TEAM = {
+    nfl: "DEN",
+    nba: "DEN",
+    nhl: "COL",
+    ncaaf: "COLO",
+    ncaab: "COLO",
+    ncaah: "AF"
+  };
   var COLLEGE_SPORTS = SPORT_ORDER.slice(3);
 
   function isCollegeSport(sport) {
@@ -781,6 +793,9 @@
   var queryOwned = false;
   var collegeBoot = false;
   var followBlocked = false;
+  var gameChosen = false;
+  var pickSerial = 0;
+  var sportSelection = {};
   var followWant = null;
   var followSettled = false;
   var LIVE_POLL_MS = 15000;
@@ -2354,20 +2369,320 @@
     return "";
   }
 
+  function pad2(value) {
+    var text = String(value);
+    return text.length < 2 ? "0" + text : text;
+  }
+
+  function ymd(date) {
+    return String(date.getFullYear()) + pad2(date.getMonth() + 1) + pad2(date.getDate());
+  }
+
+  function addDays(key, delta) {
+    var date = new Date(Number(key.slice(0, 4)), Number(key.slice(4, 6)) - 1, Number(key.slice(6, 8)));
+    date.setDate(date.getDate() + delta);
+    return ymd(date);
+  }
+
+  function involvesTeam(row, abbr) {
+    var key = String(abbr || "").toUpperCase();
+    if (!key || !row) return false;
+    return String(row.home || "").toUpperCase() === key || String(row.away || "").toUpperCase() === key;
+  }
+
+  function hasRichPrior(row) {
+    return !!(row && row.priorSource === "moneyline" && row.eloHome != null && isFinite(Number(row.eloHome)));
+  }
+
+  function lastWhere(rows, pred) {
+    var i;
+    var found = null;
+    for (i = 0; i < rows.length; i++) {
+      if (pred(rows[i])) found = rows[i];
+    }
+    return found;
+  }
+
+  // null means this day is not a slate, so older history is not available.
+  // An empty list is a real off day and the walk keeps going.
+  function fetchSlateRows(sport, dateKey) {
+    var url = API_BASE + "/slate?sport=" + encodeURIComponent(sport) +
+      "&date=" + encodeURIComponent(dateKey);
+    return Promise.resolve(loadReplay(url)).then(function (response) {
+      if (!response || !response.ok || typeof response.text !== "function") return null;
+      return response.text();
+    }).then(function (text) {
+      var rows;
+      var out = [];
+      var i;
+      if (text == null) return null;
+      rows = readDatedRows(text);
+      if (!rows) return null;
+      for (i = 0; i < rows.length; i++) {
+        if (rows[i].sport === sport) out.push(rows[i]);
+      }
+      return out;
+    }).catch(function () {
+      return null;
+    });
+  }
+
+  // Newest qualifying designated-team game, counted from today. A day
+  // that does not return a slate ends the walk. There is no day cap.
+  function walkDesignated(sport, startKey, serial) {
+    var abbr = DESIGNATED_TEAM[sport];
+    function next(key) {
+      if (serial !== pickSerial || gameChosen) return Promise.resolve(null);
+      if (!/^[0-9]{8}$/.test(key) || Number(key.slice(0, 4)) < 1970) {
+        return Promise.resolve(null);
+      }
+      return fetchSlateRows(sport, key).then(function (rows) {
+        var match;
+        if (serial !== pickSerial || gameChosen) return null;
+        if (!rows) return null;
+        match = lastWhere(rows, function (row) {
+          return involvesTeam(row, abbr) && hasRichPrior(row);
+        });
+        if (match) return { dateKey: key, rows: rows, row: match };
+        return next(addDays(key, -1));
+      });
+    }
+    return next(startKey);
+  }
+
+  function hideGameView() {
+    var situation;
+    loadToken += 1;
+    setPlaying(false);
+    viewingLive = false;
+    viewingBoard = false;
+    boardRow = null;
+    currentFile = "";
+    frames = [];
+    document.getElementById("board").hidden = true;
+    document.getElementById("charts").hidden = true;
+    document.getElementById("stage").hidden = true;
+    document.getElementById("transport").hidden = true;
+    clearCharts();
+    text("position", "");
+    text("prior", "");
+    var pregame = document.getElementById("pregame-source");
+    if (pregame) pregame.textContent = "";
+    text("away-swatch-label", "Away");
+    text("home-swatch-label", "Home");
+    document.getElementById("away-swatches").textContent = "";
+    document.getElementById("home-swatches").textContent = "";
+    awaySwatch = null;
+    homeSwatch = null;
+    document.documentElement.style.removeProperty("--away");
+    document.documentElement.style.removeProperty("--away-ink");
+    document.documentElement.style.removeProperty("--home");
+    document.documentElement.style.removeProperty("--home-ink");
+    situation = document.getElementById("situation");
+    situation.textContent = "";
+    situation.hidden = true;
+  }
+
+  function loadSportDefault(sport) {
+    var games;
+    var presetRows;
+    sportName = sport;
+    ensureColors(sport);
+    if (presetSport() === sport) {
+      presetRows = readSportFrames(root, sport);
+      if (presetRows && presetRows.length) {
+        useFrames({ sport: sport, file: "" }, presetRows);
+        return;
+      }
+    }
+    games = gamesForSport(manifest, sport);
+    if (!games.length && sport === "nfl") {
+      games = [defaultEntry()].filter(function (entry) { return !!entry; });
+    }
+    if (games.length) loadGame(games[0]);
+  }
+
+  function showPreviousDefault(sport) {
+    loadSportDefault(sport);
+    writeSportQuery(sport, true);
+  }
+
+  function adoptDatedSlate(sport, dateKey, rows, row) {
+    var input = document.getElementById("slate-date");
+    sportName = sport;
+    slateDate = dateKey;
+    datedRows = rows;
+    datedReady = true;
+    datedSport = sport;
+    datedDate = dateKey;
+    if (input) {
+      input.value = dateKey.slice(0, 4) + "-" + dateKey.slice(4, 6) + "-" + dateKey.slice(6, 8);
+    }
+    renderPicker();
+    showBoard(row, true);
+    requestSlateReplay(row);
+  }
+
+  function currentSelection() {
+    var games;
+    var i;
+    if (viewingLive && liveSport === sportName && liveFrames && liveFrames.length && !liveHidden) {
+      return { kind: "live", sport: sportName };
+    }
+    if (viewingBoard && boardRow && boardRow.sport === sportName) {
+      return {
+        kind: "board",
+        sport: boardRow.sport,
+        gameId: boardRow.gameId,
+        away: boardRow.away,
+        home: boardRow.home,
+        priorHome: boardRow.priorHome,
+        priorSource: boardRow.priorSource,
+        eloHome: boardRow.eloHome,
+        awayScore: boardRow.awayScore,
+        homeScore: boardRow.homeScore,
+        status: boardRow.status,
+        date: slateDate || ""
+      };
+    }
+    if (!viewingBoard && slateChartId && frames.length) {
+      return {
+        kind: "board",
+        sport: sportName,
+        gameId: slateChartId,
+        away: frames[0].away,
+        home: frames[0].home,
+        priorHome: frames[0].prior_home,
+        priorSource: frames[0].prior_source,
+        eloHome: frames[0].elo_home,
+        awayScore: frames[frames.length - 1].away_score,
+        homeScore: frames[frames.length - 1].home_score,
+        status: frames[frames.length - 1].status,
+        date: slateDate || ""
+      };
+    }
+    if (currentFile) return { kind: "archive", sport: sportName, file: currentFile };
+    if (!frames.length || !frames[0].away || !frames[0].home) return null;
+    games = gamesForSport(manifest, sportName);
+    for (i = 0; i < games.length; i++) {
+      if (gameSlug(games[i].away, games[i].home) === gameSlug(frames[0].away, frames[0].home)) {
+        return { kind: "archive", sport: sportName, file: games[i].file };
+      }
+    }
+    return null;
+  }
+
+  function rememberSport(sport) {
+    var saved = currentSelection();
+    if (saved) sportSelection[sport] = saved;
+  }
+
+  function restoreBoard(saved) {
+    var row = {
+      sport: saved.sport,
+      gameId: saved.gameId,
+      away: saved.away,
+      home: saved.home,
+      priorHome: saved.priorHome,
+      priorSource: saved.priorSource || "default",
+      eloHome: saved.eloHome,
+      awayScore: saved.awayScore,
+      homeScore: saved.homeScore,
+      status: saved.status || ""
+    };
+    var input;
+    sportName = saved.sport;
+    ensureColors(saved.sport);
+    if (saved.date) {
+      input = document.getElementById("slate-date");
+      slateDate = saved.date;
+      datedRows = [row];
+      datedReady = true;
+      datedSport = saved.sport;
+      datedDate = saved.date;
+      if (input) {
+        input.value = saved.date.slice(0, 4) + "-" + saved.date.slice(4, 6) + "-" + saved.date.slice(6, 8);
+      }
+      renderPicker();
+      showBoard(row, true);
+      requestSlateReplay(row);
+      return;
+    }
+    renderPicker();
+    selectSlate(row, true);
+    postFollow(row);
+  }
+
+  function restoreSelection(saved) {
+    var games;
+    var i;
+    pickSerial += 1;
+    gameChosen = true;
+    if (!saved) return false;
+    if (saved.kind === "live" && liveSport === saved.sport && liveFrames && liveFrames.length && !liveHidden) {
+      sportName = saved.sport;
+      selectLive(true);
+      return true;
+    }
+    if (saved.kind === "archive" && saved.file) {
+      games = gamesForSport(manifest, saved.sport);
+      for (i = 0; i < games.length; i++) {
+        if (games[i].file !== saved.file) continue;
+        sportName = saved.sport;
+        ensureColors(saved.sport);
+        if (i === 0) writeSportQuery(saved.sport, true);
+        else writeQuery(games[i].sport, games[i].away, games[i].home, false);
+        loadGame(games[i]);
+        return true;
+      }
+    }
+    if (saved.kind === "board" && saved.gameId && saved.away && saved.home) {
+      restoreBoard(saved);
+      return true;
+    }
+    return false;
+  }
+
+  function chooseOpeningGame(sport) {
+    var serial = ++pickSerial;
+    sportName = sport;
+    ensureColors(sport);
+    hideGameView();
+    renderPicker();
+    loadSportDefault(sport);
+    if (!hostAllowsLive() || typeof root.fetch !== "function") {
+      writeSportQuery(sport, true);
+      return;
+    }
+    walkDesignated(sport, ymd(new Date()), serial).then(function (found) {
+      if (serial !== pickSerial || gameChosen) return;
+      if (found && hasRichPrior(found.row)) {
+        adoptDatedSlate(sport, found.dateKey, found.rows, found.row);
+        return;
+      }
+      writeSportQuery(sport, true);
+    }, function () {
+      if (serial !== pickSerial || gameChosen) return;
+      writeSportQuery(sport, true);
+    });
+  }
+
   document.getElementById("sports").addEventListener("click", function (event) {
     var sport = attrFrom(event, "data-sport");
-    if (!sport) return;
-    var games = gamesForSport(manifest, sport);
-    if (!games.length) return;
+    if (!sport || SPORT_ORDER.indexOf(sport) < 0 || sport === sportName) return;
+    rememberSport(sportName);
     followBlocked = true;
     leaveSlateChart();
-    writeQuery(games[0].sport, games[0].away, games[0].home, false);
-    loadGame(games[0]);
+    if (restoreSelection(sportSelection[sport])) return;
+    gameChosen = false;
+    writeSportQuery(sport, false);
+    chooseOpeningGame(sport);
   });
 
   document.getElementById("games").addEventListener("click", function (event) {
     if (attrFrom(event, "data-live")) {
       followBlocked = true;
+      gameChosen = true;
       leaveSlateChart();
       selectLive();
       return;
@@ -2376,6 +2691,7 @@
     if (!file) return;
     var i;
     followBlocked = true;
+    gameChosen = true;
     leaveSlateChart();
     for (i = 0; i < manifest.length; i++) {
       if (manifest[i].file === file && listedGame(manifest[i])) {
@@ -2391,6 +2707,7 @@
     var row = findSlateRow(id);
     if (!row) return;
     followBlocked = true;
+    gameChosen = true;
     if (slateDate && hostAllowsLive()) {
       rememberArchive();
       showBoard(row);
@@ -2402,7 +2719,13 @@
   });
 
   var slateDateInput = document.getElementById("slate-date");
-  if (slateDateInput) slateDateInput.addEventListener("change", onSlateDate);
+  if (slateDateInput) {
+    // Upper bound is the later of next year and 2027, so 2027 stays
+    // selectable before then and the list can move one year ahead later.
+    var maxYear = Math.max(new Date().getFullYear() + 1, 2027);
+    slateDateInput.max = String(maxYear) + "-12-31";
+    slateDateInput.addEventListener("change", onSlateDate);
+  }
 
   document.getElementById("theme-dark").addEventListener("click", function () {
     setTheme("charcoal");
@@ -2801,15 +3124,17 @@
       String(home == null ? "" : home).trim().toLowerCase();
   }
 
-  // sport is one of the six ids. game is away-home for that sport.
-  // A missing or unknown pair falls back to the ordinary default.
+  // sport is one of the six ids. A bare sport runs the opener.
+  // game=demo is that sport's archive default. game=away-home is one replay.
   function entryFromQuery(params) {
     var hasSport = Object.prototype.hasOwnProperty.call(params, "sport");
     var hasGame = Object.prototype.hasOwnProperty.call(params, "game");
     if (!hasSport && !hasGame) return { kind: "absent" };
     var sport = String(params.sport == null ? "" : params.sport).trim().toLowerCase();
     var game = String(params.game == null ? "" : params.game).trim().toLowerCase();
-    if (SPORT_ORDER.indexOf(sport) < 0 || !game) return { kind: "fallback" };
+    if (SPORT_ORDER.indexOf(sport) < 0) return { kind: "fallback" };
+    if (!game) return { kind: "sport", sport: sport };
+    if (game === "demo") return { kind: "demo", sport: sport };
     var games = gamesForSport(manifest, sport);
     var i;
     for (i = 0; i < games.length; i++) {
@@ -2820,7 +3145,7 @@
     return { kind: "fallback" };
   }
 
-  function writeQuery(sport, away, home, live, slateId) {
+  function putQuery(query) {
     preferLive = false;
     preferId = "";
     var history = root.history;
@@ -2828,13 +3153,24 @@
     var loc = root.location || {};
     var path = loc.pathname != null ? String(loc.pathname) : "";
     var hash = loc.hash != null ? String(loc.hash) : "";
+    try {
+      history.replaceState(null, "", path + query + hash);
+    } catch (err) {}
+  }
+
+  function writeSportQuery(sport, demo) {
+    var sportId = encodeURIComponent(String(sport || "").trim().toLowerCase());
+    var query = "?sport=" + sportId;
+    if (demo) query += "&game=demo";
+    putQuery(query);
+  }
+
+  function writeQuery(sport, away, home, live, slateId) {
     var query = "?sport=" + encodeURIComponent(String(sport || "").trim().toLowerCase()) +
       "&game=" + encodeURIComponent(gameSlug(away, home));
     if (live) query += "&live=1";
     if (slateId) query += "&id=" + encodeURIComponent(String(slateId));
-    try {
-      history.replaceState(null, "", path + query + hash);
-    } catch (err) {}
+    putQuery(query);
   }
 
   function bootFromQuery() {
@@ -2848,9 +3184,12 @@
       requestedId ||
       liveAsked ||
       requested.kind === "match" ||
-      requested.kind === "fallback"
+      requested.kind === "fallback" ||
+      requested.kind === "sport" ||
+      requested.kind === "demo"
     );
     collegeBoot = (requested.kind === "match" && isCollegeSport(requested.entry.sport)) ||
+      ((requested.kind === "sport" || requested.kind === "demo") && isCollegeSport(requested.sport)) ||
       (!queryOwned && isCollegeSport(preset));
     // live=1 is ignored unless this host is the one that serves the file.
     preferLive = liveAsked && hostAllowsLive();
@@ -2878,18 +3217,26 @@
       }
     }
     if (requested.kind === "match") {
+      gameChosen = true;
       loadGame(requested.entry);
       return;
     }
-    if (requested.kind === "fallback") {
-      loadGame(defaultEntry());
+    if (requested.kind === "demo") {
+      gameChosen = true;
+      showPreviousDefault(requested.sport);
       return;
     }
-    if (preset) {
-      useFrames({ sport: preset, file: "" }, readSportFrames(root, preset));
+    if (requested.kind === "sport" && !requestedId && !preferLive) {
+      chooseOpeningGame(requested.sport);
       return;
     }
-    loadGame(defaultEntry());
+    if (requestedId || preferLive) gameChosen = true;
+    if (gameChosen) {
+      if (requested.kind === "fallback" || !preset) loadGame(defaultEntry());
+      else useFrames({ sport: preset, file: "" }, readSportFrames(root, preset));
+      return;
+    }
+    chooseOpeningGame(preset || "nfl");
   }
 
   syncDateControl();

@@ -927,6 +927,11 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
     assert final.home_score == 2 and final.away_score == 1
     assert final.seconds_remaining_period == overtime[-1].seconds_remaining_period
     assert compute_win_prob(final, final.prior_home, NHL_CONFIG) == 1.0
+    # The period-end play is not a goal. Scoring charts still reach it.
+    assert any(
+        state.period == 3 and state.seconds_remaining_period == 0 and state.status == "live"
+        for state in scoring
+    )
     assert all(state.down is None for state in everything)
     assert all(state.strength in (None, "5v5") for state in everything)
     # The power-play hit names no team, so the side stays unknown.
@@ -937,6 +942,37 @@ def test_nhl_summary_converts_elapsed_clocks_and_samples_situation():
     )
     assert unlabeled.strength is None
     assert unlabeled.extra_attacker is None
+
+
+def test_nhl_regulation_final_reaches_the_whistle() -> None:
+    """A final with no status clock ends at 0:00, not the last goal.
+
+    Period End is in the feed. Dropping it left the chart at the last
+    goal, often after the second period or partway through the third.
+    """
+    summary = json.loads(
+        (ROOT / "tests" / "fixtures" / "espn_nhl_401442762_summary.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    states = espn_summary_to_states(summary, density="scoring")
+    assert any(
+        state.period == 3 and state.seconds_remaining_period == 0 and state.status == "live"
+        for state in states
+    )
+    final = states[-1]
+    assert final.status == "final"
+    assert final.period == 3
+    assert final.seconds_remaining_period == 0
+
+    for play in summary["plays"]:
+        text = str((play.get("type") or {}).get("text") or "")
+        if text in {"Period End", "End of Period", "End of Game", "Game End"}:
+            play["type"] = {"text": "Stoppage"}
+    trimmed = espn_summary_to_states(summary, density="scoring")
+    assert trimmed[-1].status == "final"
+    assert trimmed[-1].period == 3
+    assert trimmed[-1].seconds_remaining_period == 0
 
 
 def test_nhl_power_play_and_empty_net_are_kept():
