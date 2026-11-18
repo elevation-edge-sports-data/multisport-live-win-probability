@@ -755,6 +755,14 @@ def _summary_states(
                 )
                 two_minute_done.add(period)
 
+        if (
+            density == "scoring"
+            and reported is not None
+            and not _is_marked_scoring(play)
+        ):
+            reported = None
+            scores = (entered_home, entered_away)
+
         score_changed = reported is not None and reported != (entered_home, entered_away)
         if _is_hockey(sport):
             minute_key = (period, _nhl_elapsed_minute(period, clock))

@@ -755,6 +755,14 @@ def _summary_states(
                 )
                 two_minute_done.add(period)
 
+        if (
+            density == "scoring"
+            and reported is not None
+            and not _is_marked_scoring(play)
+        ):
+            reported = None
+            scores = (entered_home, entered_away)
+
         score_changed = reported is not None and reported != (entered_home, entered_away)
         # Period End and End of Game are in the feed. Scoring density must
         # keep them or the chart stops at the last goal.

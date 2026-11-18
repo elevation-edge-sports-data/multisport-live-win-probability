@@ -447,6 +447,49 @@ def test_density_selects_how_many_plays_become_snapshots():
         espn_summary_to_states(summary, density="plays")
 
 
+def test_non_scoring_play_with_final_totals_does_not_advance_the_score():
+    summary = _summary()
+    baseline = [
+        (s.status, s.period, s.seconds_remaining_period, s.home_score, s.away_score)
+        for s in espn_summary_to_states(summary, density="scoring")
+    ]
+    summary["drives"]["previous"][2]["plays"].insert(
+        0,
+        {
+            "id": "9001001999",
+            "sequenceNumber": "400",
+            "type": {"id": "8", "text": "Penalty"},
+            "text": "Penalty, no play.",
+            "homeScore": 14,
+            "awayScore": 10,
+            "period": {"number": 4},
+            "clock": {"displayValue": "8:00"},
+            "scoringPlay": False,
+            "team": {"id": "101"},
+            "wallclock": "2026-09-20T18:20:00Z",
+        },
+    )
+
+    states = espn_summary_to_states(summary, density="scoring")
+    series = [
+        (s.status, s.period, s.seconds_remaining_period, s.home_score, s.away_score)
+        for s in states
+    ]
+    assert series == baseline
+    assert (4, 480, 14, 10) not in [
+        (s.period, s.seconds_remaining_period, s.home_score, s.away_score) for s in states
+    ]
+    first_final_score = next(s for s in states if s.home_score == 14)
+    assert first_final_score.period == 4
+    assert first_final_score.seconds_remaining_period == 260
+    assert first_final_score.away_score == 10
+    scores = [(s.home_score, s.away_score) for s in states]
+    assert all(
+        home >= prev_home and away >= prev_away
+        for (prev_home, prev_away), (home, away) in zip(scores, scores[1:])
+    )
+
+
 def test_live_summary_keeps_scoring_plays_without_a_final_clock():
     summary = _summary()
     status = summary["header"]["competitions"][0]["status"]
